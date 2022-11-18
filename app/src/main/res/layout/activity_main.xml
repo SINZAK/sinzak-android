@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="activity"
+            type="io.sinzak.android.ui.main.MainActivity" />
+        <variable
+            name="navigator"
+            type="io.sinzak.android.model.navigate.Navigation" />
+        
+        <variable
+            name="viewmodel"
+            type="io.sinzak.android.ui.main.MainViewModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.main.MainActivity">
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fc_main"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:focusable="@{activity.inflateFragment(navigator.topPage)}"
+            app:layout_constraintBottom_toTopOf="@+id/fl_bottom_menu"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <FrameLayout
+            android:visibility="@{viewmodel.showBottomMenu ? 8 : 0}"
+            android:id="@+id/fl_bottom_menu"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
