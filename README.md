@@ -12,6 +12,3 @@ hilt-android:2.44
 
 Model - View - ViewModel Pattern Expanded
 
-Model(Repository)   -   ViewModel 
-                                      -  Fragment - Activity
-                           View
