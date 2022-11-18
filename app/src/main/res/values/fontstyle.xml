@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <style name="textRegular">
+        <item name="android:textColor">?attr/colorOnSecondary</item>
+
+    </style>
+
+    <style name="regular13" parent="textRegular">
+        <item name="android:textSize">13sp</item>
+    </style>
+</resources>

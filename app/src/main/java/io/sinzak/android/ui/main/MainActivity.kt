@@ -1,8 +1,10 @@
 package io.sinzak.android.ui.main
 
 import androidx.activity.viewModels
+import androidx.databinding.DataBindingUtil
 import io.sinzak.android.R
 import io.sinzak.android.databinding.ActivityMainBinding
+import io.sinzak.android.databinding.ViewMainBottomMenuBinding
 import io.sinzak.android.enums.Page
 import io.sinzak.android.enums.Page.HOME
 import io.sinzak.android.enums.Page.HOME_NOTIFICATION
@@ -20,15 +22,32 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main)
 
     private val viewModel : MainViewModel by viewModels()
 
+    private val bottomViewModel : MainBottomViewModel by viewModels()
+
     override fun onActivityCreate() {
         useBind {
             navigator = navigation
             activity = this@MainActivity
+            lifecycleOwner = this@MainActivity
             viewmodel = viewModel
         }
+
+        inflateBottomMenu()
     }
 
 
+
+    fun inflateBottomMenu(){
+
+
+        useBind {
+            DataBindingUtil.inflate<ViewMainBottomMenuBinding>(layoutInflater,R.layout.view_main_bottom_menu,null,false).apply{
+                viewmodel = bottomViewModel
+                lifecycleOwner = this@MainActivity
+                flBottomMenu.addView(root)
+            }
+        }
+    }
 
     override fun onBackPressed() {
         supportFragmentManager.fragments[0]?.run {

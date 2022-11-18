@@ -33,6 +33,7 @@
             android:id="@+id/fl_bottom_menu"
             android:layout_width="match_parent"
             android:layout_height="60dp"
+            android:background="?attr/colorOnPrimary"
             app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

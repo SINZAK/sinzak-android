@@ -15,6 +15,7 @@ class Navigation @Inject constructor() {
 
     fun changePage(page : Page)
     {
-        _topPage.value = page
+        if(_topPage.value != page)
+            _topPage.value = page
     }
 }
