@@ -18,7 +18,8 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:layout_weight="1"
-            isSelect="@{viewmodel.currentButton == 0}"
+            android:onClick="@{v->viewmodel.setCurrentButton(viewmodel.PAGE_HOME)}"
+            isSelect="@{viewmodel.currentButton == viewmodel.PAGE_HOME}"
             android:orientation="vertical">
             
             <ImageView
@@ -35,7 +36,8 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            isSelect="@{viewmodel.currentButton == 1}"
+            android:onClick="@{v->viewmodel.setCurrentButton(viewmodel.PAGE_MARKET)}"
+            isSelect="@{viewmodel.currentButton == viewmodel.PAGE_MARKET}"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -62,7 +64,8 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:layout_weight="1"
-            isSelect="@{viewmodel.currentButton == 2}"
+            android:onClick="@{v->viewmodel.setCurrentButton(viewmodel.PAGE_OUTSOURCING)}"
+            isSelect="@{viewmodel.currentButton == viewmodel.PAGE_OUTSOURCING}"
             android:orientation="vertical">
 
             <ImageView
@@ -84,7 +87,8 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:layout_weight="1"
-            isSelect="@{viewmodel.currentButton == 3}"
+            android:onClick="@{v->viewmodel.setCurrentButton(viewmodel.PAGE_CHATTING)}"
+            isSelect="@{viewmodel.currentButton == viewmodel.PAGE_CHATTING}"
             android:orientation="vertical">
 
             <ImageView
@@ -106,8 +110,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
+            android:onClick="@{v->viewmodel.setCurrentButton(viewmodel.PAGE_PROFILE)}"
             android:layout_weight="1"
-            isSelect="@{viewmodel.currentButton == 4}"
+            isSelect="@{viewmodel.currentButton == viewmodel.PAGE_PROFILE}"
             android:orientation="vertical">
 
             <ImageView

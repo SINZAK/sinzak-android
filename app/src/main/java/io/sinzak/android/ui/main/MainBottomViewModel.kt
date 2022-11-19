@@ -17,10 +17,23 @@ class MainBottomViewModel @Inject constructor(val navigation: Navigation): BaseV
 
         when(button)
         {
-            0 -> navigation.changePage(Page.HOME)
+            PAGE_HOME -> navigation.changePage(Page.HOME)
+            PAGE_MARKET -> navigation.changePage(Page.HOME)
+            PAGE_OUTSOURCING -> navigation.changePage(Page.HOME)
+            PAGE_CHATTING -> navigation.changePage(Page.HOME)
+            PAGE_PROFILE -> navigation.changePage(Page.HOME)
         }
         _currentButton.value = button
 
+    }
+
+    companion object
+    {
+        const val PAGE_HOME = 0
+        const val PAGE_MARKET = 1
+        const val PAGE_OUTSOURCING = 2
+        const val PAGE_CHATTING = 3
+        const val PAGE_PROFILE = 4
     }
 
 }

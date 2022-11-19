@@ -37,7 +37,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main)
 
 
 
-    fun inflateBottomMenu(){
+    private fun inflateBottomMenu(){
 
 
         useBind {
@@ -74,6 +74,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main)
         supportFragmentManager.beginTransaction().add(R.id.fc_main,fragment)
         return true
     }
+
+
 
 
 }
