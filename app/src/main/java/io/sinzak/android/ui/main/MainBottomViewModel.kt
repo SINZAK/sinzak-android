@@ -1,5 +1,6 @@
 package io.sinzak.android.ui.main
 
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.sinzak.android.enums.Page
 import io.sinzak.android.model.navigate.Navigation
 import io.sinzak.android.ui.base.BaseViewModel
@@ -7,6 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
+@HiltViewModel
 class MainBottomViewModel @Inject constructor(val navigation: Navigation): BaseViewModel() {
 
     private val _currentButton = MutableStateFlow(0)

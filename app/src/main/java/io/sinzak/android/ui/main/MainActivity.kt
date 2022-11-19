@@ -2,6 +2,7 @@ package io.sinzak.android.ui.main
 
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
+import dagger.hilt.android.AndroidEntryPoint
 import io.sinzak.android.R
 import io.sinzak.android.databinding.ActivityMainBinding
 import io.sinzak.android.databinding.ViewMainBottomMenuBinding
@@ -14,6 +15,8 @@ import io.sinzak.android.ui.base.BaseFragment
 import io.sinzak.android.ui.main.home.HomeFragment
 import javax.inject.Inject
 
+
+@AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main)
 {
 
