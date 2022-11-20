@@ -29,7 +29,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <FrameLayout
-            android:visibility="@{viewmodel.showBottomMenu ? 8 : 0}"
+            android:visibility="@{viewmodel.showBottomMenu ? 0 : 8}"
             android:id="@+id/fl_bottom_menu"
             android:layout_width="match_parent"
             android:layout_height="60dp"

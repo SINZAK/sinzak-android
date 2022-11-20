@@ -6,16 +6,17 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import io.sinzak.android.system.LogDebug
 
 abstract class BaseActivity<T : ViewDataBinding>(private val layoutId : Int) : AppCompatActivity() {
 
     private lateinit var bind : T
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
-
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         bind = DataBindingUtil.setContentView(this,layoutId)
-
+        bind.lifecycleOwner = this
+        LogDebug(javaClass.name,"ACTIVITY CREATED")
         onActivityCreate()
     }
 

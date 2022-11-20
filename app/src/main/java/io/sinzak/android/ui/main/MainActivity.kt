@@ -10,6 +10,7 @@ import io.sinzak.android.enums.Page
 import io.sinzak.android.enums.Page.HOME
 import io.sinzak.android.enums.Page.HOME_NOTIFICATION
 import io.sinzak.android.model.navigate.Navigation
+import io.sinzak.android.system.LogDebug
 import io.sinzak.android.ui.base.BaseActivity
 import io.sinzak.android.ui.base.BaseFragment
 import io.sinzak.android.ui.main.home.HomeFragment
@@ -26,6 +27,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main)
     private val viewModel : MainViewModel by viewModels()
 
     private val bottomViewModel : MainBottomViewModel by viewModels()
+
+    private var fragment : BaseFragment? = null
 
     override fun onActivityCreate() {
         useBind {
@@ -53,18 +56,19 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main)
     }
 
     override fun onBackPressed() {
-        supportFragmentManager.fragments[0]?.run {
-            this as BaseFragment
+        fragment?.run {
             this.navigateOnBackPressed()
         }?:run{
             super.onBackPressed()
         }
     }
 
+
+
     fun inflateFragment(page: Page) : Boolean
     {
 
-        val fragment : BaseFragment =
+        fragment =
         when(page)
         {
             HOME ->
@@ -73,8 +77,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main)
                 TODO()
         }
 
-        viewModel.setBottomMenuVisibility(fragment.showBottomBar())
-        supportFragmentManager.beginTransaction().add(R.id.fc_main,fragment)
+        fragment?.let{
+            supportFragmentManager.beginTransaction().add(R.id.fc_main,it).commit()
+            viewModel.setBottomMenuVisibility(it.showBottomBar())
+            LogDebug(javaClass.name,"BOTTOM VISIBLITY = ${it.showBottomBar()}")
+        }
+
+
         return true
     }
 
