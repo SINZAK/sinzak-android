@@ -26,9 +26,17 @@
         <item name="android:textSize">13sp</item>
     </style>
 
+    <style name="medium10" parent="textMedium">
+        <item name="android:textSize">10sp</item>
+    </style>
+
     <style name="textBold">
         <item name="android:textColor">?attr/colorOnSecondary</item>
         <item name="fontFamily">@font/spoqa_bold</item>
+    </style>
+
+    <style name="bold30" parent="textBold">
+        <item name="android:textSize">30sp</item>
     </style>
 
     <style name="bold20" parent="textBold">

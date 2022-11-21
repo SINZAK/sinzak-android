@@ -7,4 +7,5 @@
     <string name="ic_menu_profile">프로필</string>
     <string name="str_art_refer_title">%s님을 위한 추천 작품</string>
     <string name="str_art_onmarket_title">현재 거래중인 작품</string>
+    <string name="str_home_artist_title">지금 뜨는 아티스트</string>
 </resources>

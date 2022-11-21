@@ -8,9 +8,10 @@ import com.bumptech.glide.load.model.GlideUrl
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import io.sinzak.android.databinding.HolderHomeArtLinearBinding
+import io.sinzak.android.databinding.HolderHomeArtistBinding
 import io.sinzak.android.system.dp
 
-class ArtReferAdapter : RecyclerView.Adapter<ArtReferAdapter.ViewHolder>() {
+class ArtistAdapter : RecyclerView.Adapter<ArtistAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int {
         return 3
@@ -24,17 +25,20 @@ class ArtReferAdapter : RecyclerView.Adapter<ArtReferAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            HolderHomeArtLinearBinding.inflate(LayoutInflater.from(parent.context))
+            HolderHomeArtistBinding.inflate(LayoutInflater.from(parent.context))
         )
     }
 
 
-    inner class ViewHolder(val bind : HolderHomeArtLinearBinding) : RecyclerView.ViewHolder(bind.root){
+    inner class ViewHolder(val bind : HolderHomeArtistBinding) : RecyclerView.ViewHolder(bind.root){
 
-        fun bind(){
-            bind.apply{
-                Glide.with(ivPoster).asBitmap().load(GlideUrl("https://wallpaperaccess.com/full/2339301.jpg"))
-                    .transform(CenterCrop(),RoundedCorners(10.dp.toInt())).into(ivPoster)
+        fun bind() {
+            bind.apply {
+                Glide.with(ivPoster).asBitmap()
+                    .load(
+                        GlideUrl(
+                            "https://wallpaperaccess.com/full/2339301.jpg"))
+                    .transform(CenterCrop(), RoundedCorners(12.dp.toInt())).into(ivPoster)
             }
         }
     }

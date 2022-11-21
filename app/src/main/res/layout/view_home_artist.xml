@@ -6,14 +6,14 @@
             type="io.sinzak.android.ui.main.home.HomeFragment" />
         <variable
             name="vm"
-            type="io.sinzak.android.ui.main.home.viewmodel.ArtReferViewModel" />
+            type="io.sinzak.android.ui.main.home.viewmodel.ArtistViewModel" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:paddingBottom="36dp"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical"
+        android:paddingBottom="240dp"
         android:layout_height="wrap_content">
 
         <TextView
@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             style="@style/bold20"
             android:paddingStart="26dp"
-            android:text='@{@string/str_art_refer_title("신작")}'/>
+            android:text='@string/str_home_artist_title'/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_marginTop="20dp"
@@ -29,7 +29,7 @@
             marginHorizon="@{20f}"
             marginVertical="@{0f}"
             android:layout_width="match_parent"
-            android:layout_height="235dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             adapter="@{vm.adapter}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

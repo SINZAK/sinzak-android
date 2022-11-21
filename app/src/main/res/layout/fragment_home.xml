@@ -10,7 +10,7 @@
             type="io.sinzak.android.ui.main.home.HomeFragment" />
         <variable
             name="viewmodel"
-            type="io.sinzak.android.ui.main.home.HomeViewModel" />
+            type="io.sinzak.android.ui.main.home.viewmodel.HomeViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
         android:layout_height="match_parent">
