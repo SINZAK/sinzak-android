@@ -20,6 +20,8 @@ class HomeFragment : BaseFragment() {
 
     private val viewModel : HomeViewModel by activityViewModels()
 
+    private val artReferViewModel by activityViewModels<ArtReferViewModel>()
+
     override fun getFragmentRoot(): View {
         bind = FragmentHomeBinding.inflate(layoutInflater)
         return bind.root
@@ -50,6 +52,8 @@ class HomeFragment : BaseFragment() {
 
     private fun inflateArtReferView(){
         ViewHomeArtReferBinding.inflate(layoutInflater).apply{
+            vm = artReferViewModel
+            fg = this@HomeFragment
             lifecycleOwner = viewLifecycleOwner
             bind.llMain.addView(root)
         }

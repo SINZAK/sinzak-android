@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+    <data>
+        <variable
+            name="fg"
+            type="io.sinzak.android.ui.main.home.HomeFragment" />
+        <variable
+            name="vm"
+            type="io.sinzak.android.ui.main.home.ArtReferViewModel" />
+    </data>
+
     <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -14,10 +23,14 @@
             android:text='@{@string/str_art_refer_title("신작")}'/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:paddingHorizontal="40dp"
+            android:layout_marginTop="20dp"
+            android:paddingHorizontal="20dp"
+            marginHorizon="@{20f}"
+            marginVertical="@{0f}"
             android:layout_width="match_parent"
             android:layout_height="235dp"
             android:orientation="horizontal"
+            adapter="@{vm.adapter}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:clipToPadding="false"
             />
