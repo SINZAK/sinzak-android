@@ -2,6 +2,8 @@ package io.sinzak.android.ui.main.market
 
 import android.view.View
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.activityViewModels
+import dagger.hilt.android.AndroidEntryPoint
 import io.sinzak.android.R
 import io.sinzak.android.databinding.FragmentMarketBinding
 import io.sinzak.android.databinding.ViewMainTopAppbarBinding
@@ -9,8 +11,13 @@ import io.sinzak.android.databinding.ViewMarketArtsBinding
 import io.sinzak.android.databinding.ViewMarketFilterBinding
 import io.sinzak.android.system.LogDebug
 import io.sinzak.android.ui.base.BaseFragment
+import io.sinzak.android.ui.main.market.viewmodel.ArtsViewModel
 
+
+@AndroidEntryPoint
 class MarketFragment : BaseFragment() {
+
+    val artsViewModel : ArtsViewModel by activityViewModels()
 
     private lateinit var bind : FragmentMarketBinding
 
@@ -63,7 +70,7 @@ class MarketFragment : BaseFragment() {
     private fun inflateArts(){
         ViewMarketArtsBinding.inflate(layoutInflater).apply{
             lifecycleOwner = viewLifecycleOwner
-
+            vm = artsViewModel
             bind.flArts.addView(root)
         }
     }

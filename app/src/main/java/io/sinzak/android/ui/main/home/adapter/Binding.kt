@@ -17,3 +17,17 @@ fun setAdapter(view : RecyclerView, adapter : ArtReferAdapter)
 
 
 }
+
+@BindingAdapter("adapter")
+fun setAdapter(view : RecyclerView, adapter : ArtistAdapter)
+{
+    view.adapter?:run{
+        view.adapter = adapter
+    }
+
+    // adapter.setData()
+
+    // adapter.setOnClickListener
+
+
+}

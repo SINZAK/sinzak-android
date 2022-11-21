@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <variable
+            name="vm"
+            type="io.sinzak.android.ui.main.market.viewmodel.ArtsViewModel" />
+    </data>
     <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_height="match_parent">
 
         <TextView
+            android:layout_marginTop="21dp"
             android:layout_width="wrap_content"
             android:layout_gravity="end"
             android:drawableStart="@drawable/ic_order"
@@ -17,9 +23,14 @@
             android:text="신작추천순"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_marginHorizontal="16dp"
+            android:layout_marginHorizontal="6dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="2"
+            adapter="@{vm.adapter}"
+            marginHorizon="@{6}"
+            marginVertical="@{10}"
             android:layout_weight="1"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
