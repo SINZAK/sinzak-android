@@ -46,4 +46,8 @@
     <style name="bold16" parent="textBold">
         <item name="android:textSize">16sp</item>
     </style>
+
+    <style name="bold13" parent="textBold">
+        <item name="android:textSize">13sp</item>
+    </style>
 </resources>

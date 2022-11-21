@@ -7,13 +7,13 @@ import io.sinzak.android.R
 import io.sinzak.android.databinding.ActivityMainBinding
 import io.sinzak.android.databinding.ViewMainBottomMenuBinding
 import io.sinzak.android.enums.Page
-import io.sinzak.android.enums.Page.HOME
-import io.sinzak.android.enums.Page.HOME_NOTIFICATION
+import io.sinzak.android.enums.Page.*
 import io.sinzak.android.model.navigate.Navigation
 import io.sinzak.android.system.LogDebug
 import io.sinzak.android.ui.base.BaseActivity
 import io.sinzak.android.ui.base.BaseFragment
 import io.sinzak.android.ui.main.home.HomeFragment
+import io.sinzak.android.ui.main.market.MarketFragment
 import javax.inject.Inject
 
 
@@ -75,12 +75,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main)
                 navigation.clearHistory()
                 HomeFragment()
             }
+            MARKET ->{
+                navigation.clearHistory()
+                MarketFragment()
+            }
             HOME_NOTIFICATION ->
                 TODO()
         }
 
         fragment?.let{
-            supportFragmentManager.beginTransaction().add(R.id.fc_main,it).commit()
+            supportFragmentManager.beginTransaction().replace(R.id.fc_main,it).commit()
             viewModel.setBottomMenuVisibility(it.showBottomBar())
             LogDebug(javaClass.name,"BOTTOM VISIBLITY = ${it.showBottomBar()}")
         }
