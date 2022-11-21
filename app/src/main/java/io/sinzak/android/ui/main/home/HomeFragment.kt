@@ -2,7 +2,7 @@ package io.sinzak.android.ui.main.home
 
 import android.view.View
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
 import io.sinzak.android.R
 import io.sinzak.android.databinding.FragmentHomeBinding
@@ -18,7 +18,7 @@ class HomeFragment : BaseFragment() {
 
     private lateinit var bind : FragmentHomeBinding
 
-    private val viewModel : HomeViewModel by viewModels()
+    private val viewModel : HomeViewModel by activityViewModels()
 
     override fun getFragmentRoot(): View {
         bind = FragmentHomeBinding.inflate(layoutInflater)

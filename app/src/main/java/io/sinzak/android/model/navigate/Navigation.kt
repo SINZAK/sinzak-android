@@ -13,9 +13,30 @@ class Navigation @Inject constructor() {
     private val _topPage = MutableStateFlow(Page.HOME)
     val topPage : StateFlow<Page> get() = _topPage
 
+    private val pageHistory = mutableListOf<Page>()
+
     fun changePage(page : Page)
     {
-        if(_topPage.value != page)
+        if(_topPage.value != page) {
+            pageHistory.add(page)
             _topPage.value = page
+        }
     }
+
+    fun revealHistory() : Boolean{
+        if(pageHistory.isNotEmpty())
+        {
+            _topPage.value = pageHistory.last()
+            pageHistory.removeLast()
+            return true
+        }
+
+        return false
+    }
+
+    fun clearHistory(){
+        pageHistory.clear()
+    }
+
+
 }

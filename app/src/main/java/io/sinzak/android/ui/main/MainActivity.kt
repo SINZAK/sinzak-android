@@ -71,8 +71,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main)
         fragment =
         when(page)
         {
-            HOME ->
+            HOME -> {
+                navigation.clearHistory()
                 HomeFragment()
+            }
             HOME_NOTIFICATION ->
                 TODO()
         }
