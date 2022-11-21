@@ -16,4 +16,13 @@
         <item name="android:textColor">?attr/colorOnSecondary</item>
         <item name="fontFamily">@font/spoqa_medium</item>
     </style>
+
+    <style name="textBold">
+        <item name="android:textColor">?attr/colorOnSecondary</item>
+        <item name="fontFamily">@font/spoqa_bold</item>
+    </style>
+
+    <style name="bold20" parent="textBold">
+        <item name="android:textSize">20sp</item>
+    </style>
 </resources>

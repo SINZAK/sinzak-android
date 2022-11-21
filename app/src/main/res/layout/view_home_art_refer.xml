@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/bold20"
+            android:paddingStart="26dp"
+            android:text='@{@string/str_art_refer_title("신작")}'/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:paddingHorizontal="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="235dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:clipToPadding="false"
+            />
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

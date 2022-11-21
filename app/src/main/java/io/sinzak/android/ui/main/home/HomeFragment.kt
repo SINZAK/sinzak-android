@@ -6,6 +6,8 @@ import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import io.sinzak.android.R
 import io.sinzak.android.databinding.FragmentHomeBinding
+import io.sinzak.android.databinding.ViewHomeArtOnmarketBinding
+import io.sinzak.android.databinding.ViewHomeArtReferBinding
 import io.sinzak.android.databinding.ViewMainTopAppbarBinding
 import io.sinzak.android.system.LogDebug
 import io.sinzak.android.ui.base.BaseFragment
@@ -33,6 +35,8 @@ class HomeFragment : BaseFragment() {
         LogDebug(javaClass.name,"FRAGMENT_CREATED")
 
         inflateAppbar()
+        inflateArtReferView()
+        inflateArtOnmarketView()
     }
 
     private fun inflateAppbar(){
@@ -44,6 +48,19 @@ class HomeFragment : BaseFragment() {
 
     }
 
+    private fun inflateArtReferView(){
+        ViewHomeArtReferBinding.inflate(layoutInflater).apply{
+            lifecycleOwner = viewLifecycleOwner
+            bind.llMain.addView(root)
+        }
+    }
+
+    private fun inflateArtOnmarketView(){
+        ViewHomeArtOnmarketBinding.inflate(layoutInflater).apply{
+            lifecycleOwner = viewLifecycleOwner
+            bind.llMain.addView(root)
+        }
+    }
     override fun showBottomBar(): Boolean {
         return true
     }

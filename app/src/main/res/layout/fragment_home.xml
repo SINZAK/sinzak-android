@@ -21,14 +21,20 @@
             android:layout_height="48dp"
             android:id="@+id/fl_appbar"/>
 
-        <ImageView
-            android:layout_width="343dp"
-            android:layout_height="147dp"
-            android:layout_marginTop="32dp"
-            android:src="@drawable/ic_banner_temp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fl_appbar" />
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fl_appbar"
+            android:layout_height="0dp">
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/ll_main"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:orientation="vertical"
+                />
+        </androidx.core.widget.NestedScrollView>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
