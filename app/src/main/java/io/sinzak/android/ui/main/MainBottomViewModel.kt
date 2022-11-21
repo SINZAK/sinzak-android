@@ -20,7 +20,7 @@ class MainBottomViewModel @Inject constructor(val navigation: Navigation): BaseV
         when(button)
         {
             PAGE_HOME -> navigation.changePage(Page.HOME)
-            PAGE_MARKET -> navigation.changePage(Page.HOME)
+            PAGE_MARKET -> navigation.changePage(Page.MARKET)
             PAGE_OUTSOURCING -> navigation.changePage(Page.HOME)
             PAGE_CHATTING -> navigation.changePage(Page.HOME)
             PAGE_PROFILE -> navigation.changePage(Page.HOME)

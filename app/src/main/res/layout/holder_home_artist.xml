@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
+        <ImageView
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:id="@+id/iv_poster"/>
+
+        <TextView
+            style="@style/medium10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="홍익대"
+            android:padding="3dp"
+            android:background="@drawable/tv_tag_school"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="21dp"
+            app:layout_constraintBottom_toTopOf="@+id/tv_name" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            style="@style/bold30"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="poler"
+            android:textColor="@color/white"
+            android:layout_marginStart="21dp"
+            android:layout_marginBottom="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
