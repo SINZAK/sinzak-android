@@ -1,71 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+
+    <data>
+        <variable
+            name="vm"
+            type="io.sinzak.android.ui.main.market.viewmodel.FilterViewModel" />
+    </data>
     <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:gravity="center_vertical"
         android:layout_height="57dp">
 
-        <TextView
-            android:layout_marginStart="19dp"
-            android:id="@+id/btn_filter_big"
-            android:layout_width="wrap_content"
+        <androidx.recyclerview.widget.RecyclerView
+
+            marginHorizon="@{5f}"
+            marginVertical="@{0f}"
+            adapter="@{vm.adapter}"
+            filterChosen="@{vm.filterChosenList}"
+            filter="@{vm.filterList}"
+            listener="@{vm.onFilterClick}"
+            android:id="@+id/rv_filter"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="순수예술"
-            android:background="@drawable/tv_market_filter"
-            android:paddingHorizontal="12dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:paddingHorizontal="18dp"
             android:paddingVertical="8dp"
-            android:drawablePadding="5dp"
-            style="@style/bold13"
-            android:textColor="@color/color_menu_select"
-            app:drawableRightCompat="@drawable/ic_arrow_up"
-            app:drawableTint="@color/color_menu_select" />
+        />
 
-        <TextView
-            android:id="@+id/btn_filter_sub"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="카테고리"
-            android:background="@drawable/tv_market_filter"
-            android:paddingHorizontal="12dp"
-            android:paddingVertical="8dp"
-            android:drawablePadding="5dp"
-            style="@style/bold13"
-            android:textColor="@color/color_menu_select"
-            app:drawableRightCompat="@drawable/ic_arrow_up"
-            app:drawableTint="@color/color_menu_select" />
-
-        <TextView
-            android:id="@+id/btn_filter_spec"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="상세옵션"
-            android:background="@drawable/tv_market_filter"
-            android:paddingHorizontal="12dp"
-            android:paddingVertical="8dp"
-            android:drawablePadding="5dp"
-            style="@style/bold13"
-            android:textColor="@color/color_menu_select"
-            app:drawableRightCompat="@drawable/ic_arrow_up"
-            app:drawableTint="@color/color_menu_select" />
-
-        <TextView
-            android:id="@+id/btn_filter_spec_disable"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:visibility="gone"
-            android:text="상세옵션"
-            android:textColor="@color/gray60"
-            android:background="@drawable/tv_market_filter_disable"
-            android:paddingHorizontal="12dp"
-            android:paddingVertical="8dp"
-            android:drawablePadding="5dp"
-            style="@style/bold13"
-            app:drawableRightCompat="@drawable/ic_arrow_up"
-            app:drawableTint="@color/gray60" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

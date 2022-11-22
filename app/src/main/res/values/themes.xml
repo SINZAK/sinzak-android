@@ -14,4 +14,16 @@
         <item name="android:windowLightStatusBar">true</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="DialogStyle" parent="Theme.Design.BottomSheetDialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowSoftInputMode">adjustResize|stateAlwaysVisible</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:colorBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.3</item>
+        <item name="android:windowFrame">@null</item>
+    </style>
 </resources>
