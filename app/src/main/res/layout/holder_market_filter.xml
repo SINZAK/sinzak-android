@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="filter"
+            type="String" />
+        <variable
+            name="select"
+            type="Boolean" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="8dp"
+        android:background="@drawable/tv_market_filter"
+        isSelect="@{select}"
+        android:gravity="center"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/btn_filter_big"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{filter}"
+            style="@style/bold13"
+            android:textColor="@color/color_menu_select"
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{select ? 0 : 8}"
+            android:src="@drawable/ic_filter_check"/>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</layout>

@@ -12,12 +12,14 @@ import io.sinzak.android.databinding.ViewMarketFilterBinding
 import io.sinzak.android.system.LogDebug
 import io.sinzak.android.ui.base.BaseFragment
 import io.sinzak.android.ui.main.market.viewmodel.ArtsViewModel
+import io.sinzak.android.ui.main.market.viewmodel.FilterViewModel
 
 
 @AndroidEntryPoint
 class MarketFragment : BaseFragment() {
 
-    val artsViewModel : ArtsViewModel by activityViewModels()
+    private val artsViewModel : ArtsViewModel by activityViewModels()
+    private val filterViewModel : FilterViewModel by activityViewModels()
 
     private lateinit var bind : FragmentMarketBinding
 
@@ -63,6 +65,7 @@ class MarketFragment : BaseFragment() {
     private fun inflateFilter(){
         ViewMarketFilterBinding.inflate(layoutInflater).apply{
             lifecycleOwner = viewLifecycleOwner
+            vm = filterViewModel
             bind.flFilter.addView(root)
         }
     }
