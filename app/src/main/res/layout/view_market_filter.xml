@@ -25,6 +25,7 @@
             android:layout_height="wrap_content"
             android:text="순수예술"
             android:orientation="horizontal"
+            android:clipToPadding="false"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:paddingHorizontal="18dp"
             android:paddingVertical="8dp"

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    >
+    <data>
+        <import type="io.sinzak.android.enums.Sort"/>
+        <variable
+            name="d"
+            type="io.sinzak.android.ui.base.BottomDialog" />
+        <variable
+            name="vm"
+            type="io.sinzak.android.ui.main.market.viewmodel.SortViewModel" />
+    </data>
+    <androidx.appcompat.widget.LinearLayoutCompat android:layout_width="match_parent"
+        android:background="@drawable/l_bottom_dialog"
+
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+
+        <View
+            android:layout_width="50dp"
+            android:layout_height="5dp"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/v_btm_ring"
+            android:layout_gravity="center"
+            android:paddingTop="2dp"/>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:paddingHorizontal="21dp"
+            android:onClick="@{v->d.dismiss() &amp; vm.setMarketSort(Sort.BY_REFER)}"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:background="@drawable/ll_btn_underline">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/medium16"
+                android:text="@string/str_sort_by_refer"/>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_filter_check"
+                android:visibility="@{vm.sortOrder == Sort.BY_REFER ? 0 : 8}"
+                app:tint="@color/black" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:paddingHorizontal="21dp"
+            android:onClick="@{v->d.dismiss() &amp; vm.setMarketSort(Sort.BY_FAME)}"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:background="@drawable/ll_btn_underline">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/medium16"
+                android:text="@string/str_sort_by_fame"/>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_filter_check"
+                android:visibility="@{vm.sortOrder == Sort.BY_FAME ? 0 : 8}"
+                app:tint="@color/black" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:onClick="@{v->d.dismiss() &amp; vm.setMarketSort(Sort.BY_RECENT)}"
+            android:paddingHorizontal="21dp"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:background="@drawable/ll_btn_underline">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/medium16"
+                android:text="@string/str_sort_by_recent"/>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_filter_check"
+                android:visibility="@{vm.sortOrder == Sort.BY_RECENT ? 0 : 8}"
+                app:tint="@color/black" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:paddingHorizontal="21dp"
+            android:onClick="@{v->d.dismiss() &amp; vm.setMarketSort(Sort.BY_LOWPRICE)}"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:background="@drawable/ll_btn_underline">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/medium16"
+                android:text="@string/str_sort_by_lowprice"/>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_filter_check"
+                android:visibility="@{vm.sortOrder == Sort.BY_LOWPRICE ? 0 : 8}"
+                app:tint="@color/black" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:paddingHorizontal="21dp"
+            android:onClick="@{v->d.dismiss() &amp; vm.setMarketSort(Sort.BY_HIGHPRICE)}"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/medium16"
+                android:text="@string/str_sort_by_highprice"/>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_filter_check"
+                android:visibility="@{vm.sortOrder == Sort.BY_HIGHPRICE ? 0 : 8}"
+                app:tint="@color/black" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

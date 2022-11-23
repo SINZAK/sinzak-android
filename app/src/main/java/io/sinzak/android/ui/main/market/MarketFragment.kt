@@ -13,6 +13,7 @@ import io.sinzak.android.system.LogDebug
 import io.sinzak.android.ui.base.BaseFragment
 import io.sinzak.android.ui.main.market.viewmodel.ArtsViewModel
 import io.sinzak.android.ui.main.market.viewmodel.FilterViewModel
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
@@ -23,6 +24,8 @@ class MarketFragment : BaseFragment() {
 
     private lateinit var bind : FragmentMarketBinding
 
+    @Inject
+    lateinit var sortView : SortBottom
 
     override fun getFragmentRoot(): View {
         bind = FragmentMarketBinding.inflate(layoutInflater)
@@ -74,7 +77,13 @@ class MarketFragment : BaseFragment() {
         ViewMarketArtsBinding.inflate(layoutInflater).apply{
             lifecycleOwner = viewLifecycleOwner
             vm = artsViewModel
+            fg = this@MarketFragment
             bind.flArts.addView(root)
         }
+    }
+
+    fun showSortBottom()
+    {
+        sortView.show(requireActivity().supportFragmentManager,sortView.tag)
     }
 }
