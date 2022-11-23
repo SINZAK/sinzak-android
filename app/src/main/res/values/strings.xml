@@ -22,4 +22,7 @@
     <string name="str_sort_by_recent">최신순</string>
     <string name="str_sort_by_lowprice">낮은가격순</string>
     <string name="str_sort_by_highprice">높은가격순</string>
+    <string name="str_market_search_hint">작품 통합 검색</string>
+    <string name="str_market_search_history_title">최근 검색어</string>
+    <string name="str_market_history_delete">전체 삭제</string>
 </resources>

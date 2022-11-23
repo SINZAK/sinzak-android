@@ -48,12 +48,12 @@
                 android:onClick="@{v->fg.showSortBottom()}"
                 android:layout_width="wrap_content"
                 android:layout_gravity="end"
-                android:drawableStart="@drawable/ic_order"
                 android:layout_marginHorizontal="18dp"
                 style="@style/bold13"
                 android:textColor="@color/gray60"
                 android:layout_height="wrap_content"
-                sortText="@{vm.md.sortOrder}"/>
+                sortText="@{vm.md.sortOrder}"
+                app:drawableStartCompat="@drawable/ic_order" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
