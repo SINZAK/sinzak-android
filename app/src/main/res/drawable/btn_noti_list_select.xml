@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/gray60">
+    <item>
+        <layer-list >
+            <item>
+                <color android:color="@color/white"/>
+            </item>
+            <item>
+                <selector>
+                    <item android:state_selected="true" android:gravity="bottom" android:bottom="0dp" android:height="1.5dp">
+                        <shape android:shape="rectangle">
+                            <solid android:color="@color/black"/>
+                        </shape>
+                    </item>
+                </selector>
+            </item>
+
+        </layer-list>
+    </item>
+</ripple>
