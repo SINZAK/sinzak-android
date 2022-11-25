@@ -2,8 +2,10 @@ package io.sinzak.android.ui.base
 
 import android.graphics.Rect
 import android.view.View
+import android.widget.EditText
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import io.sinzak.android.model.insets.SoftKeyModel
 import io.sinzak.android.system.LogDebug
 import io.sinzak.android.system.dp
 
@@ -33,4 +35,14 @@ fun setRecyclerViewItemMargin(view : RecyclerView, vertical : Float = 0f, horizo
             }
         }
     )
+}
+
+@BindingAdapter("requestFocus", "soft")
+fun requestFocus(view : EditText, focus : Boolean, soft : SoftKeyModel)
+{
+    if(focus)
+    {
+        view.requestFocus()
+        soft.imm.showSoftInput(view,0)
+    }
 }

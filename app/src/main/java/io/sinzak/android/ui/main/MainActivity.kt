@@ -1,6 +1,8 @@
 package io.sinzak.android.ui.main
 
 import androidx.activity.viewModels
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
 import dagger.hilt.android.AndroidEntryPoint
 import io.sinzak.android.R
@@ -14,6 +16,7 @@ import io.sinzak.android.ui.base.BaseActivity
 import io.sinzak.android.ui.base.BaseFragment
 import io.sinzak.android.ui.main.home.HomeFragment
 import io.sinzak.android.ui.main.market.MarketFragment
+import io.sinzak.android.utils.RootViewDeferringInsetsCallback
 import javax.inject.Inject
 
 
@@ -39,8 +42,23 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main)
         }
 
         inflateBottomMenu()
+
+        attachInsetsCallback()
     }
 
+
+    private fun attachInsetsCallback(){
+        RootViewDeferringInsetsCallback(
+            WindowInsetsCompat.Type.systemBars(),
+            WindowInsetsCompat.Type.ime()
+        ).apply{
+            useBind {
+                ViewCompat.setOnApplyWindowInsetsListener(root,this@apply)
+                ViewCompat.setWindowInsetsAnimationCallback(root,this@apply)
+
+            }
+        }
+    }
 
 
     private fun inflateBottomMenu(){

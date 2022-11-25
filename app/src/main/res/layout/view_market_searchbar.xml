@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
-
+    <data>
+        <variable
+            name="marketVM"
+            type="io.sinzak.android.ui.main.market.viewmodel.MarketViewModel" />
+    </data>
     <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:gravity="center_vertical"
@@ -10,6 +14,7 @@
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
+            android:onClick="@{v->marketVM.closeSearchPage()}"
             android:layout_marginStart="16dp"
             android:src="@drawable/ic_back"/>
 
@@ -26,12 +31,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:text="@{marketVM.searchFieldTExt}"
                 style="@style/medium16"
+                android:onTextChanged="@{(cs,a,b,c) -> marketVM.typeSearchFieldText(cs)}"
+                requestFocus="@{marketVM.searchPageOn}"
+                soft="@{marketVM.soft}"
+
                 android:layout_marginStart="15dp"
                 android:textColorHint="@color/gray80"
                 android:background="@null"
                 android:hint="@string/str_market_search_hint"/>
             <ImageView
+                android:onClick="@{v->marketVM.deleteSearchField()}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_btn_clear"

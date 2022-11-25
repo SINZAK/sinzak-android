@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
     <data>
-
+        <variable
+            name="marketVM"
+            type="io.sinzak.android.ui.main.market.viewmodel.MarketViewModel" />
     </data>
     <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -22,7 +24,7 @@
         <ImageView
             android:layout_width="26dp"
             android:layout_height="26dp"
-            android:onClick="@{v->void}"
+            android:onClick="@{v->marketVM.openSearchPage()}"
             android:background="@drawable/ic_bg_button"
             android:src="@drawable/ic_search"/>
 
