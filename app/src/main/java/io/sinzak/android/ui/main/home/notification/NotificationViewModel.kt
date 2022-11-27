@@ -1,8 +1,8 @@
 package io.sinzak.android.ui.main.home.notification
 
-import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.sinzak.android.ui.base.BaseViewModel
+import io.sinzak.android.ui.main.home.notification.adapter.NotificationAdapter
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
@@ -17,4 +17,6 @@ class NotificationViewModel @Inject constructor() : BaseViewModel() {
     {
         _page.value = page
     }
+
+    val adapter = NotificationAdapter()
 }

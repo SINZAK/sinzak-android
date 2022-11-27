@@ -18,7 +18,7 @@ class Navigation @Inject constructor() {
     fun changePage(page : Page)
     {
         if(_topPage.value != page) {
-            pageHistory.add(page)
+            pageHistory.add(_topPage.value)
             _topPage.value = page
         }
     }
@@ -28,6 +28,7 @@ class Navigation @Inject constructor() {
         {
             _topPage.value = pageHistory.last()
             pageHistory.removeLast()
+
             return true
         }
 

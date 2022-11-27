@@ -2,20 +2,26 @@
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
     android:color="@color/gray60">
     <item>
-        <layer-list >
-            <item>
-                <color android:color="@color/white"/>
-            </item>
-            <item>
-                <selector>
-                    <item android:state_selected="true" android:gravity="bottom" android:bottom="0dp" android:height="1.5dp">
+        <selector>
+            <item android:state_selected="true">
+                <layer-list>
+                    <item>
+                        <color android:color="@color/white" />
+                    </item>
+
+                    <item
+                        android:height="1.5dp"
+                        android:bottom="0dp"
+                        android:gravity="bottom">
                         <shape android:shape="rectangle">
-                            <solid android:color="@color/black"/>
+                            <solid android:color="@color/black" />
                         </shape>
                     </item>
-                </selector>
-            </item>
 
-        </layer-list>
+
+                </layer-list>
+            </item>
+        </selector>
+
     </item>
 </ripple>
