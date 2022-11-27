@@ -6,6 +6,7 @@ import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
 import io.sinzak.android.R
 import io.sinzak.android.databinding.*
+import io.sinzak.android.enums.Page
 import io.sinzak.android.system.LogDebug
 import io.sinzak.android.ui.base.BaseFragment
 import io.sinzak.android.ui.main.home.viewmodel.ArtMarketViewModel
@@ -47,6 +48,10 @@ class HomeFragment : BaseFragment() {
 
     }
 
+    fun gotoNotification(){
+        navigator.changePage(Page.HOME_NOTIFICATION)
+    }
+
     private fun inflateBanner(){
         DataBindingUtil.inflate<ViewHomeBannerBinding>(layoutInflater,R.layout.view_home_banner,null,true).apply{
             lifecycleOwner = viewLifecycleOwner
@@ -59,7 +64,7 @@ class HomeFragment : BaseFragment() {
     private fun inflateAppbar(){
         DataBindingUtil.inflate<ViewMainTopAppbarBinding>(layoutInflater, R.layout.view_main_top_appbar,null,false).apply{
             lifecycleOwner = viewLifecycleOwner
-            LogDebug(javaClass.name,"INFLATE APPBAR")
+            fg = this@HomeFragment
             bind.flAppbar.addView(root)
         }
 

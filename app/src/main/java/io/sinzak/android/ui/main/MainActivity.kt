@@ -15,6 +15,7 @@ import io.sinzak.android.system.LogDebug
 import io.sinzak.android.ui.base.BaseActivity
 import io.sinzak.android.ui.base.BaseFragment
 import io.sinzak.android.ui.main.home.HomeFragment
+import io.sinzak.android.ui.main.home.notification.NotificationFragment
 import io.sinzak.android.ui.main.market.MarketFragment
 import io.sinzak.android.utils.RootViewDeferringInsetsCallback
 import javax.inject.Inject
@@ -98,7 +99,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main)
                 MarketFragment()
             }
             HOME_NOTIFICATION ->
-                TODO()
+                NotificationFragment()
         }
 
         fragment?.let{
