@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="fg"
+            type="io.sinzak.android.ui.main.profile.ProfileFragment" />
+    </data>
+    <androidx.appcompat.widget.LinearLayoutCompat
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="3dp"
+        android:paddingBottom="20dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="73dp"
+            android:layout_height="73dp"
+            android:background="@drawable/iv_profile_avatar"
+            android:layout_marginBottom="12dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="김지호"
+            style="@style/bold16"
+            android:drawableRight="@drawable/ic_profile_verify_active"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="12dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="홍익대학교 verified"
+            style="@style/medium13"
+            android:layout_marginBottom="24dp"/>
+
+        <RelativeLayout
+            android:layout_width="152dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp">
+            <TextView
+                android:id="@+id/tv_follower_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="32"
+                style="@style/bold16"
+                android:layout_alignParentStart="true"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/str_profile_follower"
+                style="@style/regular13"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/tv_follower_num"
+                android:layout_marginStart="5dp"/>
+            <TextView
+                android:id="@+id/tv_following_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="25"
+                style="@style/bold16"
+                android:layout_toStartOf="@+id/tv_following_txt"
+                android:layout_marginEnd="5dp"/>
+            <TextView
+                android:id="@+id/tv_following_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/str_profile_following"
+                style="@style/regular13"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"/>
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/regular13"
+            android:text="자유롭게 작업합니다\nInstagram @jiiiiho_0"
+            android:textAlignment="center"
+            android:layout_marginBottom="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/str_profile_edit"
+            style="@style/medium16"
+            android:background="@drawable/btn_profile_edit"
+            android:gravity="center"
+            android:paddingHorizontal="45dp"
+            android:paddingVertical="8dp"
+            android:onClick="@{v->fg.gotoProfileEditPage()}"
+            />
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

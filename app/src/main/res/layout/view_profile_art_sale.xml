@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout >
+
+    <data>
+        <variable
+            name="fg"
+            type="io.sinzak.android.ui.main.profile.ProfileFragment" />
+        <variable
+            name="vm"
+            type="io.sinzak.android.ui.main.profile.viewmodel.ProfileSaleViewModel" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="24dp"
+        android:paddingBottom="12.4dp"
+        android:paddingStart="15dp"
+        android:paddingEnd="11.5dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/str_profile_sale_title"
+            style="@style/bold16"
+            android:paddingStart="13.3dp"
+            android:layout_marginBottom="7dp"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="152dp"
+                android:orientation="horizontal"
+                marginHorizon="@{12.5f}"
+                marginVertical="@{0f}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                adapter="@{vm.adapter}"
+                android:clipToPadding="false"
+                android:layout_alignParentStart="true"
+                android:layout_toStartOf="@+id/iv_arrow_right"
+                android:layout_marginEnd="8.5dp"/>
+            <ImageView
+                android:id="@+id/iv_arrow_right"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_arrow_right"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</layout>

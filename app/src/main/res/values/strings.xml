@@ -28,4 +28,12 @@
     <string name="str_notification">알림</string>
     <string name="str_notification_activity">활동</string>
     <string name="str_notification_follow">팔로우</string>
+
+    <string name="str_profile_follower">팔로워</string>
+    <string name="str_profile_following">팔로잉</string>
+    <string name="str_profile_edit">프로필 편집</string>
+    <string name="str_profile_scrap">스크랩 목록</string>
+    <string name="str_profile_outsourcing">의뢰해요</string>
+    <string name="str_profile_sale_title">판매 작품</string>
+    <string name="str_profile_work_title">작업해요</string>
 </resources>
