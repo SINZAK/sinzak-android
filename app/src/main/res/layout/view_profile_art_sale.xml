@@ -48,7 +48,8 @@
                 android:layout_height="24dp"
                 android:src="@drawable/ic_arrow_right"
                 android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"/>
+                android:layout_centerVertical="true"
+                android:onClick="@{v -> fg.gotoSalePage()}"/>
         </RelativeLayout>
     </androidx.appcompat.widget.LinearLayoutCompat>
 

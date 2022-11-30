@@ -4,6 +4,7 @@ enum class Page {
     HOME,
     HOME_NOTIFICATION,
     MARKET,
-    PROFILE
+    PROFILE,
+    PROFILE_SALE
 
 }

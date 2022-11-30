@@ -11,6 +11,7 @@ import io.sinzak.android.databinding.ViewProfileArtWorkBinding
 import io.sinzak.android.databinding.ViewProfileLinkListBinding
 import io.sinzak.android.databinding.ViewProfileMyprofileBinding
 import io.sinzak.android.databinding.ViewProfileTopAppbarBinding
+import io.sinzak.android.enums.Page
 import io.sinzak.android.ui.base.BaseFragment
 import io.sinzak.android.ui.main.profile.viewmodel.ProfileSaleViewModel
 import io.sinzak.android.ui.main.profile.viewmodel.ProfileViewModel
@@ -22,8 +23,8 @@ class ProfileFragment :BaseFragment() {
     private lateinit var bind : FragmentProfileBinding
 
     private val viewModel : ProfileViewModel by activityViewModels()
-    private val profileSaleViewModel : ProfileSaleViewModel by activityViewModels<ProfileSaleViewModel>()
-    private val profileWorkViewModel : ProfileWorkViewModel by activityViewModels<ProfileWorkViewModel>()
+    private val profileSaleViewModel by activityViewModels<ProfileSaleViewModel>()
+    private val profileWorkViewModel by activityViewModels<ProfileWorkViewModel>()
 
     override fun getFragmentRoot(): View {
         bind = FragmentProfileBinding.inflate(layoutInflater)
@@ -111,6 +112,16 @@ class ProfileFragment :BaseFragment() {
     }
 
     //의뢰해요 클릭
+    fun gotoRequestPage(){
+
+    }
+
+    //판매 작품 클릭
+    fun gotoSalePage(){
+        navigator.changePage(Page.PROFILE_SALE)
+    }
+
+    // 작업해요 클릭릭
     fun gotoWorkPage(){
 
     }

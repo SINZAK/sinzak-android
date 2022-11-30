@@ -18,6 +18,7 @@ import io.sinzak.android.ui.main.home.HomeFragment
 import io.sinzak.android.ui.main.home.notification.NotificationFragment
 import io.sinzak.android.ui.main.market.MarketFragment
 import io.sinzak.android.ui.main.profile.ProfileFragment
+import io.sinzak.android.ui.main.profile.sale.SaleFragment
 import io.sinzak.android.utils.RootViewDeferringInsetsCallback
 import javax.inject.Inject
 
@@ -105,6 +106,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main)
                 navigation.clearHistory()
                 ProfileFragment()
             }
+            PROFILE_SALE ->
+                SaleFragment()
         }
 
         fragment?.let{
