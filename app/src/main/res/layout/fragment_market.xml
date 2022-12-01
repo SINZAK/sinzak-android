@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             app:layout_constraintTop_toTopOf="parent"
             android:id="@+id/ll_appbar"
-            android:layout_height="48dp">
+            android:layout_height="@dimen/appbar_height">
             <FrameLayout
                 android:layout_width="match_parent"
                 app:layout_constraintTop_toTopOf="parent"

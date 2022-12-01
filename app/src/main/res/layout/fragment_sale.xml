@@ -14,7 +14,7 @@
         <FrameLayout
             android:id="@+id/fl_appbar"
             android:layout_width="match_parent"
-            android:layout_height="94dp"
+            android:layout_height="@dimen/appbar_height"
             app:layout_constraintTop_toTopOf="parent"/>
 
         <androidx.core.widget.NestedScrollView
