@@ -15,34 +15,43 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="24dp"
-        android:paddingBottom="12.4dp"
-        android:paddingStart="15dp"
-        android:paddingEnd="11.5dp"
+
+
         android:orientation="vertical">
         <TextView
+            android:paddingTop="24dp"
+            android:layout_marginStart="15dp"
+            android:paddingEnd="11.5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/str_profile_sale_title"
             style="@style/bold16"
             android:paddingStart="13.3dp"
             android:layout_marginBottom="7dp"/>
-        <RelativeLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
+            android:paddingBottom="12.4dp"
+
             android:layout_height="wrap_content">
+
             <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="152dp"
-                android:orientation="horizontal"
+                app:layout_constraintTop_toTopOf="parent"
+                adapter="@{vm.adapter}"
                 marginHorizon="@{12.5f}"
                 marginVertical="@{0f}"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                adapter="@{vm.adapter}"
-                android:clipToPadding="false"
+                android:paddingHorizontal="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="152dp"
                 android:layout_alignParentStart="true"
                 android:layout_toStartOf="@+id/iv_arrow_right"
-                android:layout_marginEnd="8.5dp"/>
+                android:clipToPadding="false"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
             <ImageView
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="11.5dp"
                 android:id="@+id/iv_arrow_right"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
@@ -50,7 +59,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:onClick="@{v -> fg.gotoSalePage()}"/>
-        </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 </layout>
