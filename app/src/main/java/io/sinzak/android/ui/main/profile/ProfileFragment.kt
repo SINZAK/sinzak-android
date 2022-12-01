@@ -42,12 +42,12 @@ class ProfileFragment :BaseFragment() {
     }
 
     override fun navigateOnBackPressed() {
-        TODO("Not yet implemented")
+
     }
 
     /**************v
      *
-     * VIEW INLFATING
+     * VIEW INFLATING
      *
      ***************/
     private fun inflateChild() {
