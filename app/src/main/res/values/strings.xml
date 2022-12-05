@@ -37,4 +37,8 @@
     <string name="str_profile_sale_title">판매 작품</string>
     <string name="str_profile_work_title">작업해요</string>
     <string name="str_profile_verify_true">verified</string>
+
+    <string name="str_sale_onsale_true">판매중</string>
+    <string name="str_sale_onsale_false">판매완료</string>
+    <string name="str_sale_work_holder_btn">거래 완료하기</string>
 </resources>
