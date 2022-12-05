@@ -9,5 +9,6 @@ enum class Page {
     PROFILE_WORK,
     PROFILE_EDIT,
     PROFILE_SETTING,
+    PROFILE_CERTIFICATION,
 
 }

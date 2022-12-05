@@ -57,9 +57,9 @@
                 android:paddingHorizontal="12dp"
                 android:text="@string/str_sale_onsale_true"
                 isSelect="@{vm.page == 0}"
-                android:textColor="@{vm.page == 0 ? @color/red : @color/gray60}"
+                android:textColor="@color/color_profile_filter_select"
                 android:onClick="@{v-> vm.changeNotificationList(0)}"
-                android:background="@{vm.page == 0 ? @drawable/tv_profile_filter : @drawable/tv_profile_filter_disable}"/>
+                android:background="@drawable/btn_profile_filter"/>
 
             <TextView
                 style="@style/bold13"
@@ -69,9 +69,9 @@
                 android:paddingHorizontal="12dp"
                 android:text="@string/str_sale_onsale_false"
                 isSelect="@{vm.page == 1}"
-                android:textColor="@{vm.page == 1 ? @color/red : @color/gray60}"
+                android:textColor="@color/color_profile_filter_select"
                 android:onClick="@{v-> vm.changeNotificationList(1)}"
-                android:background="@{vm.page == 1 ? @drawable/tv_profile_filter : @drawable/tv_profile_filter_disable}"/>
+                android:background="@drawable/btn_profile_filter"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.recyclerview.widget.RecyclerView

@@ -6,6 +6,9 @@
         <variable
             name="fg"
             type="io.sinzak.android.ui.main.profile.edit.EditFragment" />
+        <variable
+            name="vm"
+            type="io.sinzak.android.ui.main.profile.edit.EditViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -76,7 +79,9 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/str_edit_nickname"
                         style="@style/regular16"
-                        android:background="@color/white"/>
+                        android:background="@null"
+                        android:inputType="text"
+                        android:textColorHint="@color/gray60"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -96,7 +101,9 @@
                         android:hint="@string/str_edit_introduction"
                         android:text="자유롭게 작업합니다\nInstagram @jiiiiho_0"
                         style="@style/regular16"
-                        android:background="@color/white"/>
+                        android:background="@null"
+                        android:inputType="textMultiLine"
+                        android:textColorHint="@color/gray60"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -119,10 +126,11 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/str_edit_auth_true"
                         style="@style/medium16"
-                        android:textColor="@color/gray60"
-                        android:paddingEnd="3.8dp"/>
+                        android:layout_marginEnd="3.8dp"
+                        android:text="@{vm.hasCertification == false ? @string/str_edit_auth_false : @string/str_edit_auth_true }"
+                        android:textColor="@{vm.hasCertification == false ? @color/purple : @color/gray60 }"
+                        android:onClick="@{v-> fg.gotoCertificationPage(vm.hasCertification)}"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -148,7 +156,7 @@
                         android:text="@string/str_change"
                         style="@style/medium16"
                         android:textColor="@color/purple"
-                        android:paddingEnd="3.8dp"/>
+                        android:layout_marginEnd="3.8dp"/>
                 </LinearLayout>
 
                 <TextView

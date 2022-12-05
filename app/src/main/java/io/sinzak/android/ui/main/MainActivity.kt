@@ -18,6 +18,7 @@ import io.sinzak.android.ui.main.home.HomeFragment
 import io.sinzak.android.ui.main.home.notification.NotificationFragment
 import io.sinzak.android.ui.main.market.MarketFragment
 import io.sinzak.android.ui.main.profile.ProfileFragment
+import io.sinzak.android.ui.main.profile.certification.CertificationFragment
 import io.sinzak.android.ui.main.profile.edit.EditFragment
 import io.sinzak.android.ui.main.profile.sale_with_work.SaleFragment
 import io.sinzak.android.ui.main.profile.sale_with_work.WorkFragment
@@ -117,6 +118,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main)
                 EditFragment()
             PROFILE_SETTING ->
                 SettingFragment()
+            PROFILE_CERTIFICATION ->
+                CertificationFragment()
         }
 
         fragment?.let{

@@ -14,7 +14,7 @@ class ProfileArtAdapter: RecyclerView.Adapter<ProfileArtAdapter.ViewHolder>() {
 
 
     override fun getItemCount(): Int {
-        return 3
+        return 2
     }
 
 

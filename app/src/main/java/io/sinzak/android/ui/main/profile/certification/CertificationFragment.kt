@@ -1,21 +1,20 @@
-package io.sinzak.android.ui.main.profile.edit
+package io.sinzak.android.ui.main.profile.certification
 
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
-import io.sinzak.android.databinding.FragmentEditProfileBinding
-import io.sinzak.android.enums.Page
+import io.sinzak.android.databinding.FragmentCertificationBinding
 import io.sinzak.android.ui.base.BaseFragment
 
 @AndroidEntryPoint
-class EditFragment : BaseFragment() {
+class CertificationFragment : BaseFragment() {
 
-    private lateinit var bind : FragmentEditProfileBinding
+    private lateinit var bind : FragmentCertificationBinding
 
-    private val viewModel : EditViewModel by activityViewModels()
+    private val viewModel : CertificationViewModel by activityViewModels()
 
     override fun getFragmentRoot(): View {
-        bind = FragmentEditProfileBinding.inflate(layoutInflater)
+        bind = FragmentCertificationBinding.inflate(layoutInflater)
         return bind.root
     }
 
@@ -23,7 +22,7 @@ class EditFragment : BaseFragment() {
         bind.apply {
             bind.lifecycleOwner = viewLifecycleOwner
             vm = viewModel
-            fg = this@EditFragment
+            fg = this@CertificationFragment
         }
     }
 
@@ -35,8 +34,7 @@ class EditFragment : BaseFragment() {
         navigator.revealHistory()
     }
 
-    fun gotoCertificationPage(hasCerti : Boolean){
-        if(!hasCerti) navigator.changePage(Page.PROFILE_CERTIFICATION)
-        else return
+    fun gotoSchoolAuth(isGraduate: Boolean) {
+
     }
 }
