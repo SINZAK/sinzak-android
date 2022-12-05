@@ -1,4 +1,4 @@
-package io.sinzak.android.ui.main.profile.sale
+package io.sinzak.android.ui.main.profile.sale_with_work
 
 import android.view.View
 import androidx.fragment.app.activityViewModels

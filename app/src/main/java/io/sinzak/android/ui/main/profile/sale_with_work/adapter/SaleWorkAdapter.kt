@@ -1,4 +1,4 @@
-package io.sinzak.android.ui.main.profile.sale.adapter
+package io.sinzak.android.ui.main.profile.sale_with_work.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,13 +9,14 @@ import com.bumptech.glide.load.model.GlideUrl
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import io.sinzak.android.databinding.HolderSaleArtLinearBinding
+import io.sinzak.android.databinding.HolderWorkArtLinearBinding
 import io.sinzak.android.system.dp
 
-class SaleAdapter: RecyclerView.Adapter<SaleAdapter.ViewHolder>() {
+class SaleWorkAdapter(): RecyclerView.Adapter<SaleWorkAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            HolderSaleArtLinearBinding.inflate(LayoutInflater.from(parent.context))
+            HolderWorkArtLinearBinding.inflate(LayoutInflater.from(parent.context))
         )
     }
 
@@ -36,7 +37,7 @@ class SaleAdapter: RecyclerView.Adapter<SaleAdapter.ViewHolder>() {
     }
 
 
-    inner class ViewHolder(val bind : HolderSaleArtLinearBinding) : RecyclerView.ViewHolder(bind.root){
+    inner class ViewHolder(val bind : HolderWorkArtLinearBinding) : RecyclerView.ViewHolder(bind.root){
 
         fun bind() {
 

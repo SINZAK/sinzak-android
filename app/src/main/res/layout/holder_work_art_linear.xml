@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/cl_sale_work_holder_item"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_img_frame"
+            android:layout_width="match_parent"
+            android:layout_height="156dp"
+            android:background="@drawable/cl_sale_work_holder_item">
+
+            <ImageView
+                android:id="@+id/iv_sale_img"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@drawable/ll_work_image"
+                android:gravity="center">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_work_complete"
+                    style="@style/bold16"
+                    android:textColor="@color/white"
+                    android:drawableTop="@drawable/ic_check_white"
+                    android:drawablePadding="1dp"/>
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="11dp"
+            android:paddingEnd="9dp"
+            android:layout_marginTop="23dp"
+            android:layout_marginBottom="11.8dp">
+            <TextView
+                style="@style/medium16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingEnd="8dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="일러스트 필요하신 분 이런 작업은 어떠신가요 제"/>
+            <TextView
+                style="@style/bold16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="50,000원"/>
+        </LinearLayout>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="11dp"
+            android:paddingEnd="9.75dp">
+            <TextView
+                style="@style/medium13"
+                android:layout_width="101dp"
+                android:layout_height="32dp"
+                android:background="@drawable/tv_sale_work_holder_btn"
+                android:gravity="center"
+                android:text="@string/str_sale_work_holder_btn"
+                android:textColor="@color/purple"/>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+            <TextView
+                style="@style/medium13"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="10개월 전"
+                android:textColor="@color/gray60"
+                android:gravity="bottom"
+                android:paddingBottom="6dp"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

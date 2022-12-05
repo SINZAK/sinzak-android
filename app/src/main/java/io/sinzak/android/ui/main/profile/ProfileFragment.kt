@@ -123,6 +123,6 @@ class ProfileFragment :BaseFragment() {
 
     // 작업해요 클릭릭
     fun gotoWorkPage(){
-
+        navigator.changePage(Page.PROFILE_WORK)
     }
 }
