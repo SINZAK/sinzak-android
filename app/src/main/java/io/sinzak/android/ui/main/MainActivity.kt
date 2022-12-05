@@ -18,8 +18,10 @@ import io.sinzak.android.ui.main.home.HomeFragment
 import io.sinzak.android.ui.main.home.notification.NotificationFragment
 import io.sinzak.android.ui.main.market.MarketFragment
 import io.sinzak.android.ui.main.profile.ProfileFragment
+import io.sinzak.android.ui.main.profile.edit.EditFragment
 import io.sinzak.android.ui.main.profile.sale_with_work.SaleFragment
 import io.sinzak.android.ui.main.profile.sale_with_work.WorkFragment
+import io.sinzak.android.ui.main.profile.setting.SettingFragment
 import io.sinzak.android.utils.RootViewDeferringInsetsCallback
 import javax.inject.Inject
 
@@ -111,6 +113,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main)
                 SaleFragment()
             PROFILE_WORK ->
                 WorkFragment()
+            PROFILE_EDIT ->
+                EditFragment()
+            PROFILE_SETTING ->
+                SettingFragment()
         }
 
         fragment?.let{

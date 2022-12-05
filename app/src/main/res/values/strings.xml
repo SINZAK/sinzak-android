@@ -44,4 +44,18 @@
     <string name="str_work_onwork_false">작업완료</string>
     <string name="str_work_complete">의뢰완료</string>
     <string name="str_sale_work_holder_btn">거래 완료하기</string>
+
+    <string name="str_edit_profile_img">프로필 사진 바꾸기</string>
+    <string name="str_edit_nickname">닉네임</string>
+    <string name="str_edit_introduction">소개</string>
+    <string name="str_edit_auth_true">인증완료</string>
+    <string name="str_edit_auth_false">인증하기</string>
+    <string name="str_edit_school">학교</string>
+    <string name="str_edit_genre">관심장르</string>
+    <string name="str_edit_apply_verify">인증 작가 신청하기</string>
+
+    <string name="str_setting">설정</string>
+
+    <string name="str_complete">완료</string>
+    <string name="str_change">변경하기</string>
 </resources>

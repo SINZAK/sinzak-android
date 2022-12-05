@@ -9,6 +9,9 @@
     <style name="regular13" parent="textRegular">
         <item name="android:textSize">13sp</item>
     </style>
+    <style name="regular16" parent="textRegular">
+        <item name="android:textSize">16sp</item>
+    </style>
 
 
 

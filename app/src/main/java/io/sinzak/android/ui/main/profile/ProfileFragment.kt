@@ -98,12 +98,12 @@ class ProfileFragment :BaseFragment() {
 
     //앱 바의 세팅 아이콘
     fun gotoSettingPage() {
-
+        navigator.changePage(Page.PROFILE_SETTING)
     }
 
     //프로필 편집 클릭
     fun gotoProfileEditPage() {
-
+        navigator.changePage(Page.PROFILE_EDIT)
     }
 
     //스크랩 목록 클릭

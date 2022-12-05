@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="63dp"
             android:paddingHorizontal="13dp"
-            android:background="@drawable/cl_profile_list"
+            android:background="@drawable/cl_profile_underline"
             android:onClick="@{v->fg.gotoScrapPage()}"
             >
             <TextView
@@ -40,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="63dp"
             android:paddingHorizontal="13dp"
-            android:background="@drawable/cl_profile_list"
+            android:background="@drawable/cl_profile_underline"
             android:onClick="@{v->fg.gotoRequestPage()}"
             >
             <TextView
