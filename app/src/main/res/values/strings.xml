@@ -31,12 +31,16 @@
 
     <string name="str_profile_follower">팔로워</string>
     <string name="str_profile_following">팔로잉</string>
+    <string name="str_profile_follow">팔로우</string>
+    <string name="str_profile_chat">채팅하기</string>
     <string name="str_profile_edit">프로필 편집</string>
     <string name="str_profile_scrap">스크랩 목록</string>
     <string name="str_profile_outsourcing">의뢰해요</string>
     <string name="str_profile_sale_title">판매 작품</string>
     <string name="str_profile_work_title">작업해요</string>
     <string name="str_profile_verify_true">verified</string>
+    <string name="str_profile_verify_false">unverified</string>
+
 
     <string name="str_sale_onsale_true">판매중</string>
     <string name="str_sale_onsale_false">판매완료</string>

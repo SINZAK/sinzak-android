@@ -48,6 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:paddingTop="23dp"
                 android:paddingHorizontal="16dp"
                 android:gravity="center_horizontal">
 
@@ -128,8 +129,8 @@
                         android:layout_height="wrap_content"
                         style="@style/medium16"
                         android:layout_marginEnd="3.8dp"
-                        android:text="@{vm.hasCertification == false ? @string/str_edit_auth_false : @string/str_edit_auth_true }"
-                        android:textColor="@{vm.hasCertification == false ? @color/purple : @color/gray60 }"
+                        android:text="@{!vm.hasCertification ? @string/str_edit_auth_false : @string/str_edit_auth_true }"
+                        android:textColor="@{!vm.hasCertification ? @color/purple : @color/gray60 }"
                         android:onClick="@{v-> fg.gotoCertificationPage(vm.hasCertification)}"/>
                 </LinearLayout>
                 <LinearLayout

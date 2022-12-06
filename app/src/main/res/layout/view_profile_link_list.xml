@@ -4,6 +4,9 @@
         <variable
             name="fg"
             type="io.sinzak.android.ui.main.profile.ProfileFragment" />
+        <variable
+            name="vm"
+            type="io.sinzak.android.ui.main.profile.viewmodel.ProfileViewModel" />
     </data>
     <androidx.appcompat.widget.LinearLayoutCompat
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -11,7 +14,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingHorizontal="15dp">
+        android:paddingHorizontal="15dp"
+        android:visibility="@{vm.isMyProfile ? 0 : 8}"
+        >
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="63dp"
