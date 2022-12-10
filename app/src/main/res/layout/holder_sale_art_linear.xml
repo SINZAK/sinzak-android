@@ -43,7 +43,7 @@
                     android:layout_height="wrap_content"
                     android:drawableTop="@drawable/ic_heart_red"
                     android:text="1.3K"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/on_primary" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -84,7 +84,7 @@
                 android:background="@drawable/tv_sale_work_holder_btn"
                 android:gravity="center"
                 android:text="@string/str_sale_work_holder_btn"
-                android:textColor="@color/purple"/>
+                android:textColor="@color/secondary"/>
 
             <Space
                 android:layout_width="match_parent"

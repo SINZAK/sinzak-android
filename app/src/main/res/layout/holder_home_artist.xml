@@ -22,7 +22,7 @@
             android:text="홍익대"
             android:padding="3dp"
             android:background="@drawable/tv_tag_school"
-            android:textColor="@color/white"
+            android:textColor="@color/on_primary"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="21dp"
             app:layout_constraintBottom_toTopOf="@+id/tv_name" />
@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="poler"
-            android:textColor="@color/white"
+            android:textColor="@color/on_primary"
             android:layout_marginStart="21dp"
             android:layout_marginBottom="15dp"
             app:layout_constraintBottom_toBottomOf="parent"

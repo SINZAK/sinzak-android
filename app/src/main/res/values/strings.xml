@@ -72,4 +72,9 @@
     <string name="str_complete">완료</string>
     <string name="str_change">변경하기</string>
     <string name="str_next">다음</string>
+    <string name="str_login_subtitle">신세대의 작품을 만나다</string>
+    <string name="str_login_naver">네이버로 시작하기</string>
+    <string name="str_login_kakao">카카오로 시작하기</string>
+    <string name="str_login_google">Google로 시작하기</string>
+    <string name="str_login_sns">SNS계정으로 간편하게 시작하기</string>
 </resources>
