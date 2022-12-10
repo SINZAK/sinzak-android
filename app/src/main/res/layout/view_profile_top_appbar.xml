@@ -1,23 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
             name="fg"
             type="io.sinzak.android.ui.main.profile.ProfileFragment" />
+        <variable
+            name="vm"
+            type="io.sinzak.android.ui.main.profile.viewmodel.ProfileViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="6dp">
+        android:paddingVertical="6dp"
+        android:paddingHorizontal="16dp">
+
         <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_menu_profile"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:onClick="@{v->vm.changeStatus(!vm.isMyProfile)}"
+            />
+
+        <ImageView
+            android:id="@+id/imageView2"
             android:layout_width="34dp"
             android:layout_height="34dp"
-            android:src="@drawable/ic_profile_setting"
             android:background="@drawable/ic_bg_button"
+            android:src="@drawable/ic_profile_setting"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:onClick="@{v->fg.gotoSettingPage()}"/>
+
+            android:visibility="@{vm.isMyProfile ? 0 : 8}"
+            android:onClick="@{v->fg.gotoSettingPage()}"
+            />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/ic_bg_button"
+            android:src="@drawable/ic_more"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="1dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+
+            android:visibility="@{!vm.isMyProfile ? 0 : 8}"
+            android:onClick="@{v-> fg.showMoreMenu()}"
+            />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

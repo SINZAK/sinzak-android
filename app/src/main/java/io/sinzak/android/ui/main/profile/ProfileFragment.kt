@@ -13,6 +13,7 @@ import io.sinzak.android.databinding.ViewProfileMyprofileBinding
 import io.sinzak.android.databinding.ViewProfileTopAppbarBinding
 import io.sinzak.android.enums.Page
 import io.sinzak.android.ui.base.BaseFragment
+import io.sinzak.android.ui.main.profile.edit.EditViewModel
 import io.sinzak.android.ui.main.profile.viewmodel.ProfileSaleViewModel
 import io.sinzak.android.ui.main.profile.viewmodel.ProfileViewModel
 import io.sinzak.android.ui.main.profile.viewmodel.ProfileWorkViewModel
@@ -25,6 +26,7 @@ class ProfileFragment :BaseFragment() {
     private val viewModel : ProfileViewModel by activityViewModels()
     private val profileSaleViewModel by activityViewModels<ProfileSaleViewModel>()
     private val profileWorkViewModel by activityViewModels<ProfileWorkViewModel>()
+    private val editProfileViewModel by activityViewModels<EditViewModel>()
 
     override fun getFragmentRoot(): View {
         bind = FragmentProfileBinding.inflate(layoutInflater)
@@ -61,6 +63,7 @@ class ProfileFragment :BaseFragment() {
     private fun inflateAppbar(){
         DataBindingUtil.inflate<ViewProfileTopAppbarBinding>(layoutInflater, R.layout.view_profile_top_appbar,null, false).apply {
             lifecycleOwner = viewLifecycleOwner
+            vm = viewModel
             fg = this@ProfileFragment
             bind.flAppbar.addView(root)
         }
@@ -68,6 +71,8 @@ class ProfileFragment :BaseFragment() {
     private fun inflateMyProfile(){
         DataBindingUtil.inflate<ViewProfileMyprofileBinding>(layoutInflater,R.layout.view_profile_myprofile,null,false).apply {
             lifecycleOwner = viewLifecycleOwner
+            pVm = viewModel
+            eVm = editProfileViewModel
             fg = this@ProfileFragment
             bind.llProfiles.addView(root)
         }
@@ -75,6 +80,7 @@ class ProfileFragment :BaseFragment() {
     private fun inflateLinkList(){
         DataBindingUtil.inflate<ViewProfileLinkListBinding>(layoutInflater,R.layout.view_profile_link_list,null,false).apply {
             lifecycleOwner = viewLifecycleOwner
+            vm = viewModel
             bind.llProfiles.addView(root)
         }
     }
@@ -96,13 +102,28 @@ class ProfileFragment :BaseFragment() {
     }
 
 
-    //앱 바의 세팅 아이콘
+    //세팅 아이콘 클릭
     fun gotoSettingPage() {
+        navigator.changePage(Page.PROFILE_SETTING)
+    }
+
+    // 더 보기 다이얼로그
+    fun showMoreMenu(){
 
     }
 
     //프로필 편집 클릭
     fun gotoProfileEditPage() {
+        navigator.changePage(Page.PROFILE_EDIT)
+    }
+
+    // 팔로우 버튼
+    fun follow() {
+
+    }
+
+    //채팅하기 클릭
+    fun goToChat() {
 
     }
 
@@ -123,6 +144,6 @@ class ProfileFragment :BaseFragment() {
 
     // 작업해요 클릭릭
     fun gotoWorkPage(){
-
+        navigator.changePage(Page.PROFILE_WORK)
     }
 }

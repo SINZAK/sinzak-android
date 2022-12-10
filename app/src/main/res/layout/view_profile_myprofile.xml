@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <variable
             name="fg"
             type="io.sinzak.android.ui.main.profile.ProfileFragment" />
+        <variable
+            name="pVm"
+            type="io.sinzak.android.ui.main.profile.viewmodel.ProfileViewModel" />
+        <variable
+            name="eVm"
+            type="io.sinzak.android.ui.main.profile.edit.EditViewModel" />
     </data>
     <androidx.appcompat.widget.LinearLayoutCompat
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="3dp"
+        android:paddingTop="23dp"
         android:paddingBottom="20dp"
         android:gravity="center_horizontal"
         android:orientation="vertical">
@@ -20,14 +26,23 @@
             android:background="@drawable/iv_profile_avatar"
             android:layout_marginBottom="12dp"/>
 
-        <TextView
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="김지호"
-            style="@style/bold16"
-            android:gravity="center_vertical"
+            android:orientation="horizontal"
             android:layout_marginBottom="12dp"
-            app:drawableEndCompat="@drawable/ic_profile_verify_active" />
+            android:gravity="center_vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="김지호"
+                style="@style/bold16"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_profile_verify_active"
+                android:visibility="@{pVm.isVerify ? 0 : 8}"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="wrap_content"
@@ -38,28 +53,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="홍익대학교"
-                style="@style/medium13"
-                android:layout_marginRight="5dp"/>
+                style="@style/medium13"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/str_profile_verify_true"
-                android:textColor="@color/red50"
-                style="@style/medium13"/>
+                android:text="@{eVm.hasCertification ? @string/str_profile_verify_true : @string/str_profile_verify_false }"
+                android:textColor="@{eVm.hasCertification ? @color/red50 : @color/gray60}"
+                style="@style/medium13"
+                android:layout_marginStart="5dp"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
 
 
-        <RelativeLayout
-            android:layout_width="152dp"
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp">
+            android:layout_marginBottom="24dp"
+            android:gravity="center_vertical">
             <TextView
-                android:id="@+id/tv_follower_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="32"
-                style="@style/bold16"
-                android:layout_alignParentStart="true"/>
+                style="@style/bold16"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -68,23 +82,36 @@
                 android:layout_centerVertical="true"
                 android:layout_toEndOf="@+id/tv_follower_num"
                 android:layout_marginStart="5dp"/>
+            <Space
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"/>
             <TextView
-                android:id="@+id/tv_following_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="25"
                 style="@style/bold16"
-                android:layout_toStartOf="@+id/tv_following_txt"
                 android:layout_marginEnd="5dp"/>
             <TextView
                 android:id="@+id/tv_following_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/str_profile_following"
-                style="@style/regular13"
-                android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true"/>
-        </RelativeLayout>
+                style="@style/regular13"/>
+            <Space
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:visibility="@{!pVm.isMyProfile ? 0 : 8}"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/str_profile_chat"
+                style="@style/bold13"
+                android:textColor="@color/purple"
+                android:visibility="@{!pVm.isMyProfile ? 0 : 8}"
+                android:onClick="@{v-> fg.goToChat()}"
+                />
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
         <TextView
             android:layout_width="wrap_content"
@@ -94,17 +121,47 @@
             android:textAlignment="center"
             android:layout_marginBottom="20dp"/>
 
-        <TextView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/str_profile_edit"
-            style="@style/medium16"
-            android:background="@drawable/btn_profile_edit"
-            android:gravity="center"
-            android:paddingHorizontal="45dp"
-            android:paddingVertical="8dp"
-            android:onClick="@{v->fg.gotoProfileEditPage()}"
-            />
+            android:layout_height="wrap_content">
+            <TextView
+                style="@style/medium16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_profile_edit"
+                android:gravity="center"
+                android:paddingHorizontal="45dp"
+                android:paddingVertical="8dp"
+                android:text="@string/str_profile_edit"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:onClick="@{v->fg.gotoProfileEditPage()}"
+                android:visibility="@{pVm.isMyProfile ? 0 : 8}"
+                />
+
+            <TextView
+                style="@style/medium16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_profile_follow"
+                android:textColor="@color/red"
+                android:gravity="center"
+                android:paddingHorizontal="45dp"
+                android:paddingVertical="8dp"
+                android:text="@string/str_profile_follow"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:onClick="@{v->fg.follow()}"
+                android:visibility="@{!pVm.isMyProfile ? 0 : 8}"
+                />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
     </androidx.appcompat.widget.LinearLayoutCompat>

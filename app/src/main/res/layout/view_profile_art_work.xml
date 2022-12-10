@@ -58,7 +58,7 @@
                 android:src="@drawable/ic_arrow_right"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:onClick="@{v -> fg.gotoSalePage()}"/>
+                android:onClick="@{v -> fg.gotoWorkPage()}"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

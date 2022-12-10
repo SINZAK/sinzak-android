@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="fg"
+            type="io.sinzak.android.ui.main.profile.edit.EditFragment" />
+        <variable
+            name="vm"
+            type="io.sinzak.android.ui.main.profile.edit.EditViewModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.main.profile.edit.EditFragment">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/ic_bg_button"
+            android:onClick="@{v->fg.navigateOnBackPressed()}"
+            android:src="@drawable/ic_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView2"
+            style="@style/medium16"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/appbar_height"
+            android:layout_marginEnd="9.7dp"
+            android:background="@drawable/ic_bg_button"
+            android:gravity="center"
+            android:text="@string/str_complete"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2">
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="23dp"
+                android:paddingHorizontal="16dp"
+                android:gravity="center_horizontal">
+
+                <ImageView
+                    android:layout_width="73dp"
+                    android:layout_height="73dp"
+                    android:background="@drawable/iv_profile_avatar"
+                    android:layout_marginBottom="19dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_edit_profile_img"
+                    style="@style/medium13"
+                    android:textColor="@color/purple"
+                    android:layout_marginBottom="14.5dp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/cl_profile_underline"
+                    android:paddingVertical="18.5dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        style="@style/medium16"
+                        android:layout_width="97.5dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/str_edit_nickname"/>
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/str_edit_nickname"
+                        style="@style/regular16"
+                        android:background="@null"
+                        android:inputType="text"
+                        android:textColorHint="@color/gray60"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/cl_profile_underline"
+                    android:paddingTop="18.5dp"
+                    android:paddingBottom="36.5dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        style="@style/medium16"
+                        android:layout_width="97.5dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/str_edit_introduction"/>
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/str_edit_introduction"
+                        android:text="자유롭게 작업합니다\nInstagram @jiiiiho_0"
+                        style="@style/regular16"
+                        android:background="@null"
+                        android:inputType="textMultiLine"
+                        android:textColorHint="@color/gray60"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/cl_profile_underline"
+                    android:paddingVertical="18.5dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        style="@style/medium16"
+                        android:layout_width="97.5dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/str_edit_school"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="홍익대학교"
+                        style="@style/regular16"
+                        android:background="@color/white"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/medium16"
+                        android:layout_marginEnd="3.8dp"
+                        android:text="@{!vm.hasCertification ? @string/str_edit_auth_false : @string/str_edit_auth_true }"
+                        android:textColor="@{!vm.hasCertification ? @color/purple : @color/gray60 }"
+                        android:onClick="@{v-> fg.gotoCertificationPage(vm.hasCertification)}"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/cl_profile_underline"
+                    android:paddingVertical="18.5dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        style="@style/medium16"
+                        android:layout_width="97.5dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/str_edit_genre"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="일반회화"
+                        style="@style/regular16"
+                        android:background="@color/white"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/str_change"
+                        style="@style/medium16"
+                        android:textColor="@color/purple"
+                        android:layout_marginEnd="3.8dp"/>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_edit_apply_verify"
+                    style="@style/medium13"
+                    android:textColor="@color/purple"
+                    android:layout_marginTop="23.8dp"/>
+
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

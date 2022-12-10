@@ -5,15 +5,15 @@
     <data>
         <variable
             name="vm"
-            type="io.sinzak.android.ui.main.profile.sale_with_work.SaleViewModel" />
+            type="io.sinzak.android.ui.main.profile.sale_with_work.WorkViewModel" />
         <variable
             name="fg"
-            type="io.sinzak.android.ui.main.profile.sale_with_work.SaleFragment" />
+            type="io.sinzak.android.ui.main.profile.sale_with_work.WorkFragment" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.main.profile.sale_with_work.SaleFragment">
+        tools:context=".ui.main.profile.sale_with_work.WorkFragment">
 
         <ImageView
             android:layout_width="24dp"
@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/appbar_height"
             android:gravity="center"
-            android:text="@string/str_profile_sale_title"
+            android:text="@string/str_profile_work_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -55,7 +55,7 @@
                 android:layout_marginEnd="10dp"
                 android:gravity="center_vertical"
                 android:paddingHorizontal="12dp"
-                android:text="@string/str_sale_onsale_true"
+                android:text="@string/str_work_onwork_true"
                 isSelect="@{vm.page == 0}"
                 android:textColor="@color/color_profile_filter_select"
                 android:onClick="@{v-> vm.changeNotificationList(0)}"
@@ -67,7 +67,7 @@
                 android:layout_height="30dp"
                 android:gravity="center_vertical"
                 android:paddingHorizontal="12dp"
-                android:text="@string/str_sale_onsale_false"
+                android:text="@string/str_work_onwork_false"
                 isSelect="@{vm.page == 1}"
                 android:textColor="@color/color_profile_filter_select"
                 android:onClick="@{v-> vm.changeNotificationList(1)}"
@@ -79,7 +79,7 @@
             android:layout_height="0dp"
             android:orientation="vertical"
             android:paddingHorizontal="16dp"
-            android:paddingBottom="20dp"
+            android:paddingEnd="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ll_sale_filter"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

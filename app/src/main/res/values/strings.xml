@@ -31,10 +31,45 @@
 
     <string name="str_profile_follower">팔로워</string>
     <string name="str_profile_following">팔로잉</string>
+    <string name="str_profile_follow">팔로우</string>
+    <string name="str_profile_chat">채팅하기</string>
     <string name="str_profile_edit">프로필 편집</string>
     <string name="str_profile_scrap">스크랩 목록</string>
     <string name="str_profile_outsourcing">의뢰해요</string>
     <string name="str_profile_sale_title">판매 작품</string>
     <string name="str_profile_work_title">작업해요</string>
     <string name="str_profile_verify_true">verified</string>
+    <string name="str_profile_verify_false">unverified</string>
+
+
+    <string name="str_sale_onsale_true">판매중</string>
+    <string name="str_sale_onsale_false">판매완료</string>
+    <string name="str_work_onwork_true">작업중</string>
+    <string name="str_work_onwork_false">작업완료</string>
+    <string name="str_work_complete">의뢰완료</string>
+    <string name="str_sale_work_holder_btn">거래 완료하기</string>
+
+    <string name="str_edit_profile_img">프로필 사진 바꾸기</string>
+    <string name="str_edit_nickname">닉네임</string>
+    <string name="str_edit_introduction">소개</string>
+    <string name="str_edit_auth_true">인증완료</string>
+    <string name="str_edit_auth_false">인증하기</string>
+    <string name="str_edit_school">학교</string>
+    <string name="str_edit_genre">관심장르</string>
+    <string name="str_edit_apply_verify">인증 작가 신청하기</string>
+
+    <string name="str_setting">설정</string>
+
+    <string name="str_certification">학교 인증</string>
+    <string name="str_certification_year">입학년도</string>
+    <string name="str_certification_year_hint">연도 선택(학번)</string>
+    <string name="str_certification_academic">학적 선택</string>
+    <string name="str_certification_isGraduate_false">재학생</string>
+    <string name="str_certification_isGraduate_true">졸업생</string>
+    <string name="str_certification_school">학교 이름</string>
+    <string name="str_certification_school_hint">학교 이름을 입력하세요</string>
+
+    <string name="str_complete">완료</string>
+    <string name="str_change">변경하기</string>
+    <string name="str_next">다음</string>
 </resources>
