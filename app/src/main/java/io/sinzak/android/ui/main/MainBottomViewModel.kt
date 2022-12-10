@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
 @HiltViewModel
-class MainBottomViewModel @Inject constructor(val navigation: Navigation): BaseViewModel() {
+class MainBottomViewModel @Inject constructor(): BaseViewModel() {
 
     private val _currentButton = MutableStateFlow(0)
     val currentButton : StateFlow<Int> get() = _currentButton

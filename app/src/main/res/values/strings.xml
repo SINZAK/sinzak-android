@@ -77,4 +77,11 @@
     <string name="str_login_kakao">카카오로 시작하기</string>
     <string name="str_login_google">Google로 시작하기</string>
     <string name="str_login_sns">SNS계정으로 간편하게 시작하기</string>
+    <string name="str_follow">팔로우</string>
+    <string name="str_detail_spec">상세사이즈</string>
+    <string name="str_spec_width">가로</string>
+    <string name="str_spec_height">세로</string>
+    <string name="str_artdetail_ask">거래 문의하기</string>
+    <string name="str_artdetail_nagatiate_not">가격 제안 불가</string>
+    <string name="str_artdetail_nagotiate">가격 제안하기</string>
 </resources>

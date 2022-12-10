@@ -11,4 +11,8 @@ enum class Page {
     PROFILE_SETTING,
     PROFILE_CERTIFICATION,
 
+    ART_DETAIL,
+
+
+
 }
