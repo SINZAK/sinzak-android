@@ -84,4 +84,7 @@
     <string name="str_artdetail_ask">거래 문의하기</string>
     <string name="str_artdetail_nagatiate_not">가격 제안 불가</string>
     <string name="str_artdetail_nagotiate">가격 제안하기</string>
+    <string name="str_btn_report">신호하기</string>
+    <string name="str_btn_block_artist">%s님 차단하기</string>
+    <string name="str_btn_cancel">취소</string>
 </resources>

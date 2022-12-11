@@ -44,6 +44,10 @@ class ArtDetailFragment : BaseFragment() {
 
 
 
+    fun showReportDialog(){
+
+        ArtistReportDialog(requireContext(),"김지호",{},{}).show()
+    }
 
     private fun inflateImage(){
         ViewArtdetailImageBinding.inflate(layoutInflater).apply{
