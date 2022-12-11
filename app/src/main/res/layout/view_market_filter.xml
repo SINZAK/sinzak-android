@@ -16,10 +16,7 @@
 
             marginHorizon="@{5f}"
             marginVertical="@{0f}"
-            adapter="@{vm.adapter}"
-            filterChosen="@{vm.filterChosenList}"
-            filter="@{vm.filterList}"
-            listener="@{vm.onFilterClick}"
+            android:adapter="@{vm.adapter}"
             android:id="@+id/rv_filter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
