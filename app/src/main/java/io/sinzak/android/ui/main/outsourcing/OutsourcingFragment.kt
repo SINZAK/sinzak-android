@@ -59,7 +59,7 @@ class OutsourcingFragment : BaseFragment(){
     }
 
     fun inflateClient(){
-        if(viewModel.isClientList.value)
+        if(viewModel.isClientList.value && bind.flOutsourcing.childCount > 0)
             return
         bind.flOutsourcing.removeAllViews()
         viewModel.isClientList.value = true
