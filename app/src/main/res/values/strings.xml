@@ -87,4 +87,8 @@
     <string name="str_btn_report">신호하기</string>
     <string name="str_btn_block_artist">%s님 차단하기</string>
     <string name="str_btn_cancel">취소</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="str_btn_outsourcing_client">의뢰해요</string>
+    <string name="str_btn_outsourcing_artist">작업해요</string>
 </resources>

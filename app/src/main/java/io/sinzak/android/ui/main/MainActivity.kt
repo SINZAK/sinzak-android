@@ -18,6 +18,7 @@ import io.sinzak.android.ui.main.home.HomeFragment
 import io.sinzak.android.ui.main.home.notification.NotificationFragment
 import io.sinzak.android.ui.main.market.MarketFragment
 import io.sinzak.android.ui.main.market.artdetail.ArtDetailFragment
+import io.sinzak.android.ui.main.outsourcing.OutsourcingFragment
 import io.sinzak.android.ui.main.profile.ProfileFragment
 import io.sinzak.android.ui.main.profile.certification.CertificationFragment
 import io.sinzak.android.ui.main.profile.edit.EditFragment
@@ -110,6 +111,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main)
             PROFILE -> {
                 navigation.clearHistory()
                 ProfileFragment()
+            }
+            OUTSOURCING ->{
+                navigation.clearHistory()
+                OutsourcingFragment()
             }
             PROFILE_SALE ->
                 SaleFragment()
