@@ -31,11 +31,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@{marketVM.searchFieldTExt}"
+                android:text="@{marketVM.searchFieldText}"
                 style="@style/medium16"
                 android:onTextChanged="@{(cs,a,b,c) -> marketVM.typeSearchFieldText(cs)}"
                 requestFocus="@{marketVM.searchPageOn}"
                 soft="@{marketVM.soft}"
+                onActionDone="@{v->marketVM.search()}"
+
 
                 android:layout_marginStart="15dp"
                 android:textColorHint="@color/gray80"

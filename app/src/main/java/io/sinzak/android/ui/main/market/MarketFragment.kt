@@ -94,6 +94,13 @@ class MarketFragment : BaseFragment() {
         }
     }
 
+    private fun inflateHistory(){
+        ViewSearchHistoryBinding.inflate(layoutInflater).apply{
+            lifecycleOwner = viewLifecycleOwner
+            marketVM = viewModel
+        }
+    }
+
     fun showSortBottom()
     {
         sortView.show(requireActivity().supportFragmentManager,sortView.tag)

@@ -2,23 +2,27 @@ package io.sinzak.android.ui.main.market.viewmodel
 
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.sinzak.android.model.insets.SoftKeyModel
+import io.sinzak.android.model.market.MarketArtModel
 import io.sinzak.android.ui.base.BaseViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
 @HiltViewModel
-class MarketViewModel @Inject constructor(val soft : SoftKeyModel) : BaseViewModel() {
+class MarketViewModel @Inject constructor(val soft : SoftKeyModel, val marketArtModel: MarketArtModel) : BaseViewModel() {
 
     private val _searchPageOn = MutableStateFlow(false)
     val searchPageOn : StateFlow<Boolean> get() = _searchPageOn
+    private val _searchHistoryOn = MutableStateFlow(false)
+    val searchHistoryOn : StateFlow<Boolean> get() = _searchHistoryOn
 
 
     private val _searchFieldText = MutableStateFlow("")
-    val searchFieldTExt : StateFlow<String> get() = _searchFieldText
+    val searchFieldText : StateFlow<String> get() = _searchFieldText
 
     fun openSearchPage(){
         _searchPageOn.value = true
+        _searchHistoryOn.value = true
     }
 
     fun typeSearchFieldText(cs : CharSequence){
@@ -34,15 +38,27 @@ class MarketViewModel @Inject constructor(val soft : SoftKeyModel) : BaseViewMod
         _searchFieldText.value = ""
     }
 
+    fun search(){
+        searchFieldText.value.let{
+            keyword->
+            if(keyword.isEmpty())
+                return
+
+            marketArtModel.putHistory(keyword)
+            _searchHistoryOn.value = false
+
+        }
+    }
 
 
 
 
-    @Inject
-    lateinit var softKeyModel: SoftKeyModel
 
     fun closeSearchPage(){
-        _searchPageOn.value = false
-        softKeyModel.hideKeyboard()
+        if(searchHistoryOn.value)
+            _searchHistoryOn.value = false
+        else if(searchPageOn.value)
+            _searchPageOn.value = false
+        soft.hideKeyboard()
     }
 }
