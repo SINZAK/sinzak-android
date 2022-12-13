@@ -128,7 +128,7 @@
                 style="@style/medium16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/btn_profile_edit"
+                android:background="@drawable/btn_black_stroke"
                 android:gravity="center"
                 android:paddingHorizontal="45dp"
                 android:paddingVertical="8dp"

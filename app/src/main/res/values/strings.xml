@@ -77,9 +77,19 @@
     <string name="str_webMail_next_time">다음에 하기</string>
     <string name="str_webMail_send">메일 전송</string>
 
+    <string name="str_verify">인증작가 신청</string>
+    <string name="str_verify_title">신작 인증 작가</string>
+    <string name="str_verify_explain_one">인증 작가가 되면 이름 옆에 인증작가 배지</string>
+    <string name="str_verify_explain_two">가 붙고,</string>
+    <string name="str_verify_explain_three">신작 추천 작품에 선정될 가능성이 높아집니다.</string>
+    <string name="str_verify_step_one">1단계. 학교 인증</string>
+    <string name="str_verify_step_two">2단계. 포트폴리오</string>
+    <string name="str_verify_upload_file">파일 첨부하기</string>
+
 
     <string name="str_complete">완료</string>
     <string name="str_change">변경하기</string>
     <string name="str_next">다음</string>
     <string name="str_cancel">취소</string>
+    <string name="str_apply">신청하기</string>
 </resources>

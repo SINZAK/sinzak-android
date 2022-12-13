@@ -1,29 +1,30 @@
-package io.sinzak.android.ui.main.profile.edit
+package io.sinzak.android.ui.main.profile.certification
 
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
-import io.sinzak.android.databinding.FragmentEditProfileBinding
+import io.sinzak.android.databinding.FragmentVerifyBinding
 import io.sinzak.android.enums.Page
 import io.sinzak.android.ui.base.BaseFragment
+import io.sinzak.android.ui.main.profile.edit.EditViewModel
 
 @AndroidEntryPoint
-class EditFragment : BaseFragment() {
+class VerifyFragment : BaseFragment(){
 
-    private lateinit var bind : FragmentEditProfileBinding
+    private lateinit var bind: FragmentVerifyBinding
 
-    private val viewModel : EditViewModel by activityViewModels()
+    private val editViewModel : EditViewModel by activityViewModels<EditViewModel>()
 
     override fun getFragmentRoot(): View {
-        bind = FragmentEditProfileBinding.inflate(layoutInflater)
+        bind = FragmentVerifyBinding.inflate(layoutInflater)
         return bind.root
     }
 
     override fun onFragmentCreated() {
         bind.apply {
             bind.lifecycleOwner = viewLifecycleOwner
-            vm = viewModel
-            fg = this@EditFragment
+            eVm = editViewModel
+            fg = this@VerifyFragment
         }
     }
 
@@ -35,12 +36,9 @@ class EditFragment : BaseFragment() {
         navigator.revealHistory()
     }
 
+    //겹치는 메서드
     fun gotoCertificationPage(hasCerti : Boolean){
         if(!hasCerti) navigator.changePage(Page.PROFILE_CERTIFICATION)
         else return
-    }
-
-    fun gotoVerifyPage(){
-        navigator.changePage(Page.PROFILE_VERIFY)
     }
 }
