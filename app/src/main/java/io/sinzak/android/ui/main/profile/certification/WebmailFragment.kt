@@ -3,19 +3,19 @@ package io.sinzak.android.ui.main.profile.certification
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
-import io.sinzak.android.databinding.FragmentCertificationBinding
-import io.sinzak.android.enums.Page
+import io.sinzak.android.databinding.FragmentWebmailBinding
 import io.sinzak.android.ui.base.BaseFragment
 
 @AndroidEntryPoint
-class CertificationFragment : BaseFragment() {
+class WebmailFragment : BaseFragment() {
 
-    private lateinit var bind : FragmentCertificationBinding
+    private lateinit var bind: FragmentWebmailBinding
 
-    private val viewModel : CertificationViewModel by activityViewModels()
+    private val viewModel : WebmailViewModel by activityViewModels()
+    private val certificationViewModel : CertificationViewModel by activityViewModels<CertificationViewModel>()
 
     override fun getFragmentRoot(): View {
-        bind = FragmentCertificationBinding.inflate(layoutInflater)
+        bind = FragmentWebmailBinding.inflate(layoutInflater)
         return bind.root
     }
 
@@ -23,7 +23,8 @@ class CertificationFragment : BaseFragment() {
         bind.apply {
             bind.lifecycleOwner = viewLifecycleOwner
             vm = viewModel
-            fg = this@CertificationFragment
+            cVm = certificationViewModel
+            fg = this@WebmailFragment
         }
     }
 
@@ -33,9 +34,5 @@ class CertificationFragment : BaseFragment() {
 
     override fun navigateOnBackPressed() {
         navigator.revealHistory()
-    }
-
-    fun gotoSchoolAuth() {
-        navigator.changePage(Page.PROFILE_WEBMAIL)
     }
 }

@@ -19,6 +19,7 @@ import io.sinzak.android.ui.main.home.notification.NotificationFragment
 import io.sinzak.android.ui.main.market.MarketFragment
 import io.sinzak.android.ui.main.profile.ProfileFragment
 import io.sinzak.android.ui.main.profile.certification.CertificationFragment
+import io.sinzak.android.ui.main.profile.certification.WebmailFragment
 import io.sinzak.android.ui.main.profile.edit.EditFragment
 import io.sinzak.android.ui.main.profile.sale_with_work.SaleFragment
 import io.sinzak.android.ui.main.profile.sale_with_work.WorkFragment
@@ -120,6 +121,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main)
                 SettingFragment()
             PROFILE_CERTIFICATION ->
                 CertificationFragment()
+            PROFILE_WEBMAIL ->
+                WebmailFragment()
         }
 
         fragment?.let{

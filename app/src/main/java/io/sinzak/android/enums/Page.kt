@@ -10,5 +10,6 @@ enum class Page {
     PROFILE_EDIT,
     PROFILE_SETTING,
     PROFILE_CERTIFICATION,
+    PROFILE_WEBMAIL,
 
 }

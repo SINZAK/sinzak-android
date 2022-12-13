@@ -68,6 +68,15 @@
     <string name="str_certification_isGraduate_true">졸업생</string>
     <string name="str_certification_school">학교 이름</string>
     <string name="str_certification_school_hint">학교 이름을 입력하세요</string>
+    
+    <string name="str_webMail_isGraduate_false">재학생 인증</string>
+    <string name="str_webMail_isGraduate_true">졸업생 인증</string>
+    <string name="str_webMail_title">학교 웹메일 인증</string>
+    <string name="str_webMail_explain">이메일을 입력하면 인증 메일을 보내드립니다.\n이메일 수신 후 본문에 포함된 링크를 클릭하면 인증이 완료됩니다.</string>
+    <string name="str_webMail_hint">학교 메일을 입력하세요.</string>
+    <string name="str_webMail_next_time">다음에 하기</string>
+    <string name="str_webMail_send">메일 전송</string>
+
 
     <string name="str_complete">완료</string>
     <string name="str_change">변경하기</string>
