@@ -29,8 +29,6 @@ class ProfileFragment :BaseFragment() {
     private val profileWorkViewModel by activityViewModels<ProfileWorkViewModel>()
     private val editProfileViewModel by activityViewModels<EditViewModel>()
 
-    @Inject
-    lateinit var popupView: PopupBottom
 
     override fun getFragmentRoot(): View {
         bind = FragmentProfileBinding.inflate(layoutInflater)
@@ -113,7 +111,6 @@ class ProfileFragment :BaseFragment() {
 
     // 더 보기 다이얼로그
     fun showMoreMenu(){
-        popupView.show(requireActivity().supportFragmentManager,popupView.tag)
     }
 
     //프로필 편집 클릭
