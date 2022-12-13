@@ -22,15 +22,6 @@ fun setAdapter(view : RecyclerView, adapter : ArtsAdapter)
     // adapter.setOnClickListener
 }
 
-@BindingAdapter("adapter","filterChosen","filter","listener")
-fun setAdapter(view : RecyclerView, adapter : FilterAdapter, chosenList : MutableList<String>, list : MutableList<String>, listener : (String?, Boolean)->Unit)
-{
-    view.adapter?:run{
-        view.adapter = adapter
-    }
-
-    adapter.reduce(chosenList,list,listener)
-}
 
 
 @BindingAdapter("sortText")

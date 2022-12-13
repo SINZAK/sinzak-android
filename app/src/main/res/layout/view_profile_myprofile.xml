@@ -58,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{eVm.hasCertification ? @string/str_profile_verify_true : @string/str_profile_verify_false }"
-                android:textColor="@{eVm.hasCertification ? @color/red50 : @color/gray60}"
+                android:textColor="@{eVm.hasCertification ? @color/primary_variant : @color/gray60}"
                 style="@style/medium13"
                 android:layout_marginStart="5dp"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -107,7 +107,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/str_profile_chat"
                 style="@style/bold13"
-                android:textColor="@color/purple"
+                android:textColor="@color/secondary"
                 android:visibility="@{!pVm.isMyProfile ? 0 : 8}"
                 android:onClick="@{v-> fg.goToChat()}"
                 />
@@ -146,7 +146,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/btn_profile_follow"
-                android:textColor="@color/red"
+                android:textColor="@color/primary"
                 android:gravity="center"
                 android:paddingHorizontal="45dp"
                 android:paddingVertical="8dp"

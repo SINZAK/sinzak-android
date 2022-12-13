@@ -7,25 +7,20 @@ import androidx.recyclerview.widget.RecyclerView
 import io.sinzak.android.R
 import io.sinzak.android.databinding.HolderMarketFilterBinding
 
-class FilterAdapter : RecyclerView.Adapter<FilterAdapter.ViewHolder>() {
+class FilterAdapter(private val filterItems : MutableList<String>, val selectFilter : ((List<String>)->Unit)? = null) : RecyclerView.Adapter<FilterAdapter.ViewHolder>() {
+
 
 
 
     private var filterChosenItem = mutableListOf<String>()
-    private var filterItems = mutableListOf<String>()
+    private var filterNotChosen = mutableListOf<String>()
 
-    override fun getItemCount(): Int {
-        return filterItems.size + filterChosenItem.size + 1
+    init{
+        filterNotChosen.addAll(filterItems)
     }
 
-    private var selectFilter : ((String?,Boolean)->Unit)? = null
-
-    fun reduce(chosen : MutableList<String>, filter : MutableList<String>, listener : (String?,Boolean)->Unit)
-    {
-        filterChosenItem = chosen
-        filterItems = filter
-        selectFilter = listener
-        notifyItemRangeChanged(0,itemCount)
+    override fun getItemCount(): Int {
+        return filterItems.size + 1
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -39,7 +34,7 @@ class FilterAdapter : RecyclerView.Adapter<FilterAdapter.ViewHolder>() {
             holder.bindBtnChosen(filterChosenItem[position - 1])
             return
         }
-        holder.bindBtn(filterItems[position - 1 - filterChosenItem.size])
+        holder.bindBtn(filterNotChosen[position - 1 - filterChosenItem.size])
 
     }
 
@@ -54,7 +49,7 @@ class FilterAdapter : RecyclerView.Adapter<FilterAdapter.ViewHolder>() {
             bind.filter = "전체"
             bind.select = filterChosenItem.size == 0
             bind.root.setOnClickListener {
-                selectFilter?.run{this(null,true)}
+                onClickFilter(null,true)
             }
         }
 
@@ -63,7 +58,7 @@ class FilterAdapter : RecyclerView.Adapter<FilterAdapter.ViewHolder>() {
             bind.filter = filter
             bind.select = true
             bind.root.setOnClickListener {
-                selectFilter?.run{this(filter,false)}
+                onClickFilter(filter,false)
             }
         }
 
@@ -72,9 +67,31 @@ class FilterAdapter : RecyclerView.Adapter<FilterAdapter.ViewHolder>() {
             bind.filter = filter
             bind.select = false
             bind.root.setOnClickListener {
-                selectFilter?.run{this(filter,true)}
+                onClickFilter(filter,true)
             }
         }
 
+    }
+
+
+    fun onClickFilter(filter : String?, status : Boolean)
+    {
+        filter?.run{
+            if(status)
+            {
+                filterNotChosen.remove(filter)
+                filterChosenItem.add(filter)
+            }
+            else{
+                filterNotChosen.add(filter)
+                filterChosenItem.remove(filter)
+            }
+        }?:run{
+            filterNotChosen.clear()
+            filterNotChosen.addAll(filterItems)
+            filterChosenItem.clear()
+        }
+        notifyItemRangeChanged(0,itemCount)
+        selectFilter?.run{this(filterChosenItem)}
     }
 }

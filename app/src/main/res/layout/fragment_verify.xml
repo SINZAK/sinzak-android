@@ -108,7 +108,7 @@
                     style="@style/medium16"
                     android:layout_marginEnd="3.8dp"
                     android:text="@{!eVm.hasCertification ? @string/str_edit_auth_false : @string/str_edit_auth_true }"
-                    android:textColor="@{!eVm.hasCertification ? @color/purple : @color/gray60 }"
+                    android:textColor="@{!eVm.hasCertification ? @color/secondary : @color/gray60 }"
                     android:onClick="@{v-> fg.gotoCertificationPage(eVm.hasCertification)}"/>
             </androidx.appcompat.widget.LinearLayoutCompat>
 

@@ -10,7 +10,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import io.sinzak.android.databinding.HolderHomeArtLinearBinding
 import io.sinzak.android.system.dp
 
-class ArtReferAdapter : RecyclerView.Adapter<ArtReferAdapter.ViewHolder>() {
+class ArtReferAdapter(val onItemClick : (()->Unit)? = null) : RecyclerView.Adapter<ArtReferAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int {
         return 3
@@ -35,6 +35,13 @@ class ArtReferAdapter : RecyclerView.Adapter<ArtReferAdapter.ViewHolder>() {
             bind.apply{
                 Glide.with(ivPoster).asBitmap().load(GlideUrl("https://wallpaperaccess.com/full/2339301.jpg"))
                     .transform(CenterCrop(),RoundedCorners(10.dp.toInt())).into(ivPoster)
+
+
+                root.setOnClickListener {
+                    onItemClick?.let{onItemClick ->
+                        onItemClick()
+                    }
+                }
             }
         }
     }

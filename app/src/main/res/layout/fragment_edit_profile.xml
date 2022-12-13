@@ -62,7 +62,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/str_edit_profile_img"
                     style="@style/medium13"
-                    android:textColor="@color/purple"
+                    android:textColor="@color/secondary"
                     android:layout_marginBottom="14.5dp"/>
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
@@ -123,14 +123,14 @@
                         android:layout_weight="1"
                         android:text="홍익대학교"
                         style="@style/regular16"
-                        android:background="@color/white"/>
+                        android:background="@color/on_primary"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/medium16"
                         android:layout_marginEnd="3.8dp"
                         android:text="@{!vm.hasCertification ? @string/str_edit_auth_false : @string/str_edit_auth_true }"
-                        android:textColor="@{!vm.hasCertification ? @color/purple : @color/gray60 }"
+                        android:textColor="@{!vm.hasCertification ? @color/secondary : @color/gray60 }"
                         android:onClick="@{v-> fg.gotoCertificationPage(vm.hasCertification)}"/>
                 </androidx.appcompat.widget.LinearLayoutCompat>
                 <androidx.appcompat.widget.LinearLayoutCompat
@@ -150,13 +150,13 @@
                         android:layout_weight="1"
                         android:text="일반회화"
                         style="@style/regular16"
-                        android:background="@color/white"/>
+                        android:background="@color/on_primary"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/str_change"
                         style="@style/medium16"
-                        android:textColor="@color/purple"
+                        android:textColor="@color/secondary"
                         android:layout_marginEnd="3.8dp"/>
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -165,9 +165,10 @@
                     android:layout_height="wrap_content"
                     android:text="@string/str_edit_apply_verify"
                     style="@style/medium13"
-                    android:textColor="@color/purple"
-                    android:layout_marginTop="23.8dp"
-                    android:onClick="@{v-> fg.gotoVerifyPage()}"/>
+                    android:onClick="@{v-> fg.gotoVerifyPage()}"
+                    android:textColor="@color/secondary"
+                    android:layout_marginTop="23.8dp"/>
+
 
 
             </androidx.appcompat.widget.LinearLayoutCompat>

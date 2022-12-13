@@ -1,0 +1,3 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:drawable="@drawable/ic_detail_comment" android:width="26dp" android:height="26dp"/>
+</layer-list>
