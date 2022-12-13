@@ -76,9 +76,16 @@
     <string name="str_webMail_hint">학교 메일을 입력하세요.</string>
     <string name="str_webMail_next_time">다음에 하기</string>
     <string name="str_webMail_send">메일 전송</string>
+    
+    <string name="str_popup_report">신고하기</string>
+    <string name="str_popup_block">%s 님 차단하기</string>
+
+    <string name="str_block_explain">차단하면 서로 채팅을 보낼 수 없어요.\n차단하시겠어요?</string>
+    <string name="str_block_true">네,차단할래요</string>
 
 
     <string name="str_complete">완료</string>
     <string name="str_change">변경하기</string>
     <string name="str_next">다음</string>
+    <string name="str_cancel">취소</string>
 </resources>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="d"
+            type="io.sinzak.android.ui.main.profile.PopupBottom" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="8dp"
+        android:paddingBottom="25.8dp"
+        android:background="@android:color/transparent">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/linearLayoutCompat4"
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:background="@drawable/ll_profile_popup"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                style="@style/medium16"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/str_popup_report" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.6dp"
+                android:background="@color/gray60" />
+
+            <TextView
+                style="@style/medium16"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text='@{@string/str_popup_block("unnamed")}'
+                android:textColor="@color/purple"
+                android:onClick="@{v->d.dismiss() &amp; d.showBlockPopup()}"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <TextView
+            style="@style/bold16"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/btn_height"
+            android:background="@drawable/ll_profile_popup"
+            android:gravity="center"
+            android:layout_marginTop="7.5dp"
+            android:text="@string/str_cancel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat4"
+            android:onClick="@{v-> d.dismiss()}"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
