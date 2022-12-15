@@ -11,7 +11,7 @@ import javax.inject.Singleton
 
 
 @Singleton
-class MarketArtModel @Inject constructor() : BaseModel(), HistoryViewModel.History {
+class MarketArtModel @Inject constructor() : BaseModel() {
 
 
     private val _stShowOnSale = MutableStateFlow(false)
@@ -41,21 +41,6 @@ class MarketArtModel @Inject constructor() : BaseModel(), HistoryViewModel.Histo
 
     }
 
-    fun putHistory(history : String)
-    {
-        mutableListOf<String>().apply{
-            addAll(_historyList.value)
-            add(history)
-            _historyList.value = this
-        }
-    }
 
-
-    private val _historyList = MutableStateFlow(listOf<String>())
-    override fun getHistoryList(): StateFlow<List<String>> = _historyList
-
-    override fun clearHistory() {
-
-    }
 
 }

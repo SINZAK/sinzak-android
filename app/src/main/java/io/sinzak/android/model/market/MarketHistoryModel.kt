@@ -39,6 +39,11 @@ class MarketHistoryModel @Inject constructor(override val adapter : HistoryAdapt
 
     }
 
+    fun putHistory(tag : String)
+    {
+
+    }
+
 
 
     @dagger.Module
@@ -46,8 +51,13 @@ class MarketHistoryModel @Inject constructor(override val adapter : HistoryAdapt
     internal object Module{
 
         @Provides
-        fun provideMarketHistory() : MarketHistoryModel{
-            return MarketHistoryModel(HistoryAdapter())
+        fun provideAdapter() : HistoryAdapter{
+            return HistoryAdapter()
+        }
+
+        @Provides
+        fun provideMarketHistory(adapter : HistoryAdapter) : MarketHistoryModel{
+            return MarketHistoryModel(adapter)
         }
     }
 

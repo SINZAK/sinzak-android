@@ -6,8 +6,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import io.sinzak.android.R
 import io.sinzak.android.databinding.HolderSearchHistoryBinding
+import javax.inject.Inject
 
-class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
+class HistoryAdapter @Inject constructor() : RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
 
     private var data = listOf<String>()
 

@@ -11,6 +11,7 @@ import io.sinzak.android.ui.base.BaseFragment
 import io.sinzak.android.ui.main.market.viewmodel.ArtsViewModel
 import io.sinzak.android.ui.main.market.viewmodel.FilterViewModel
 import io.sinzak.android.ui.main.market.viewmodel.MarketViewModel
+import io.sinzak.android.ui.main.search.HistoryAdapter
 import io.sinzak.android.ui.main.search.HistoryViewModel
 import javax.inject.Inject
 
@@ -106,6 +107,10 @@ class MarketFragment : BaseFragment() {
             lifecycleOwner = viewLifecycleOwner
             marketVM = viewModel
             vm = historyViewModel
+            search = object : HistoryAdapter.OnClick{
+                override fun onClick(history: String)
+                = viewModel.search(history)
+            }
             bind.flHistory.addView(root)
         }
     }

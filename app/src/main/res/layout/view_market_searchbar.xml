@@ -36,7 +36,7 @@
                 android:onTextChanged="@{(cs,a,b,c) -> marketVM.typeSearchFieldText(cs)}"
                 requestFocus="@{marketVM.searchPageOn}"
                 soft="@{marketVM.soft}"
-                onActionDone="@{v->marketVM.search()}"
+                onActionDone="@{v->marketVM.searchText()}"
 
 
                 android:layout_marginStart="15dp"
