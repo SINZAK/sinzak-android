@@ -5,6 +5,7 @@ enum class Page {
     HOME_NOTIFICATION,
     MARKET,
     OUTSOURCING,
+    CHAT,
     PROFILE,
     PROFILE_SALE,
     PROFILE_WORK,

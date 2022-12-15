@@ -14,6 +14,7 @@ import io.sinzak.android.model.navigate.Navigation
 import io.sinzak.android.system.LogDebug
 import io.sinzak.android.ui.base.BaseActivity
 import io.sinzak.android.ui.base.BaseFragment
+import io.sinzak.android.ui.main.chat.ChatFragment
 import io.sinzak.android.ui.main.home.HomeFragment
 import io.sinzak.android.ui.main.home.notification.NotificationFragment
 import io.sinzak.android.ui.main.market.MarketFragment
@@ -115,6 +116,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main)
             OUTSOURCING ->{
                 navigation.clearHistory()
                 OutsourcingFragment()
+            }
+            CHAT ->{
+                navigation.clearHistory()
+                ChatFragment()
             }
             PROFILE_SALE ->
                 SaleFragment()

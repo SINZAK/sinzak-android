@@ -22,7 +22,7 @@ class MainBottomViewModel @Inject constructor(): BaseViewModel() {
             PAGE_HOME -> navigation.changePage(Page.HOME)
             PAGE_MARKET -> navigation.changePage(Page.MARKET)
             PAGE_OUTSOURCING -> navigation.changePage(Page.OUTSOURCING)
-            PAGE_CHATTING -> navigation.changePage(Page.HOME)
+            PAGE_CHATTING -> navigation.changePage(Page.CHAT)
             PAGE_PROFILE -> navigation.changePage(Page.PROFILE)
         }
         _currentButton.value = button
