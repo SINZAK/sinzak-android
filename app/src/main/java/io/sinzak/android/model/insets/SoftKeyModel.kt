@@ -21,6 +21,7 @@ class SoftKeyModel @Inject constructor() {
     fun hideKeyboard(){
         activity.currentFocus?.let{
             imm.hideSoftInputFromWindow(it.windowToken,0)
+            it.clearFocus()
         }
     }
 

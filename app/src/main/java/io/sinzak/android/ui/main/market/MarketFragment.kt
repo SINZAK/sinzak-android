@@ -11,6 +11,8 @@ import io.sinzak.android.ui.base.BaseFragment
 import io.sinzak.android.ui.main.market.viewmodel.ArtsViewModel
 import io.sinzak.android.ui.main.market.viewmodel.FilterViewModel
 import io.sinzak.android.ui.main.market.viewmodel.MarketViewModel
+import io.sinzak.android.ui.main.search.HistoryAdapter
+import io.sinzak.android.ui.main.search.HistoryViewModel
 import javax.inject.Inject
 
 
@@ -20,6 +22,10 @@ class MarketFragment : BaseFragment() {
     private val artsViewModel : ArtsViewModel by activityViewModels()
     private val filterViewModel : FilterViewModel by activityViewModels()
     private val viewModel : MarketViewModel by activityViewModels()
+
+    @Inject
+    @HistoryViewModel.MarketHistory
+    lateinit var historyViewModel : HistoryViewModel
 
     private lateinit var bind : FragmentMarketBinding
 
@@ -58,6 +64,8 @@ class MarketFragment : BaseFragment() {
         inflateAppbar()
         inflateFilter()
         inflateSearchBar()
+
+        inflateHistory()
     }
 
     private fun inflateAppbar(){
@@ -91,6 +99,19 @@ class MarketFragment : BaseFragment() {
             lifecycleOwner = viewLifecycleOwner
             marketVM = viewModel
             bind.flSearchbar.addView(root)
+        }
+    }
+
+    private fun inflateHistory(){
+        ViewSearchHistoryBinding.inflate(layoutInflater).apply{
+            lifecycleOwner = viewLifecycleOwner
+            marketVM = viewModel
+            vm = historyViewModel
+            search = object : HistoryAdapter.OnClick{
+                override fun onClick(history: String)
+                = viewModel.search(history)
+            }
+            bind.flHistory.addView(root)
         }
     }
 

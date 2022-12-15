@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="viewmodel"
+            type="io.sinzak.android.ui.main.chat.ChatViewModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <TextView
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/tv_appbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/appbar_height"
+            android:gravity="center_vertical"
+            android:layout_marginStart="24dp"
+            android:text="@string/str_title_chat"
+            style="@style/bold16"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:adapter="@{viewmodel.chatRoomAdapter}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_appbar"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="vertical"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

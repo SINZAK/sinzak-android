@@ -46,6 +46,14 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/fl_filter" />
 
+        <FrameLayout
+            android:id="@+id/fl_history"
+            android:visibility="@{vm.searchHistoryOn ? 0 : 8}"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ll_appbar" />
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
