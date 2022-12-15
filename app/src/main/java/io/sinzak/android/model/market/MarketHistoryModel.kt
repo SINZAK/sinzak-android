@@ -40,7 +40,11 @@ class MarketHistoryModel @Inject constructor(override val adapter : HistoryAdapt
 
     fun putHistory(tag : String)
     {
-
+        if(_historyList.value.contains(tag))
+            return
+        val list = _historyList.value.toMutableList()
+        list.add(tag)
+        _historyList.value = list
     }
 
 

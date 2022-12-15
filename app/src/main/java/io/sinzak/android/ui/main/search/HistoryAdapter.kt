@@ -44,7 +44,7 @@ class HistoryAdapter @Inject constructor() : RecyclerView.Adapter<HistoryAdapter
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
+        holder.bind(data[position])
     }
 
 

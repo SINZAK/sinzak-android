@@ -53,6 +53,8 @@ class MarketViewModel @Inject constructor(val soft : SoftKeyModel, val marketArt
     fun search(tag : String)
     {
         marketHistory.putHistory(tag)
+        soft.hideKeyboard()
+        _searchFieldText.value = tag
         _searchHistoryOn.value = false
     }
 
