@@ -93,4 +93,7 @@
     <string name="str_btn_outsourcing_artist">작업해요</string>
     <string name="str_holder_school_time">%s·%s</string>
     <string name="str_title_chat">채팅</string>
+    <string name="str_choose_category">카테고리 선택</string>
+    <string name="str_choose_field">분야를 선택해 주세요</string>
+    <string name="str_choose_category_plz">카테고리를 선택주세요</string>
 </resources>
