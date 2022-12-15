@@ -61,8 +61,15 @@ class MarketViewModel @Inject constructor(val soft : SoftKeyModel, val marketArt
 
 
     fun closeSearchPage(){
+
         if(searchHistoryOn.value)
+        {
             _searchHistoryOn.value = false
+            if(searchFieldText.value.isBlank())
+            {
+                _searchPageOn.value = false
+            }
+        }
         else if(searchPageOn.value)
             _searchPageOn.value = false
         soft.hideKeyboard()
