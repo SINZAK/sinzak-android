@@ -11,6 +11,7 @@ import io.sinzak.android.ui.base.BaseFragment
 import io.sinzak.android.ui.main.market.viewmodel.ArtsViewModel
 import io.sinzak.android.ui.main.market.viewmodel.FilterViewModel
 import io.sinzak.android.ui.main.market.viewmodel.MarketViewModel
+import io.sinzak.android.ui.main.search.HistoryViewModel
 import javax.inject.Inject
 
 
@@ -20,6 +21,10 @@ class MarketFragment : BaseFragment() {
     private val artsViewModel : ArtsViewModel by activityViewModels()
     private val filterViewModel : FilterViewModel by activityViewModels()
     private val viewModel : MarketViewModel by activityViewModels()
+
+    @Inject
+    @HistoryViewModel.MarketHistory
+    lateinit var historyViewModel : HistoryViewModel
 
     private lateinit var bind : FragmentMarketBinding
 
@@ -58,6 +63,8 @@ class MarketFragment : BaseFragment() {
         inflateAppbar()
         inflateFilter()
         inflateSearchBar()
+
+        inflateHistory()
     }
 
     private fun inflateAppbar(){
@@ -98,6 +105,8 @@ class MarketFragment : BaseFragment() {
         ViewSearchHistoryBinding.inflate(layoutInflater).apply{
             lifecycleOwner = viewLifecycleOwner
             marketVM = viewModel
+            vm = historyViewModel
+            bind.flHistory.addView(root)
         }
     }
 

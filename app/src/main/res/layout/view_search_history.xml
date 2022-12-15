@@ -43,7 +43,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-
+            adapter="@{vm.history.adapter}"
+            history="@{vm.history.historyList}"
+            search="@{(tag)-> marketVM ?? marketVM.search(tag)}"
+            delete="@{vm.history::deleteHistory}"
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
     </androidx.appcompat.widget.LinearLayoutCompat>

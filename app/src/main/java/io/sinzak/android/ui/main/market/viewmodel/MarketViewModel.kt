@@ -44,10 +44,15 @@ class MarketViewModel @Inject constructor(val soft : SoftKeyModel, val marketArt
             if(keyword.isEmpty())
                 return
 
-            marketArtModel.putHistory(keyword)
-            _searchHistoryOn.value = false
+            search(keyword)
 
         }
+    }
+
+    fun search(tag : String)
+    {
+        marketArtModel.putHistory(tag)
+        _searchHistoryOn.value = false
     }
 
 
