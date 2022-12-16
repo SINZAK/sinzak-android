@@ -96,4 +96,7 @@
     <string name="str_choose_category">카테고리 선택</string>
     <string name="str_choose_field">분야를 선택해 주세요</string>
     <string name="str_choose_category_plz">카테고리를 선택주세요</string>
+    <string name="str_category_market">작품 판매</string>
+    <string name="str_category_artist">작업해요</string>
+    <string name="str_category_client">의뢰해요</string>
 </resources>

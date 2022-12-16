@@ -4,7 +4,12 @@
 
 
     <data>
-
+        <variable
+            name="vm"
+            type="io.sinzak.android.ui.main.postwrite.CategoryViewModel" />
+        <variable
+            name="fg"
+            type="io.sinzak.android.ui.main.postwrite.CategoryFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,6 +26,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
+                android:onClick="@{v->fg.navigateOnBackPressed()}"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginHorizontal="16dp"
@@ -61,8 +67,73 @@
             
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_marginTop="16dp"
+                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="100dp">
+                
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    isSelect="@{vm.currentField == 0}"
+                    android:onClick="@{v->vm.changeField(0)}"
+                    android:id="@+id/btn_market"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:background="@drawable/btn_category_field">
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_dynamic_heart"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/bold16"
+                        android:text="@string/str_category_market"
+                        android:textColor="@{btnMarket.selected ? @color/on_primary : @color/on_secondary}"/>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    isSelect="@{vm.currentField == 1}"
+                    android:onClick="@{v->vm.changeField(1)}"
+                    android:layout_marginHorizontal="5dp"
+                    android:id="@+id/btn_client"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:background="@drawable/btn_category_field">
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_dynamic_heart"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/bold16"
+                        android:text="@string/str_category_client"
+                        android:textColor="@{btnClient.selected ? @color/on_primary : @color/on_secondary}"/>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    isSelect="@{vm.currentField == 2}"
+                    android:onClick="@{v->vm.changeField(2)}"
+                    android:id="@+id/btn_artist"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:background="@drawable/btn_category_field">
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_dynamic_heart"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/bold16"
+                        android:text="@string/str_category_artist"
+                        android:textColor="@{btnArtist.selected ? @color/on_primary : @color/on_secondary}"/>
+                </androidx.appcompat.widget.LinearLayoutCompat>
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -78,10 +149,16 @@
                 android:drawableStart="@drawable/ic_gray_dot"/>
 
             <com.google.android.material.chip.ChipGroup
+                android:id="@+id/cg_category"
                 android:layout_marginTop="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                isSelect="@{fg.inflateCategory(vm.currentField == 0 ? vm.marketCategories : vm.outsourcingCategories, vm.categorySelected)}"/>
 
             <TextView
                 android:layout_width="match_parent"
