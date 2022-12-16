@@ -18,7 +18,11 @@ class CategoryViewModel @Inject constructor() : BaseViewModel() {
 
     fun changeField(currentField : Int)
     {
-        this.currentField.value = currentField
+        if(this.currentField.value != currentField)
+        {
+            this.currentField.value = currentField
+            categorySelected.value = listOf()
+        }
     }
 
 
@@ -30,10 +34,10 @@ class CategoryViewModel @Inject constructor() : BaseViewModel() {
         else
             list.add(category)
         marketCategories.sortBy {
-            list.contains(it)
+            !list.contains(it)
         }
         outsourcingCategories.sortBy {
-            list.contains(it)
+            !list.contains(it)
         }
         categorySelected.value = list
     }

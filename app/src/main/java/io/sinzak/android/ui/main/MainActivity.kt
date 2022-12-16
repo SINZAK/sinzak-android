@@ -20,6 +20,7 @@ import io.sinzak.android.ui.main.home.notification.NotificationFragment
 import io.sinzak.android.ui.main.market.MarketFragment
 import io.sinzak.android.ui.main.market.artdetail.ArtDetailFragment
 import io.sinzak.android.ui.main.outsourcing.OutsourcingFragment
+import io.sinzak.android.ui.main.postwrite.CategoryFragment
 import io.sinzak.android.ui.main.profile.ProfileFragment
 import io.sinzak.android.ui.main.profile.certification.CertificationFragment
 import io.sinzak.android.ui.main.profile.edit.EditFragment
@@ -131,6 +132,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main)
                 SettingFragment()
             PROFILE_CERTIFICATION ->
                 CertificationFragment()
+
+
+            NEW_POST ->
+                CategoryFragment()
 
             ART_DETAIL ->
                 ArtDetailFragment()

@@ -1,6 +1,7 @@
 package io.sinzak.android.ui.base
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.Rect
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -8,6 +9,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
@@ -116,4 +118,11 @@ fun onActionDone(view : EditText, listener : View.OnClickListener)
 
         false
     }
+}
+
+@BindingAdapter("app:tint")
+fun imageTint(view : ImageView, color: Int)
+{
+    val color = ColorStateList.valueOf(color)
+    view.imageTintList = color
 }

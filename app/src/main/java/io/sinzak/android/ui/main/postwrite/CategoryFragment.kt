@@ -1,10 +1,13 @@
 package io.sinzak.android.ui.main.postwrite
 
 import android.view.View
+import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.activityViewModels
+import com.google.android.material.chip.ChipGroup
 import dagger.hilt.android.AndroidEntryPoint
 import io.sinzak.android.databinding.FragmentWriteCategoryBinding
 import io.sinzak.android.databinding.HolderMarketFilterBinding
+import io.sinzak.android.system.dp
 import io.sinzak.android.ui.base.BaseFragment
 
 @AndroidEntryPoint

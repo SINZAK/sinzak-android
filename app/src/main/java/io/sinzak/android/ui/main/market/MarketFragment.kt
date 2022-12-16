@@ -6,6 +6,7 @@ import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
 import io.sinzak.android.R
 import io.sinzak.android.databinding.*
+import io.sinzak.android.enums.Page
 import io.sinzak.android.system.LogDebug
 import io.sinzak.android.ui.base.BaseFragment
 import io.sinzak.android.ui.main.market.viewmodel.ArtsViewModel
@@ -36,6 +37,7 @@ class MarketFragment : BaseFragment() {
         bind = FragmentMarketBinding.inflate(layoutInflater)
         bind.vm = viewModel
         bind.lifecycleOwner = viewLifecycleOwner
+        bind.fg = this
         return bind.root
     }
 
@@ -118,5 +120,9 @@ class MarketFragment : BaseFragment() {
     fun showSortBottom()
     {
         sortView.show(requireActivity().supportFragmentManager,sortView.tag)
+    }
+
+    fun newPostPage(){
+        navigator.changePage(Page.NEW_POST)
     }
 }

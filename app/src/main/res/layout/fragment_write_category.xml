@@ -89,7 +89,7 @@
                         android:layout_height="wrap_content"
                         style="@style/bold16"
                         android:text="@string/str_category_market"
-                        android:textColor="@{btnMarket.selected ? @color/on_primary : @color/on_secondary}"/>
+                        android:textColor="@{btnMarket.isSelected() ? @color/on_primary : @color/on_secondary}"/>
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.appcompat.widget.LinearLayoutCompat
@@ -111,7 +111,7 @@
                         android:layout_height="wrap_content"
                         style="@style/bold16"
                         android:text="@string/str_category_client"
-                        android:textColor="@{btnClient.selected ? @color/on_primary : @color/on_secondary}"/>
+                        android:textColor="@{btnClient.isSelected() ? @color/on_primary : @color/on_secondary}"/>
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.appcompat.widget.LinearLayoutCompat
@@ -132,7 +132,7 @@
                         android:layout_height="wrap_content"
                         style="@style/bold16"
                         android:text="@string/str_category_artist"
-                        android:textColor="@{btnArtist.selected ? @color/on_primary : @color/on_secondary}"/>
+                        android:textColor="@{btnArtist.isSelected() ? @color/on_primary : @color/on_secondary}"/>
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
             </androidx.appcompat.widget.LinearLayoutCompat>
@@ -152,6 +152,8 @@
                 android:id="@+id/cg_category"
                 android:layout_marginTop="16dp"
                 android:layout_width="match_parent"
+                app:chipSpacingVertical="6dp"
+                android:animateLayoutChanges="true"
                 android:layout_height="match_parent"
                 android:layout_weight="1"/>
 
