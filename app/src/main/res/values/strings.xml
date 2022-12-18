@@ -103,4 +103,9 @@
     <string name="str_write_art_info">작품 정보</string>
     <string name="str_count_won">원</string>
     <string name="str_enable_negotiation">가격제안 받기</string>
+    <string name="str_done">완료</string>
+    <string name="str_input_spec">대략의 작품 사이즈를 알려주세요.</string>
+    <string name="str_spec_canvas">캔버스</string>
+    <string name="str_spec_dimension">상세 사이즈</string>
+    <string name="str_write_spec">작품 사이즈(선택)</string>
 </resources>
