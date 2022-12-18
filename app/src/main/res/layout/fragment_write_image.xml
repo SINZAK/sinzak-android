@@ -16,7 +16,7 @@
             android:id="@+id/ll_appbar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/appbar_height"
-            android:background="@color/on_primary"
+            android:background="@color/background0"
             android:elevation="2dp"
             android:gravity="center_vertical"
             app:layout_constraintTop_toTopOf="parent">

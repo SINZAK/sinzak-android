@@ -13,6 +13,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@color/background0"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -20,7 +21,7 @@
             android:id="@+id/ll_appbar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/appbar_height"
-            android:background="@color/on_primary"
+            android:background="@color/background0"
             android:elevation="2dp"
             android:gravity="center_vertical"
             app:layout_constraintTop_toTopOf="parent">
@@ -59,7 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/regular16"
-                android:textColor="@color/gray80"
+                android:textColor="@color/text3"
                 android:drawablePadding="8dp"
                 android:paddingStart="8dp"
                 android:text="@string/str_choose_field"
@@ -142,7 +143,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/regular16"
-                android:textColor="@color/gray80"
+                android:textColor="@color/text3"
                 android:drawablePadding="8dp"
                 android:paddingStart="8dp"
                 android:text="@string/str_choose_category_plz"

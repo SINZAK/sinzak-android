@@ -2,7 +2,7 @@
 <resources>
     
     <style name="textRegular">
-        <item name="android:textColor">?attr/colorOnSecondary</item>
+        <item name="android:textColor">@color/text0</item>
         <item name="fontFamily">@font/spoqa_regular</item>
     </style>
 
@@ -17,7 +17,7 @@
 
 
     <style name="textMedium">
-        <item name="android:textColor">?attr/colorOnSecondary</item>
+        <item name="android:textColor">@color/text0</item>
         <item name="fontFamily">@font/spoqa_medium</item>
     </style>
 
@@ -34,7 +34,7 @@
     </style>
 
     <style name="textBold">
-        <item name="android:textColor">?attr/colorOnSecondary</item>
+        <item name="android:textColor">@color/text0</item>
         <item name="fontFamily">@font/spoqa_bold</item>
     </style>
 
