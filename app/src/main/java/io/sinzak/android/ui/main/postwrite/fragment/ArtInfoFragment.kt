@@ -4,6 +4,7 @@ import android.view.View
 import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
 import io.sinzak.android.databinding.FragmentWriteArtinfoBinding
+import io.sinzak.android.enums.Page
 import io.sinzak.android.ui.base.BaseFragment
 import io.sinzak.android.ui.main.postwrite.viewmodels.InfoViewModel
 
@@ -30,6 +31,10 @@ class ArtInfoFragment : BaseFragment() {
         bind.lifecycleOwner = viewLifecycleOwner
         bind.fg = this
         bind.vm = viewModel
+    }
+
+    fun goSpecPage(){
+        navigator.changePage(Page.NEW_POST_SPEC)
     }
 
 }

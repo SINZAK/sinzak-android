@@ -168,6 +168,7 @@
 
 
             <TextView
+                android:onClick="@{v->fg.goSpecPage()}"
                 android:layout_marginTop="28dp"
                 style="@style/medium16"
                 android:layout_width="match_parent"

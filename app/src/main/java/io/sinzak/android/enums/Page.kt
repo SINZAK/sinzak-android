@@ -16,6 +16,7 @@ enum class Page {
     NEW_POST,
     NEW_POST_IMAGE,
     NEW_POST_INFO,
+    NEW_POST_SPEC,
 
     ART_DETAIL,
 

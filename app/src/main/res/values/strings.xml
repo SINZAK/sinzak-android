@@ -108,4 +108,13 @@
     <string name="str_spec_canvas">캔버스</string>
     <string name="str_spec_dimension">상세 사이즈</string>
     <string name="str_write_spec">작품 사이즈(선택)</string>
+    <string name="str_canvas_shape">캔버스 형태</string>
+    <string name="str_category_figure">Figure(인물형)</string>
+    <string name="str_category_paysage">Paysage(풍경형)</string>
+    <string name="str_category_marine">Marine(해경형)</string>
+    <string name="str_category_square">Square(정방형)</string>
+    <string name="str_dimension_canvas_size">호</string>
+    <string name="str_canvas_size">캔버스 사이즈</string>
+    <string name="str_centimeter">cm</string>
+    <string name="str_meter">m</string>
 </resources>

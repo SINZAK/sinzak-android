@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import io.sinzak.android.model.insets.SoftKeyModel
 import io.sinzak.android.model.navigate.Navigation
 import io.sinzak.android.system.LogDebug
 import javax.inject.Inject
@@ -18,6 +19,9 @@ abstract class BaseFragment : Fragment(){
 
     @Inject
     lateinit var navigator : Navigation
+
+    @Inject
+    lateinit var ime : SoftKeyModel
 
 
     override fun onCreateView(

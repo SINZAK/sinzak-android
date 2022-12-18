@@ -5,6 +5,7 @@ import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
 import io.sinzak.android.databinding.FragmentWriteCategoryBinding
 import io.sinzak.android.databinding.HolderMarketFilterBinding
+import io.sinzak.android.databinding.HolderWriteCategoryBinding
 import io.sinzak.android.enums.Page
 import io.sinzak.android.ui.base.BaseFragment
 import io.sinzak.android.ui.main.postwrite.viewmodels.CategoryViewModel
@@ -47,7 +48,7 @@ class CategoryFragment : BaseFragment() {
             removeAllViews()
 
             categories.forEach {category ->
-                HolderMarketFilterBinding.inflate(layoutInflater).apply{
+                HolderWriteCategoryBinding.inflate(layoutInflater).apply{
                     val selected = isSelect.contains(category)
                     filter = category
                     select = selected

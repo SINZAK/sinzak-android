@@ -10,6 +10,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.widget.TextViewCompat
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
@@ -123,6 +124,11 @@ fun onActionDone(view : EditText, listener : View.OnClickListener)
 @BindingAdapter("app:tint")
 fun imageTint(view : ImageView, color: Int)
 {
-    val color = ColorStateList.valueOf(color)
-    view.imageTintList = color
+    view.imageTintList = ColorStateList.valueOf(color)
+}
+
+@BindingAdapter("app:drawableTint")
+fun drawableTint(view : TextView, color : Int)
+{
+    TextViewCompat.setCompoundDrawableTintList(view,ColorStateList.valueOf(color))
 }
