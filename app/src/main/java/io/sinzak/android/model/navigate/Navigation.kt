@@ -35,6 +35,11 @@ class Navigation @Inject constructor() {
         return false
     }
 
+    fun removeHistory(page : Page)
+    {
+        pageHistory.remove(page)
+    }
+
     fun clearHistory(){
         pageHistory.clear()
     }

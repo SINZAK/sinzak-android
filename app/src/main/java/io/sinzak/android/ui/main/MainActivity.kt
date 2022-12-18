@@ -20,6 +20,10 @@ import io.sinzak.android.ui.main.home.notification.NotificationFragment
 import io.sinzak.android.ui.main.market.MarketFragment
 import io.sinzak.android.ui.main.market.artdetail.ArtDetailFragment
 import io.sinzak.android.ui.main.outsourcing.OutsourcingFragment
+import io.sinzak.android.ui.main.postwrite.fragment.ArtInfoFragment
+import io.sinzak.android.ui.main.postwrite.fragment.CategoryFragment
+import io.sinzak.android.ui.main.postwrite.fragment.ImageFragment
+import io.sinzak.android.ui.main.postwrite.fragment.SpecFragment
 import io.sinzak.android.ui.main.profile.ProfileFragment
 import io.sinzak.android.ui.main.profile.certification.CertificationFragment
 import io.sinzak.android.ui.main.profile.edit.EditFragment
@@ -132,6 +136,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main)
             PROFILE_CERTIFICATION ->
                 CertificationFragment()
 
+
+            NEW_POST,NEW_POST_IMAGE,NEW_POST_INFO, NEW_POST_SPEC ->
+                inflateWriteFragments(page)
+
             ART_DETAIL ->
                 ArtDetailFragment()
         }
@@ -144,6 +152,19 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main)
 
 
         return true
+    }
+
+
+
+
+    fun inflateWriteFragments(page : Page) : BaseFragment{
+        return when(page)
+        {
+            NEW_POST -> CategoryFragment()
+            NEW_POST_IMAGE -> ImageFragment()
+            NEW_POST_SPEC -> SpecFragment()
+            else -> ArtInfoFragment()
+        }
     }
 
 

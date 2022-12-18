@@ -57,7 +57,7 @@
                 android:gravity="center"
                 android:onClick="@{v->vm.changeNotificationList(0)}"
                 android:text="@string/str_notification_activity"
-                android:textColor="@{vm.page == 0 ? @color/on_secondary : @color/gray60}" />
+                android:textColor="@{vm.page == 0 ? @color/text0 : @color/text1}" />
 
             <TextView
                 style="@style/bold16"
@@ -68,7 +68,7 @@
                 android:gravity="center"
                 android:onClick="@{v->vm.changeNotificationList(1)}"
                 android:text="@string/str_notification_follow"
-                android:textColor="@{vm.page == 1 ? @color/on_secondary : @color/gray60}" />
+                android:textColor="@{vm.page == 1 ? @color/text0 : @color/text1}" />
 
             <Space
                 android:layout_width="match_parent"

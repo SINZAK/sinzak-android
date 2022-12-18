@@ -50,7 +50,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_height="32dp"
                 android:src="@drawable/ic_filter_check"
                 android:visibility="@{vm.sortOrder == Sort.BY_REFER ? 0 : 8}"
-                app:tint="@color/on_secondary" />
+                app:tint="@color/text0" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -76,7 +76,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_height="32dp"
                 android:src="@drawable/ic_filter_check"
                 android:visibility="@{vm.sortOrder == Sort.BY_FAME ? 0 : 8}"
-                app:tint="@color/on_secondary" />
+                app:tint="@color/text0" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -103,7 +103,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_height="32dp"
                 android:src="@drawable/ic_filter_check"
                 android:visibility="@{vm.sortOrder == Sort.BY_RECENT ? 0 : 8}"
-                app:tint="@color/on_secondary" />
+                app:tint="@color/text0" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -130,7 +130,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_height="32dp"
                 android:src="@drawable/ic_filter_check"
                 android:visibility="@{vm.sortOrder == Sort.BY_LOWPRICE ? 0 : 8}"
-                app:tint="@color/on_secondary" />
+                app:tint="@color/text0" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -157,7 +157,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_height="32dp"
                 android:src="@drawable/ic_filter_check"
                 android:visibility="@{vm.sortOrder == Sort.BY_HIGHPRICE ? 0 : 8}"
-                app:tint="@color/on_secondary" />
+                app:tint="@color/text0" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
