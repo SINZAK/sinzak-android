@@ -1,14 +1,13 @@
-package io.sinzak.android.ui.main.postwrite
+package io.sinzak.android.ui.main.postwrite.fragment
 
 import android.view.View
-import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.activityViewModels
-import com.google.android.material.chip.ChipGroup
 import dagger.hilt.android.AndroidEntryPoint
 import io.sinzak.android.databinding.FragmentWriteCategoryBinding
 import io.sinzak.android.databinding.HolderMarketFilterBinding
-import io.sinzak.android.system.dp
+import io.sinzak.android.enums.Page
 import io.sinzak.android.ui.base.BaseFragment
+import io.sinzak.android.ui.main.postwrite.viewmodels.CategoryViewModel
 
 @AndroidEntryPoint
 class CategoryFragment : BaseFragment() {
@@ -36,6 +35,10 @@ class CategoryFragment : BaseFragment() {
 
     override fun showBottomBar(): Boolean {
         return false
+    }
+
+    fun moveToImagePicker(){
+        navigator.changePage(Page.NEW_POST_IMAGE)
     }
 
 

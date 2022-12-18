@@ -99,4 +99,8 @@
     <string name="str_category_market">작품 판매</string>
     <string name="str_category_artist">작업해요</string>
     <string name="str_category_client">의뢰해요</string>
+    <string name="str_submit_picture">사진 등록</string>
+    <string name="str_write_art_info">작품 정보</string>
+    <string name="str_count_won">원</string>
+    <string name="str_enable_negotiation">가격제안 받기</string>
 </resources>

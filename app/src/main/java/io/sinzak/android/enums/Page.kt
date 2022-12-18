@@ -12,7 +12,10 @@ enum class Page {
     PROFILE_EDIT,
     PROFILE_SETTING,
     PROFILE_CERTIFICATION,
+
     NEW_POST,
+    NEW_POST_IMAGE,
+    NEW_POST_INFO,
 
     ART_DETAIL,
 

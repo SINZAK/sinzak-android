@@ -1,4 +1,4 @@
-package io.sinzak.android.ui.main.postwrite
+package io.sinzak.android.ui.main.postwrite.viewmodels
 
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.sinzak.android.ui.base.BaseViewModel
