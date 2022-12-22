@@ -30,7 +30,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
         LogDebug(javaClass.name,"로그인 석세스 $status")
         if(status)
         {
-            startActivity(Intent(this,MainActivity::class.java).apply{
+            startActivity(Intent(this,RegisterActivity::class.java).apply{
                 addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             })

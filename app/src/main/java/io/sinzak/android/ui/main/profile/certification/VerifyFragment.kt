@@ -3,29 +3,28 @@ package io.sinzak.android.ui.main.profile.certification
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
-import io.sinzak.android.databinding.FragmentCertificationBinding
+import io.sinzak.android.databinding.FragmentVerifyBinding
 import io.sinzak.android.enums.Page
 import io.sinzak.android.ui.base.BaseFragment
-import javax.inject.Inject
+import io.sinzak.android.ui.main.profile.edit.EditViewModel
 
 @AndroidEntryPoint
-class CertificationFragment : BaseFragment() {
+class VerifyFragment : BaseFragment(){
 
-    private lateinit var bind : FragmentCertificationBinding
+    private lateinit var bind: FragmentVerifyBinding
 
-    private val viewModel : CertificationViewModel by activityViewModels()
-
+    private val editViewModel : EditViewModel by activityViewModels<EditViewModel>()
 
     override fun getFragmentRoot(): View {
-        bind = FragmentCertificationBinding.inflate(layoutInflater)
+        bind = FragmentVerifyBinding.inflate(layoutInflater)
         return bind.root
     }
 
     override fun onFragmentCreated() {
         bind.apply {
             bind.lifecycleOwner = viewLifecycleOwner
-            vm = viewModel
-            fg = this@CertificationFragment
+            eVm = editViewModel
+            fg = this@VerifyFragment
         }
     }
 
@@ -37,8 +36,9 @@ class CertificationFragment : BaseFragment() {
         navigator.revealHistory()
     }
 
-    fun gotoSchoolAuth(isGraduated : Boolean) {
-        if(navigator.topPage.value==Page.PROFILE_CERTIFICATION)
-            navigator.changePage(Page.PROFILE_WEBMAIL)
+    //겹치는 메서드
+    fun gotoCertificationPage(hasCerti : Boolean){
+        if(!hasCerti) navigator.changePage(Page.PROFILE_CERTIFICATION)
+        else return
     }
 }

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="fg"
+            type="io.sinzak.android.ui.login.email.EmailFragment" />
+        <variable
+            name="vm"
+            type="io.sinzak.android.ui.login.email.EmailViewModel" />
+
+        <variable
+            name="vmCert"
+            type="io.sinzak.android.ui.main.profile.certification.CertificationViewModel" />
+
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/ll_appbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/appbar_height"
+            android:background="@color/background0"
+            android:gravity="center_vertical"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:onClick="@{v->fg.navigateOnBackPressed()}"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginHorizontal="16dp"
+                android:src="@drawable/ic_back" />
+
+            <TextView
+                style="@style/bold16"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@{!vmCert.isGraduate ? @string/str_register_undergrad : @string/str_register_graduated}"
+                />
+
+            <Space
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginHorizontal="16dp" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ll_appbar">
+
+            <TextView
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="32dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="학교 웹메일 인증"
+                style="@style/bold20"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="이메일을 입력하면 인증 메일을 보내드립니다.\n이메일 수신 후 본문에 포함된 링크를 클릭하면 인증이 완료됩니다. "
+                style="@style/bold13"
+                android:textColor="@color/text1"
+                android:layout_marginStart="32dp"/>
+
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/et_gray_filled"
+                android:layout_marginHorizontal="16dp"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/et_email"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@null"
+
+                    android:gravity="center_vertical"
+                    android:paddingStart="24dp"
+                    android:hint="학교메일을 입력하세요."
+                    style="@style/bold16"
+
+                    android:textColor="@color/text0"/>
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_btn_clear"
+                    android:onClick='@{v->etEmail.setText("")}'
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="16dp"/>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <TextView
+                style="@style/medium16"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:layout_marginHorizontal="12dp"
+                android:layout_marginBottom="24dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_gray_filled"
+
+                android:gravity="center"
+                android:onClick="@{v->fg.dismiss()}"
+                android:text="다음에 하기"
+                android:textColor="@color/on_primary"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <TextView
+                style="@style/medium16"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:layout_marginHorizontal="12dp"
+                android:layout_marginBottom="24dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_red_filled"
+                android:gravity="center"
+                android:onClick="@{v->vm.onSubmit()}"
+                android:text="메일 전송"
+                android:textColor="@color/on_primary"
+                app:layout_constraintBottom_toBottomOf="parent" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

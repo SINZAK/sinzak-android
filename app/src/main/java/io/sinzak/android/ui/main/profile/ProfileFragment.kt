@@ -17,6 +17,7 @@ import io.sinzak.android.ui.main.profile.edit.EditViewModel
 import io.sinzak.android.ui.main.profile.viewmodel.ProfileSaleViewModel
 import io.sinzak.android.ui.main.profile.viewmodel.ProfileViewModel
 import io.sinzak.android.ui.main.profile.viewmodel.ProfileWorkViewModel
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class ProfileFragment :BaseFragment() {
@@ -27,6 +28,7 @@ class ProfileFragment :BaseFragment() {
     private val profileSaleViewModel by activityViewModels<ProfileSaleViewModel>()
     private val profileWorkViewModel by activityViewModels<ProfileWorkViewModel>()
     private val editProfileViewModel by activityViewModels<EditViewModel>()
+
 
     override fun getFragmentRoot(): View {
         bind = FragmentProfileBinding.inflate(layoutInflater)
@@ -109,7 +111,6 @@ class ProfileFragment :BaseFragment() {
 
     // 더 보기 다이얼로그
     fun showMoreMenu(){
-
     }
 
     //프로필 편집 클릭

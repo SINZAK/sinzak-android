@@ -177,7 +177,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
 
-            android:onClick="@{v-> fg.gotoSchoolAuth(vm.isGraduate())}"/>
+            android:onClick="@{v-> fg.gotoSchoolAuth(vm.isGraduate()) &amp; vm.onSubmit()}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

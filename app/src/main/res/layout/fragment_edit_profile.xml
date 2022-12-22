@@ -64,7 +64,7 @@
                     style="@style/medium13"
                     android:textColor="@color/secondary"
                     android:layout_marginBottom="14.5dp"/>
-                <LinearLayout
+                <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/cl_profile_underline"
@@ -83,8 +83,8 @@
                         android:background="@null"
                         android:inputType="text"
                         android:textColorHint="@color/gray60"/>
-                </LinearLayout>
-                <LinearLayout
+                </androidx.appcompat.widget.LinearLayoutCompat>
+                <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/cl_profile_underline"
@@ -105,8 +105,8 @@
                         android:background="@null"
                         android:inputType="textMultiLine"
                         android:textColorHint="@color/gray60"/>
-                </LinearLayout>
-                <LinearLayout
+                </androidx.appcompat.widget.LinearLayoutCompat>
+                <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/cl_profile_underline"
@@ -132,8 +132,8 @@
                         android:text="@{!vm.hasCertification ? @string/str_edit_auth_false : @string/str_edit_auth_true }"
                         android:textColor="@{!vm.hasCertification ? @color/secondary : @color/gray60 }"
                         android:onClick="@{v-> fg.gotoCertificationPage(vm.hasCertification)}"/>
-                </LinearLayout>
-                <LinearLayout
+                </androidx.appcompat.widget.LinearLayoutCompat>
+                <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/cl_profile_underline"
@@ -158,15 +158,17 @@
                         style="@style/medium16"
                         android:textColor="@color/secondary"
                         android:layout_marginEnd="3.8dp"/>
-                </LinearLayout>
+                </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/str_edit_apply_verify"
                     style="@style/medium13"
+                    android:onClick="@{v-> fg.gotoVerifyPage()}"
                     android:textColor="@color/secondary"
                     android:layout_marginTop="23.8dp"/>
+
 
 
             </androidx.appcompat.widget.LinearLayoutCompat>

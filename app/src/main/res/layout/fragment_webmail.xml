@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="fg"
+            type="io.sinzak.android.ui.main.profile.certification.WebmailFragment" />
+        <variable
+            name="vm"
+            type="io.sinzak.android.ui.main.profile.certification.WebmailViewModel" />
+        <variable
+            name="cVm"
+            type="io.sinzak.android.ui.main.profile.certification.CertificationViewModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tool:context=".ui.main.profile.certification.WebmailFragment">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/ic_bg_button"
+            android:onClick="@{v->fg.navigateOnBackPressed()}"
+            android:src="@drawable/ic_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView"
+            style="@style/bold16"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/appbar_height"
+            android:gravity="center"
+            android:text="@{cVm.isGraduate ? @string/str_webMail_isGraduate_true : @string/str_webMail_isGraduate_false}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayoutCompat3"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="25.5dp">
+
+            <TextView
+                android:id="@+id/textView7"
+                style="@style/bold16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/str_webMail_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:paddingHorizontal="17dp"
+                />
+
+            <TextView
+                android:id="@+id/textView8"
+                style="@style/regular13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="11.8dp"
+                android:paddingStart="17dp"
+                android:paddingEnd="15dp"
+                android:text="@string/str_webMail_explain"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:orientation="horizontal"
+                android:background="@drawable/ll_webmail_input"
+                android:gravity="center_vertical"
+                android:layout_marginTop="16.6dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView8">
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    style="@style/bold13"
+                    android:inputType="textEmailAddress"
+                    android:hint="@string/str_webMail_hint"
+                    android:textColorHint="@color/gray60"
+                    android:background="@null"
+                    android:textColor="@color/black"
+                    android:text="@{vm.webMailInput}"
+                    android:onTextChanged="@{(cs,a,b,c) -> vm.typeInputText(cs)}"
+                    />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_btn_clear"
+                    android:onClick="@{v-> vm.deleteInput()}"/>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/linearLayoutCompat3"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/btn_height"
+            android:layout_marginBottom="25.5dp"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp"
+            app:layout_constraintBottom_toBottomOf="parent">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/str_webMail_next_time"
+                style="@style/bold16"
+                android:textColor="@color/white"
+                android:background="@drawable/btn_gray40_color"
+                android:gravity="center"/>
+            <Space
+                android:layout_width="11dp"
+                android:layout_height="match_parent"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/str_webMail_send"
+                style="@style/bold16"
+                android:textColor="@color/white"
+                android:background="@drawable/btn_primary_color"
+                android:gravity="center"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+        
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

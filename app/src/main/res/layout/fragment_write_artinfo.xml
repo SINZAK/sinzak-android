@@ -63,7 +63,7 @@
                 android:textColor="@color/text3"
                 android:drawablePadding="8dp"
                 android:paddingStart="8dp"
-                android:text="작품 제목"
+                android:text="@string/str_write_art_title"
                 android:drawableStart="@drawable/ic_gray_dot"/>
 
             <EditText
@@ -73,7 +73,7 @@
                 android:background="@drawable/et_gray_filled"
                 android:gravity="center_vertical"
                 android:paddingStart="24dp"
-                android:hint="작품 제목"
+                android:hint="@string/str_write_art_title"
                 style="@style/bold16"
                 android:textColor="@color/text0"/>
 
@@ -87,7 +87,7 @@
                 android:textColor="@color/text3"
                 android:drawablePadding="8dp"
                 android:paddingStart="8dp"
-                android:text="가격"
+                android:text="@string/str_write_art_price"
                 android:drawableStart="@drawable/ic_gray_dot"/>
 
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -149,7 +149,7 @@
                 android:textColor="@color/text3"
                 android:drawablePadding="8dp"
                 android:paddingStart="8dp"
-                android:text="작품 설명"
+                android:text="@string/str_write_art_description"
                 android:drawableStart="@drawable/ic_gray_dot"/>
 
 
@@ -162,7 +162,7 @@
                 android:gravity="top"
                 android:paddingVertical="24dp"
                 android:paddingHorizontal="32dp"
-                android:hint="작품 설명"
+                android:hint="@string/str_write_art_description"
                 style="@style/regular16"
                 android:textColor="@color/text0"/>
 

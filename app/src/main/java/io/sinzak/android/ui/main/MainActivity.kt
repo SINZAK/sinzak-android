@@ -26,6 +26,8 @@ import io.sinzak.android.ui.main.postwrite.fragment.ImageFragment
 import io.sinzak.android.ui.main.postwrite.fragment.SpecFragment
 import io.sinzak.android.ui.main.profile.ProfileFragment
 import io.sinzak.android.ui.main.profile.certification.CertificationFragment
+import io.sinzak.android.ui.main.profile.certification.VerifyFragment
+import io.sinzak.android.ui.main.profile.certification.WebmailFragment
 import io.sinzak.android.ui.main.profile.edit.EditFragment
 import io.sinzak.android.ui.main.profile.sale_with_work.SaleFragment
 import io.sinzak.android.ui.main.profile.sale_with_work.WorkFragment
@@ -140,6 +142,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main)
             NEW_POST,NEW_POST_IMAGE,NEW_POST_INFO, NEW_POST_SPEC ->
                 inflateWriteFragments(page)
 
+            PROFILE_WEBMAIL ->
+                WebmailFragment()
+            PROFILE_VERIFY ->
+                VerifyFragment()
             ART_DETAIL ->
                 ArtDetailFragment()
         }

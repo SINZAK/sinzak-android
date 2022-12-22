@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <data>
+        <variable
+            name="vm"
+            type="io.sinzak.android.ui.login.agreement.AgreementViewModel" />
+        <variable
+            name="fg"
+            type="io.sinzak.android.ui.login.agreement.AgreementFragment" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/ll_appbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/appbar_height"
+            android:background="@color/background0"
+            android:gravity="center_vertical"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:onClick="@{v->fg.navigateOnBackPressed()}"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginHorizontal="16dp"
+                android:src="@drawable/ic_back" />
+
+            <TextView
+                style="@style/bold16"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                />
+
+            <Space
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginHorizontal="16dp" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ll_appbar">
+
+            <TextView
+                style="@style/bold20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/str_register_agree_service"
+                />
+
+            <TextView
+                android:layout_marginTop="24dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/str_register_agree_all"
+                android:gravity="center_vertical"
+                android:drawablePadding="4dp"
+                isSelect="@{vm.checkMarketing &amp;&amp; vm.checkRequire &amp;&amp; vm.checkPersonal &amp;&amp; vm.checkAge}"
+                android:onClick="@{v->vm.toggleAll()}"
+                android:layout_marginStart="32dp"
+                style="@style/bold16"
+                app:drawableStartCompat="@drawable/ic_check_32" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginHorizontal="12dp"
+                android:background="@color/text1"/>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:gravity="center_vertical"
+                android:layout_marginVertical="12dp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_register_agree_age"
+                    android:gravity="center_vertical"
+                    android:drawablePadding="4dp"
+
+                    android:layout_marginStart="32dp"
+                    style="@style/medium16"
+                    android:onClick="@{v->vm.toggleAge()}"
+                    isSelect="@{vm.checkAge}"
+                    app:drawableStartCompat="@drawable/ic_check_32" />
+
+                <ImageView
+                    android:onClick="@{v->void}"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginHorizontal="16dp"
+                    app:tint="@color/text1"
+                    android:src="@drawable/ic_arrow_right" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:gravity="center_vertical"
+                android:layout_marginVertical="12dp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_register_agree_require"
+                    android:gravity="center_vertical"
+                    android:drawablePadding="4dp"
+
+                    android:layout_marginStart="32dp"
+                    style="@style/medium16"
+                    android:onClick="@{v->vm.toggleRequire()}"
+                    isSelect="@{vm.checkRequire}"
+                    app:drawableStartCompat="@drawable/ic_check_32" />
+
+                <ImageView
+                    android:onClick="@{v->void}"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginHorizontal="16dp"
+                    app:tint="@color/text1"
+                    android:src="@drawable/ic_arrow_right" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:gravity="center_vertical"
+                android:layout_marginVertical="12dp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_register_agree_personal"
+                    android:gravity="center_vertical"
+                    android:drawablePadding="4dp"
+
+                    android:layout_marginStart="32dp"
+                    style="@style/medium16"
+                    android:onClick="@{v->vm.togglePersonal()}"
+                    isSelect="@{vm.checkPersonal}"
+                    app:drawableStartCompat="@drawable/ic_check_32" />
+
+                <ImageView
+                    android:onClick="@{v->void}"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginHorizontal="16dp"
+                    app:tint="@color/text1"
+                    android:src="@drawable/ic_arrow_right" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:gravity="center_vertical"
+                android:layout_marginVertical="12dp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_register_agree_marketing"
+                    android:gravity="center_vertical"
+                    android:drawablePadding="4dp"
+
+                    android:layout_marginStart="32dp"
+                    style="@style/medium16"
+                    android:onClick="@{v->vm.toggleMarketing()}"
+                    isSelect="@{vm.checkMarketing}"
+                    app:drawableStartCompat="@drawable/ic_check_32" />
+
+                <ImageView
+                    android:onClick="@{v->void}"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginHorizontal="16dp"
+                    app:tint="@color/text1"
+                    android:src="@drawable/ic_arrow_right" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+        <TextView
+            style="@style/medium16"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:background="@drawable/btn_red_filled"
+            android:layout_marginBottom="24dp"
+            android:layout_marginHorizontal="12dp"
+
+            android:enabled="@{vm.checkAge &amp;&amp; vm.checkPersonal &amp;&amp; vm.checkRequire}"
+            android:gravity="center"
+            android:onClick="@{v->vm.onSubmit()}"
+            android:text="@string/str_next"
+            android:textColor="@color/on_primary"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
