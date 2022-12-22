@@ -126,4 +126,6 @@
     <string name="str_write_art_title">작품 제목</string>
     <string name="str_write_art_price">가격</string>
     <string name="str_write_art_description">작품 설명</string>
+    <string name="str_register_undergrad">재학생 인증</string>
+    <string name="str_register_graduated">졸업생 인증</string>
 </resources>

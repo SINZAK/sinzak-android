@@ -68,7 +68,7 @@
                 android:text="@string/str_register_agree_all"
                 android:gravity="center_vertical"
                 android:drawablePadding="4dp"
-                android:checked="@{vm.checkMarketing &amp;&amp; vm.checkRequire &amp;&amp; vm.checkPersonal &amp;&amp; vm.checkAge}"
+                isSelect="@{vm.checkMarketing &amp;&amp; vm.checkRequire &amp;&amp; vm.checkPersonal &amp;&amp; vm.checkAge}"
                 android:onClick="@{v->vm.toggleAll()}"
                 android:layout_marginStart="32dp"
                 style="@style/bold16"
@@ -98,7 +98,7 @@
                     android:layout_marginStart="32dp"
                     style="@style/medium16"
                     android:onClick="@{v->vm.toggleAge()}"
-                    android:checked="@{vm.checkAge}"
+                    isSelect="@{vm.checkAge}"
                     app:drawableStartCompat="@drawable/ic_check_32" />
 
                 <ImageView
@@ -126,7 +126,7 @@
                     android:layout_marginStart="32dp"
                     style="@style/medium16"
                     android:onClick="@{v->vm.toggleRequire()}"
-                    android:checked="@{vm.checkRequire}"
+                    isSelect="@{vm.checkRequire}"
                     app:drawableStartCompat="@drawable/ic_check_32" />
 
                 <ImageView
@@ -154,7 +154,7 @@
                     android:layout_marginStart="32dp"
                     style="@style/medium16"
                     android:onClick="@{v->vm.togglePersonal()}"
-                    android:checked="@{vm.checkPersonal}"
+                    isSelect="@{vm.checkPersonal}"
                     app:drawableStartCompat="@drawable/ic_check_32" />
 
                 <ImageView
@@ -182,7 +182,7 @@
                     android:layout_marginStart="32dp"
                     style="@style/medium16"
                     android:onClick="@{v->vm.toggleMarketing()}"
-                    android:checked="@{vm.checkMarketing}"
+                    isSelect="@{vm.checkMarketing}"
                     app:drawableStartCompat="@drawable/ic_check_32" />
 
                 <ImageView

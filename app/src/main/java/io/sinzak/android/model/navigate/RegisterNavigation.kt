@@ -1,16 +1,15 @@
 package io.sinzak.android.model.navigate
 
 
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityComponent
 import io.sinzak.android.enums.RegisterPage
+import io.sinzak.android.system.LogDebug
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
+import javax.inject.Singleton
 
 
-
+@Singleton
 class RegisterNavigation @Inject constructor() {
 
     private val _topPage = MutableStateFlow(RegisterPage.PAGE_AGREEMENT)
@@ -21,10 +20,12 @@ class RegisterNavigation @Inject constructor() {
     fun changePage(page : RegisterPage)
     {
         if(_topPage.value != page) {
+            LogDebug(javaClass.name,"PAGE INPUT $page")
             pageHistory.add(_topPage.value)
             _topPage.value = page
         }
     }
+
 
     fun revealHistory() : Boolean{
         if(pageHistory.isNotEmpty())
@@ -49,13 +50,6 @@ class RegisterNavigation @Inject constructor() {
 
 
 
-    @dagger.Module
-    @InstallIn(ActivityComponent::class)
-    internal object Module{
-        @Provides
-        internal fun provideNavigation() : RegisterNavigation{
-            return RegisterNavigation()
-        }
-    }
+
 
 }

@@ -36,6 +36,9 @@ class InterestFragment : BaseFragment() {
             vm = viewModel
             fg = this@InterestFragment
         }
+
+        inflateDesignChips(viewModel.chosenDesignChip.value)
+        inflatePureChips(viewModel.chosenPureChip.value)
     }
 
     fun inflateDesignChips(chosenChip : MutableList<String>) : Boolean{
@@ -43,10 +46,13 @@ class InterestFragment : BaseFragment() {
         bind.cgDesign.removeAllViews()
         for (genre in viewModel.genreDesign) {
             HolderWriteCategoryBinding.inflate(layoutInflater).apply {
+                var isSelect = genre in chosenChip
                 filter = genre
-                select = genre in chosenChip
+                select = isSelect
                 root.setOnClickListener {
                     viewModel.putChosenDesign(genre)
+                    isSelect = !isSelect
+                    select = isSelect
                 }
                 bind.cgDesign.addView(root)
             }
@@ -60,11 +66,14 @@ class InterestFragment : BaseFragment() {
         for (genre in viewModel.genrePure) {
             HolderWriteCategoryBinding.inflate(layoutInflater).apply {
                 filter = genre
-                select = genre in chosenChip
+                var isSelect = genre in chosenChip
+                select = isSelect
                 root.setOnClickListener {
                     viewModel.putChosenPure(genre)
+                    isSelect = !isSelect
+                    select = isSelect
                 }
-                bind.cgDesign.addView(root)
+                bind.cgPure.addView(root)
             }
         }
         return true

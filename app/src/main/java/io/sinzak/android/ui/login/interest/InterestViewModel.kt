@@ -1,6 +1,7 @@
 package io.sinzak.android.ui.login.interest
 
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.sinzak.android.enums.RegisterPage
 import io.sinzak.android.model.navigate.RegisterNavigation
 import io.sinzak.android.ui.base.BaseViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -34,7 +35,7 @@ class InterestViewModel @Inject constructor(val regNav : RegisterNavigation) : B
     }
 
     fun onSubmit(){
-
+        regNav.changePage(RegisterPage.PAGE_UNIVERSITY)
     }
 
 

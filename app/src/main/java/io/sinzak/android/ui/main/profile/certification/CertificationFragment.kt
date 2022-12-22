@@ -5,6 +5,7 @@ import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
 import io.sinzak.android.databinding.FragmentCertificationBinding
 import io.sinzak.android.ui.base.BaseFragment
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class CertificationFragment : BaseFragment() {
@@ -12,6 +13,7 @@ class CertificationFragment : BaseFragment() {
     private lateinit var bind : FragmentCertificationBinding
 
     private val viewModel : CertificationViewModel by activityViewModels()
+
 
     override fun getFragmentRoot(): View {
         bind = FragmentCertificationBinding.inflate(layoutInflater)

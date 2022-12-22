@@ -12,7 +12,7 @@ import javax.inject.Inject
 class AgreementViewModel @Inject constructor(val regNav : RegisterNavigation) : BaseViewModel() {
 
     fun onSubmit(){
-        regNav.changePage(RegisterPage.PAGE_INTEREST)
+        regNav.changePage(RegisterPage.PAGE_NAME)
     }
 
 
@@ -31,7 +31,7 @@ class AgreementViewModel @Inject constructor(val regNav : RegisterNavigation) : 
         {
             toggleAge()
             toggleMarketing()
-            toggleRequire()
+            togglePersonal()
             toggleRequire()
         }
         else{
