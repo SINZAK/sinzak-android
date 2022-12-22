@@ -10,6 +10,7 @@ import io.sinzak.android.enums.RegisterPage.*
 import io.sinzak.android.ui.base.BaseActivity
 import io.sinzak.android.ui.base.BaseFragment
 import io.sinzak.android.ui.login.agreement.AgreementFragment
+import io.sinzak.android.ui.login.name.NameFragment
 import io.sinzak.android.ui.main.profile.certification.CertificationFragment
 import kotlinx.coroutines.launch
 
@@ -49,7 +50,7 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>(R.layout.activity
             PAGE_UNIVERSITY_CERT ->
                 CertificationFragment()
             PAGE_NAME ->
-                TODO()
+                NameFragment()
             PAGE_INTEREST ->
                 TODO()
             PAGE_UNIVERSITY ->

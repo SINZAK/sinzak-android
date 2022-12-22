@@ -123,4 +123,7 @@
     <string name="str_register_agree_require">(필수) 서비스 이용 약관</string>
     <string name="str_register_agree_personal">(필수) 개인정보 처리방침</string>
     <string name="str_register_agree_marketing">(선택) 마케팅 정보 수신동의</string>
+    <string name="str_write_art_title">작품 제목</string>
+    <string name="str_write_art_price">가격</string>
+    <string name="str_write_art_description">작품 설명</string>
 </resources>
