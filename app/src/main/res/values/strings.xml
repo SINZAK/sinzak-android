@@ -117,4 +117,10 @@
     <string name="str_canvas_size">캔버스 사이즈</string>
     <string name="str_centimeter">cm</string>
     <string name="str_meter">m</string>
+    <string name="str_register_agree_service">서비스 이용 동의</string>
+    <string name="str_register_agree_all">약관 전체 동의</string>
+    <string name="str_register_agree_age">만 14세 이상입니다.</string>
+    <string name="str_register_agree_require">(필수) 서비스 이용 약관</string>
+    <string name="str_register_agree_personal">(필수) 개인정보 처리방침</string>
+    <string name="str_register_agree_marketing">(선택) 마케팅 정보 수신동의</string>
 </resources>
