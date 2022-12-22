@@ -5,6 +5,7 @@ enum class Page {
     HOME_NOTIFICATION,
     MARKET,
     OUTSOURCING,
+    CHAT,
     PROFILE,
     PROFILE_SALE,
     PROFILE_WORK,
@@ -13,6 +14,11 @@ enum class Page {
     PROFILE_CERTIFICATION,
     PROFILE_WEBMAIL,
     PROFILE_VERIFY,
+
+    NEW_POST,
+    NEW_POST_IMAGE,
+    NEW_POST_INFO,
+    NEW_POST_SPEC,
 
     ART_DETAIL,
 

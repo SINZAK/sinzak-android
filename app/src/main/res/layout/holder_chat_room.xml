@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <data>
+        <variable
+            name="chat"
+            type="io.sinzak.android.remote.dataclass.chat.ChatRoom" />
+    </data>
+
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:gravity="center_vertical"
+        android:layout_height="80dp">
+        <ImageView
+            android:layout_width="48dp"
+            android:src="@drawable/ic_user_temp"
+            android:layout_height="48dp"
+            android:layout_marginStart="16dp"/>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_marginHorizontal="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:gravity="center_vertical"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{chat.sender}"
+                    style="@style/medium16"
+                    />
+                <ImageView
+                    android:visibility="@{chat.userVerified ? 0 : 8}"
+                    android:layout_marginStart="2dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_star"/>
+
+                <TextView
+                    android:layout_marginStart="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{@string/str_holder_school_time(chat.school, chat.time)}"
+                    style="@style/regular13"
+                    android:textColor="@color/gray60"
+                    android:layout_marginBottom="3dp"/>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:visibility="@{chat.unreadCount == 0 ? 8 : 0}"
+                android:text="@{chat.lastMsg}"
+                style="@style/medium16"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:visibility="@{chat.unreadCount == 0 ? 0 : 8}"
+                android:text="@{chat.lastMsg}"
+                style="@style/regular13"
+                />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <TextView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:gravity="center"
+            android:visibility="@{chat.unreadCount &lt; 1 ? 8 : 0}"
+            android:text="@{String.valueOf(chat.unreadCount)}"
+            style="@style/medium13"
+            android:background="@drawable/tv_chat_noti"
+            android:textSize="14sp"
+            android:layout_marginEnd="16dp"
+            android:textColor="@color/on_primary"/>
+
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

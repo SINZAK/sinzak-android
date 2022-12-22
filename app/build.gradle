@@ -85,4 +85,8 @@ dependencies {
     implementation 'com.tbuonomo:dotsindicator:4.3'
 
 
+    // Naver SDK
+    implementation "com.navercorp.nid:oauth:5.3.0"
+
+
 }

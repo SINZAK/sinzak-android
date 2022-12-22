@@ -1,9 +1,16 @@
 package io.sinzak.android.ui.base
 
+import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.Rect
 import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.widget.TextViewCompat
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
@@ -91,4 +98,37 @@ fun provideViewpager(view : DotsIndicator, viewPager : ViewPager2, adapter : Rec
         view.attachTo(viewPager)
     }
 
+}
+
+@BindingAdapter("onActionDone")
+fun onActionDone(view : EditText, listener : View.OnClickListener)
+{
+    view.setOnEditorActionListener { view, i, keyEvent ->
+        when(i)
+        {
+            EditorInfo.IME_ACTION_DONE, EditorInfo.IME_ACTION_SEARCH, EditorInfo.IME_ACTION_NEXT ->{
+
+                listener.onClick(view)
+                val im = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                im.hideSoftInputFromWindow(view.windowToken,0)
+                view.clearFocus()
+
+                return@setOnEditorActionListener true
+            }
+        }
+
+        false
+    }
+}
+
+@BindingAdapter("app:tint")
+fun imageTint(view : ImageView, color: Int)
+{
+    view.imageTintList = ColorStateList.valueOf(color)
+}
+
+@BindingAdapter("app:drawableTint")
+fun drawableTint(view : TextView, color : Int)
+{
+    TextViewCompat.setCompoundDrawableTintList(view,ColorStateList.valueOf(color))
 }

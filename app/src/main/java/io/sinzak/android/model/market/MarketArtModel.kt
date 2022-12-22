@@ -3,6 +3,7 @@ package io.sinzak.android.model.market
 import io.sinzak.android.enums.Sort
 import io.sinzak.android.model.BaseModel
 import io.sinzak.android.remote.dataclass.CResponse
+import io.sinzak.android.ui.main.search.HistoryViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
@@ -39,4 +40,7 @@ class MarketArtModel @Inject constructor() : BaseModel() {
     override fun onConnectionSuccess(api: Int, body: CResponse) {
 
     }
+
+
+
 }
