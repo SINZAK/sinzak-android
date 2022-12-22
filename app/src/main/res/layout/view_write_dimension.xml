@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+        <variable
+            name="fg"
+            type="io.sinzak.android.ui.main.postwrite.fragment.SpecFragment" />
+    </data>
+
+
+    <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:gravity="center">
+
+            <TextView
+                style="@style/bold13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                android:text="가로"
+                android:textColor="@color/text3" />
+
+
+            <EditText
+                style="@style/bold20"
+                android:layout_width="90dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="13dp"
+                android:background="@drawable/et_gray_filled"
+                onActionDone="@{v->etCmV.requestFocus() &amp; fg.ime.showKeyboard(etCmV)}"
+                android:gravity="center"
+                android:inputType="numberDecimal" />
+
+            <TextView
+                style="@style/bold16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/str_meter"
+                android:textColor="@color/text3" />
+
+            <EditText
+                android:id="@+id/et_cm_v"
+                style="@style/bold20"
+                android:layout_width="120dp"
+                android:layout_height="60dp"
+                android:background="@drawable/et_gray_filled"
+                android:gravity="center"
+                android:inputType="numberDecimal" />
+
+            <TextView
+                style="@style/bold16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/str_centimeter"
+                android:textColor="@color/text3" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:gravity="center">
+
+            <TextView
+                style="@style/bold13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                android:text="세로"
+                android:textColor="@color/text3" />
+
+
+            <EditText
+                style="@style/bold20"
+                android:layout_width="90dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="13dp"
+                android:background="@drawable/et_gray_filled"
+                onActionDone="@{v->etCmH.requestFocus() &amp; fg.ime.showKeyboard(etCmH)}"
+                android:gravity="center"
+                android:inputType="numberDecimal" />
+
+            <TextView
+                style="@style/bold16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/str_meter"
+                android:textColor="@color/text3" />
+
+            <EditText
+                android:id="@+id/et_cm_h"
+                style="@style/bold20"
+                android:layout_width="120dp"
+                android:layout_height="60dp"
+                android:background="@drawable/et_gray_filled"
+                android:gravity="center"
+                android:inputType="numberDecimal" />
+
+            <TextView
+                style="@style/bold16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/str_centimeter"
+                android:textColor="@color/text3" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:gravity="center">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+                 <TextView
+                     style="@style/bold13"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_marginStart="7dp"
+                     android:text="높이"
+                     android:textColor="@color/text3" />
+
+                  <TextView
+                      style="@style/regular13"
+                      android:layout_width="wrap_content"   
+                      android:layout_height="wrap_content"
+                      android:layout_marginStart="7dp"
+                      android:text="선택"
+                      android:textColor="@color/text1" />
+
+
+
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+
+
+
+
+
+
+
+            <EditText
+                style="@style/bold20"
+                android:layout_width="90dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="13dp"
+                android:background="@drawable/et_gray_filled"
+                android:gravity="center"
+                android:inputType="numberDecimal" />
+
+            <TextView
+                style="@style/bold16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/str_meter"
+                android:textColor="@color/text3" />
+
+            <EditText
+                style="@style/bold20"
+                android:layout_width="120dp"
+                android:layout_height="60dp"
+                android:background="@drawable/et_gray_filled"
+                android:gravity="center"
+                android:inputType="numberDecimal" />
+
+            <TextView
+                style="@style/bold16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/str_centimeter"
+                android:textColor="@color/text3" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

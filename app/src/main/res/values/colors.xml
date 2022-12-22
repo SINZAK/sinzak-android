@@ -17,6 +17,14 @@
     <color name="secondary">#4040FF</color>
     <color name="on_secondary">#212121</color>
 
+    <color name="background0">#FFFFFF</color>
+    <color name="background1">#EEEEEE</color>
+
+    <color name="text0">#212121</color>
+    <color name="text1">#999999</color>
+    <color name="text2">#BFBFBF</color>
+    <color name="text3">#666666</color>
+
 
 
     <color name="gray80">#666666</color>

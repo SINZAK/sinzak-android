@@ -6,11 +6,14 @@ import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
 import io.sinzak.android.R
 import io.sinzak.android.databinding.*
+import io.sinzak.android.enums.Page
 import io.sinzak.android.system.LogDebug
 import io.sinzak.android.ui.base.BaseFragment
 import io.sinzak.android.ui.main.market.viewmodel.ArtsViewModel
 import io.sinzak.android.ui.main.market.viewmodel.FilterViewModel
 import io.sinzak.android.ui.main.market.viewmodel.MarketViewModel
+import io.sinzak.android.ui.main.search.HistoryAdapter
+import io.sinzak.android.ui.main.search.HistoryViewModel
 import javax.inject.Inject
 
 
@@ -21,6 +24,10 @@ class MarketFragment : BaseFragment() {
     private val filterViewModel : FilterViewModel by activityViewModels()
     private val viewModel : MarketViewModel by activityViewModels()
 
+    @Inject
+    @HistoryViewModel.MarketHistory
+    lateinit var historyViewModel : HistoryViewModel
+
     private lateinit var bind : FragmentMarketBinding
 
     @Inject
@@ -30,6 +37,7 @@ class MarketFragment : BaseFragment() {
         bind = FragmentMarketBinding.inflate(layoutInflater)
         bind.vm = viewModel
         bind.lifecycleOwner = viewLifecycleOwner
+        bind.fg = this
         return bind.root
     }
 
@@ -58,6 +66,8 @@ class MarketFragment : BaseFragment() {
         inflateAppbar()
         inflateFilter()
         inflateSearchBar()
+
+        inflateHistory()
     }
 
     private fun inflateAppbar(){
@@ -94,8 +104,25 @@ class MarketFragment : BaseFragment() {
         }
     }
 
+    private fun inflateHistory(){
+        ViewSearchHistoryBinding.inflate(layoutInflater).apply{
+            lifecycleOwner = viewLifecycleOwner
+            marketVM = viewModel
+            vm = historyViewModel
+            search = object : HistoryAdapter.OnClick{
+                override fun onClick(history: String)
+                = viewModel.search(history)
+            }
+            bind.flHistory.addView(root)
+        }
+    }
+
     fun showSortBottom()
     {
         sortView.show(requireActivity().supportFragmentManager,sortView.tag)
+    }
+
+    fun newPostPage(){
+        navigator.changePage(Page.NEW_POST)
     }
 }
