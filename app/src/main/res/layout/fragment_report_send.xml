@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="fg"
+            type="io.sinzak.android.ui.main.profile.report.ReportSendFragment" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/ic_bg_button"
+            android:onClick="@{v->fg.navigateOnBackPressed()}"
+            android:src="@drawable/ic_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/textView"
+            style="@style/bold16"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/appbar_height"
+            android:gravity="center"
+            android:text="@string/str_report"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView9"
+            style="@style/bold16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="33dp"
+            android:layout_marginTop="25.2dp"
+            android:text="@string/str_report_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+        <EditText
+            style="@style/regular16"
+            android:layout_width="match_parent"
+            android:layout_height="326.7dp"
+            android:background="@drawable/et_gray_filled"
+            android:gravity="top"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="28.7dp"
+            android:paddingHorizontal="32dp"
+            android:paddingVertical="24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+        <TextView
+            android:id="@+id/textView2"
+            style="@style/bold16"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/btn_height"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginBottom="25.5dp"
+            android:background="@drawable/btn_primary_color"
+            android:gravity="center"
+            android:text="@string/str_btn_report"
+            android:textColor="@color/on_primary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
