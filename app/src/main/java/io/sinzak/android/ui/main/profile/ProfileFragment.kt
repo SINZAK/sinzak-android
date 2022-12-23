@@ -113,13 +113,19 @@ class ProfileFragment :BaseFragment() {
 
     // 더 보기 다이얼로그
     fun showMoreMenu(){
-        ArtistReportDialog(requireContext(),"김지호",{}, { showBlockDialog() }).show()
+        ArtistReportDialog(requireContext(),"김지호",{goToReportPage()}, { showBlockDialog() }).show()
     }
 
     // 차단하기 다이얼로그
     fun showBlockDialog(){
         ArtistBlockDialog(requireContext(),{}).show()
     }
+    // 사용자 신고 페이지로
+    fun goToReportPage(){
+        navigator.changePage(Page.PROFILE_REPORT_TYPE)
+    }
+
+
 
     //프로필 편집 클릭
     fun gotoProfileEditPage() {
