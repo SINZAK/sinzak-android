@@ -105,8 +105,10 @@
     <string name="str_artdetail_ask">거래 문의하기</string>
     <string name="str_artdetail_nagatiate_not">가격 제안 불가</string>
     <string name="str_artdetail_nagotiate">가격 제안하기</string>
-    <string name="str_btn_report">신호하기</string>
+    <string name="str_btn_report">신고하기</string>
     <string name="str_btn_block_artist">%s님 차단하기</string>
+    <string name="str_block_explain">차단하면 서로 채팅을 보낼 수 없어요.\n차단하시겠어요?</string>
+    <string name="str_btn_block">네, 차단할래요</string>
     <string name="str_btn_cancel">취소</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

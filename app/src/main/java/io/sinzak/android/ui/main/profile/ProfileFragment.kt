@@ -13,6 +13,8 @@ import io.sinzak.android.databinding.ViewProfileMyprofileBinding
 import io.sinzak.android.databinding.ViewProfileTopAppbarBinding
 import io.sinzak.android.enums.Page
 import io.sinzak.android.ui.base.BaseFragment
+import io.sinzak.android.ui.main.market.artdetail.ArtistBlockDialog
+import io.sinzak.android.ui.main.market.artdetail.ArtistReportDialog
 import io.sinzak.android.ui.main.profile.edit.EditViewModel
 import io.sinzak.android.ui.main.profile.viewmodel.ProfileSaleViewModel
 import io.sinzak.android.ui.main.profile.viewmodel.ProfileViewModel
@@ -111,6 +113,12 @@ class ProfileFragment :BaseFragment() {
 
     // 더 보기 다이얼로그
     fun showMoreMenu(){
+        ArtistReportDialog(requireContext(),"김지호",{}, { showBlockDialog() }).show()
+    }
+
+    // 차단하기 다이얼로그
+    fun showBlockDialog(){
+        ArtistBlockDialog(requireContext(),{}).show()
     }
 
     //프로필 편집 클릭
