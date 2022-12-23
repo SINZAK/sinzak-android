@@ -15,6 +15,7 @@ class Navigation @Inject constructor() {
 
     private val pageHistory = mutableListOf<Page>()
 
+
     fun changePage(page : Page)
     {
         if(_topPage.value != page) {
@@ -33,6 +34,11 @@ class Navigation @Inject constructor() {
         }
 
         return false
+    }
+
+    fun removeHistory(page : Page)
+    {
+        pageHistory.remove(page)
     }
 
     fun clearHistory(){

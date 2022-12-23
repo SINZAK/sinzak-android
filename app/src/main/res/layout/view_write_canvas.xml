@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text3"
+            style="@style/regular16"
+            android:text="@string/str_canvas_shape"/>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:layout_height="wrap_content">
+            <TextView
+                android:gravity="center_vertical"
+                android:paddingHorizontal="16dp"
+                android:layout_width="150dp"
+                android:layout_height="40dp"
+                android:drawablePadding="2dp"
+                style="@style/bold13"
+                android:background="@drawable/tv_category_filter"
+                app:drawableStartCompat="@drawable/ic_filter_check"
+                app:drawableTint="@color/color_filter_primary"
+                android:layout_marginHorizontal="6dp"
+
+                android:text="@string/str_category_figure"
+
+                />
+
+            <TextView
+                android:gravity="center_vertical"
+                android:paddingStart="16dp"
+                android:layout_width="150dp"
+                android:layout_height="40dp"
+                android:drawablePadding="2dp"
+                style="@style/bold13"
+                android:background="@drawable/tv_category_filter"
+                app:drawableStartCompat="@drawable/ic_filter_check"
+                app:drawableTint="@color/color_filter_primary"
+                android:layout_marginHorizontal="6dp"
+
+                android:text="@string/str_category_paysage"
+
+                />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:clipToPadding="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:gravity="center_vertical"
+                android:paddingStart="16dp"
+                android:layout_width="150dp"
+                style="@style/bold13"
+                android:layout_height="40dp"
+                android:drawablePadding="2dp"
+                android:background="@drawable/tv_category_filter"
+                app:drawableStartCompat="@drawable/ic_filter_check"
+                app:drawableTint="@color/color_filter_primary"
+                android:layout_marginHorizontal="6dp"
+
+                android:text="@string/str_category_marine"
+
+                />
+
+            <TextView
+                android:gravity="center_vertical"
+                android:paddingStart="16dp"
+                android:layout_width="150dp"
+                android:layout_height="40dp"
+                style="@style/bold13"
+                android:drawablePadding="2dp"
+                android:background="@drawable/tv_category_filter"
+                app:drawableStartCompat="@drawable/ic_filter_check"
+                app:drawableTint="@color/color_filter_primary"
+                android:layout_marginHorizontal="6dp"
+
+                android:text="@string/str_category_square"
+
+                />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <TextView
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="54dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text3"
+            style="@style/regular16"
+            android:text="@string/str_canvas_size"/>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_marginTop="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+            <EditText
+                android:layout_width="200dp"
+                android:layout_height="60dp"
+                android:background="@drawable/et_gray_filled"
+                android:gravity="center"
+                android:inputType="numberDecimal"
+                style="@style/bold20"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text3"
+                android:layout_marginStart="7dp"
+                style="@style/bold16"
+                android:text="@string/str_dimension_canvas_size"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

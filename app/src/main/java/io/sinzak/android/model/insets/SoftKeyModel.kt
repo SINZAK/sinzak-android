@@ -1,6 +1,7 @@
 package io.sinzak.android.model.insets
 
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import io.sinzak.android.ui.base.BaseActivity
 import javax.inject.Inject
@@ -17,10 +18,14 @@ class SoftKeyModel @Inject constructor() {
     }
 
 
+    fun showKeyboard(view : EditText) =
+        imm.showSoftInput(view,0)
+
 
     fun hideKeyboard(){
         activity.currentFocus?.let{
             imm.hideSoftInputFromWindow(it.windowToken,0)
+            it.clearFocus()
         }
     }
 

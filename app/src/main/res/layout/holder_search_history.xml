@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+        <variable
+            name="text"
+            type="String" />
+        <variable
+            name="search"
+            type="android.view.View.OnClickListener" />
+        <variable
+            name="deleteItem"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat xmlns:tools="http://schemas.android.com/tools"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:onClick="@{search}"
+        android:gravity="center_vertical"
+        android:layout_height="43dp">
+        <TextView
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginStart="32dp"
+            android:text="@{text}"
+            tools:text="드로잉"
+            style="@style/regular16"
+            android:textColor="@color/on_secondary"/>
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_delete"
+            android:onClick="@{deleteItem}"
+            android:layout_marginEnd="24dp"/>
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

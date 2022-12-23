@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <variable
+            name="search"
+            type="io.sinzak.android.ui.main.search.HistoryAdapter.OnClick" />
+        <variable
+            name="vm"
+            type="io.sinzak.android.ui.main.search.HistoryViewModel" />
+        <variable
+            name="marketVM"
+            type="io.sinzak.android.ui.main.market.viewmodel.MarketViewModel" />
+    </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
+        android:background="@color/on_primary"
         android:orientation="vertical"
         android:layout_height="match_parent">
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -19,6 +31,7 @@
                 android:textColor="@color/gray60"
                 android:text="@string/str_market_search_history_title"/>
             <TextView
+                android:onClick="@{v->vm.history.clearHistory()}"
                 android:layout_marginStart="16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -34,6 +47,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            adapter="@{vm.history.adapter}"
+            history="@{vm.history.historyList}"
+            search="@{search}"
+            delete="@{vm.history::deleteHistory}"
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
     </androidx.appcompat.widget.LinearLayoutCompat>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="filter"
+            type="String" />
+        <variable
+            name="select"
+            type="Boolean" />
+    </data>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:paddingHorizontal="12dp"
+
+        android:background="@drawable/tv_category_filter"
+        isSelect="@{select}"
+        android:gravity="center"
+        android:paddingVertical="8dp"
+        android:id="@+id/btn_filter_big"
+
+        android:text="@{filter}"
+        style="@style/bold13"
+        android:textColor="@{select ? @color/on_primary : @color/text0}"
+        android:layout_height="30dp"
+        app:drawableTint="@{select ? @color/on_primary : @color/text0}"
+        app:drawableStartCompat="@drawable/ic_filter_check">
+    </TextView>
+
+</layout>
