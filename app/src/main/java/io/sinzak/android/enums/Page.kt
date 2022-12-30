@@ -14,6 +14,8 @@ enum class Page {
     PROFILE_CERTIFICATION,
     PROFILE_WEBMAIL,
     PROFILE_VERIFY,
+    PROFILE_REPORT_TYPE,
+    PROFILE_REPORT_SEND,
 
     NEW_POST,
     NEW_POST_IMAGE,
@@ -21,7 +23,5 @@ enum class Page {
     NEW_POST_SPEC,
 
     ART_DETAIL,
-
-
 
 }

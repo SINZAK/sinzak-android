@@ -46,7 +46,7 @@ class ArtDetailFragment : BaseFragment() {
 
     fun showReportDialog(){
 
-        ArtistReportDialog(requireContext(),"김지호",{},{}).show()
+        ArtistReportDialog(requireContext(),"김지호",{},{ArtistBlockDialog(requireContext(),{}).show()}).show()
     }
 
     private fun inflateImage(){
