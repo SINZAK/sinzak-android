@@ -29,6 +29,8 @@ import io.sinzak.android.ui.main.profile.certification.CertificationFragment
 import io.sinzak.android.ui.main.profile.certification.VerifyFragment
 import io.sinzak.android.ui.main.profile.certification.WebmailFragment
 import io.sinzak.android.ui.main.profile.edit.EditFragment
+import io.sinzak.android.ui.main.profile.report.ReportSendFragment
+import io.sinzak.android.ui.main.profile.report.ReportTypeFragment
 import io.sinzak.android.ui.main.profile.sale_with_work.SaleFragment
 import io.sinzak.android.ui.main.profile.sale_with_work.WorkFragment
 import io.sinzak.android.ui.main.profile.setting.SettingFragment
@@ -137,6 +139,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main)
                 SettingFragment()
             PROFILE_CERTIFICATION ->
                 CertificationFragment()
+            PROFILE_REPORT_TYPE  ->
+                ReportTypeFragment()
+            PROFILE_REPORT_SEND ->
+                ReportSendFragment()
 
 
             NEW_POST,NEW_POST_IMAGE,NEW_POST_INFO, NEW_POST_SPEC ->
