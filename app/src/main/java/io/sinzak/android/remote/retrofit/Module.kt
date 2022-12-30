@@ -40,7 +40,7 @@ object Module {
 
 }
 
-const val BASE_URL = "http://www.naver.com"
+const val BASE_URL = "http://ec2-13-209-121-29.ap-northeast-2.compute.amazonaws.com:8080/api/"
 
 const val CONNECT_TIMEOUT = 1L
 const val WRITE_TIMEOUT = 5L

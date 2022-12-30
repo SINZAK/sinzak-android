@@ -1,8 +1,12 @@
 package io.sinzak.android.remote.retrofit
 
+import io.sinzak.android.constants.ACCESS_TOKEN
+import io.sinzak.android.constants.REFRESH_TOKEN
 import io.sinzak.android.constants.TAG_REMOTE
 import io.sinzak.android.di.NetStatus
 import io.sinzak.android.remote.dataclass.CResponse
+import io.sinzak.android.remote.dataclass.response.login.Token
+import io.sinzak.android.system.App.Companion.prefs
 import io.sinzak.android.system.LogError
 import io.sinzak.android.system.LogInfo
 import retrofit2.Call
@@ -14,7 +18,7 @@ import javax.inject.Singleton
 
 
 @Singleton
-class Remote @Inject constructor() : Callback<Result<CResponse>> {
+class Remote @Inject constructor(val remoteApi : RemoteInterface) : Callback<Result<CResponse>> {
 
 
     @Inject
@@ -46,7 +50,21 @@ class Remote @Inject constructor() : Callback<Result<CResponse>> {
 
     private fun onResultSuccess(result : Result.Success<CResponse>)
     {
-        result.callback.onConnectionSuccess(result.apiNum,result.body)
+        val body = result.body
+
+        if(body is Token)
+        {
+
+            prefs.setString(ACCESS_TOKEN,body.accessToken)
+            prefs.setString(REFRESH_TOKEN,body.refreshToken)
+            LogInfo(TAG_REMOTE,"[TOKEN] ACCESS  TOKEN : ${prefs.accessToken}")
+            LogInfo(TAG_REMOTE,"[TOKEN] REFRESH TOKEN : ${prefs.refreshToken}")
+
+        }
+
+
+
+        result.callback.onConnectionSuccess(result.apiNum,body)
     }
 
     private fun onRemoteFailed(result : Result.ServerError<CResponse>)
@@ -70,25 +88,16 @@ class Remote @Inject constructor() : Callback<Result<CResponse>> {
     }
 
 
-
-    fun sendRequestApi(apiNum : Int, callback : RemoteListener)
-    {
-        LogInfo(TAG_REMOTE,"파라미터가 없는 통신 요청을 생성합니다.")
-        LogInfo(TAG_REMOTE,"API 번호 : $apiNum")
-        var call : Call<CResponse>? = null
-
-        call?.let{
-            sendRequestApi(apiNum,it,callback)
-        }
-    }
-
-
-    private fun sendRequestApi(apiNum: Int,call : Call<CResponse>, callback : RemoteListener)
-    {
-
-        LogInfo(TAG_REMOTE,"통신을 요청합니다.")
+    fun sendRequestApi(callData: CallImpl) {
+        LogInfo(TAG_REMOTE, "통신을 요청합니다.")
         netStatus.pendingUp()
-        CallExtent(apiNum,call,callback).enqueue(this)
+        CallExtent(
+            callData.apiNum,
+            callData.getCall(remoteApi),
+            callData.callback,
+            callData
+        ).enqueue(this)
     }
+
 
 }

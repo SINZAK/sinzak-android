@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import io.sinzak.android.constants.ACCESS_TOKEN
+import io.sinzak.android.constants.REFRESH_TOKEN
 
 class PreferenceUtil(context: Context) {
     private val prefs: SharedPreferences = context.getSharedPreferences(PREFERNCE, 0)
@@ -69,4 +71,9 @@ class PreferenceUtil(context: Context) {
     companion object{
         const val PREFERNCE = "preference"
     }
+
+
+
+    val accessToken : String get() = getString(ACCESS_TOKEN,"").toString()
+    val refreshToken : String get() = getString(REFRESH_TOKEN,"").toString()
 }

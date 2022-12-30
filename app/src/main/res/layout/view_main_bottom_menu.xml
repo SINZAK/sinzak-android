@@ -8,6 +8,10 @@
         <variable
             name="viewmodel"
             type="io.sinzak.android.ui.main.MainBottomViewModel" />
+
+        <variable
+            name="activity"
+            type="io.sinzak.android.ui.main.MainActivity" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat android:layout_width="match_parent"
@@ -110,7 +114,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:onClick="@{v->viewmodel.setCurrentButton(viewmodel.PAGE_PROFILE)}"
+            android:onClick="@{v->activity.checkIsLogin() ? viewmodel.setCurrentButton(viewmodel.PAGE_PROFILE) : void}"
             android:layout_weight="1"
             isSelect="@{viewmodel.currentButton == viewmodel.PAGE_PROFILE}"
             android:orientation="vertical">

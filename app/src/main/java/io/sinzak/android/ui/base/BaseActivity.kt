@@ -60,7 +60,7 @@ abstract class BaseActivity<T : ViewDataBinding>(private val layoutId : Int) : A
         }
     }
 
-    fun invokeBooleanFlow(state : StateFlow<Boolean>, onFalse : ()->Unit, onTrue : ()->Unit)
+    fun invokeBooleanFlow(state : StateFlow<Boolean>, onFalse : ()->Unit = {}, onTrue : ()->Unit)
     {
         invokeStateFlow(state){
             if(it)

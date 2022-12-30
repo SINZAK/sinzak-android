@@ -1,4 +1,11 @@
 package io.sinzak.android.remote.retrofit
 
-interface RemoteInterface {
+interface RemoteInterface : RemoteLoginInterface {
+
+
+
+
+
+
+
 }
