@@ -49,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingTop="23dp"
-                android:paddingHorizontal="16dp"
+                android:paddingHorizontal="17dp"
                 android:gravity="center_horizontal">
 
                 <ImageView
@@ -72,9 +72,10 @@
                     android:orientation="horizontal">
                     <TextView
                         style="@style/medium16"
-                        android:layout_width="97.5dp"
+                        android:layout_width="94.5dp"
                         android:layout_height="wrap_content"
-                        android:text="@string/str_edit_nickname"/>
+                        android:text="@string/str_edit_nickname"
+                        android:layout_marginStart="2dp"/>
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -84,28 +85,53 @@
                         android:inputType="text"
                         android:textColorHint="@color/gray60"/>
                 </androidx.appcompat.widget.LinearLayoutCompat>
-                <androidx.appcompat.widget.LinearLayoutCompat
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="166dp"
                     android:background="@drawable/cl_profile_underline"
                     android:paddingTop="18.5dp"
-                    android:paddingBottom="36.5dp"
-                    android:orientation="horizontal">
+                    android:paddingBottom="11.5dp"
+                    android:orientation="vertical">
+
                     <TextView
+                        android:id="@+id/textView11"
                         style="@style/medium16"
-                        android:layout_width="97.5dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/str_edit_introduction"/>
-                    <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/str_edit_introduction"
-                        android:text="자유롭게 작업합니다\nInstagram @jiiiiho_0"
+                        android:text="@string/str_edit_introduction"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <EditText
                         style="@style/regular16"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:layout_marginHorizontal="20.5dp"
+                        android:layout_marginTop="8.7dp"
+                        android:gravity="start"
+                        android:maxLength="100"
                         android:background="@null"
+                        android:hint="@string/str_edit_introduction"
                         android:inputType="textMultiLine"
-                        android:textColorHint="@color/gray60"/>
-                </androidx.appcompat.widget.LinearLayoutCompat>
+                        android:text="@{vm.introduction}"
+                        android:textColorHint="@color/gray60"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView11"
+                        android:onTextChanged="@{(cs,a,b,c) -> vm.typeInputText(cs)}"
+                        />
+
+                    <TextView
+                        android:id="@+id/textView10"
+                        style="@style/regular10"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:gravity="end"
+                        android:text="@{@string/str_edit_introduction_length(vm.introduction.length())}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -114,9 +140,10 @@
                     android:orientation="horizontal">
                     <TextView
                         style="@style/medium16"
-                        android:layout_width="97.5dp"
+                        android:layout_width="94.5dp"
                         android:layout_height="wrap_content"
-                        android:text="@string/str_edit_school"/>
+                        android:text="@string/str_edit_school"
+                        android:layout_marginStart="2dp"/>
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -141,9 +168,10 @@
                     android:orientation="horizontal">
                     <TextView
                         style="@style/medium16"
-                        android:layout_width="97.5dp"
+                        android:layout_width="94.5dp"
                         android:layout_height="wrap_content"
-                        android:text="@string/str_edit_genre"/>
+                        android:text="@string/str_edit_genre"
+                        android:layout_marginStart="2dp"/>
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"

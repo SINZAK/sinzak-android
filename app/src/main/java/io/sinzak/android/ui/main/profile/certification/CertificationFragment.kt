@@ -37,7 +37,7 @@ class CertificationFragment : BaseFragment() {
         navigator.revealHistory()
     }
 
-    fun gotoSchoolAuth(isGraduated : Boolean) {
+    fun gotoSchoolAuth() {
         if(navigator.topPage.value==Page.PROFILE_CERTIFICATION)
             navigator.changePage(Page.PROFILE_WEBMAIL)
     }

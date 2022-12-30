@@ -9,9 +9,6 @@
         <variable
             name="vm"
             type="io.sinzak.android.ui.main.profile.certification.WebmailViewModel" />
-        <variable
-            name="cVm"
-            type="io.sinzak.android.ui.main.profile.certification.CertificationViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -35,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/appbar_height"
             android:gravity="center"
-            android:text="@{cVm.isGraduate ? @string/str_webMail_isGraduate_true : @string/str_webMail_isGraduate_false}"
+            android:text="@string/str_certification"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -48,56 +45,94 @@
             android:paddingHorizontal="16dp"
             android:paddingVertical="25.5dp">
 
-            <TextView
-                android:id="@+id/textView7"
-                style="@style/bold16"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/str_webMail_title"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:paddingHorizontal="17dp"
-                />
 
             <TextView
                 android:id="@+id/textView8"
                 style="@style/regular13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="11.8dp"
                 android:paddingStart="17dp"
                 android:paddingEnd="15dp"
                 android:text="@string/str_webMail_explain"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView7" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/linearLayoutCompat2"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:orientation="horizontal"
+                android:layout_marginTop="25.4dp"
                 android:background="@drawable/ll_webmail_input"
                 android:gravity="center_vertical"
-                android:layout_marginTop="16.6dp"
+                android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView8">
+
                 <EditText
+                    style="@style/bold13"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    style="@style/bold13"
-                    android:inputType="textEmailAddress"
-                    android:hint="@string/str_webMail_hint"
-                    android:textColorHint="@color/gray60"
                     android:background="@null"
-                    android:textColor="@color/black"
+                    android:hint="@string/str_webMail_hint"
+                    android:inputType="textEmailAddress"
+                    android:onTextChanged="@{(cs,a,b,c) -> vm.mailInputText(cs)}"
                     android:text="@{vm.webMailInput}"
-                    android:onTextChanged="@{(cs,a,b,c) -> vm.typeInputText(cs)}"
-                    />
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/gray60" />
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_btn_clear"
-                    android:onClick="@{v-> vm.deleteInput()}"/>
+                    android:onClick="@{v-> vm.deleteMailInput()}"
+                    android:src="@drawable/ic_btn_clear" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat2"
+                android:layout_marginTop="34dp"
+                android:visibility="@{vm.isCodeSend() ? 0 : 8}">
+                <TextView
+                    style="@style/regular13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="17dp"
+                    android:paddingEnd="15dp"
+                    android:text="@string/str_webMail_code"/>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="3.5dp"
+                    android:background="@drawable/ll_webmail_input"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView8">
+
+                    <EditText
+                        style="@style/bold13"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:hint="@string/str_webMail_code_hint"
+                        android:inputType="textEmailAddress"
+                        android:onTextChanged="@{(cs,a,b,c) -> vm.codeInputText(cs)}"
+                        android:text="@{vm.codeInput}"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/gray60"
+                        android:maxLength="4"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="@{v-> vm.deleteCodeInput()}"
+                        android:src="@drawable/ic_btn_clear" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
             </androidx.appcompat.widget.LinearLayoutCompat>
 
 
@@ -120,7 +155,9 @@
                 style="@style/bold16"
                 android:textColor="@color/white"
                 android:background="@drawable/btn_gray40_color"
-                android:gravity="center"/>
+                android:gravity="center"
+
+                android:onClick="@{v->fg.navigateOnBackPressed()}"/>
             <Space
                 android:layout_width="11dp"
                 android:layout_height="match_parent"/>
@@ -132,7 +169,9 @@
                 style="@style/bold16"
                 android:textColor="@color/white"
                 android:background="@drawable/btn_primary_color"
-                android:gravity="center"/>
+                android:gravity="center"
+
+                android:onClick="@{v->vm.sendCodeToMail()}"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
         
     </androidx.constraintlayout.widget.ConstraintLayout>
