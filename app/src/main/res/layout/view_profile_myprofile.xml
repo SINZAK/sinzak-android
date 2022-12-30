@@ -114,7 +114,7 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             style="@style/regular13"
             android:text="자유롭게 작업합니다\nInstagram @jiiiiho_0"
