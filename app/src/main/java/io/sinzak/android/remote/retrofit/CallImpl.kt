@@ -27,6 +27,17 @@ class CallImpl(
 
     fun getCall(remoteApi : RemoteInterface) : Call<CResponse>
     {
+
+        /**
+         * API REDUCING RULE
+         *
+         * API NUM의 오름차순 정렬로 규칙을 작성해줍니다.
+         *
+         * 각각의 API에 대해, remoteApi 인터페이스의 메서드를 통해 호출한 Call<CResponse> 객체를 반환합니다.
+         *
+         * header 이외에 추가적으로 필요한 파라미터가 있다면, CallImpl의 파라미터에서 가져옵니다. 그럴경우 CallImpl을 호출하는 쪽에서 데이터를 지정해줘야합니다.
+         *
+         */
         return when(apiNum)
         {
             API_LOGIN_EMAIL -> remoteApi.loginEmail(header,requestBody as LoginEmailBody)
