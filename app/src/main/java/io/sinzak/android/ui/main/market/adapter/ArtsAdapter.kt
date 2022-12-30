@@ -38,7 +38,7 @@ class ArtsAdapter : RecyclerView.Adapter<ArtsAdapter.ViewHolder>() {
     }
 
 
-    inner class ViewHolder(val bind: HolderMarketArtGridBinding) :
+    inner class ViewHolder(val bind: HolderHomeArtGridBinding) :
         RecyclerView.ViewHolder(bind.root) {
 
         fun bind(){
