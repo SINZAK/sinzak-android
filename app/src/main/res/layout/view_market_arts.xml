@@ -64,7 +64,9 @@
             android:layout_height="match_parent"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:spanCount="2"
+            products="@{vm.productList}"
             adapter="@{vm.adapter}"
+
             marginHorizon="@{6}"
             marginVertical="@{10}"
             android:layout_weight="1"/>

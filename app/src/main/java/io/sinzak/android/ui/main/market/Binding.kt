@@ -6,7 +6,9 @@ import androidx.recyclerview.widget.RecyclerView
 import io.sinzak.android.R
 import io.sinzak.android.enums.Sort
 import io.sinzak.android.enums.Sort.*
+import io.sinzak.android.remote.dataclass.product.Product
 import io.sinzak.android.ui.main.home.adapter.ArtReferAdapter
+import io.sinzak.android.ui.main.market.adapter.ArtProductAdapter
 import io.sinzak.android.ui.main.market.adapter.ArtsAdapter
 import io.sinzak.android.ui.main.market.adapter.FilterAdapter
 
@@ -37,4 +39,13 @@ fun setSortText(view : TextView, sort : Sort)
             BY_LOWPRICE -> R.string.str_sort_by_lowprice
         }
     )
+}
+
+@BindingAdapter("adapter","products")
+fun setAdapter(view : RecyclerView, adapter : ArtProductAdapter, products : List<Product>)
+{
+    view.adapter?:run{
+        view.adapter = adapter
+    }
+    adapter.setProducts(products)
 }

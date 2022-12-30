@@ -62,7 +62,8 @@ class Remote @Inject constructor(val remoteApi : RemoteInterface) : Callback<Res
 
         }
 
-
+        LogInfo(TAG_REMOTE,"[RESPONSE] Body를 받았습니다.")
+        LogInfo(TAG_REMOTE,"$body")
 
         result.callback.onConnectionSuccess(result.apiNum,body)
     }

@@ -47,6 +47,7 @@ class MarketFragment : BaseFragment() {
     }
 
     override fun onFragmentCreated() {
+        viewModel.getMarketProductRemote(refresh = true)
         inflateChild()
     }
 

@@ -21,6 +21,8 @@ class MarketViewModel @Inject constructor(val soft : SoftKeyModel, val marketArt
     private val _searchFieldText = MutableStateFlow("")
     val searchFieldText : StateFlow<String> get() = _searchFieldText
 
+    val artProducts = marketArtModel.marketProducts
+
     fun openSearchPage(){
         _searchPageOn.value = true
         _searchHistoryOn.value = true
@@ -57,6 +59,10 @@ class MarketViewModel @Inject constructor(val soft : SoftKeyModel, val marketArt
         _searchFieldText.value = tag
         _searchHistoryOn.value = false
     }
+
+
+    fun getMarketProductRemote(refresh : Boolean)
+        = marketArtModel.getRemoteMarketProducts(refresh)
 
 
 

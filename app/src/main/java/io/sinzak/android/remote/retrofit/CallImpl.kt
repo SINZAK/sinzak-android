@@ -1,9 +1,6 @@
 package io.sinzak.android.remote.retrofit
 
-import io.sinzak.android.constants.ACCESS_TOKEN
-import io.sinzak.android.constants.API_EMAIL_GET_NAVER
-import io.sinzak.android.constants.API_LOGIN_EMAIL
-import io.sinzak.android.constants.REFRESH_TOKEN
+import io.sinzak.android.constants.*
 import io.sinzak.android.remote.dataclass.CRequest
 import io.sinzak.android.remote.dataclass.CResponse
 import io.sinzak.android.remote.dataclass.request.login.LoginEmailBody
@@ -45,6 +42,9 @@ class CallImpl(
 
 
             API_EMAIL_GET_NAVER -> remoteApi.loginGetNaverEmail("Bearer $paramStr0")
+
+
+            API_GET_MARKET_PRODUCTS -> remoteApi.getMarketProducts(header,paramInt0!!, paramInt1!!)
 
 
             else -> throw NoSuchMethodException()

@@ -1,8 +1,13 @@
 package io.sinzak.android.model.market
 
+import io.sinzak.android.constants.API_GET_MARKET_PRODUCTS
 import io.sinzak.android.enums.Sort
 import io.sinzak.android.model.BaseModel
 import io.sinzak.android.remote.dataclass.CResponse
+import io.sinzak.android.remote.dataclass.product.Product
+import io.sinzak.android.remote.dataclass.response.market.MarketProductResponse
+import io.sinzak.android.remote.retrofit.CallImpl
+import io.sinzak.android.system.LogDebug
 import io.sinzak.android.ui.main.search.HistoryViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -20,6 +25,14 @@ class MarketArtModel @Inject constructor() : BaseModel() {
     private val _sortOrder = MutableStateFlow(Sort.BY_REFER)
     val sortOrder: StateFlow<Sort> get() = _sortOrder
 
+
+
+    private val _marketProducts = MutableStateFlow(mutableListOf<Product>())
+    val marketProducts : StateFlow<List<Product>> get() = _marketProducts
+    private var currentPage = 0
+    private var maxPage = 9999
+
+
     fun setMarketSort(sort: Sort)
     {
         _sortOrder.value = sort
@@ -32,13 +45,65 @@ class MarketArtModel @Inject constructor() : BaseModel() {
         _stShowOnSale.value = !status
     }
 
+    fun getRemoteMarketProducts(refresh : Boolean = false)
+    {
+        val pageSize = 10
+
+        val page = if(refresh) {
+            maxPage = 9999
+            1
+        }else currentPage + 1
+
+        if(page > maxPage)
+            return
+
+
+        CallImpl(
+            API_GET_MARKET_PRODUCTS,
+            this,
+            paramInt0 = page,
+            paramInt1 = pageSize
+        ).apply{
+            remote.sendRequestApi(this)
+        }
+
+
+    }
+
+
+    fun onMarketProductResponse(response : MarketProductResponse)
+    {
+        response.pageable?.pageNumber?.let{
+            currentPage = it
+        }
+        response.totalPage?.let{
+            maxPage = it
+        }
+        response.products?.let{products->
+            val list = mutableListOf<Product>()
+            list.addAll(_marketProducts.value)
+            list.addAll(products)
+
+            _marketProducts.value = list.distinctBy { it.id }.toMutableList()
+
+            LogDebug(javaClass.name,"[MARKET VIEWMODEL] 현재 아이템 ${list.size}")
+
+        }
+    }
+
+
 
     override fun handleError(api: Int, msg: String?, t: Throwable?) {
 
     }
 
     override fun onConnectionSuccess(api: Int, body: CResponse) {
-
+        when(api)
+        {
+            API_GET_MARKET_PRODUCTS ->{
+                onMarketProductResponse(body as MarketProductResponse)
+            }
+        }
     }
 
 

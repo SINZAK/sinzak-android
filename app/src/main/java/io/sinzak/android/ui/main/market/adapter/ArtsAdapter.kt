@@ -11,6 +11,8 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import io.sinzak.android.R
 import io.sinzak.android.databinding.HolderHomeArtGridBinding
 import io.sinzak.android.databinding.HolderHomeArtLinearBinding
+import io.sinzak.android.databinding.HolderMarketArtGridBinding
+import io.sinzak.android.remote.dataclass.product.Product
 import io.sinzak.android.system.dp
 
 class ArtsAdapter : RecyclerView.Adapter<ArtsAdapter.ViewHolder>() {
@@ -20,19 +22,24 @@ class ArtsAdapter : RecyclerView.Adapter<ArtsAdapter.ViewHolder>() {
     }
 
 
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.holder_home_art_grid,null,true)
+            DataBindingUtil.inflate(
+                LayoutInflater.from(parent.context),
+                R.layout.holder_home_art_grid,
+                null,
+                true
+            )
         )
     }
 
 
-    inner class ViewHolder(val bind : HolderHomeArtGridBinding) : RecyclerView.ViewHolder(bind.root){
+    inner class ViewHolder(val bind: HolderMarketArtGridBinding) :
+        RecyclerView.ViewHolder(bind.root) {
 
         fun bind(){
             bind.apply{
