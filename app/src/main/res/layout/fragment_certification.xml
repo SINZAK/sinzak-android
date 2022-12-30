@@ -47,85 +47,6 @@
             android:paddingEnd="36dp"
             android:paddingTop="25.2dp">
 
-            <TextView
-                android:id="@+id/textView3"
-                style="@style/bold16"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="3.9dp"
-                android:text="@string/str_certification_year"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/linearLayoutCompat2"
-                android:layout_width="178dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6.8dp"
-                android:background="@drawable/ll_certi_input"
-                android:orientation="horizontal"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView3">
-
-                <EditText
-                    style="@style/bold13"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@null"
-                    android:hint="@string/str_certification_year_hint"
-                    android:textColorHint="@color/gray60"
-                    android:enabled="false"/>
-
-                <ImageView
-                    android:layout_width="18dp"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/ic_arrow_down_gray"/>
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <TextView
-                style="@style/bold16"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/str_certification_academic"
-                android:layout_marginStart="3.9dp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView3"
-                app:layout_constraintStart_toStartOf="@+id/textView4" />
-
-            <TextView
-                android:id="@+id/textView4"
-                style="@style/bold13"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="59dp"
-                android:paddingVertical="14dp"
-                android:text="@string/str_certification_isGraduate_false"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/linearLayoutCompat2"
-
-                android:onClick="@{v-> vm.changeAcademicState(false)}"
-                isSelect="@{vm.isGraduate() == false}"
-                android:textColor="@color/color_certification_btn_select"
-                android:background="@drawable/btn_certi_academic"
-                />
-
-            <TextView
-                android:id="@+id/textView5"
-                style="@style/bold13"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:paddingHorizontal="59dp"
-                android:paddingVertical="14dp"
-                android:text="@string/str_certification_isGraduate_true"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView4"
-
-                android:onClick="@{v-> vm.changeAcademicState(true)}"
-                isSelect="@{vm.isGraduate() == true}"
-                android:textColor="@color/color_certification_btn_select"
-                android:background="@drawable/btn_certi_academic"
-                />
 
             <TextView
                 android:id="@+id/textView6"
@@ -133,10 +54,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="3.9dp"
-                android:layout_marginTop="25.2dp"
                 android:text="@string/str_certification_school"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView5" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
@@ -177,7 +97,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
 
-            android:onClick="@{v-> fg.gotoSchoolAuth(vm.isGraduate()) &amp; vm.onSubmit()}"/>
+            android:onClick="@{v->vm.onSubmit() &amp; fg.gotoSchoolAuth()}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

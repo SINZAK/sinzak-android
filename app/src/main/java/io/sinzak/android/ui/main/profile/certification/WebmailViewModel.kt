@@ -12,8 +12,14 @@ class WebmailViewModel @Inject constructor() : BaseViewModel() {
     private val _webMailInput = MutableStateFlow("")
     val  webMailInput : StateFlow<String> get() = _webMailInput
 
+    private val _codeInput = MutableStateFlow("")
+    val codeInput : StateFlow<String> get() = _codeInput
 
-    fun typeInputText(cs : CharSequence) {
+    private val _isCodeSend = MutableStateFlow(false)
+    val isCodeSend : StateFlow<Boolean> get() = _isCodeSend
+
+
+    fun mailInputText(cs : CharSequence) {
         cs.toString().let {
             if(_webMailInput.value != it){
                 _webMailInput.value = it
@@ -21,8 +27,24 @@ class WebmailViewModel @Inject constructor() : BaseViewModel() {
         }
     }
 
-    fun deleteInput() {
+    fun deleteMailInput() {
         _webMailInput.value = ""
+    }
+
+    fun codeInputText(cs : CharSequence) {
+        cs.toString().let {
+            if(_codeInput.value != it){
+                _codeInput.value = it
+            }
+        }
+    }
+
+    fun deleteCodeInput() {
+        _codeInput.value = ""
+    }
+
+    fun sendCodeToMail(){
+        _isCodeSend.value = true
     }
 
 }
