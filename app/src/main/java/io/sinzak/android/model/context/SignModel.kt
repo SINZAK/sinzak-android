@@ -1,6 +1,7 @@
 package io.sinzak.android.model.context
 
 import android.content.Context
+import com.kakao.sdk.user.UserApiClient
 import com.navercorp.nid.NaverIdLoginSDK
 import com.navercorp.nid.oauth.OAuthLoginCallback
 import dagger.Provides
@@ -41,6 +42,8 @@ class SignModel @Inject constructor(val context : Context) {
 
     private val naverCallback = NaverImpl(_sdkSignSuccess,_signFailed,_errorString)
 
+    private val loginKaKao = UserApiClient()
+
 
 
     fun loginViaNaver(){
@@ -61,6 +64,15 @@ class SignModel @Inject constructor(val context : Context) {
 
 
     fun loginViaKakao(){
+
+
+        if(loginKaKao.isKakaoTalkLoginAvailable(context))
+        {
+
+        }
+        else{
+
+        }
 
         //todo : Login With Kakao
     }
