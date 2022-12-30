@@ -78,8 +78,9 @@
     <string name="str_verify_explain_two">가 붙고,</string>
     <string name="str_verify_explain_three">신작 추천 작품에 선정될 가능성이 높아집니다.</string>
     <string name="str_verify_step_one">1단계. 학교 인증</string>
-    <string name="str_verify_step_two">2단계. 포트폴리오</string>
-    <string name="str_verify_upload_file">파일 첨부하기</string>
+    <string name="str_verify_step_two">2단계. 포트폴리오 링크</string>
+    <string name="str_verify_step_two_explain">개인 웹사이트, Behance, ArtStation, google drive 등\n링크 형식으로 포트폴리오를 첨부해주세요.</string>
+    <string name="str_verify_link_hint">링크를 입력하세요.</string>
 
 
     <string name="str_complete">완료</string>

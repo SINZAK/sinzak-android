@@ -12,7 +12,6 @@ class WebmailFragment : BaseFragment() {
     private lateinit var bind: FragmentWebmailBinding
 
     private val viewModel : WebmailViewModel by activityViewModels()
-    private val certificationViewModel : CertificationViewModel by activityViewModels<CertificationViewModel>()
 
     override fun getFragmentRoot(): View {
         bind = FragmentWebmailBinding.inflate(layoutInflater)
@@ -23,7 +22,6 @@ class WebmailFragment : BaseFragment() {
         bind.apply {
             bind.lifecycleOwner = viewLifecycleOwner
             vm = viewModel
-            cVm = certificationViewModel
             fg = this@WebmailFragment
         }
     }

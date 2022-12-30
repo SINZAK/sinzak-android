@@ -119,37 +119,30 @@
                 style="@style/bold16"
                 android:paddingHorizontal="1dp"
                 android:layout_marginTop="25.2dp"/>
-
+            <TextView
+                style="@style/regular13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/str_verify_step_two_explain"
+                android:layout_marginBottom="3.6dp"/>
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/ll_certi_input"
                 android:orientation="horizontal"
-                android:layout_marginTop="12.8dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="portfolio.pdf"
-                    style="@style/regular16"/>
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="첨부됨"
-                    style="@style/regular16"/>
+                android:layout_marginEnd="8dp">
+
+                <EditText
+                    style="@style/regular13"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:hint="@string/str_verify_link_hint"
+                    android:textColorHint="@color/gray60"
+                    android:inputType="text"/>
+
             </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/str_verify_upload_file"
-                style="@style/regular16"
-                android:gravity="center"
-                android:paddingVertical="22dp"
-                android:background="@drawable/btn_black_stroke"
-                android:layout_marginTop="12.8dp"/>
 
 
 
