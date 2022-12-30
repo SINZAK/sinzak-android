@@ -21,6 +21,18 @@
         tools:context=".ui.login.LoginActivity">
 
         <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/ic_bg_button"
+            android:onClick="@{v->activity.onBackPressed()}"
+            android:src="@drawable/ic_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
             android:id="@+id/imageView3"
             android:layout_width="160dp"
             android:layout_height="53dp"

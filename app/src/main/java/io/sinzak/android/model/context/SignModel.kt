@@ -9,15 +9,17 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import io.sinzak.android.constants.API_EMAIL_GET_NAVER
-import io.sinzak.android.constants.API_LOGIN_EMAIL
+import io.sinzak.android.constants.*
 import io.sinzak.android.enums.SDK
 import io.sinzak.android.remote.dataclass.CResponse
 import io.sinzak.android.remote.dataclass.request.login.LoginEmailBody
+import io.sinzak.android.remote.dataclass.request.login.TokenRequest
 import io.sinzak.android.remote.dataclass.response.login.NaverProfile
+import io.sinzak.android.remote.dataclass.response.login.Token
 import io.sinzak.android.remote.retrofit.CallImpl
 import io.sinzak.android.remote.retrofit.Remote
 import io.sinzak.android.remote.retrofit.RemoteListener
+import io.sinzak.android.system.App.Companion.prefs
 import io.sinzak.android.system.LogError
 import io.sinzak.android.system.LogInfo
 import io.sinzak.android.system.social.NaverImpl
@@ -25,15 +27,32 @@ import io.sinzak.android.ui.login.LoginActivity
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
+import javax.inject.Singleton
 
 
-class SignModel @Inject constructor(val context : Context, val remote : Remote) : RemoteListener {
+@Singleton
+class SignModel @Inject constructor(val remote : Remote) : RemoteListener {
 
     private val _isLogin = MutableStateFlow(false)
     val isLogin : StateFlow<Boolean> get() = _isLogin
 
     fun isLogin() : Boolean{
         return  isLogin.value
+    }
+
+    fun checkToken(){
+
+        CallImpl(
+            API_REFRESH_TOKEN,
+            this,
+            TokenRequest(
+                accessToken = prefs.accessToken,
+                refreshToken = prefs.refreshToken
+            )
+        ).apply{
+            remote.sendRequestApi(this)
+        }
+
     }
 
 
@@ -61,7 +80,6 @@ class SignModel @Inject constructor(val context : Context, val remote : Remote) 
 
 
     fun initSignStatus(){
-        _isLogin.value = false
         _signFailed.value = false
         _errorString.value = ""
         _sdkSignSuccess.value = false
@@ -177,12 +195,26 @@ class SignModel @Inject constructor(val context : Context, val remote : Remote) 
 
     }
 
+    fun onRefreshToken(response : Token)
+    {
+        if(response.accessToken.isNullOrEmpty())
+            return
+
+        _isLogin.value = true
+        prefs.setString(ACCESS_TOKEN,response.accessToken)
+        prefs.setString(REFRESH_TOKEN,response.refreshToken)
+    }
+
 
     override fun onConnectionSuccess(api: Int, body: CResponse) {
         when(api)
         {
             API_LOGIN_EMAIL ->{
 
+            }
+
+            API_REFRESH_TOKEN ->{
+                onRefreshToken(body as Token)
             }
 
             API_EMAIL_GET_NAVER ->{
@@ -200,17 +232,12 @@ class SignModel @Inject constructor(val context : Context, val remote : Remote) 
     override fun handleError(api: Int, msg: String?, t: Throwable?) {
         _errorString.value = msg.toString()
         _signFailed.value = true
-    }
 
-
-
-    @dagger.Module
-    @InstallIn(SingletonComponent::class)
-    internal object Module{
-        @Provides
-        fun provideModel(@ApplicationContext context : Context, remote : Remote) : SignModel
+        when (api)
         {
-            return SignModel(context, remote)
+            API_LOGIN_EMAIL ->{
+                _isLogin.value = true
+            }
         }
     }
 

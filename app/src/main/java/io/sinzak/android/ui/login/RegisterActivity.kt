@@ -37,6 +37,7 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>(R.layout.activity
 
         }
 
+        LogDebug(javaClass.name,"[REGISTER ACTIVITY] ${viewModel.signModel.isLogin.value}")
         observeNavigation()
     }
 
@@ -73,11 +74,11 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>(R.layout.activity
     }
 
     fun gotoMain(){
-        Intent(this,MainActivity::class.java).apply{
-            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        finish()
+        /*Intent(this,MainActivity::class.java).apply{
+            addFlags(Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY)
             startActivity(this)
-        }
+        }*/
     }
 
 
