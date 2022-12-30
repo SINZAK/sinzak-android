@@ -6,6 +6,9 @@
         <item name="fontFamily">@font/spoqa_regular</item>
     </style>
 
+    <style name="regular10" parent="textRegular">
+        <item name="android:textSize">10sp</item>
+    </style>
     <style name="regular13" parent="textRegular">
         <item name="android:textSize">13sp</item>
     </style>

@@ -12,4 +12,15 @@ class EditViewModel @Inject constructor() : BaseViewModel() {
     private val _hasCertification = MutableStateFlow(false)
     val hasCertification : StateFlow<Boolean> get() = _hasCertification
 
+    private val _introduction = MutableStateFlow("자유롭게 작업합니다\nInstagram @jiiiiho_0")
+    val introduction : StateFlow<String> get() = _introduction
+
+    fun typeInputText(cs : CharSequence) {
+        cs.toString().let {
+            if(_introduction.value != it){
+                _introduction.value = it
+            }
+        }
+    }
+
 }

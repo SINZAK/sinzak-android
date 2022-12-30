@@ -52,6 +52,7 @@
     <string name="str_edit_profile_img">프로필 사진 바꾸기</string>
     <string name="str_edit_nickname">닉네임</string>
     <string name="str_edit_introduction">소개</string>
+    <string name="str_edit_introduction_length">%d/100</string>
     <string name="str_edit_auth_true">인증완료</string>
     <string name="str_edit_auth_false">인증하기</string>
     <string name="str_edit_school">학교</string>
