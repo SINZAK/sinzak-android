@@ -14,3 +14,5 @@ package io.sinzak.android.constants
 
 
 const val API_LOGIN_EMAIL = 100
+
+const val API_EMAIL_GET_NAVER = 150

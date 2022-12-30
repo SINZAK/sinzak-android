@@ -6,10 +6,12 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.user.UserApiClient
+import com.navercorp.nid.NaverIdLoginSDK
 import dagger.hilt.android.AndroidEntryPoint
 import io.sinzak.android.R
 import io.sinzak.android.databinding.ActivityLoginBinding
 import io.sinzak.android.system.LogDebug
+import io.sinzak.android.system.social.NaverImpl
 import io.sinzak.android.ui.base.BaseActivity
 import io.sinzak.android.ui.main.MainActivity
 
@@ -65,5 +67,10 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
         else
             userClient.loginWithKakaoTalk(this, callback = callback)
 
+    }
+
+    fun requestNaverLoginActivity(naverCallback : NaverImpl)
+    {
+        NaverIdLoginSDK.authenticate(this,naverCallback)
     }
 }

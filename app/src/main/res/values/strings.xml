@@ -162,4 +162,5 @@
     <string name="str_report_type_5">사기 당했어요</string>
     <string name="str_report_type_6">다른 문제가 있어요</string>
     <string name="str_report_content">적절한 조치를 위해\n신고 내용을 작성해주세요.</string>
+    <string name="str_app_name_kr">신작</string>
 </resources>

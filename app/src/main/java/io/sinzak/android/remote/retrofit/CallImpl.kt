@@ -1,6 +1,7 @@
 package io.sinzak.android.remote.retrofit
 
 import io.sinzak.android.constants.ACCESS_TOKEN
+import io.sinzak.android.constants.API_EMAIL_GET_NAVER
 import io.sinzak.android.constants.API_LOGIN_EMAIL
 import io.sinzak.android.constants.REFRESH_TOKEN
 import io.sinzak.android.remote.dataclass.CRequest
@@ -20,7 +21,7 @@ class CallImpl(
 
     private val header : HashMap<String,String> get() =
         HashMap<String,String>().apply{
-            this[ACCESS_TOKEN] = prefs.accessToken
+            this[ACCESS_TOKEN] = "Bearer ${prefs.accessToken}"
             this[REFRESH_TOKEN] = prefs.refreshToken
         }
 
@@ -41,6 +42,9 @@ class CallImpl(
         return when(apiNum)
         {
             API_LOGIN_EMAIL -> remoteApi.loginEmail(header,requestBody as LoginEmailBody)
+
+
+            API_EMAIL_GET_NAVER -> remoteApi.loginGetNaverEmail("Bearer $paramStr0")
 
 
             else -> throw NoSuchMethodException()

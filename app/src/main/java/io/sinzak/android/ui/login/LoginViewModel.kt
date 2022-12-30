@@ -1,6 +1,7 @@
 package io.sinzak.android.ui.login
 
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.sinzak.android.enums.SDK
 import io.sinzak.android.model.context.SignModel
 import io.sinzak.android.ui.base.BaseViewModel
 import javax.inject.Inject
@@ -23,7 +24,8 @@ class LoginViewModel @Inject constructor(val signModel: SignModel) : BaseViewMod
     fun loginNaver() {
         signModel.loginViaNaver()
         invokeBooleanFlow(signModel.sdkSignSuccess){
-
+            if(signModel.sdkType == SDK.NAVER)
+                signModel.onSuccessNaverLogin()
         }
     }
 

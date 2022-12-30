@@ -4,14 +4,17 @@ import android.content.Context
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.user.UserApiClient
 import com.navercorp.nid.NaverIdLoginSDK
+import com.navercorp.nid.oauth.NidOAuthBehavior
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import io.sinzak.android.constants.API_EMAIL_GET_NAVER
 import io.sinzak.android.constants.API_LOGIN_EMAIL
 import io.sinzak.android.enums.SDK
 import io.sinzak.android.remote.dataclass.CResponse
 import io.sinzak.android.remote.dataclass.request.login.LoginEmailBody
+import io.sinzak.android.remote.dataclass.response.login.NaverProfile
 import io.sinzak.android.remote.retrofit.CallImpl
 import io.sinzak.android.remote.retrofit.Remote
 import io.sinzak.android.remote.retrofit.RemoteListener
@@ -78,23 +81,30 @@ class SignModel @Inject constructor(val context : Context, val remote : Remote) 
 
     fun loginViaNaver(){
 
+        initSignStatus()
+        sdkType = SDK.NAVER
         initNaverSdk()
         //todo : Login With Naver
 
-        NaverIdLoginSDK.initialize(context,"CLIENT_ID","CLIENT_SECRET","CLIENT_NAME")
-        NaverIdLoginSDK.authenticate(context,naverCallback)
+        NaverIdLoginSDK.behavior = NidOAuthBehavior.DEFAULT
+        loginIntentActivity.requestNaverLoginActivity(naverCallback)
 
-        _isLogin.value = true
     }
 
     fun onSuccessNaverLogin()
     {
-        NaverIdLoginSDK.getAccessToken()
+        NaverIdLoginSDK.getAccessToken()?.let{token->
+            CallImpl(API_EMAIL_GET_NAVER,
+            this,
+            paramStr0 = token).apply{
+                remote.sendRequestApi(this)
+            }
+        }
     }
 
 
     fun loginViaKakao(){
-
+        initSignStatus()
         initKakaoSdk()
 
         loginIntentActivity.requestKakaoLoginActivity(loginKaKao,::onLoginKakao)
@@ -115,7 +125,7 @@ class SignModel @Inject constructor(val context : Context, val remote : Remote) 
         token?.let{
             _sdkSignSuccess.value = true
             LogInfo(javaClass.name,"카카오 로그인 성공 : $token")
-            getEmail()
+            getKakaoEmail()
 
         }?:run{
             _signFailed.value = true
@@ -124,7 +134,7 @@ class SignModel @Inject constructor(val context : Context, val remote : Remote) 
         }
     }
 
-    fun getEmail(){
+    fun getKakaoEmail(){
         loginKaKao.me { user, error ->
 
             error?.let{
@@ -172,6 +182,16 @@ class SignModel @Inject constructor(val context : Context, val remote : Remote) 
         when(api)
         {
             API_LOGIN_EMAIL ->{
+
+            }
+
+            API_EMAIL_GET_NAVER ->{
+                if(body is NaverProfile)
+                {
+                    loginEmail = body.profile?.email.toString()
+
+                    loginToServer()
+                }
 
             }
         }
