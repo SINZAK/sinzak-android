@@ -29,6 +29,12 @@ class ProfileFragment :BaseFragment() {
     private val profileWorkViewModel by activityViewModels<ProfileWorkViewModel>()
     private val editProfileViewModel by activityViewModels<EditViewModel>()
 
+    private lateinit var viewProfileTopAppbar : ViewProfileTopAppbarBinding
+    private lateinit var viewProfileMyprofile : ViewProfileMyprofileBinding
+    private lateinit var viewProfileLinkList : ViewProfileLinkListBinding
+    private lateinit var viewProfileArtSale : ViewProfileArtSaleBinding
+    private lateinit var viewProfileArtWork: ViewProfileArtWorkBinding
+
 
     override fun getFragmentRoot(): View {
         bind = FragmentProfileBinding.inflate(layoutInflater)
@@ -63,7 +69,12 @@ class ProfileFragment :BaseFragment() {
     }
 
     private fun inflateAppbar(){
-        DataBindingUtil.inflate<ViewProfileTopAppbarBinding>(layoutInflater, R.layout.view_profile_top_appbar,null, false).apply {
+        viewProfileTopAppbar = DataBindingUtil.inflate<ViewProfileTopAppbarBinding>(
+            layoutInflater,
+            R.layout.view_profile_top_appbar,
+            null,
+            false
+        ).apply {
             lifecycleOwner = viewLifecycleOwner
             vm = viewModel
             fg = this@ProfileFragment
@@ -71,7 +82,12 @@ class ProfileFragment :BaseFragment() {
         }
     }
     private fun inflateMyProfile(){
-        DataBindingUtil.inflate<ViewProfileMyprofileBinding>(layoutInflater,R.layout.view_profile_myprofile,null,false).apply {
+        viewProfileMyprofile = DataBindingUtil.inflate<ViewProfileMyprofileBinding>(
+            layoutInflater,
+            R.layout.view_profile_myprofile,
+            null,
+            false
+        ).apply {
             lifecycleOwner = viewLifecycleOwner
             pVm = viewModel
             eVm = editProfileViewModel
@@ -80,22 +96,37 @@ class ProfileFragment :BaseFragment() {
         }
     }
     private fun inflateLinkList(){
-        DataBindingUtil.inflate<ViewProfileLinkListBinding>(layoutInflater,R.layout.view_profile_link_list,null,false).apply {
+        viewProfileLinkList = DataBindingUtil.inflate<ViewProfileLinkListBinding>(
+            layoutInflater,
+            R.layout.view_profile_link_list,
+            null,
+            false
+        ).apply {
             lifecycleOwner = viewLifecycleOwner
             vm = viewModel
             bind.llProfiles.addView(root)
         }
     }
     private fun inflateArtSale(){
-        DataBindingUtil.inflate<ViewProfileArtSaleBinding>(layoutInflater,R.layout.view_profile_art_sale,null,true).apply {
+        viewProfileArtSale = DataBindingUtil.inflate<ViewProfileArtSaleBinding>(
+            layoutInflater,
+            R.layout.view_profile_art_sale,
+            null,
+            true
+        ).apply {
             lifecycleOwner = viewLifecycleOwner
             vm = profileSaleViewModel
             fg = this@ProfileFragment
             bind.llProfiles.addView(root)
         }
     }
-    private fun inflateArtWork(){
-        DataBindingUtil.inflate<ViewProfileArtWorkBinding>(layoutInflater,R.layout.view_profile_art_work,null,true).apply {
+    private fun inflateArtWork() {
+        viewProfileArtWork = DataBindingUtil.inflate<ViewProfileArtWorkBinding>(
+            layoutInflater,
+            R.layout.view_profile_art_work,
+            null,
+            true
+        ).apply {
             lifecycleOwner = viewLifecycleOwner
             vm = profileWorkViewModel
             fg = this@ProfileFragment
