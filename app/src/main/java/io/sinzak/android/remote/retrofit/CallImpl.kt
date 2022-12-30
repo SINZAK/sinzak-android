@@ -4,6 +4,7 @@ import io.sinzak.android.constants.*
 import io.sinzak.android.remote.dataclass.CRequest
 import io.sinzak.android.remote.dataclass.CResponse
 import io.sinzak.android.remote.dataclass.request.login.LoginEmailBody
+import io.sinzak.android.remote.dataclass.request.login.TokenRequest
 import io.sinzak.android.system.App.Companion.prefs
 import retrofit2.Call
 
@@ -38,6 +39,9 @@ class CallImpl(
          */
         return when(apiNum)
         {
+            API_REFRESH_TOKEN -> remoteApi.refreshToken(header,requestBody as TokenRequest)
+
+
             API_LOGIN_EMAIL -> remoteApi.loginEmail(header,requestBody as LoginEmailBody)
 
 
@@ -45,6 +49,8 @@ class CallImpl(
 
 
             API_GET_MARKET_PRODUCTS -> remoteApi.getMarketProducts(header,paramInt0!!, paramInt1!!)
+
+
 
 
             else -> throw NoSuchMethodException()

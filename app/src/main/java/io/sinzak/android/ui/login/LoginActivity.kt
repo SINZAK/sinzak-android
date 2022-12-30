@@ -48,9 +48,9 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
         if(status)
         {
             startActivity(Intent(this,RegisterActivity::class.java).apply{
-                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+
             })
+            finish()
         }
 
 

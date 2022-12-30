@@ -1,6 +1,7 @@
 package io.sinzak.android.ui.main
 
 import android.content.Intent
+import android.os.Debug
 import androidx.activity.viewModels
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -69,6 +70,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main)
         inflateBottomMenu()
 
         attachInsetsCallback()
+
+        signModel.checkToken()
     }
 
 
@@ -101,7 +104,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main)
 
     fun checkIsLogin() : Boolean{
 
-        if(!signModel.isLogin())
+        LogDebug(javaClass.name,"[MAINACTIVYT] ISLOGIN  ? ${signModel.isLogin.value}")
+        if(!signModel.isLogin.value)
         {
             startActivity(Intent(this,LoginActivity::class.java))
             return false
