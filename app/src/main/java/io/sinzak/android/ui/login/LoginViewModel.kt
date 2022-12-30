@@ -1,6 +1,7 @@
 package io.sinzak.android.ui.login
 
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.sinzak.android.enums.SDK
 import io.sinzak.android.model.context.SignModel
 import io.sinzak.android.ui.base.BaseViewModel
 import javax.inject.Inject
@@ -9,15 +10,29 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(val signModel: SignModel) : BaseViewModel() {
 
 
-    val loginSuccess get() =  signModel.signInSuccess
+    val loginSuccess get() =  signModel.isLogin
 
 
-    fun loginKakao()
-     = signModel.loginViaKakao()
+    fun loginKakao() {
+        signModel.loginViaKakao()
+        invokeBooleanFlow(signModel.sdkSignSuccess)
+        {
 
-    fun loginNaver()
-     = signModel.loginViaNaver()
+        }
+    }
+
+    fun loginNaver() {
+        signModel.loginViaNaver()
+        invokeBooleanFlow(signModel.sdkSignSuccess){
+            if(signModel.sdkType == SDK.NAVER)
+                signModel.onSuccessNaverLogin()
+        }
+    }
 
     fun loginGoogle()
      = signModel.loginViaGoogle()
+
+
+
+
 }

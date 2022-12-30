@@ -1,5 +1,6 @@
 package io.sinzak.android.ui.main
 
+import android.content.Intent
 import androidx.activity.viewModels
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -10,10 +11,12 @@ import io.sinzak.android.databinding.ActivityMainBinding
 import io.sinzak.android.databinding.ViewMainBottomMenuBinding
 import io.sinzak.android.enums.Page
 import io.sinzak.android.enums.Page.*
+import io.sinzak.android.model.context.SignModel
 import io.sinzak.android.model.navigate.Navigation
 import io.sinzak.android.system.LogDebug
 import io.sinzak.android.ui.base.BaseActivity
 import io.sinzak.android.ui.base.BaseFragment
+import io.sinzak.android.ui.login.LoginActivity
 import io.sinzak.android.ui.main.chat.ChatFragment
 import io.sinzak.android.ui.main.home.HomeFragment
 import io.sinzak.android.ui.main.home.notification.NotificationFragment
@@ -36,6 +39,7 @@ import io.sinzak.android.ui.main.profile.sale_with_work.WorkFragment
 import io.sinzak.android.ui.main.profile.setting.SettingFragment
 import io.sinzak.android.utils.RootViewDeferringInsetsCallback
 import javax.inject.Inject
+import kotlin.math.sign
 
 
 @AndroidEntryPoint
@@ -44,6 +48,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main)
 
     @Inject
     lateinit var navigation: Navigation
+
+    @Inject
+    lateinit var signModel: SignModel
 
     private val viewModel : MainViewModel by viewModels()
 
@@ -84,11 +91,22 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main)
 
         useBind {
             DataBindingUtil.inflate<ViewMainBottomMenuBinding>(layoutInflater,R.layout.view_main_bottom_menu,null,false).apply{
+                activity = this@MainActivity
                 viewmodel = bottomViewModel
                 lifecycleOwner = this@MainActivity
                 flBottomMenu.addView(root)
             }
         }
+    }
+
+    fun checkIsLogin() : Boolean{
+
+        if(!signModel.isLogin())
+        {
+            startActivity(Intent(this,LoginActivity::class.java))
+            return false
+        }
+        return true
     }
 
     override fun onBackPressed() {
@@ -98,7 +116,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main)
             super.onBackPressed()
         }
     }
-
 
 
     fun inflateFragment(page: Page) : Boolean

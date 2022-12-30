@@ -85,4 +85,11 @@ dependencies {
     implementation 'com.tbuonomo:dotsindicator:4.3'
 
 
+    // Naver SDK
+    implementation "com.navercorp.nid:oauth:5.3.0"
+
+    // Kakao Login SDK
+    implementation "com.kakao.sdk:v2-user:2.9.1"
+
+
 }
