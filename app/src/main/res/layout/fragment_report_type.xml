@@ -3,9 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
+        <import type="io.sinzak.android.enums.ReportType"/>
         <variable
             name="fg"
             type="io.sinzak.android.ui.main.profile.report.ReportTypeFragment" />
+        <variable
+            name="vm"
+            type="io.sinzak.android.ui.main.profile.report.ReportSendViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -60,13 +64,13 @@
                 android:paddingVertical="23dp"
                 android:paddingStart="17dp"
                 android:paddingEnd="11dp"
-                android:onClick="@{v->fg.goToReportSendPage()}">
+                android:onClick="@{v->fg.goToReportSendPage() &amp; vm.setReportType(ReportType.REPORT_SELLER)}">
 
                 <TextView
                     style="@style/medium16"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_report_type_1"
+                    android:text="@string/str_report_type_seller"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -85,13 +89,13 @@
                 android:paddingVertical="23dp"
                 android:paddingStart="17dp"
                 android:paddingEnd="11dp"
-                android:onClick="@{v->fg.goToReportSendPage()}">
+                android:onClick="@{v->fg.goToReportSendPage() &amp; vm.setReportType(ReportType.REPORT_NO_MANNER)}">
 
                 <TextView
                     style="@style/medium16"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_report_type_2"
+                    android:text="@string/str_report_type_no_manner"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -110,13 +114,13 @@
                 android:paddingVertical="23dp"
                 android:paddingStart="17dp"
                 android:paddingEnd="11dp"
-                android:onClick="@{v->fg.goToReportSendPage()}">
+                android:onClick="@{v->fg.goToReportSendPage() &amp; vm.setReportType(ReportType.REPORT_SEXUAL)}">
 
                 <TextView
                     style="@style/medium16"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_report_type_3"
+                    android:text="@string/str_report_type_sexual"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -135,13 +139,13 @@
                 android:paddingVertical="23dp"
                 android:paddingStart="17dp"
                 android:paddingEnd="11dp"
-                android:onClick="@{v->fg.goToReportSendPage()}">
+                android:onClick="@{v->fg.goToReportSendPage() &amp; vm.setReportType(ReportType.REPORT_DISPUTE)}">
 
                 <TextView
                     style="@style/medium16"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_report_type_4"
+                    android:text="@string/str_report_type_dispute"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -160,13 +164,13 @@
                 android:paddingVertical="23dp"
                 android:paddingStart="17dp"
                 android:paddingEnd="11dp"
-                android:onClick="@{v->fg.goToReportSendPage()}">
+                android:onClick="@{v->fg.goToReportSendPage() &amp; vm.setReportType(ReportType.REPORT_CHEAT)}">
 
                 <TextView
                     style="@style/medium16"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_report_type_5"
+                    android:text="@string/str_report_type_cheat"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -185,13 +189,13 @@
                 android:paddingVertical="23dp"
                 android:paddingStart="17dp"
                 android:paddingEnd="11dp"
-                android:onClick="@{v->fg.goToReportSendPage()}">
+                android:onClick="@{v->fg.goToReportSendPage() &amp; vm.setReportType(ReportType.REPORT_OTHER)}">
 
                 <TextView
                     style="@style/medium16"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_report_type_6"
+                    android:text="@string/str_report_type_other"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 

@@ -4,7 +4,6 @@ import android.view.View
 import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
 import io.sinzak.android.databinding.FragmentReportSendBinding
-import io.sinzak.android.databinding.FragmentReportTypeBinding
 import io.sinzak.android.ui.base.BaseFragment
 
 @AndroidEntryPoint
@@ -21,7 +20,7 @@ class ReportSendFragment : BaseFragment() {
 
     override fun onFragmentCreated() {
         bind.apply {
-            bind.lifecycleOwner = lifecycleOwner
+            bind.lifecycleOwner = viewLifecycleOwner
             vm = viewModel
             fg = this@ReportSendFragment
         }
