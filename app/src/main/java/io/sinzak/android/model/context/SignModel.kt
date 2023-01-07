@@ -60,6 +60,9 @@ class SignModel @Inject constructor(val remote : Remote) : RemoteListener {
     }
     fun clearJoinInfo(){
         username = ""
+        interests = listOf()
+        univ = null
+        univEmail = ""
     }
 
     private var username : String = ""
@@ -75,18 +78,19 @@ class SignModel @Inject constructor(val remote : Remote) : RemoteListener {
         univ = u
     }
     private var univEmail = ""
+    //todo : 이메일 인증
 
 
 
     fun join(){
         JoinRequest(
             categoryLike = interests.joinToString { it },
-            certUniv = false, // 이메일 인증하면 true 로
+            certUniv = false, // todo 이메일 인증하면 true 로
             email = loginEmail,
             name = username,
             nickname = username,
             SDKOrigin = sdkType!!.name,
-            term = true, // 거절시 false
+            term = true, // todo 거절시 false
             university = univ!!.schoolName,
             univEmail = univEmail
         ).apply{
@@ -268,7 +272,7 @@ class SignModel @Inject constructor(val remote : Remote) : RemoteListener {
             needSignUp.value = false
             _isLogin.value = true
         }else{
-            // 회원가입 실패
+            //todo 회원가입 실패
             LogError(javaClass.name,"회원가입 실패 $message")
         }
     }
