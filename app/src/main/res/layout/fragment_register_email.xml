@@ -125,7 +125,7 @@
                 android:background="@drawable/btn_gray_filled"
 
                 android:gravity="center"
-                android:onClick="@{v->fg.dismiss()}"
+                android:onClick="@{v->vm.signModel.join()}"
                 android:text="다음에 하기"
                 android:textColor="@color/on_primary"
                 app:layout_constraintBottom_toBottomOf="parent" />

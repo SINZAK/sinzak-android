@@ -59,7 +59,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/linearLayoutCompat5"
+                android:id="@+id/ll_univ_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7.8dp"
@@ -87,7 +87,7 @@
                 android:background="@drawable/ll_certi_search"
                 android:layout_marginTop="11dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat5"
+                app:layout_constraintTop_toBottomOf="@+id/ll_univ_name"
                 android:visibility="@{vm.showSchoolList ? 0 : 8}"
                 adapter="@{vm.certificationAdapter}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -103,13 +103,15 @@
             android:layout_height="@dimen/btn_height"
             android:layout_marginHorizontal="8dp"
             android:layout_marginBottom="25.5dp"
-            android:background="@drawable/btn_primary_color"
+            android:background="@drawable/btn_red_filled"
+            android:enabled="@{vm.schoolInserted}"
             android:gravity="center"
             android:text="@string/str_next"
             android:textColor="@color/on_primary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+
 
             android:onClick="@{v->vm.onSubmit() &amp; fg.gotoSchoolAuth()}"/>
 

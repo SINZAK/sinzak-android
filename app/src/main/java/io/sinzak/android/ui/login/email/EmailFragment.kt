@@ -37,8 +37,5 @@ class EmailFragment : BaseFragment() {
     }
 
 
-    fun dismiss(){
-        (requireActivity() as RegisterActivity).gotoMain()
 
-    }
 }

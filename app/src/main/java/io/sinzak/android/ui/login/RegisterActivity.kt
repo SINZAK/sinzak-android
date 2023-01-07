@@ -13,6 +13,7 @@ import io.sinzak.android.enums.RegisterPage
 import io.sinzak.android.enums.RegisterPage.*
 import io.sinzak.android.model.navigate.RegisterNavigation
 import io.sinzak.android.system.LogDebug
+import io.sinzak.android.system.LogInfo
 import io.sinzak.android.ui.base.BaseActivity
 import io.sinzak.android.ui.base.BaseFragment
 import io.sinzak.android.ui.login.agreement.AgreementFragment
@@ -38,6 +39,7 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>(R.layout.activity
         }
 
         LogDebug(javaClass.name,"[REGISTER ACTIVITY] ${viewModel.signModel.isLogin.value}")
+        viewModel.regNav.changePage(PAGE_AGREEMENT)
         observeNavigation()
     }
 
@@ -46,6 +48,13 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>(R.layout.activity
     fun observeNavigation(){
         lifecycleScope.launch{
             viewModel.topPage.collect(::setPage)
+        }
+
+        lifecycleScope.launch{
+            viewModel.signModel.isLogin.collect{
+                if(it)
+                    gotoMain()
+            }
         }
 
     }
@@ -71,9 +80,12 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>(R.layout.activity
         }
 
         supportFragmentManager.beginTransaction().replace(R.id.fc_register,fragment!!).commit()
+
     }
 
     fun gotoMain(){
+
+        LogInfo(javaClass.name,"메인으로 가자")
         finish()
         /*Intent(this,MainActivity::class.java).apply{
             addFlags(Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY)
