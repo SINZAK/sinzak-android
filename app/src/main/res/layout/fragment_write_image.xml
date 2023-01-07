@@ -81,7 +81,7 @@
                 android:layout_marginTop="7dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:adapter="@{vm.adapter}"
+                adapter="@{vm.adapter}"
                 marginHorizon="@{2.5f}"
                 marginVertical="@{0f}"
                 android:orientation="horizontal"
