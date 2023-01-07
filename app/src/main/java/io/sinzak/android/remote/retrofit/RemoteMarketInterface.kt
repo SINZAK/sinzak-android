@@ -8,5 +8,5 @@ import retrofit2.http.Query
 
 interface RemoteMarketInterface {
     @POST("/market/products")
-    fun getMarketProducts(@HeaderMap header : HashMap<String,String>, @Query("page") page : Int, @Query("size") size : Int) : Call<MarketProductResponse>
+    fun getMarketProducts(@HeaderMap header : HashMap<String,String>, @Query("page") page : Int, @Query("size") size : Int, @Query("align") align : String, @Query("category") category : String ) : Call<MarketProductResponse>
 }

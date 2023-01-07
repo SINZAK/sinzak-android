@@ -1,6 +1,7 @@
 package io.sinzak.android.ui.main.postwrite.viewmodels
 
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.sinzak.android.model.market.MarketArtModel
 import io.sinzak.android.ui.base.BaseViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
@@ -31,7 +32,7 @@ class CategoryViewModel @Inject constructor() : BaseViewModel() {
         val list = categorySelected.value.toMutableList()
         if(status)
             list.remove(category)
-        else
+        else if(list.size < 3)
             list.add(category)
         marketCategories.sortBy {
             !list.contains(it)
@@ -40,6 +41,7 @@ class CategoryViewModel @Inject constructor() : BaseViewModel() {
             !list.contains(it)
         }
         categorySelected.value = list
+
     }
 
 

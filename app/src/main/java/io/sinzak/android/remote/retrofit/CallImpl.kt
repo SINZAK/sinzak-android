@@ -15,7 +15,8 @@ class CallImpl(
     val requestBody : CRequest? = null,
     val paramInt0 : Int? = null,
     val paramInt1 : Int? = null,
-    val paramStr0 : String? = null
+    val paramStr0 : String? = null,
+    val paramStr1 : String? = null
 ) {
 
     private val header : HashMap<String,String> get() =
@@ -49,7 +50,7 @@ class CallImpl(
             API_EMAIL_GET_NAVER -> remoteApi.loginGetNaverEmail("Bearer $paramStr0")
 
 
-            API_GET_MARKET_PRODUCTS -> remoteApi.getMarketProducts(header,paramInt0!!, paramInt1!!)
+            API_GET_MARKET_PRODUCTS -> remoteApi.getMarketProducts(header,paramInt0!!, paramInt1!!, paramStr0!!, paramStr1!!)
 
             API_JOIN_ACCOUNT -> remoteApi.joinAccount(header,requestBody as JoinRequest)
 
