@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
             name="fg"
-            type="io.sinzak.android.ui.main.profile.report.ReportSendFragment" />
+            type="io.sinzak.android.ui.main.profile.report.ReportSendFragment"/>
+        <variable
+            name="vm"
+            type="io.sinzak.android.ui.main.profile.report.ReportSendViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:context=".ui.main.profile.report.ReportSendFragment">
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
@@ -40,20 +45,71 @@
             android:layout_marginTop="25.2dp"
             android:text="@string/str_report_content"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintTop_toBottomOf="@+id/textView"/>
+
+        <TextView
+            android:id="@+id/textView4"
+            style="@style/bold16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="33dp"
+            android:text=":"
+            android:textColor="@color/gray80"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+        <TextView
+            android:id="@+id/textView3"
+            style="@style/bold16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            reportType="@{vm.reportType}"
+            android:textColor="@color/gray80"
+            app:layout_constraintStart_toEndOf="@+id/textView4"
+            app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
         <EditText
+            android:id="@+id/editText"
             style="@style/regular16"
             android:layout_width="match_parent"
             android:layout_height="326.7dp"
-            android:background="@drawable/et_gray_filled"
-            android:gravity="top"
             android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="28.7dp"
+            android:layout_marginTop="11dp"
+            android:background="@drawable/et_gray_filled"
+            android:gravity="start"
+            android:inputType="textMultiLine"
+            android:text="@{vm.report}"
+            android:maxLength="300"
             android:paddingHorizontal="32dp"
             android:paddingVertical="24dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView9" />
+            app:layout_constraintTop_toBottomOf="@+id/textView3"
+            android:hint="@string/str_report_input_hint"
+            android:onTextChanged="@{(cs,a,b,c) -> vm.reportInputText(cs)}"
+            />
+
+        <TextView
+            style="@style/regular13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:text="@{@string/str_report_input_length(vm.report.length())}"
+            android:textColor="@color/gray80"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editText"
+            android:layout_marginTop="12.74dp"
+            android:layout_marginHorizontal="46.6dp"/>
+
+        <TextView
+            style="@style/medium13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/str_report_send_explain"
+            android:textColor="@color/gray80"
+            android:layout_marginBottom="11.2dp"
+            app:layout_constraintBottom_toTopOf="@+id/textView2"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/textView2"

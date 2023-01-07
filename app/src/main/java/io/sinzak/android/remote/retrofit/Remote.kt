@@ -52,7 +52,7 @@ class Remote @Inject constructor(val remoteApi : RemoteInterface) : Callback<Res
     {
         val body = result.body
 
-        if(body is Token)
+        if(body is Token && body.success != false)
         {
 
             prefs.setString(ACCESS_TOKEN,body.accessToken)

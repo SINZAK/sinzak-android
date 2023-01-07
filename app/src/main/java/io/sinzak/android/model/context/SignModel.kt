@@ -1,19 +1,17 @@
 package io.sinzak.android.model.context
 
-import android.content.Context
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.user.UserApiClient
 import com.navercorp.nid.NaverIdLoginSDK
 import com.navercorp.nid.oauth.NidOAuthBehavior
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.components.SingletonComponent
 import io.sinzak.android.constants.*
 import io.sinzak.android.enums.SDK
 import io.sinzak.android.remote.dataclass.CResponse
+import io.sinzak.android.remote.dataclass.local.SchoolData
+import io.sinzak.android.remote.dataclass.request.login.JoinRequest
 import io.sinzak.android.remote.dataclass.request.login.LoginEmailBody
 import io.sinzak.android.remote.dataclass.request.login.TokenRequest
+import io.sinzak.android.remote.dataclass.response.login.LoginEmailResponse
 import io.sinzak.android.remote.dataclass.response.login.NaverProfile
 import io.sinzak.android.remote.dataclass.response.login.Token
 import io.sinzak.android.remote.retrofit.CallImpl
@@ -33,8 +31,14 @@ import javax.inject.Singleton
 @Singleton
 class SignModel @Inject constructor(val remote : Remote) : RemoteListener {
 
+    lateinit var univList : List<SchoolData>
+
+
+
     private val _isLogin = MutableStateFlow(false)
     val isLogin : StateFlow<Boolean> get() = _isLogin
+
+    val needSignUp = MutableStateFlow(false)
 
     fun isLogin() : Boolean{
         return  isLogin.value
@@ -54,6 +58,48 @@ class SignModel @Inject constructor(val remote : Remote) : RemoteListener {
         }
 
     }
+    fun clearJoinInfo(){
+        username = ""
+        interests = listOf()
+        univ = null
+        univEmail = ""
+    }
+
+    private var username : String = ""
+    fun setUsername(t : String){
+        username = t
+    }
+    private var interests = listOf<String>()
+    fun setInterests(i : List<String>){
+        interests = i
+    }
+    private var univ : SchoolData? = null
+    fun setUniv(u : SchoolData){
+        univ = u
+    }
+    private var univEmail = ""
+    //todo : 이메일 인증
+
+
+
+    fun join(){
+        JoinRequest(
+            categoryLike = interests.joinToString { it },
+            certUniv = false, // todo 이메일 인증하면 true 로
+            email = loginEmail,
+            name = username,
+            nickname = username,
+            SDKOrigin = sdkType!!.name,
+            term = true, // todo 거절시 false
+            university = univ!!.schoolName,
+            univEmail = univEmail
+        ).apply{
+            CallImpl(API_JOIN_ACCOUNT,this@SignModel,this).apply{
+                remote.sendRequestApi(this)
+            }
+        }
+    }
+
 
 
     private val _sdkSignSuccess = MutableStateFlow(false)
@@ -82,6 +128,8 @@ class SignModel @Inject constructor(val remote : Remote) : RemoteListener {
     fun initSignStatus(){
         _signFailed.value = false
         _errorString.value = ""
+        _isLogin.value = false
+        needSignUp.value = false
         _sdkSignSuccess.value = false
     }
 
@@ -100,7 +148,7 @@ class SignModel @Inject constructor(val remote : Remote) : RemoteListener {
     fun loginViaNaver(){
 
         initSignStatus()
-        sdkType = SDK.NAVER
+        sdkType = SDK.naver
         initNaverSdk()
         //todo : Login With Naver
 
@@ -163,7 +211,7 @@ class SignModel @Inject constructor(val remote : Remote) : RemoteListener {
                 it.kakaoAccount?.email?.let{
                     _sdkSignSuccess.value = true
                     loginEmail = it
-                    sdkType = SDK.KAKAO
+                    sdkType = SDK.kakao
                     loginToServer()
                    return@me
                 }
@@ -205,12 +253,36 @@ class SignModel @Inject constructor(val remote : Remote) : RemoteListener {
         prefs.setString(REFRESH_TOKEN,response.refreshToken)
     }
 
+    fun onResponseLogin(response : LoginEmailResponse){
+        if(response.success == false){
+            if(response.message == "가입되지 않은 ID입니다."){
+                needSignUp.value = true
+            }else{
+
+            }
+        }else{
+            // login
+            _isLogin.value = true
+        }
+    }
+
+    fun onResponseJoin(success : Boolean, message : String)
+    {
+        if(success){
+            needSignUp.value = false
+            _isLogin.value = true
+        }else{
+            //todo 회원가입 실패
+            LogError(javaClass.name,"회원가입 실패 $message")
+        }
+    }
+
 
     override fun onConnectionSuccess(api: Int, body: CResponse) {
         when(api)
         {
             API_LOGIN_EMAIL ->{
-
+                onResponseLogin(body as LoginEmailResponse)
             }
 
             API_REFRESH_TOKEN ->{
@@ -226,6 +298,10 @@ class SignModel @Inject constructor(val remote : Remote) : RemoteListener {
                 }
 
             }
+
+            API_JOIN_ACCOUNT ->{
+                onResponseJoin(body.success!!, body.message.toString())
+            }
         }
     }
 
@@ -236,7 +312,7 @@ class SignModel @Inject constructor(val remote : Remote) : RemoteListener {
         when (api)
         {
             API_LOGIN_EMAIL ->{
-                _isLogin.value = true
+
             }
         }
     }

@@ -1,6 +1,7 @@
 package io.sinzak.android.remote.retrofit
 
 import com.google.gson.Gson
+import io.sinzak.android.constants.API_REFRESH_TOKEN
 import io.sinzak.android.remote.dataclass.CResponse
 import io.sinzak.android.system.LogInfo
 import okhttp3.Request
@@ -62,6 +63,19 @@ open class CallExtent<T: CResponse>(private val apiNum : Int, private val call :
                                 this@CallExtent,
                                 Response.success(Result.ServerError(apiNum, remoteCallback, response.message()))
                             )
+                        }
+                    }
+                    401 ->
+                    {
+                        val response = Gson().fromJson<CResponse>(response.errorBody()?.string()?:"",CResponse::class.java)
+                        if(callImpl.apiNum == API_REFRESH_TOKEN)
+                            callback.onResponse(
+                                this@CallExtent,
+                                Response.success(Result.ServerError(apiNum,remoteCallback,response.message?:"")
+                                )
+                            )
+                        else{
+
                         }
                     }
                     else ->

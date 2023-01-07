@@ -3,6 +3,7 @@ package io.sinzak.android.remote.retrofit
 import io.sinzak.android.constants.*
 import io.sinzak.android.remote.dataclass.CRequest
 import io.sinzak.android.remote.dataclass.CResponse
+import io.sinzak.android.remote.dataclass.request.login.JoinRequest
 import io.sinzak.android.remote.dataclass.request.login.LoginEmailBody
 import io.sinzak.android.remote.dataclass.request.login.TokenRequest
 import io.sinzak.android.system.App.Companion.prefs
@@ -50,6 +51,7 @@ class CallImpl(
 
             API_GET_MARKET_PRODUCTS -> remoteApi.getMarketProducts(header,paramInt0!!, paramInt1!!)
 
+            API_JOIN_ACCOUNT -> remoteApi.joinAccount(header,requestBody as JoinRequest)
 
 
 

@@ -11,6 +11,7 @@ class LoginViewModel @Inject constructor(val signModel: SignModel) : BaseViewMod
 
 
     val loginSuccess get() =  signModel.isLogin
+    val needSignUp get() = signModel.needSignUp
 
 
     fun loginKakao() {
@@ -24,7 +25,7 @@ class LoginViewModel @Inject constructor(val signModel: SignModel) : BaseViewMod
     fun loginNaver() {
         signModel.loginViaNaver()
         invokeBooleanFlow(signModel.sdkSignSuccess){
-            if(signModel.sdkType == SDK.NAVER)
+            if(signModel.sdkType == SDK.naver)
                 signModel.onSuccessNaverLogin()
         }
     }

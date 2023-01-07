@@ -41,7 +41,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="@{!vmCert.isGraduate ? @string/str_register_undergrad : @string/str_register_graduated}"
+                android:text="@string/str_certification"
                 />
 
             <Space
@@ -125,7 +125,7 @@
                 android:background="@drawable/btn_gray_filled"
 
                 android:gravity="center"
-                android:onClick="@{v->fg.dismiss()}"
+                android:onClick="@{v->vm.signModel.join()}"
                 android:text="다음에 하기"
                 android:textColor="@color/on_primary"
                 app:layout_constraintBottom_toBottomOf="parent" />

@@ -1,13 +1,16 @@
 package io.sinzak.android.ui.main.profile.certification
 
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.sinzak.android.model.context.SignModel
 import io.sinzak.android.ui.base.BaseViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
 @HiltViewModel
-class WebmailViewModel @Inject constructor() : BaseViewModel() {
+class WebmailViewModel @Inject constructor(
+    val signModel: SignModel
+) : BaseViewModel() {
 
     private val _webMailInput = MutableStateFlow("")
     val  webMailInput : StateFlow<String> get() = _webMailInput
@@ -45,6 +48,10 @@ class WebmailViewModel @Inject constructor() : BaseViewModel() {
 
     fun sendCodeToMail(){
         _isCodeSend.value = true
+    }
+
+    fun submitWithoutEmail(){
+        //signModel.join()
     }
 
 }

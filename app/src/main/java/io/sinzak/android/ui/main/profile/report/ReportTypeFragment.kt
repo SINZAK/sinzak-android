@@ -1,6 +1,7 @@
 package io.sinzak.android.ui.main.profile.report
 
 import android.view.View
+import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
 import io.sinzak.android.databinding.FragmentReportTypeBinding
 import io.sinzak.android.enums.Page
@@ -11,6 +12,8 @@ class ReportTypeFragment : BaseFragment() {
 
     private lateinit var bind : FragmentReportTypeBinding
 
+    private val viewModel : ReportSendViewModel by activityViewModels()
+
     override fun getFragmentRoot(): View {
         bind = FragmentReportTypeBinding.inflate(layoutInflater)
         return bind.root
@@ -18,7 +21,8 @@ class ReportTypeFragment : BaseFragment() {
 
     override fun onFragmentCreated() {
         bind.apply {
-            bind.lifecycleOwner = lifecycleOwner
+            bind.lifecycleOwner = viewLifecycleOwner
+            vm = viewModel
             fg = this@ReportTypeFragment
         }
     }

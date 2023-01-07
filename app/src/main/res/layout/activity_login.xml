@@ -37,7 +37,7 @@
             android:layout_width="160dp"
             android:layout_height="53dp"
             android:layout_marginStart="36dp"
-            isSelect="@{activity.onSuccessLogin(vm.loginSuccess)}"
+            isSelect="@{activity.onSuccessLogin(vm.needSignUp)}"
             android:layout_marginTop="118dp"
             android:src="@drawable/ic_appbar_logo"
             app:layout_constraintStart_toStartOf="parent"
