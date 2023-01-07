@@ -14,6 +14,7 @@ import io.sinzak.android.enums.SDK
 import io.sinzak.android.remote.dataclass.CResponse
 import io.sinzak.android.remote.dataclass.request.login.LoginEmailBody
 import io.sinzak.android.remote.dataclass.request.login.TokenRequest
+import io.sinzak.android.remote.dataclass.response.login.LoginEmailResponse
 import io.sinzak.android.remote.dataclass.response.login.NaverProfile
 import io.sinzak.android.remote.dataclass.response.login.Token
 import io.sinzak.android.remote.retrofit.CallImpl
@@ -35,6 +36,8 @@ class SignModel @Inject constructor(val remote : Remote) : RemoteListener {
 
     private val _isLogin = MutableStateFlow(false)
     val isLogin : StateFlow<Boolean> get() = _isLogin
+
+    val needSignUp = MutableStateFlow(false)
 
     fun isLogin() : Boolean{
         return  isLogin.value
@@ -82,6 +85,7 @@ class SignModel @Inject constructor(val remote : Remote) : RemoteListener {
     fun initSignStatus(){
         _signFailed.value = false
         _errorString.value = ""
+        needSignUp.value = false
         _sdkSignSuccess.value = false
     }
 
@@ -205,12 +209,25 @@ class SignModel @Inject constructor(val remote : Remote) : RemoteListener {
         prefs.setString(REFRESH_TOKEN,response.refreshToken)
     }
 
+    fun onResponseLogin(response : LoginEmailResponse){
+        if(response.success == false){
+            if(response.message == "가입되지 않은 ID입니다."){
+                needSignUp.value = true
+            }else{
+
+            }
+        }else{
+            // login
+            _isLogin.value = true
+        }
+    }
+
 
     override fun onConnectionSuccess(api: Int, body: CResponse) {
         when(api)
         {
             API_LOGIN_EMAIL ->{
-
+                onResponseLogin(body as LoginEmailResponse)
             }
 
             API_REFRESH_TOKEN ->{
@@ -236,7 +253,7 @@ class SignModel @Inject constructor(val remote : Remote) : RemoteListener {
         when (api)
         {
             API_LOGIN_EMAIL ->{
-                _isLogin.value = true
+
             }
         }
     }

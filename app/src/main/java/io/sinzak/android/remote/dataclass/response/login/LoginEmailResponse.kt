@@ -4,5 +4,5 @@ import com.google.gson.annotations.SerializedName
 import io.sinzak.android.remote.dataclass.CResponse
 
 data class LoginEmailResponse(
-    @SerializedName("grantType") val grantType : String? = null,
+    @SerializedName("success") val success : Boolean? = null
 ) : Token()

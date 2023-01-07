@@ -11,6 +11,7 @@ class LoginViewModel @Inject constructor(val signModel: SignModel) : BaseViewMod
 
 
     val loginSuccess get() =  signModel.isLogin
+    val needSignUp get() = signModel.needSignUp
 
 
     fun loginKakao() {
