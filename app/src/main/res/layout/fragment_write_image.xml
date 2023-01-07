@@ -6,6 +6,10 @@
         <variable
             name="fg"
             type="io.sinzak.android.ui.main.postwrite.fragment.ImageFragment" />
+
+        <variable
+            name="vm"
+            type="io.sinzak.android.ui.main.postwrite.viewmodels.ImageViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -58,7 +62,7 @@
                     style="@style/bold16"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="5"
+                    android:text="@{String.valueOf(vm.imgCnt)}"
                     android:textColor="@color/primary" />
 
                 <TextView
@@ -72,13 +76,19 @@
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.recyclerview.widget.RecyclerView
+                android:paddingHorizontal="12dp"
+                android:clipToPadding="false"
                 android:layout_marginTop="7dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:adapter="@{vm.adapter}"
+                marginHorizon="@{2.5f}"
+                marginVertical="@{0f}"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
             <TextView
+                android:onClick="@{v->fg.loadImage()}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_camera"
