@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="vm"
+            type="io.sinzak.android.ui.main.profile.certification.WebmailViewModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/textView8"
+            style="@style/regular13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:text="@string/str_webMail_explain"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/linearLayoutCompat2"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="12.8dp"
+            android:background="@drawable/ll_webmail_input"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView8">
+
+            <EditText
+                style="@style/bold13"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="@string/str_webMail_hint"
+                android:inputType="textEmailAddress"
+                android:onTextChanged="@{(cs,a,b,c) -> vm.mailInputText(cs)}"
+                android:text="@{vm.webMailInput}"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gray60" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{v-> vm.deleteMailInput()}"
+                android:src="@drawable/ic_btn_clear" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <TextView
+            style="@style/medium13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/str_webMail_validation"
+            android:textColor="@color/primary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat2"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="2.5dp"
+            android:visibility="invisible"/>
+        <TextView
+            style="@style/medium13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/str_webMail_send_message"
+            android:textColor="@color/secondary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat2"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="2.5dp"
+            android:visibility="invisible"/>
+
+       <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat2"
+            android:layout_marginTop="43dp"
+            android:visibility="@{vm.isCodeSend() ? 0 : 8}">
+
+           <TextView
+               android:id="@+id/textView12"
+               style="@style/regular13"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:paddingStart="17dp"
+               android:paddingEnd="15dp"
+               android:text="@string/str_webMail_code"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintTop_toTopOf="parent" />
+
+           <androidx.appcompat.widget.LinearLayoutCompat
+               android:id="@+id/linearLayoutCompat6"
+               android:layout_width="match_parent"
+               android:layout_height="60dp"
+               android:layout_marginTop="3.5dp"
+               android:background="@drawable/ll_webmail_input"
+               android:gravity="center_vertical"
+               android:orientation="horizontal"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintTop_toBottomOf="@+id/textView12">
+
+               <EditText
+                   style="@style/bold13"
+                   android:layout_width="0dp"
+                   android:layout_height="wrap_content"
+                   android:layout_weight="1"
+                   android:background="@null"
+                   android:hint="@string/str_webMail_code_hint"
+                   android:inputType="textEmailAddress"
+                   android:maxLength="4"
+                   android:onTextChanged="@{(cs,a,b,c) -> vm.codeInputText(cs)}"
+                   android:text="@{vm.codeInput}"
+                   android:textColor="@color/black"
+                   android:textColorHint="@color/gray60" />
+
+               <ImageView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:onClick="@{v-> vm.deleteCodeInput()}"
+                   android:src="@drawable/ic_btn_clear" />
+           </androidx.appcompat.widget.LinearLayoutCompat>
+
+           <TextView
+               style="@style/medium13"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="@string/str_webMail_code_err"
+               android:textColor="@color/primary"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat6"
+               android:layout_marginStart="12dp"
+               android:layout_marginTop="2.5dp"
+               android:visibility="invisible"/>
+
+           <TextView
+               style="@style/medium13"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="@string/str_webMail_code_complete"
+               android:textColor="@color/secondary"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat6"
+               android:layout_marginStart="12dp"
+               android:layout_marginTop="2.5dp"
+               android:visibility="invisible"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

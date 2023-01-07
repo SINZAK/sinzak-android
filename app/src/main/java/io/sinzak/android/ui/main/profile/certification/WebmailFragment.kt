@@ -4,6 +4,8 @@ import android.view.View
 import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
 import io.sinzak.android.databinding.FragmentWebmailBinding
+import io.sinzak.android.databinding.ViewWebmailSchoolidBinding
+import io.sinzak.android.databinding.ViewWebmailSchoolmailBinding
 import io.sinzak.android.ui.base.BaseFragment
 
 @AndroidEntryPoint
@@ -23,6 +25,25 @@ class WebmailFragment : BaseFragment() {
             bind.lifecycleOwner = viewLifecycleOwner
             vm = viewModel
             fg = this@WebmailFragment
+        }
+
+        inflateSchoolMail()
+        inflateSchoolId()
+
+    }
+
+    fun inflateSchoolMail(){
+        ViewWebmailSchoolmailBinding.inflate(layoutInflater).apply {
+            lifecycleOwner = viewLifecycleOwner
+            bind.flWebMail.addView(root)
+            vm = viewModel
+        }
+    }
+
+    fun inflateSchoolId() {
+        ViewWebmailSchoolidBinding.inflate(layoutInflater).apply {
+            lifecycleOwner = viewLifecycleOwner
+            bind.flStudentId.addView(root)
         }
     }
 

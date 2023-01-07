@@ -5,10 +5,10 @@
     <data>
         <variable
             name="fg"
-            type="io.sinzak.android.ui.main.profile.certification.WebmailFragment" />
+            type="io.sinzak.android.ui.main.profile.certification.WebmailFragment"/>
         <variable
             name="vm"
-            type="io.sinzak.android.ui.main.profile.certification.WebmailViewModel" />
+            type="io.sinzak.android.ui.main.profile.certification.WebmailViewModel"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -45,96 +45,99 @@
             android:paddingHorizontal="16dp"
             android:paddingVertical="25.5dp">
 
-
             <TextView
-                android:id="@+id/textView8"
-                style="@style/regular13"
+                android:id="@+id/textView5"
+                style="@style/medium13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingStart="17dp"
-                android:paddingEnd="15dp"
-                android:text="@string/str_webMail_explain"
+                android:layout_marginStart="24dp"
+                android:text="@string/str_webMail_type_select"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/linearLayoutCompat2"
+                android:id="@+id/linearLayoutCompat5"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="25.4dp"
-                android:background="@drawable/ll_webmail_input"
-                android:gravity="center_vertical"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
                 android:orientation="horizontal"
+                android:paddingHorizontal="15dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView8">
+                app:layout_constraintTop_toBottomOf="@+id/textView5">
 
-                <EditText
-                    style="@style/bold13"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@null"
-                    android:hint="@string/str_webMail_hint"
-                    android:inputType="textEmailAddress"
-                    android:onTextChanged="@{(cs,a,b,c) -> vm.mailInputText(cs)}"
-                    android:text="@{vm.webMailInput}"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/gray60" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="@{v-> vm.deleteMailInput()}"
-                    android:src="@drawable/ic_btn_clear" />
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat2"
-                android:layout_marginTop="34dp"
-                android:visibility="@{vm.isCodeSend() ? 0 : 8}">
-                <TextView
-                    style="@style/regular13"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="17dp"
+                    android:background="@drawable/tv_category_filter"
+                    android:gravity="center"
+                    android:paddingVertical="10dp"
+                    android:paddingStart="8dp"
                     android:paddingEnd="15dp"
-                    android:text="@string/str_webMail_code"/>
+                    isSelect="@{vm.currentPage == 0}"
+                    android:onClick="@{v -> vm.changePage(0)}">
 
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginTop="3.5dp"
-                    android:background="@drawable/ll_webmail_input"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView8">
-
-                    <EditText
+                    <TextView
                         style="@style/bold13"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@null"
-                        android:hint="@string/str_webMail_code_hint"
-                        android:inputType="textEmailAddress"
-                        android:onTextChanged="@{(cs,a,b,c) -> vm.codeInputText(cs)}"
-                        android:text="@{vm.codeInput}"
-                        android:textColor="@color/black"
-                        android:textColorHint="@color/gray60"
-                        android:maxLength="4"/>
-                    <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:onClick="@{v-> vm.deleteCodeInput()}"
-                        android:src="@drawable/ic_btn_clear" />
-                </androidx.appcompat.widget.LinearLayoutCompat>
+                        android:drawablePadding="2dp"
+                        android:text="@string/str_webMail_type_mail"
+                        android:textColor="@{vm.currentPage == 0 ? @color/on_primary : @color/text0}"
+                        app:drawableStartCompat="@drawable/ic_filter_check"
+                        app:drawableTint="@{vm.currentPage == 0 ? @color/on_primary : @color/text0}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <Space
+                    android:layout_width="13dp"
+                    android:layout_height="wrap_content" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/tv_category_filter"
+                    android:paddingVertical="10dp"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="15dp"
+                    isSelect="@{vm.currentPage == 1}"
+                    android:onClick="@{v -> vm.changePage(1)}">
+
+                    <TextView
+                        style="@style/bold13"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="2dp"
+                        android:text="@string/str_webMail_type_school_id"
+                        android:textColor="@{vm.currentPage == 1 ? @color/on_primary : @color/text0}"
+                        app:drawableStartCompat="@drawable/ic_filter_check"
+                        app:drawableTint="@{vm.currentPage == 1 ? @color/on_primary : @color/text0}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.appcompat.widget.LinearLayoutCompat>
 
+            <FrameLayout
+                android:id="@+id/fl_webMail"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="37.7dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat5"
+                android:visibility="@{vm.currentPage==0 ? 0 : 8}"/>
+
+            <FrameLayout
+                android:id="@+id/fl_studentId"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="37.7dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat5"
+                android:visibility="@{vm.currentPage==1 ? 0 : 8}"/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -154,7 +157,7 @@
                 android:text="@string/str_webMail_next_time"
                 style="@style/bold16"
                 android:textColor="@color/white"
-                android:background="@drawable/btn_gray40_color"
+                android:background="@drawable/btn_gray_filled"
                 android:gravity="center"
 
                 android:onClick="@{v->fg.navigateOnBackPressed()}"/>
@@ -165,10 +168,10 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="@string/str_webMail_send"
+                android:text="@string/str_complete"
                 style="@style/bold16"
                 android:textColor="@color/white"
-                android:background="@drawable/btn_primary_color"
+                android:background="@drawable/btn_red_filled"
                 android:gravity="center"
 
                 android:onClick="@{v->vm.sendCodeToMail()}"/>

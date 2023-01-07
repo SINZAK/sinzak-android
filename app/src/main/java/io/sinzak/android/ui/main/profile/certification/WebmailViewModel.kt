@@ -12,6 +12,9 @@ class WebmailViewModel @Inject constructor(
     val signModel: SignModel
 ) : BaseViewModel() {
 
+    private val _currentPage = MutableStateFlow(0)
+    val currentPage : StateFlow<Int> get() = _currentPage
+
     private val _webMailInput = MutableStateFlow("")
     val  webMailInput : StateFlow<String> get() = _webMailInput
 
@@ -20,6 +23,10 @@ class WebmailViewModel @Inject constructor(
 
     private val _isCodeSend = MutableStateFlow(false)
     val isCodeSend : StateFlow<Boolean> get() = _isCodeSend
+
+    fun changePage(page: Int){
+        _currentPage.value = page
+    }
 
 
     fun mailInputText(cs : CharSequence) {
