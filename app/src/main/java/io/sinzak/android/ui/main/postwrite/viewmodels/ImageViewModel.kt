@@ -2,13 +2,16 @@ package io.sinzak.android.ui.main.postwrite.viewmodels
 
 import android.net.Uri
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.sinzak.android.model.market.MarketWriteModel
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.ui.main.postwrite.adapter.ImageAdapter
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 
 @HiltViewModel
-class ImageViewModel @Inject constructor() : BaseViewModel() {
+class ImageViewModel @Inject constructor(
+    val model : MarketWriteModel
+) : BaseViewModel() {
 
     val imgUris : MutableList<Uri> = mutableListOf()
 
@@ -28,6 +31,10 @@ class ImageViewModel @Inject constructor() : BaseViewModel() {
 
         adapter.notifyDataSetChanged()
 
+    }
+
+    fun submit(){
+        model.setImgUri(imgUris.toMutableList())
     }
 
 }
