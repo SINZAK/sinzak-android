@@ -50,9 +50,10 @@ class InterestFragment : BaseFragment() {
                 filter = genre
                 select = isSelect
                 root.setOnClickListener {
-                    viewModel.putChosenDesign(genre)
-                    isSelect = !isSelect
-                    select = isSelect
+                    if(viewModel.putChosenDesign(genre)) {
+                        isSelect = !isSelect
+                        select = isSelect
+                    }
                 }
                 bind.cgDesign.addView(root)
             }
@@ -69,9 +70,10 @@ class InterestFragment : BaseFragment() {
                 var isSelect = genre in chosenChip
                 select = isSelect
                 root.setOnClickListener {
-                    viewModel.putChosenPure(genre)
-                    isSelect = !isSelect
-                    select = isSelect
+                    if(viewModel.putChosenPure(genre)) {
+                        isSelect = !isSelect
+                        select = isSelect
+                    }
                 }
                 bind.cgPure.addView(root)
             }

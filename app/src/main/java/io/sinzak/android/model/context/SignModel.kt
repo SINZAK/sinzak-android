@@ -57,6 +57,21 @@ class SignModel @Inject constructor(val remote : Remote) : RemoteListener {
         }
 
     }
+    fun clearJoinInfo(){
+        username = ""
+    }
+
+    private var username : String = ""
+    fun setUsername(t : String){
+        username = t
+    }
+    private var interests = listOf<String>()
+    fun setInterests(i : List<String>){
+        interests = i
+    }
+
+
+
 
 
     private val _sdkSignSuccess = MutableStateFlow(false)
