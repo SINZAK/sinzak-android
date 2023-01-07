@@ -44,6 +44,7 @@ class WebmailFragment : BaseFragment() {
         ViewWebmailSchoolidBinding.inflate(layoutInflater).apply {
             lifecycleOwner = viewLifecycleOwner
             bind.flStudentId.addView(root)
+            vm = viewModel
         }
     }
 

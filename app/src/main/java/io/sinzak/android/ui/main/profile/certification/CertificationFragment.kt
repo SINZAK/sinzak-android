@@ -37,8 +37,14 @@ class CertificationFragment : BaseFragment() {
         navigator.revealHistory()
     }
 
+    //학교 인증으로
     fun gotoSchoolAuth() {
         if(navigator.topPage.value==Page.PROFILE_CERTIFICATION)
             navigator.changePage(Page.PROFILE_WEBMAIL)
     }
+    //가입 완료 화면으로
+    fun gotoRegisterComplete(){
+
+    }
+
 }
