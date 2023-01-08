@@ -174,7 +174,8 @@
                 android:background="@drawable/btn_red_filled"
                 android:gravity="center"
 
-                android:onClick="@{v->vm.sendCodeToMail()}"/>
+                android:enabled="@{vm.webMailState==2 &amp; vm.codeState==2}"
+                android:onClick="@{v->vm.onSubmit()}"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
         
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -54,5 +54,6 @@ class WebmailFragment : BaseFragment() {
 
     override fun navigateOnBackPressed() {
         navigator.revealHistory()
+        viewModel.clearAllState()
     }
 }

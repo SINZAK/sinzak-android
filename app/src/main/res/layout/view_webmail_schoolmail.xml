@@ -41,7 +41,8 @@
                 android:onTextChanged="@{(cs,a,b,c) -> vm.mailInputText(cs)}"
                 android:text="@{vm.webMailInput}"
                 android:textColor="@color/black"
-                android:textColorHint="@color/gray60" />
+                android:textColorHint="@color/gray60"
+                onActionDone="@{v->vm.changeWebMailState()}"/>
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -60,7 +61,7 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat2"
             android:layout_marginStart="12dp"
             android:layout_marginTop="2.5dp"
-            android:visibility="invisible"/>
+            android:visibility="@{vm.webMailState == 1 ? 0 : 8}"/>
         <TextView
             style="@style/medium13"
             android:layout_width="wrap_content"
@@ -71,7 +72,7 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat2"
             android:layout_marginStart="12dp"
             android:layout_marginTop="2.5dp"
-            android:visibility="invisible"/>
+            android:visibility="@{vm.webMailState == 2 ? 0 : 8}"/>
 
        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -80,7 +81,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat2"
             android:layout_marginTop="43dp"
-            android:visibility="@{vm.isCodeSend() ? 0 : 8}">
+            android:visibility="@{vm.webMailState == 2 ? 0 : 8}">
 
            <TextView
                android:id="@+id/textView12"
@@ -116,7 +117,8 @@
                    android:onTextChanged="@{(cs,a,b,c) -> vm.codeInputText(cs)}"
                    android:text="@{vm.codeInput}"
                    android:textColor="@color/black"
-                   android:textColorHint="@color/gray60" />
+                   android:textColorHint="@color/gray60"
+                   onActionDone="@{v->vm.changeCodeState()}"/>
 
                <ImageView
                    android:layout_width="wrap_content"
@@ -135,7 +137,7 @@
                app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat6"
                android:layout_marginStart="12dp"
                android:layout_marginTop="2.5dp"
-               android:visibility="invisible"/>
+               android:visibility="@{vm.codeState == 1 ? 0 : 8}"/>
 
            <TextView
                style="@style/medium13"
@@ -147,7 +149,7 @@
                app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat6"
                android:layout_marginStart="12dp"
                android:layout_marginTop="2.5dp"
-               android:visibility="invisible"/>
+               android:visibility="@{vm.codeState == 2 ? 0 : 8}"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
