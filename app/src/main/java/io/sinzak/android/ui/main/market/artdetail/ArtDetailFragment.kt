@@ -70,6 +70,7 @@ class ArtDetailFragment : BaseFragment() {
     private fun inflateTitle(){
         ViewArtdetailTitleBinding.inflate(layoutInflater).apply{
             lifecycleOwner = viewLifecycleOwner
+            vm = contentViewModel
 
             bind.llContent.addView(root)
         }
@@ -78,6 +79,7 @@ class ArtDetailFragment : BaseFragment() {
     private fun inflateArtist(){
         ViewArtdetailArtistBinding.inflate(layoutInflater).apply{
             lifecycleOwner = viewLifecycleOwner
+            vm = contentViewModel
 
             bind.llContent.addView(root)
         }
@@ -88,7 +90,7 @@ class ArtDetailFragment : BaseFragment() {
         //todo : 표시할 자료 없으면 패스
         ViewArtdetailSpecBinding.inflate(layoutInflater).apply{
             lifecycleOwner = viewLifecycleOwner
-
+            vm = contentViewModel
             bind.llContent.addView(root)
         }
     }
@@ -97,7 +99,7 @@ class ArtDetailFragment : BaseFragment() {
 
         ViewArtdetailContentBinding.inflate(layoutInflater).apply{
             lifecycleOwner = viewLifecycleOwner
-
+            vm = contentViewModel
             bind.llContent.addView(root)
         }
     }
@@ -105,7 +107,7 @@ class ArtDetailFragment : BaseFragment() {
     private fun inflateBottom(){
         ViewArtdetailBottomBinding.inflate(layoutInflater).apply{
             lifecycleOwner = viewLifecycleOwner
-
+            vm = contentViewModel
             bind.flBottom.addView(root)
         }
     }

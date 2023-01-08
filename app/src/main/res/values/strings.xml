@@ -165,4 +165,7 @@
     <string name="str_app_name_kr">신작</string>
     <string name="str_art_artist_holder">%s 작가</string>
     <string name="str_btn_upload_picture">사진 업로드하기</string>
+    <string name="str_holder_won">%d원</string>
+    <string name="str_holder_univ_cert">%sverifed</string>
+    <string name="str_author_follower_holder">·팔로워 %d</string>
 </resources>

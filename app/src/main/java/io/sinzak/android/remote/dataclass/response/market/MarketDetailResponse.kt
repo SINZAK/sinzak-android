@@ -2,6 +2,7 @@ package io.sinzak.android.remote.dataclass.response.market
 
 import com.google.gson.annotations.SerializedName
 import io.sinzak.android.remote.dataclass.CResponse
+import io.sinzak.android.utils.TimeUtil
 
 data class MarketDetailResponse(
 
@@ -14,7 +15,7 @@ data class MarketDetailResponse(
 
 
     @SerializedName("id") val productId: String,
-    @SerializedName("image") val imgUrls: List<String> = listOf(),
+    @SerializedName("images") val imgUrls: List<String> = listOf(),
 
     @SerializedName("like") val like: Boolean = false,
     @SerializedName("likesCnt") val likeCnt: Int = 0,
@@ -39,4 +40,8 @@ data class MarketDetailResponse(
 
     @SerializedName("wish") val wish: Boolean = false,
     @SerializedName("wishCnt") val wishCnt: Int = 0
-) : CResponse()
+) : CResponse(){
+    fun getTimePassed() : String {
+        return TimeUtil.getTimePassed(date.toString())
+    }
+}
