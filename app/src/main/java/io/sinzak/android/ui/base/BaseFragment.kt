@@ -4,10 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import io.sinzak.android.model.insets.SoftKeyModel
 import io.sinzak.android.model.navigate.Navigation
 import io.sinzak.android.system.LogDebug
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
@@ -59,6 +63,33 @@ abstract class BaseFragment : Fragment(){
      */
     abstract fun navigateOnBackPressed()
 
+
+
+    fun showToast(msg : String)
+    {
+        Toast.makeText(context,msg, Toast.LENGTH_SHORT).show()
+    }
+
+
+
+    fun <T> invokeStateFlow(state : StateFlow<T>, collect : (T)->Unit)
+    {
+        lifecycleScope.launch {
+            state.collect{
+                collect(it)
+            }
+        }
+    }
+
+    fun invokeBooleanFlow(state : StateFlow<Boolean>, onFalse : ()->Unit = {}, onTrue : ()->Unit)
+    {
+        invokeStateFlow(state){
+            if(it)
+                onTrue()
+            else
+                onFalse()
+        }
+    }
 
 
 

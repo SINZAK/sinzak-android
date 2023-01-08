@@ -3,6 +3,9 @@
 
     <data>
         <variable
+            name="onItemClick"
+            type="io.sinzak.android.remote.dataclass.product.ProductListener" />
+        <variable
             name="fg"
             type="io.sinzak.android.ui.main.market.MarketFragment" />
         <variable
@@ -66,7 +69,7 @@
             app:spanCount="2"
             products="@{vm.productList}"
             adapter="@{vm.adapter}"
-
+            onItemClick="@{onItemClick}"
             marginHorizon="@{6}"
             marginVertical="@{10}"
             android:layout_weight="1"/>

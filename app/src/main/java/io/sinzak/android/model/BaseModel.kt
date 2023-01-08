@@ -13,4 +13,7 @@ abstract class BaseModel : RemoteListener {
     @Inject
     lateinit var remote : Remote
 
+    @Inject
+    lateinit var globalUi : GlobalUiModel
+
 }

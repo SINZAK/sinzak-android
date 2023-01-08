@@ -10,12 +10,14 @@ import io.sinzak.android.databinding.HolderFullImgBinding
 class VpAdapter : RecyclerView.Adapter<VpAdapter.ViewHolder>() {
 
 
+    var imgs = listOf<String>()
+
     override fun getItemCount(): Int {
-        return 4
+        return imgs.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind()
+        holder.bind(imgs[position])
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -25,8 +27,8 @@ class VpAdapter : RecyclerView.Adapter<VpAdapter.ViewHolder>() {
     }
 
     inner class ViewHolder(val bind : HolderFullImgBinding) : RecyclerView.ViewHolder(bind.root){
-        fun bind(){
-            bind.imgUrl = "https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8M2QlMjBhcnR8ZW58MHx8MHx8&w=1000&q=80"
+        fun bind(url : String){
+            bind.imgUrl = url
         }
     }
 }

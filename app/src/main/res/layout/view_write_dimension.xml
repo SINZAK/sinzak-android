@@ -3,6 +3,9 @@
 
     <data>
         <variable
+            name="vm"
+            type="io.sinzak.android.ui.main.postwrite.viewmodels.SpecViewModel" />
+        <variable
             name="fg"
             type="io.sinzak.android.ui.main.postwrite.fragment.SpecFragment" />
     </data>
@@ -34,7 +37,9 @@
                 android:layout_height="60dp"
                 android:layout_marginStart="13dp"
                 android:background="@drawable/et_gray_filled"
-                onActionDone="@{v->etCmV.requestFocus() &amp; fg.ime.showKeyboard(etCmV)}"
+                android:imeOptions="actionNext"
+                android:maxLength="1"
+                android:onTextChanged="@{(cs,a,b,c)->vm.inputWidthM(cs)}"
                 android:gravity="center"
                 android:inputType="numberDecimal" />
 
@@ -49,10 +54,13 @@
                 android:textColor="@color/text3" />
 
             <EditText
-                android:id="@+id/et_cm_v"
+                android:id="@+id/et_cm_w"
                 style="@style/bold20"
                 android:layout_width="120dp"
                 android:layout_height="60dp"
+                android:onTextChanged="@{(cs,a,b,c)->vm.inputWidthCm(cs)}"
+                android:imeOptions="actionNext"
+                android:maxLength="2"
                 android:background="@drawable/et_gray_filled"
                 android:gravity="center"
                 android:inputType="numberDecimal" />
@@ -88,8 +96,10 @@
                 android:layout_width="90dp"
                 android:layout_height="60dp"
                 android:layout_marginStart="13dp"
+                android:onTextChanged="@{(cs,a,b,c)->vm.inputHeightM(cs)}"
+                android:maxLength="1"
+                android:imeOptions="actionNext"
                 android:background="@drawable/et_gray_filled"
-                onActionDone="@{v->etCmH.requestFocus() &amp; fg.ime.showKeyboard(etCmH)}"
                 android:gravity="center"
                 android:inputType="numberDecimal" />
 
@@ -107,7 +117,10 @@
                 android:id="@+id/et_cm_h"
                 style="@style/bold20"
                 android:layout_width="120dp"
+                android:onTextChanged="@{(cs,a,b,c)->vm.inputHeightCm(cs)}"
+                android:maxLength="2"
                 android:layout_height="60dp"
+                android:imeOptions="actionNext"
                 android:background="@drawable/et_gray_filled"
                 android:gravity="center"
                 android:inputType="numberDecimal" />
@@ -168,6 +181,9 @@
                 android:layout_width="90dp"
                 android:layout_height="60dp"
                 android:layout_marginStart="13dp"
+                android:imeOptions="actionNext"
+                android:onTextChanged="@{(cs,a,b,c)->vm.inputVerticalM(cs)}"
+                android:maxLength="1"
                 android:background="@drawable/et_gray_filled"
                 android:gravity="center"
                 android:inputType="numberDecimal" />
@@ -183,10 +199,14 @@
                 android:textColor="@color/text3" />
 
             <EditText
+                android:id="@+id/et_cm_v"
                 style="@style/bold20"
                 android:layout_width="120dp"
                 android:layout_height="60dp"
+                android:maxLength="2"
+                android:imeOptions="actionDone"
                 android:background="@drawable/et_gray_filled"
+                android:onTextChanged="@{(cs,a,b,c)->vm.inputVerticalCm(cs)}"
                 android:gravity="center"
                 android:inputType="numberDecimal" />
 

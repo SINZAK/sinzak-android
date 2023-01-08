@@ -1,13 +1,17 @@
 package io.sinzak.android.ui.main.postwrite.viewmodels
 
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.sinzak.android.model.market.MarketArtModel
+import io.sinzak.android.model.market.MarketWriteModel
 import io.sinzak.android.ui.base.BaseViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 
 
 @HiltViewModel
-class CategoryViewModel @Inject constructor() : BaseViewModel() {
+class CategoryViewModel @Inject constructor(
+    val model : MarketWriteModel
+) : BaseViewModel() {
 
 
     val marketCategories = mutableListOf("회화일반", "동양화", "조소", "판화", "공예", "기타")
@@ -31,7 +35,7 @@ class CategoryViewModel @Inject constructor() : BaseViewModel() {
         val list = categorySelected.value.toMutableList()
         if(status)
             list.remove(category)
-        else
+        else if(list.size < 3)
             list.add(category)
         marketCategories.sortBy {
             !list.contains(it)
@@ -40,7 +44,16 @@ class CategoryViewModel @Inject constructor() : BaseViewModel() {
             !list.contains(it)
         }
         categorySelected.value = list
+
     }
+
+    fun submit(){
+        model.setCategoryText(
+            categorySelected.value.joinToString(separator = ",")
+        )
+    }
+
+
 
 
 }

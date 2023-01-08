@@ -2,7 +2,9 @@
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="vm"
+            type="io.sinzak.android.ui.main.market.artdetail.ContentViewModel" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
@@ -20,6 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                isSelect="@{vm.art.like}"
                 android:gravity="center"
                 android:orientation="vertical">
                 <ImageView
@@ -28,7 +31,7 @@
                     android:src="@drawable/btn_artdetail_like"/>
 
                 <TextView
-                    android:text="54"
+                    android:text="@{String.valueOf(vm.art.likeCnt)}"
 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -46,6 +49,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                isSelect="@{vm.art.wish}"
                 android:gravity="center"
                 android:orientation="vertical">
                 <ImageView
@@ -54,7 +58,7 @@
                     android:src="@drawable/ic_btn_scrap"/>
 
                 <TextView
-                    android:text="54"
+                    android:text="@{String.valueOf(vm.art.wishCnt)}"
 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -90,12 +94,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="@{vm.art.priceSuggestEnable ? 8 : 0}"
                 android:text="@string/str_artdetail_nagatiate_not"
                 style="@style/bold13"
                 android:textColor="@color/gray60"/>
 
             <TextView
-                android:visibility="gone"
+                android:visibility="@{vm.art.priceSuggestEnable ? 0 : 8}"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/str_artdetail_nagotiate"

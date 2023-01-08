@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
+    <data>
+        <variable
+            name="vm"
+            type="io.sinzak.android.ui.main.market.artdetail.ContentViewModel" />
+    </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:orientation="vertical"
+        android:visibility="@{vm.art.dWidth > 0 ? 0 : 8}"
         android:paddingVertical="15dp"
         android:layout_height="wrap_content">
 
@@ -30,7 +36,7 @@
                 style="@style/medium16"/>
 
             <TextView
-                android:text="45.5"
+                android:text="@{String.valueOf(vm.art.dWidth)}"
 
 
                 android:layout_width="match_parent"
@@ -68,7 +74,7 @@
                 style="@style/medium16"/>
 
             <TextView
-                android:text="45.5"
+                android:text="@{String.valueOf(vm.art.dHeight)}"
 
 
                 android:layout_width="match_parent"
