@@ -15,5 +15,5 @@ interface RemoteMarketInterface {
 
     @Multipart
     @POST("/products/build")
-    fun buildMarketProduct(@HeaderMap header: HashMap<String,String>,  @Body body : ProductBuildRequest, @Part multipart : List<MultipartBody.Part>) : Call<CResponse>
+    fun buildMarketProduct(@HeaderMap header: HashMap<String,String>,  @Part body : MultipartBody.Part, @Part multipart : List<MultipartBody.Part>) : Call<CResponse>
 }

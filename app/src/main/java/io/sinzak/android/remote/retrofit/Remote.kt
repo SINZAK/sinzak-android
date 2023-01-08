@@ -5,6 +5,7 @@ import io.sinzak.android.constants.REFRESH_TOKEN
 import io.sinzak.android.constants.TAG_REMOTE
 import io.sinzak.android.di.NetStatus
 import io.sinzak.android.remote.dataclass.CResponse
+import io.sinzak.android.remote.dataclass.response.login.JoinResponse
 import io.sinzak.android.remote.dataclass.response.login.Token
 import io.sinzak.android.system.App.Companion.prefs
 import io.sinzak.android.system.LogError
@@ -51,6 +52,15 @@ class Remote @Inject constructor(val remoteApi : RemoteInterface) : Callback<Res
     private fun onResultSuccess(result : Result.Success<CResponse>)
     {
         val body = result.body
+
+        if(body is JoinResponse){
+            body.token?.let{body->
+                prefs.setString(ACCESS_TOKEN,body.accessToken)
+                prefs.setString(REFRESH_TOKEN,body.refreshToken)
+                LogInfo(TAG_REMOTE,"[TOKEN] ACCESS  TOKEN : ${prefs.accessToken}")
+                LogInfo(TAG_REMOTE,"[TOKEN] REFRESH TOKEN : ${prefs.refreshToken}")
+            }
+        }
 
         if(body is Token && body.success != false)
         {

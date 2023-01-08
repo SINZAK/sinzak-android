@@ -1,5 +1,6 @@
 package io.sinzak.android.remote.retrofit
 
+import com.google.gson.Gson
 import io.sinzak.android.constants.*
 import io.sinzak.android.remote.dataclass.CRequest
 import io.sinzak.android.remote.dataclass.CResponse
@@ -24,6 +25,7 @@ class CallImpl(
 
     private val header : HashMap<String,String> get() =
         HashMap<String,String>().apply{
+            this[CONTENT_TYPE] = "application/json"
             this[ACCESS_TOKEN] = "Bearer ${prefs.accessToken}"
             this[REFRESH_TOKEN] = prefs.refreshToken
         }
@@ -57,8 +59,16 @@ class CallImpl(
 
             API_JOIN_ACCOUNT -> remoteApi.joinAccount(header,requestBody as JoinRequest)
 
-            API_BUILD_MARKET_PRODUCT ->
-                remoteApi.buildMarketProduct(header,requestBody as ProductBuildRequest, multipartList!!)
+            API_BUILD_MARKET_PRODUCT ->{
+                remoteApi.buildMarketProduct(
+                    header,
+                    MultipartBody.Part.createFormData("buildDto", Gson().toJson(requestBody)),
+                    multipartList!!
+                )
+
+
+            }
+
 
             else -> throw NoSuchMethodException()
         } as Call<CResponse>

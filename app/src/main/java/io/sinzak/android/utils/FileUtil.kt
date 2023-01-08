@@ -16,7 +16,6 @@ import io.sinzak.android.system.LogInfo
 import io.sinzak.android.ui.base.BaseActivity
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.*
 
@@ -276,7 +275,7 @@ object FileUtil {
     }
 
 
-    fun getMultipart(context: Context, bitmap: Bitmap): MultipartBody.Part
+    fun getMultipart(context: Context, partName : String, bitmap: Bitmap): MultipartBody.Part
     {
         val filesDir = context.applicationContext.filesDir
         val file = File(filesDir, filesDir.name + ".jpg")
@@ -289,7 +288,7 @@ object FileUtil {
         fos.write(bitmapData)
         fos.flush()
         fos.close()
-        return MultipartBody.Part.createFormData("img", file.name, file.asRequestBody("image/png".toMediaTypeOrNull()))
+        return MultipartBody.Part.createFormData(partName, file.name, file.asRequestBody("image/png".toMediaTypeOrNull()))
 
     }
 

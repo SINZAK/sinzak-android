@@ -6,6 +6,7 @@ import com.navercorp.nid.NaverIdLoginSDK
 import com.navercorp.nid.oauth.NidOAuthBehavior
 import io.sinzak.android.constants.*
 import io.sinzak.android.enums.SDK
+import io.sinzak.android.model.BaseModel
 import io.sinzak.android.remote.dataclass.CResponse
 import io.sinzak.android.remote.dataclass.local.SchoolData
 import io.sinzak.android.remote.dataclass.request.login.JoinRequest
@@ -17,6 +18,7 @@ import io.sinzak.android.remote.dataclass.response.login.Token
 import io.sinzak.android.remote.retrofit.CallImpl
 import io.sinzak.android.remote.retrofit.Remote
 import io.sinzak.android.remote.retrofit.RemoteListener
+import io.sinzak.android.system.App.Companion.NAVER_SDK_PREPARED
 import io.sinzak.android.system.App.Companion.prefs
 import io.sinzak.android.system.LogError
 import io.sinzak.android.system.LogInfo
@@ -29,7 +31,7 @@ import javax.inject.Singleton
 
 
 @Singleton
-class SignModel @Inject constructor(val remote : Remote) : RemoteListener {
+class SignModel @Inject constructor() : BaseModel() {
 
     lateinit var univList : List<SchoolData>
 
@@ -146,6 +148,11 @@ class SignModel @Inject constructor(val remote : Remote) : RemoteListener {
 
 
     fun loginViaNaver(){
+
+        if(!NAVER_SDK_PREPARED){
+            globalUi.showToast("네이버 로그인 사용 불가합니다.")
+            return
+        }
 
         initSignStatus()
         sdkType = SDK.naver

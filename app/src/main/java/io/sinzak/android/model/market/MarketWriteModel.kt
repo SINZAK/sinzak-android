@@ -87,7 +87,7 @@ class MarketWriteModel @Inject constructor() : BaseModel(){
         )
 
         val requestBodies = imgBitmaps.map{
-            FileUtil.getMultipart(context,it)
+            FileUtil.getMultipart(context,"multipartFile",it)
         }
 
         CallImpl(API_BUILD_MARKET_PRODUCT,this,request, multipartList = requestBodies).apply{
