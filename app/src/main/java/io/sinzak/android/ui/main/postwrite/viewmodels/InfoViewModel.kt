@@ -36,14 +36,8 @@ class InfoViewModel @Inject constructor(
 
 
     fun toggleNegotiation(){
-        if(negotiationEnable.value)
-        {
-            negotiationEnable.value = false
-
-        }
-        else{
-            negotiationEnable.value = true
-        }
+        negotiationEnable.value = !negotiationEnable.value
+        model.setSuggestEnable(negotiationEnable.value)
     }
 
 }

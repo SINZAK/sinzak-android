@@ -63,9 +63,9 @@ class ImageAdapter(val img : MutableList<Uri>, val removeImg : (Uri)->Unit) : Re
 
             bind.setOnDelete {
                 val idx = img.indexOf(uri)
-              removeImg(uri)
+                removeImg(uri)
                 if(idx == 0)
-                    notifyItemRangeChanged(0,itemCount)
+                    notifyDataSetChanged()
                 else
                     notifyItemRemoved(idx)
 
@@ -104,6 +104,8 @@ class ImageAdapter(val img : MutableList<Uri>, val removeImg : (Uri)->Unit) : Re
             viewHolder: RecyclerView.ViewHolder,
             target: RecyclerView.ViewHolder
         ): Boolean {
+            if(isEmpty) return false
+
             val fromPosition = recyclerView.getChildAdapterPosition(viewHolder.itemView)
             val toPosition = recyclerView.getChildAdapterPosition(target.itemView)
 

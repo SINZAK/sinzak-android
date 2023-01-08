@@ -76,6 +76,10 @@ class MarketWriteModel @Inject constructor() : BaseModel(){
         categoryText = c
     }
 
+    fun setSuggestEnable(s : Boolean){
+        canSuggestPrice = s
+    }
+
 
     fun inputDimension(w : Int, h : Int, v : Int){
         pw = w
