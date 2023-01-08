@@ -62,6 +62,7 @@ class SpecFragment : BaseFragment() {
             lifecycleOwner = viewLifecycleOwner
 
             fg = this@SpecFragment
+            vm = viewModel
 
 
             bind.flDimension.addView(root)

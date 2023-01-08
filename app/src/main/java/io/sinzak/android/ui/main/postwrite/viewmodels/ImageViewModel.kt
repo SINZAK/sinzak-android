@@ -15,10 +15,21 @@ class ImageViewModel @Inject constructor(
 
     val imgUris : MutableList<Uri> = mutableListOf()
 
-    val adapter = ImageAdapter(imgUris)
+    val adapter = ImageAdapter(imgUris){
+
+        imgUris.remove(it)
+        updateCount()
+    }
 
     val imgCnt = MutableStateFlow(0)
 
+    val canGoNext = MutableStateFlow(false)
+
+
+    private fun updateCount(){
+        imgCnt.value = imgUris.size
+        canGoNext.value = imgUris.isNotEmpty()
+    }
 
     fun insertImg(uri : Uri)
     {
@@ -27,9 +38,13 @@ class ImageViewModel @Inject constructor(
 
         imgUris.add(uri)
 
-        imgCnt.value = imgUris.size
+        updateCount()
+
+
 
         adapter.notifyDataSetChanged()
+
+
 
     }
 

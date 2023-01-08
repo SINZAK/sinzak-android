@@ -3,6 +3,7 @@ package io.sinzak.android.ui.main.postwrite.adapter
 import android.content.res.Resources
 import android.net.Uri
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.children
 import androidx.databinding.BindingAdapter
@@ -18,7 +19,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.*
 
-class ImageAdapter(val img : MutableList<Uri>) : RecyclerView.Adapter<ImageAdapter.ViewHolder>() {
+class ImageAdapter(val img : MutableList<Uri>, val removeImg : (Uri)->Unit) : RecyclerView.Adapter<ImageAdapter.ViewHolder>() {
 
 
     val touchHelperCallback = ItemTouchListener()
@@ -51,12 +52,24 @@ class ImageAdapter(val img : MutableList<Uri>) : RecyclerView.Adapter<ImageAdapt
         fun bindNull(){
             bind.isFirst = false
             bind.ivImg.setImageDrawable(bind.ivImg.context.getDrawable(R.drawable.ic_img_null_holder))
-
+            bind.onDelete = null
+            bind.btnDelete.visibility = View.INVISIBLE
         }
 
         fun bindImg(uri : Uri, idx : Int){
 
             bind.isFirst = idx == 0
+
+            bind.setOnDelete {
+                val idx = img.indexOf(uri)
+              removeImg(uri)
+                if(idx == 0)
+                    notifyItemRangeChanged(0,itemCount)
+                else
+                    notifyItemRemoved(idx)
+
+
+            }
 
             CoroutineScope(Dispatchers.Main).launch {
                 try{

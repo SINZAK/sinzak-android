@@ -28,6 +28,9 @@ class MarketWriteModel @Inject constructor() : BaseModel(){
     private var price = 0
     private var categoryText = ""
     private var canSuggestPrice = false
+    private var pw = 0
+    private var ph = 0
+    private var pv = 0
 
     private lateinit var context : Context
 
@@ -72,6 +75,11 @@ class MarketWriteModel @Inject constructor() : BaseModel(){
     }
 
 
+    fun inputDimension(w : Int, h : Int, v : Int){
+        pw = w
+        pv = v
+        ph = h
+    }
 
     fun buildProduct(){
         val request = ProductBuildRequest(
@@ -79,9 +87,9 @@ class MarketWriteModel @Inject constructor() : BaseModel(){
             category = categoryText,
             price = price,
             priceSuggest = canSuggestPrice,
-            width = 0,
-            height = 0,
-            vertical = 0,//todo
+            width = pw,
+            height = ph,
+            vertical = pv,
             content = content
 
         )

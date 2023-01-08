@@ -82,7 +82,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 adapter="@{vm.adapter}"
-                marginHorizon="@{2.5f}"
+                marginHorizon="@{0f}"
                 marginVertical="@{0f}"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
@@ -112,6 +112,7 @@
             android:background="@drawable/btn_red_filled"
             android:text="@string/str_next"
             android:gravity="center"
+            android:enabled="@{vm.canGoNext}"
             style="@style/medium16"
             android:layout_marginBottom="26dp"
             android:onClick="@{v->fg.moveToInfo() &amp; vm.submit()}"
