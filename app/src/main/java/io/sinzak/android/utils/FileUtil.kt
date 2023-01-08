@@ -14,6 +14,10 @@ import android.provider.MediaStore
 import io.sinzak.android.system.LogDebug
 import io.sinzak.android.system.LogInfo
 import io.sinzak.android.ui.base.BaseActivity
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.*
 
 object FileUtil {
@@ -269,6 +273,24 @@ object FileUtil {
 
         }
         return null
+    }
+
+
+    fun getMultipart(context: Context, bitmap: Bitmap): MultipartBody.Part
+    {
+        val filesDir = context.applicationContext.filesDir
+        val file = File(filesDir, filesDir.name + ".jpg")
+
+        val bos = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.PNG, 0, bos)
+        val bitmapData = bos.toByteArray()
+
+        val fos = FileOutputStream(file)
+        fos.write(bitmapData)
+        fos.flush()
+        fos.close()
+        return MultipartBody.Part.createFormData("img", file.name, file.asRequestBody("image/png".toMediaTypeOrNull()))
+
     }
 
 
