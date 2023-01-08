@@ -32,6 +32,8 @@ class CategoryFragment : BaseFragment() {
             fg = this@CategoryFragment
             vm = viewModel
         }
+
+        viewModel.model.provideContext(requireContext())
     }
 
     override fun showBottomBar(): Boolean {

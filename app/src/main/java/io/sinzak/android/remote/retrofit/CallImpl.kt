@@ -6,7 +6,9 @@ import io.sinzak.android.remote.dataclass.CResponse
 import io.sinzak.android.remote.dataclass.request.login.JoinRequest
 import io.sinzak.android.remote.dataclass.request.login.LoginEmailBody
 import io.sinzak.android.remote.dataclass.request.login.TokenRequest
+import io.sinzak.android.remote.dataclass.request.market.ProductBuildRequest
 import io.sinzak.android.system.App.Companion.prefs
+import okhttp3.MultipartBody
 import retrofit2.Call
 
 class CallImpl(
@@ -16,7 +18,8 @@ class CallImpl(
     val paramInt0 : Int? = null,
     val paramInt1 : Int? = null,
     val paramStr0 : String? = null,
-    val paramStr1 : String? = null
+    val paramStr1 : String? = null,
+    val multipartList : List<MultipartBody.Part>? = null
 ) {
 
     private val header : HashMap<String,String> get() =
@@ -54,7 +57,8 @@ class CallImpl(
 
             API_JOIN_ACCOUNT -> remoteApi.joinAccount(header,requestBody as JoinRequest)
 
-
+            API_BUILD_MARKET_PRODUCT ->
+                remoteApi.buildMarketProduct(header,requestBody as ProductBuildRequest, multipartList!!)
 
             else -> throw NoSuchMethodException()
         } as Call<CResponse>

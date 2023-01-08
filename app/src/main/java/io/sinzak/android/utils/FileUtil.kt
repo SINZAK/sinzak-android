@@ -75,8 +75,8 @@ object FileUtil {
     fun getBitmapFile(context : Context, uri : Uri) : Bitmap{
         val path = getRealPath(context,uri)
         val bitmap = BitmapFactory.decodeFile(path)
-        return Bitmap.createScaledBitmap(bitmap,512,512,true).apply{
-            LogDebug(TAG,"Size : ${this.byteCount}")
+        return Bitmap.createScaledBitmap(bitmap,256,256,true).apply{
+            LogDebug(TAG,"Size : ${this.byteCount} ${this.allocationByteCount} ${this.rowBytes}")
         }
     }
 
@@ -111,7 +111,7 @@ object FileUtil {
     }
 
 
-    fun getPath21(context : Context, uri : Uri) : String?
+    private fun getPath21(context : Context, uri : Uri) : String?
     {
         var fullPath: String? = null
         val column = MediaStore.Images.Media.DATA
