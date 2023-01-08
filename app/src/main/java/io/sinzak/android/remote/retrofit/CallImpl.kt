@@ -67,6 +67,8 @@ class CallImpl(
                 this.remove(CONTENT_TYPE)
             }, paramStr0!!, multipartList!!)
 
+            API_GET_PRODUCT_DETAIL -> remoteApi.getMarketProductDetail(header,paramStr0!!)
+
 
             else -> throw NoSuchMethodException()
         } as Call<CResponse>

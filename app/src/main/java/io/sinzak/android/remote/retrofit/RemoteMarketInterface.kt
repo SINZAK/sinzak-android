@@ -2,6 +2,7 @@ package io.sinzak.android.remote.retrofit
 
 import io.sinzak.android.remote.dataclass.CResponse
 import io.sinzak.android.remote.dataclass.request.market.ProductBuildRequest
+import io.sinzak.android.remote.dataclass.response.market.MarketDetailResponse
 import io.sinzak.android.remote.dataclass.response.market.MarketProductResponse
 import io.sinzak.android.remote.dataclass.response.market.ProductBuildResponse
 import okhttp3.MultipartBody
@@ -14,6 +15,9 @@ interface RemoteMarketInterface {
 
     @POST("/products/build")
     fun buildMarketProduct(@HeaderMap header: HashMap<String, String>, @Body body : ProductBuildRequest) : Call<ProductBuildResponse>
+
+    @POST("/products/{id}")
+    fun getMarketProductDetail(@HeaderMap headerMap: HashMap<String,String>, @Path("id") id : String) : Call<MarketDetailResponse>
 
 
     @Multipart
