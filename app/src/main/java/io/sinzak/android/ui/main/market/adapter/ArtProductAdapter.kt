@@ -3,6 +3,7 @@ package io.sinzak.android.ui.main.market.adapter
 import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -20,6 +21,8 @@ import io.sinzak.android.databinding.HolderHomeArtLinearBinding
 import io.sinzak.android.databinding.HolderMarketArtGridBinding
 import io.sinzak.android.remote.dataclass.product.Product
 import io.sinzak.android.system.LogDebug
+import io.sinzak.android.system.LogError
+import io.sinzak.android.system.LogInfo
 import io.sinzak.android.system.dp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -64,7 +67,7 @@ class ArtProductAdapter : RecyclerView.Adapter<ArtProductAdapter.ViewHolder>() {
         fun bind(product: Product){
             bind.product = product
             CoroutineScope(Dispatchers.Main).launch {
-                bindImg(product.photoUrl)
+                bindImg(product.thumbnail)
             }
         }
 
@@ -74,8 +77,9 @@ class ArtProductAdapter : RecyclerView.Adapter<ArtProductAdapter.ViewHolder>() {
             target: Target<Bitmap>?,
             isFirstResource: Boolean
         ): Boolean {
-            bindImg("https://wallpaperaccess.com/full/2339301.jpg")
-            return true
+
+            e?.printStackTrace()
+            return false
         }
 
         override fun onResourceReady(
@@ -85,14 +89,19 @@ class ArtProductAdapter : RecyclerView.Adapter<ArtProductAdapter.ViewHolder>() {
             dataSource: DataSource?,
             isFirstResource: Boolean
         ): Boolean {
+            LogInfo(javaClass.name,"Resource : $resource")
             return false
         }
 
         fun bindImg(url : String?)
         {
 
+            url?:run{
+                Glide.with(bind.ivPoster).asDrawable().load(AppCompatResources.getDrawable(bind.ivPoster.context,R.drawable.ic_img_null_holder)).into(bind.ivPoster)
+                return
+            }
             bind.apply{
-                Glide.with(ivPoster).asBitmap().load(url)
+                Glide.with(ivPoster).asBitmap().load(GlideUrl(url))
                     .transform(CenterCrop(),RoundedCorners(10.dp.toInt())).addListener(this@ViewHolder).into(ivPoster)
             }
         }

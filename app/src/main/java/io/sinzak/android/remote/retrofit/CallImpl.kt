@@ -9,6 +9,8 @@ import io.sinzak.android.remote.dataclass.request.login.LoginEmailBody
 import io.sinzak.android.remote.dataclass.request.login.TokenRequest
 import io.sinzak.android.remote.dataclass.request.market.ProductBuildRequest
 import io.sinzak.android.system.App.Companion.prefs
+import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import retrofit2.Call
 
@@ -26,7 +28,7 @@ class CallImpl(
     private val header : HashMap<String,String> get() =
         HashMap<String,String>().apply{
             this[CONTENT_TYPE] = "application/json"
-            this[ACCESS_TOKEN] = "Bearer ${prefs.accessToken}"
+            this[AUTHORIZATION] = prefs.accessToken
             this[REFRESH_TOKEN] = prefs.refreshToken
         }
 
@@ -59,15 +61,11 @@ class CallImpl(
 
             API_JOIN_ACCOUNT -> remoteApi.joinAccount(header,requestBody as JoinRequest)
 
-            API_BUILD_MARKET_PRODUCT ->{
-                remoteApi.buildMarketProduct(
-                    header,
-                    MultipartBody.Part.createFormData("buildDto", Gson().toJson(requestBody)),
-                    multipartList!!
-                )
+            API_BUILD_MARKET_PRODUCT -> remoteApi.buildMarketProduct(header, requestBody as ProductBuildRequest)
 
-
-            }
+            API_PRODUCT_UPLOAD_IMG -> remoteApi.uploadProductImage(header.apply{
+                this.remove(CONTENT_TYPE)
+            }, paramStr0!!, multipartList!!)
 
 
             else -> throw NoSuchMethodException()

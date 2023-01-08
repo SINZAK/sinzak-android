@@ -57,7 +57,7 @@ class MarketArtModel @Inject constructor() : BaseModel() {
 
         val page = if(refresh) {
             maxPage = 9999
-            1
+            0
         }else currentPage + 1
 
         if(page > maxPage)

@@ -4,9 +4,11 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
 import io.sinzak.android.constants.API_BUILD_MARKET_PRODUCT
+import io.sinzak.android.constants.API_PRODUCT_UPLOAD_IMG
 import io.sinzak.android.model.BaseModel
 import io.sinzak.android.remote.dataclass.CResponse
 import io.sinzak.android.remote.dataclass.request.market.ProductBuildRequest
+import io.sinzak.android.remote.dataclass.response.market.ProductBuildResponse
 import io.sinzak.android.remote.retrofit.CallImpl
 import io.sinzak.android.system.LogInfo
 import io.sinzak.android.utils.FileUtil
@@ -94,11 +96,8 @@ class MarketWriteModel @Inject constructor() : BaseModel(){
 
         )
 
-        val requestBodies = imgBitmaps.map{
-            FileUtil.getMultipart(context,"multipartFile",it)
-        }
 
-        CallImpl(API_BUILD_MARKET_PRODUCT,this,request, multipartList = requestBodies).apply{
+        CallImpl(API_BUILD_MARKET_PRODUCT,this,request).apply{
             remote.sendRequestApi(this)
         }
 
@@ -106,13 +105,27 @@ class MarketWriteModel @Inject constructor() : BaseModel(){
 
     }
 
+    fun uploadImg(id : String){
+        val requestBodies = imgBitmaps.map{
+            FileUtil.getMultipart(context,"multipartFile",it)
+        }
+        CallImpl(API_PRODUCT_UPLOAD_IMG, this, paramStr0 = id, multipartList = requestBodies).apply{
+            remote.sendRequestApi(this)
+        }
+    }
+
 
     override fun onConnectionSuccess(api: Int, body: CResponse) {
         when(api){
             API_BUILD_MARKET_PRODUCT->{
                 if(body.success == true){
-                    flagBuildSuccess.value = true
+                    uploadImg((body as ProductBuildResponse).id!!)
                 }
+            }
+
+            API_PRODUCT_UPLOAD_IMG ->{
+                if(body.success == true)
+                    flagBuildSuccess.value = true
             }
         }
     }

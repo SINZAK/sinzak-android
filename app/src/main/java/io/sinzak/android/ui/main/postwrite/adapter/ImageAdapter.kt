@@ -59,6 +59,7 @@ class ImageAdapter(val img : MutableList<Uri>, val removeImg : (Uri)->Unit) : Re
         fun bindImg(uri : Uri, idx : Int){
 
             bind.isFirst = idx == 0
+            bind.btnDelete.visibility = View.VISIBLE
 
             bind.setOnDelete {
                 val idx = img.indexOf(uri)
