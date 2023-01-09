@@ -12,6 +12,7 @@ import io.sinzak.android.databinding.ViewProfileLinkListBinding
 import io.sinzak.android.databinding.ViewProfileMyprofileBinding
 import io.sinzak.android.databinding.ViewProfileTopAppbarBinding
 import io.sinzak.android.enums.Page
+import io.sinzak.android.model.profile.ProfileModel
 import io.sinzak.android.ui.base.BaseFragment
 import io.sinzak.android.ui.main.market.artdetail.ArtistBlockDialog
 import io.sinzak.android.ui.main.market.artdetail.ArtistReportDialog
@@ -37,6 +38,9 @@ class ProfileFragment :BaseFragment() {
     private lateinit var viewProfileArtSale : ViewProfileArtSaleBinding
     private lateinit var viewProfileArtWork: ViewProfileArtWorkBinding
 
+    @Inject
+    lateinit var profileModel: ProfileModel
+
 
     override fun getFragmentRoot(): View {
         bind = FragmentProfileBinding.inflate(layoutInflater)
@@ -46,6 +50,7 @@ class ProfileFragment :BaseFragment() {
     }
 
     override fun onFragmentCreated() {
+        profileModel.getMyProfile()
         inflateChild()
     }
 

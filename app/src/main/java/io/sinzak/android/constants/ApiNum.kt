@@ -20,10 +20,10 @@ const val API_JOIN_ACCOUNT = 110
 
 const val API_EMAIL_GET_NAVER = 150
 
-
-
-
-
+const val API_GET_USER_PROFILE = 160
+const val API_GET_FOLLOWER_LIST = 170
+const val API_GET_FOLLOWING_LIST = 180
+const val API_GET_MY_PROFILE = 190
 
 const val API_GET_MARKET_PRODUCTS = 200
 
