@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.main.profile.edit.EditFragment">
     <data>
         <variable
             name="fg"
@@ -9,11 +10,14 @@
         <variable
             name="vm"
             type="io.sinzak.android.ui.main.profile.edit.EditViewModel" />
+        <variable
+            name="pVm"
+            type="io.sinzak.android.ui.main.profile.viewmodel.ProfileViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.main.profile.edit.EditFragment">
+        >
 
         <ImageView
             android:id="@+id/imageView"
@@ -37,7 +41,8 @@
             android:gravity="center"
             android:text="@string/str_complete"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:onClick="@{v->vm.onSubmit()}"/>
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -83,7 +88,9 @@
                         style="@style/regular16"
                         android:background="@null"
                         android:inputType="text"
-                        android:textColorHint="@color/gray60"/>
+                        android:textColorHint="@color/gray60"
+                        android:text="@{pVm.profile.name}"
+                        android:onTextChanged="@{(cs,a,b,c)-> vm.inputName(cs)}"/>
                 </androidx.appcompat.widget.LinearLayoutCompat>
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -113,7 +120,7 @@
                         android:background="@null"
                         android:hint="@string/str_edit_introduction"
                         android:inputType="textMultiLine"
-                        android:text="@{vm.introduction}"
+                        android:text="@{pVm.profile.introduction}"
                         android:textColorHint="@color/gray60"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"

@@ -6,6 +6,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.sinzak.android.databinding.FragmentEditProfileBinding
 import io.sinzak.android.enums.Page
 import io.sinzak.android.ui.base.BaseFragment
+import io.sinzak.android.ui.main.profile.viewmodel.ProfileViewModel
 
 @AndroidEntryPoint
 class EditFragment : BaseFragment() {
@@ -13,6 +14,7 @@ class EditFragment : BaseFragment() {
     private lateinit var bind : FragmentEditProfileBinding
 
     private val viewModel : EditViewModel by activityViewModels()
+    private val profileViewModel by activityViewModels<ProfileViewModel>()
 
     override fun getFragmentRoot(): View {
         bind = FragmentEditProfileBinding.inflate(layoutInflater)
@@ -23,6 +25,7 @@ class EditFragment : BaseFragment() {
         bind.apply {
             bind.lifecycleOwner = viewLifecycleOwner
             vm = viewModel
+            pVm = profileViewModel
             fg = this@EditFragment
         }
     }
