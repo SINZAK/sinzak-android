@@ -123,6 +123,7 @@
                 android:background="@drawable/btn_red_filled"
                 android:text="@string/str_done"
                 android:gravity="center"
+                android:onClick="@{v->vm.submit()}"
                 style="@style/medium16"
                 android:layout_marginBottom="26dp"
                 android:textColor="@color/on_primary"/>

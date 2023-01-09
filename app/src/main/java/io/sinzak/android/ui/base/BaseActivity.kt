@@ -1,14 +1,18 @@
 package io.sinzak.android.ui.base
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.lifecycleScope
 import io.sinzak.android.model.insets.SoftKeyModel
 import io.sinzak.android.system.LogDebug
+import io.sinzak.android.system.LogInfo
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -69,6 +73,23 @@ abstract class BaseActivity<T : ViewDataBinding>(private val layoutId : Int) : A
                 onFalse()
         }
     }
+
+    private lateinit var launcherResponse : (Intent?)->Unit
+
+    private val resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+        LogInfo(javaClass.name,"[RESULT LAUNCHER] resultCode : ${it.resultCode}")
+        if(it.resultCode == Activity.RESULT_OK){
+            launcherResponse(it.data)
+        }
+    }
+
+
+    fun gotoActivityForResult(intent : Intent, onResponse : (Intent?)->Unit)
+    {
+        launcherResponse = onResponse
+        resultLauncher.launch(intent)
+    }
+
 
     abstract fun onActivityCreate()
 }

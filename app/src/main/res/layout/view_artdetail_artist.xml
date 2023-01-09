@@ -2,7 +2,9 @@
 <layout>
 
     <data>
-
+        <variable
+            name="vm"
+            type="io.sinzak.android.ui.main.market.artdetail.ContentViewModel" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
@@ -33,7 +35,7 @@
                     android:layout_height="wrap_content"
                     >
                     <TextView
-                        android:text="김지호"
+                        android:text="@{vm.art.author}"
 
 
 
@@ -41,6 +43,7 @@
                         android:layout_height="wrap_content"
                         style="@style/regular16"/>
                     <ImageView
+                        android:visibility="@{vm.art.certCeleb ? 0 : 8}"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:src="@drawable/ic_star"/>
@@ -52,8 +55,8 @@
                     android:layout_height="wrap_content"
                     >
                     <TextView
-                        android:text="%sverifed"
-
+                        android:text="@{@string/str_holder_univ_cert(vm.art.authorUniv)}"
+                        android:visibility="@{vm.art.certUni ? 0 : 8}"
 
                         android:textColor="@color/primary_variant"
                         android:layout_width="wrap_content"
@@ -61,7 +64,7 @@
                         style="@style/regular13"/>
 
                     <TextView
-                        android:text="·팔로워 %d"
+                        android:text="@{@string/str_author_follower_holder(vm.art.authorFollowerCnt)}"
 
                         android:textColor="@color/gray60"
                         android:layout_width="wrap_content"

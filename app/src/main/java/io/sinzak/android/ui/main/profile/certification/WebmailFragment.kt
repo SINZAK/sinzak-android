@@ -1,5 +1,8 @@
 package io.sinzak.android.ui.main.profile.certification
 
+import android.app.Activity.RESULT_OK
+import android.content.Intent
+import android.provider.MediaStore
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
@@ -56,4 +59,5 @@ class WebmailFragment : BaseFragment() {
         navigator.revealHistory()
         viewModel.clearAllState()
     }
+
 }

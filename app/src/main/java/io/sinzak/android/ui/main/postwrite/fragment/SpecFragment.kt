@@ -6,6 +6,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.sinzak.android.databinding.FragmentWriteSpecBinding
 import io.sinzak.android.databinding.ViewWriteCanvasBinding
 import io.sinzak.android.databinding.ViewWriteDimensionBinding
+import io.sinzak.android.enums.Page
 import io.sinzak.android.ui.base.BaseFragment
 import io.sinzak.android.ui.main.postwrite.viewmodels.SpecViewModel
 
@@ -35,6 +36,14 @@ class SpecFragment : BaseFragment() {
 
         inflateCanvas()
         inflateDimension()
+
+
+        invokeBooleanFlow(viewModel.model.flagBuildSuccess){
+            showToast("작성 성공")
+            navigator.changePage(Page.MARKET)
+            viewModel.model.flagBuildSuccess.value = false
+        }
+
     }
 
 
@@ -53,6 +62,7 @@ class SpecFragment : BaseFragment() {
             lifecycleOwner = viewLifecycleOwner
 
             fg = this@SpecFragment
+            vm = viewModel
 
 
             bind.flDimension.addView(root)

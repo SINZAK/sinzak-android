@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
+    <data>
+        <variable
+            name="vm"
+            type="io.sinzak.android.ui.main.market.artdetail.ContentViewModel" />
+    </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -15,7 +20,7 @@
             android:gravity="center_vertical"
             >
             <TextView
-                android:text="환상"
+                android:text="@{vm.art.title}"
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -40,7 +45,7 @@
             android:gravity="center_vertical"
             >
             <TextView
-                android:text="43000원"
+                android:text="@{@string/str_holder_won(vm.art.price)}"
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -49,7 +54,7 @@
                 />
 
             <TextView
-                android:text="방금 전"
+                android:text="@{vm.art.getTimePassed}"
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

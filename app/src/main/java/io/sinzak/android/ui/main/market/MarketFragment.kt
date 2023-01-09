@@ -7,6 +7,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.sinzak.android.R
 import io.sinzak.android.databinding.*
 import io.sinzak.android.enums.Page
+import io.sinzak.android.model.market.MarketProductModel
+import io.sinzak.android.remote.dataclass.product.Product
+import io.sinzak.android.remote.dataclass.product.ProductListener
 import io.sinzak.android.system.LogDebug
 import io.sinzak.android.ui.base.BaseFragment
 import io.sinzak.android.ui.main.market.viewmodel.ArtsViewModel
@@ -18,7 +21,7 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class MarketFragment : BaseFragment() {
+class MarketFragment : BaseFragment(), ProductListener {
 
     private val artsViewModel : ArtsViewModel by activityViewModels()
     private val filterViewModel : FilterViewModel by activityViewModels()
@@ -27,6 +30,9 @@ class MarketFragment : BaseFragment() {
     @Inject
     @HistoryViewModel.MarketHistory
     lateinit var historyViewModel : HistoryViewModel
+
+    @Inject
+    lateinit var marketProductModel: MarketProductModel
 
     private lateinit var bind : FragmentMarketBinding
 
@@ -62,6 +68,11 @@ class MarketFragment : BaseFragment() {
      *
      ***************/
 
+    override fun onProductClick(product: Product) {
+        marketProductModel.loadProduct(product.id.toString())
+        navigator.changePage(Page.ART_DETAIL)
+    }
+
     private fun inflateChild(){
         inflateArts()
         inflateAppbar()
@@ -92,6 +103,7 @@ class MarketFragment : BaseFragment() {
         ViewMarketArtsBinding.inflate(layoutInflater).apply{
             lifecycleOwner = viewLifecycleOwner
             vm = artsViewModel
+            onItemClick = this@MarketFragment
             fg = this@MarketFragment
             bind.flArts.addView(root)
         }

@@ -168,7 +168,7 @@
                 android:layout_height="65dp"
                 android:background="@drawable/btn_red_filled"
                 android:text="@string/str_next"
-                android:onClick="@{v->fg.moveToImagePicker()}"
+                android:onClick="@{v->fg.moveToImagePicker() &amp; vm.submit()}"
                 android:gravity="center"
                 style="@style/medium16"
                 android:layout_marginBottom="26dp"

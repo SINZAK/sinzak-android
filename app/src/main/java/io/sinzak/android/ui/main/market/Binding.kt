@@ -7,6 +7,7 @@ import io.sinzak.android.R
 import io.sinzak.android.enums.Sort
 import io.sinzak.android.enums.Sort.*
 import io.sinzak.android.remote.dataclass.product.Product
+import io.sinzak.android.remote.dataclass.product.ProductListener
 import io.sinzak.android.ui.main.home.adapter.ArtReferAdapter
 import io.sinzak.android.ui.main.market.adapter.ArtProductAdapter
 import io.sinzak.android.ui.main.market.adapter.ArtsAdapter
@@ -41,11 +42,12 @@ fun setSortText(view : TextView, sort : Sort)
     )
 }
 
-@BindingAdapter("adapter","products")
-fun setAdapter(view : RecyclerView, adapter : ArtProductAdapter, products : List<Product>)
+@BindingAdapter("adapter","products", "onItemClick")
+fun setAdapter(view : RecyclerView, adapter : ArtProductAdapter, products : List<Product>, onItemClick : ProductListener)
 {
     view.adapter?:run{
         view.adapter = adapter
     }
+    adapter.registerListener(onItemClick)
     adapter.setProducts(products)
 }

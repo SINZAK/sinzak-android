@@ -76,13 +76,17 @@ class FilterAdapter(private val filterItems : MutableList<String>, val selectFil
 
     fun onClickFilter(filter : String?, status : Boolean)
     {
-        filter?.run{
+        filter?.let{
             if(status)
             {
-                filterNotChosen.remove(filter)
-                filterChosenItem.add(filter)
+                if(filterChosenItem.size < 3) {
+                    filterNotChosen.remove(filter)
+                    filterChosenItem.add(filter)
+                } else {
+                    return
+                }
             }
-            else{
+            else {
                 filterNotChosen.add(filter)
                 filterChosenItem.remove(filter)
             }

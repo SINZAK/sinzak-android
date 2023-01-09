@@ -1,5 +1,7 @@
 package io.sinzak.android.ui.main.profile.certification
 
+import android.content.Intent
+import android.provider.MediaStore
 import android.text.TextUtils
 import android.util.Patterns
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -8,6 +10,7 @@ import io.sinzak.android.ui.base.BaseViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
+import kotlin.coroutines.coroutineContext
 
 @HiltViewModel
 class WebmailViewModel @Inject constructor(
@@ -45,7 +48,7 @@ class WebmailViewModel @Inject constructor(
             if(_webMailInput.value != text){
                 _webMailInput.value = text
             }
-            if (!TextUtils.isEmpty(text) && Patterns.EMAIL_ADDRESS.matcher(text).matches()){
+            if (emailValidation(text)){
                _webMailState.value = 0
             }
         }
@@ -56,9 +59,14 @@ class WebmailViewModel @Inject constructor(
         _webMailInput.value = ""
     }
 
+    //이메일 형식
+    fun emailValidation(input : String) : Boolean {
+        return !TextUtils.isEmpty(input) && Patterns.EMAIL_ADDRESS.matcher(input).matches()
+    }
+
     //이메일 인증 상태
     fun changeWebMailState() {
-        if(!TextUtils.isEmpty(_webMailInput.value) && Patterns.EMAIL_ADDRESS.matcher(_webMailInput.value).matches()) {
+        if(emailValidation(_webMailInput.value)) {
             _webMailState.value = 2
         }
         else _webMailState.value = 1
