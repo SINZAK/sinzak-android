@@ -98,6 +98,6 @@ class ProfileModel @Inject constructor() : BaseModel() {
     }
 
     override fun handleError(api: Int, msg: String?, t: Throwable?) {
-        TODO("Not yet implemented")
+
     }
 }

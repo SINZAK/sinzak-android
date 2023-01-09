@@ -5,12 +5,16 @@
         <variable
             name="vm"
             type="io.sinzak.android.ui.main.market.artdetail.ContentViewModel" />
+        <variable
+            name="fg"
+            type="io.sinzak.android.ui.main.market.artdetail.ArtDetailFragment" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:onClick="@{v->fg.onClick(v)}">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"

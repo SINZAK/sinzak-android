@@ -34,9 +34,6 @@ class ProfileFragment :BaseFragment() {
     private val editProfileViewModel by activityViewModels<EditViewModel>()
     private val reportSendViewModel by activityViewModels<ReportSendViewModel>()
 
-    @Inject
-    lateinit var profileModel: ProfileModel
-
 
     override fun getFragmentRoot(): View {
         bind = FragmentProfileBinding.inflate(layoutInflater)
@@ -46,7 +43,6 @@ class ProfileFragment :BaseFragment() {
     }
 
     override fun onFragmentCreated() {
-        profileModel.getMyProfile()
         inflateChild()
     }
 
