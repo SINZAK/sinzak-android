@@ -17,6 +17,7 @@ import io.sinzak.android.ui.base.BaseFragment
 import io.sinzak.android.ui.main.market.artdetail.ArtistBlockDialog
 import io.sinzak.android.ui.main.market.artdetail.ArtistReportDialog
 import io.sinzak.android.ui.main.profile.edit.EditViewModel
+import io.sinzak.android.ui.main.profile.report.ReportSendViewModel
 import io.sinzak.android.ui.main.profile.viewmodel.ProfileSaleViewModel
 import io.sinzak.android.ui.main.profile.viewmodel.ProfileViewModel
 import io.sinzak.android.ui.main.profile.viewmodel.ProfileWorkViewModel
@@ -31,12 +32,7 @@ class ProfileFragment :BaseFragment() {
     private val profileSaleViewModel by activityViewModels<ProfileSaleViewModel>()
     private val profileWorkViewModel by activityViewModels<ProfileWorkViewModel>()
     private val editProfileViewModel by activityViewModels<EditViewModel>()
-
-    private lateinit var viewProfileTopAppbar : ViewProfileTopAppbarBinding
-    private lateinit var viewProfileMyprofile : ViewProfileMyprofileBinding
-    private lateinit var viewProfileLinkList : ViewProfileLinkListBinding
-    private lateinit var viewProfileArtSale : ViewProfileArtSaleBinding
-    private lateinit var viewProfileArtWork: ViewProfileArtWorkBinding
+    private val reportSendViewModel by activityViewModels<ReportSendViewModel>()
 
     @Inject
     lateinit var profileModel: ProfileModel
@@ -76,12 +72,7 @@ class ProfileFragment :BaseFragment() {
     }
 
     private fun inflateAppbar(){
-        viewProfileTopAppbar = DataBindingUtil.inflate<ViewProfileTopAppbarBinding>(
-            layoutInflater,
-            R.layout.view_profile_top_appbar,
-            null,
-            false
-        ).apply {
+        ViewProfileTopAppbarBinding.inflate(layoutInflater).apply {
             lifecycleOwner = viewLifecycleOwner
             vm = viewModel
             fg = this@ProfileFragment
@@ -89,12 +80,7 @@ class ProfileFragment :BaseFragment() {
         }
     }
     private fun inflateMyProfile(){
-        viewProfileMyprofile = DataBindingUtil.inflate<ViewProfileMyprofileBinding>(
-            layoutInflater,
-            R.layout.view_profile_myprofile,
-            null,
-            false
-        ).apply {
+        ViewProfileMyprofileBinding.inflate(layoutInflater).apply {
             lifecycleOwner = viewLifecycleOwner
             pVm = viewModel
             eVm = editProfileViewModel
@@ -103,24 +89,14 @@ class ProfileFragment :BaseFragment() {
         }
     }
     private fun inflateLinkList(){
-        viewProfileLinkList = DataBindingUtil.inflate<ViewProfileLinkListBinding>(
-            layoutInflater,
-            R.layout.view_profile_link_list,
-            null,
-            false
-        ).apply {
+        ViewProfileLinkListBinding.inflate(layoutInflater).apply {
             lifecycleOwner = viewLifecycleOwner
             vm = viewModel
             bind.llProfiles.addView(root)
         }
     }
     private fun inflateArtSale(){
-        viewProfileArtSale = DataBindingUtil.inflate<ViewProfileArtSaleBinding>(
-            layoutInflater,
-            R.layout.view_profile_art_sale,
-            null,
-            true
-        ).apply {
+        ViewProfileArtSaleBinding.inflate(layoutInflater).apply {
             lifecycleOwner = viewLifecycleOwner
             vm = profileSaleViewModel
             fg = this@ProfileFragment
@@ -128,12 +104,7 @@ class ProfileFragment :BaseFragment() {
         }
     }
     private fun inflateArtWork() {
-        viewProfileArtWork = DataBindingUtil.inflate<ViewProfileArtWorkBinding>(
-            layoutInflater,
-            R.layout.view_profile_art_work,
-            null,
-            true
-        ).apply {
+        ViewProfileArtWorkBinding.inflate(layoutInflater).apply {
             lifecycleOwner = viewLifecycleOwner
             vm = profileWorkViewModel
             fg = this@ProfileFragment
@@ -149,15 +120,17 @@ class ProfileFragment :BaseFragment() {
 
     // 더 보기 다이얼로그
     fun showMoreMenu(){
-        ArtistReportDialog(requireContext(),"김지호",{ goToReportPage()}, { showBlockDialog() }).show()
+        ArtistReportDialog(requireContext(),
+           viewModel.profile.value!!.name,{ goToReportPage()}, { showBlockDialog() }).show()
     }
 
     // 차단하기 다이얼로그
     fun showBlockDialog(){
-        ArtistBlockDialog(requireContext(),{}).show()
+        ArtistBlockDialog(requireContext(),{/*차단 api*/}).show()
     }
     // 사용자 신고 페이지로
     fun goToReportPage(){
+        reportSendViewModel.isFromProfile(true)
         navigator.changePage(Page.PROFILE_REPORT_TYPE)
     }
 

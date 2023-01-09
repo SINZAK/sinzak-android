@@ -7,6 +7,7 @@ import io.sinzak.android.databinding.*
 import io.sinzak.android.enums.Page
 import io.sinzak.android.ui.base.BaseFragment
 import io.sinzak.android.ui.main.MainActivity
+import io.sinzak.android.ui.main.profile.report.ReportSendViewModel
 
 @AndroidEntryPoint
 class ArtDetailFragment : BaseFragment() {
@@ -14,6 +15,7 @@ class ArtDetailFragment : BaseFragment() {
     lateinit var bind : FragmentArtDetailBinding
 
     private val contentViewModel by activityViewModels<ContentViewModel>()
+    private val reportSendViewModel by activityViewModels<ReportSendViewModel>()
 
     override fun getFragmentRoot(): View {
         bind = FragmentArtDetailBinding.inflate(layoutInflater)
@@ -47,15 +49,16 @@ class ArtDetailFragment : BaseFragment() {
 
     fun showReportDialog(){
 
-        ArtistReportDialog(requireContext(),"김지호",{ goToReportPage() },{ showBlockDialog() }).show()
+        ArtistReportDialog(requireContext(),contentViewModel.art.value!!.author,{ goToReportPage() },{ showBlockDialog() }).show()
     }
 
     // 차단하기 다이얼로그
     fun showBlockDialog(){
-        ArtistBlockDialog(requireContext(),{}).show()
+        ArtistBlockDialog(requireContext(),{/*차단 api*/}).show()
     }
     // 사용자 신고 페이지로
     fun goToReportPage(){
+        reportSendViewModel.isFromProfile(false)
         navigator.changePage(Page.PROFILE_REPORT_TYPE)
     }
 
