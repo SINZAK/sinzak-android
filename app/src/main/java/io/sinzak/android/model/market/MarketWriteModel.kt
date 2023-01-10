@@ -23,7 +23,7 @@ import javax.inject.Singleton
 class MarketWriteModel @Inject constructor() : BaseModel(){
 
 
-    private var imgUris = listOf<Uri>()
+    var imgUris = listOf<Uri>()
     private var imgBitmaps = mutableListOf<Bitmap>()
     private var title = ""
     private var content = ""
@@ -42,6 +42,8 @@ class MarketWriteModel @Inject constructor() : BaseModel(){
     fun provideContext(c : Context){
         context = c
     }
+
+
 
 
     fun setImgUri(u : List<Uri>){
@@ -114,6 +116,7 @@ class MarketWriteModel @Inject constructor() : BaseModel(){
         val requestBodies = imgBitmaps.map{
             FileUtil.getMultipart(context,"multipartFile",it)
         }
+        imgUris = listOf()
         CallImpl(API_PRODUCT_UPLOAD_IMG, this, paramStr0 = id, multipartList = requestBodies).apply{
             remote.sendRequestApi(this)
         }

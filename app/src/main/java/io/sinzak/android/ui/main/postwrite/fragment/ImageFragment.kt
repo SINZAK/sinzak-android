@@ -34,6 +34,8 @@ class ImageFragment : BaseFragment() {
         bind.fg = this
         bind.vm = viewModel
         bind.lifecycleOwner = this
+
+        viewModel.initData()
     }
 
 
