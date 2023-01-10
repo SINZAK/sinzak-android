@@ -41,6 +41,8 @@ class CertificationViewModel @Inject constructor(val regNav : RegisterNavigation
             )
 
             _showSchoolList.value = text != ""
+
+            if(text == "") schoolInserted.value = false
         }
     }
 

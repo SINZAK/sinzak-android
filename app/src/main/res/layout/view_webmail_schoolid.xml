@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="vm"
+            type="io.sinzak.android.ui.main.profile.certification.WebmailViewModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/textView8"
+            style="@style/regular13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:text="@string/str_webMail_schoolId_explain"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/btn_secondary_stroke"
+            android:gravity="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView8"
+            android:visibility="@{vm.isUpload() ? 8 : 0}"
+            android:onClick="@{v->vm.changeUploadStatus(!vm.isUpload)}">
+            <TextView
+                style="@style/bold16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="2dp"
+                android:text="@string/str_webMail_upload"
+                android:textColor="@color/secondary"
+                app:drawableStartCompat="@drawable/ic_camera" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/btn_black_stroke_bold"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView8"
+            android:visibility="@{vm.isUpload() ? 0 : 8}">
+            <TextView
+                style="@style/bold16"
+                android:layout_width="154dp"
+                android:layout_height="wrap_content"
+                android:text="dkflsfF48A6CC-C877"
+                android:textColor="@color/text0"
+                android:ellipsize="end"
+                android:maxLines="1"/>
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_delete_red"
+                android:onClick="@{v->vm.changeUploadStatus(!vm.isUpload)}"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

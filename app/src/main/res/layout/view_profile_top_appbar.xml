@@ -22,7 +22,7 @@
             android:src="@drawable/ic_menu_profile"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:onClick="@{v->vm.changeStatus(!vm.isMyProfile)}"
+            android:onClick="@{v->vm.changeStatus(!vm.isMyProfile())}"
             />
 
         <ImageView
@@ -35,7 +35,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
 
-            android:visibility="@{vm.isMyProfile ? 0 : 8}"
+            android:visibility="@{vm.profile.myProfile ? 0 : 8}"
             android:onClick="@{v->fg.gotoSettingPage()}"
             />
 
@@ -49,7 +49,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
 
-            android:visibility="@{!vm.isMyProfile ? 0 : 8}"
+            android:visibility="@{!vm.profile.myProfile ? 0 : 8}"
             android:onClick="@{v-> fg.showMoreMenu()}"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>

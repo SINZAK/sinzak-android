@@ -56,6 +56,13 @@ class CallImpl(
 
             API_EMAIL_GET_NAVER -> remoteApi.loginGetNaverEmail("Bearer $paramStr0")
 
+            API_GET_USER_PROFILE -> remoteApi.getUserProfile(header,paramStr0!!)
+
+            API_GET_FOLLOWING_LIST -> remoteApi.getFollowingList(header,paramStr0!!)
+
+            API_GET_FOLLOWER_LIST -> remoteApi.getFollowerList(header, paramStr0!!)
+
+            API_GET_MY_PROFILE -> remoteApi.getMyProfile(header)
 
             API_GET_MARKET_PRODUCTS -> remoteApi.getMarketProducts(header,paramInt0!!, paramInt1!!, paramStr0!!, paramStr1!!)
 

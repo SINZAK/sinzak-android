@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingHorizontal="15dp"
-        android:visibility="@{vm.isMyProfile ? 0 : 8}"
+        android:visibility="@{vm.isMyProfile() ? 0 : 8}"
         >
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
