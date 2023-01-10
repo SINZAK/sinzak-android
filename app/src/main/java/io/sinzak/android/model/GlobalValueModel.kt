@@ -7,12 +7,15 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import io.sinzak.android.R
+import io.sinzak.android.system.App
 import javax.inject.Inject
+import javax.inject.Singleton
 
-class GlobalValueModel @Inject constructor(val context : Context) {
 
 
-    val univMap : Map<String, String> = context.resources.getStringArray(R.array.univ_name).let{univ ->
+class GlobalValueModel @Inject constructor(val context: Context) {
+
+    val univMap : Map<String, String> get() =  context.resources.getStringArray(R.array.univ_name).let{univ ->
         val mail = context.resources.getStringArray(R.array.univ_mail)
         val map = mutableMapOf<String,String>()
         for(i in univ.indices){
@@ -26,13 +29,16 @@ class GlobalValueModel @Inject constructor(val context : Context) {
     val categoryWork = context.resources.getStringArray(R.array.category_work).toList()
 
 
+    fun getString(resourceId : Int)
+        = context.getString(resourceId)
+
 
     @Module
     @InstallIn(SingletonComponent::class)
     internal object Provider{
         @Provides
-        fun provideModel(@ApplicationContext context : Context) : GlobalValueModel{
-            return GlobalValueModel(context)
+        fun provide(@ApplicationContext context : Context) : GlobalValueModel{
+            return App.globalValueModel
         }
     }
 }

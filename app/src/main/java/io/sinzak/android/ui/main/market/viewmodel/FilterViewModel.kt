@@ -19,5 +19,16 @@ class FilterViewModel @Inject constructor(
     }
 
 
+    fun loadCategory(){
+        marketArtModel.getCategoryString().let{
+            filter->
+            if(filter.isEmpty())
+                return
+            adapter.setCurrentFilter(filter)
+        }
+    }
+
+
+
 
 }

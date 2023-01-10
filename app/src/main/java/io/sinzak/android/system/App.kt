@@ -14,6 +14,7 @@ import io.sinzak.android.constants.KAKAO_NATIVE
 import io.sinzak.android.constants.NAVER_CLIENT_ID
 import io.sinzak.android.constants.NAVER_SECRET_ID
 import io.sinzak.android.constants.getHashKey
+import io.sinzak.android.model.GlobalValueModel
 import io.sinzak.android.model.context.SignModel
 import io.sinzak.android.remote.dataclass.local.SchoolData
 import java.lang.RuntimeException
@@ -21,10 +22,7 @@ import javax.inject.Inject
 
 @HiltAndroidApp
 class App : Application() {
-
-    @Inject
-    lateinit var signModel: SignModel
-
+    
 
     override fun onCreate() {
         super.onCreate()
@@ -34,6 +32,8 @@ class App : Application() {
 
         initKaKaoSdk()
         initNaverSdk()
+
+        globalValueModel = GlobalValueModel(this)
 
     }
 
@@ -71,6 +71,7 @@ class App : Application() {
 
     companion object{
         lateinit var prefs : PreferenceUtil
+        lateinit var globalValueModel: GlobalValueModel
 
         var NAVER_SDK_PREPARED = true
     }

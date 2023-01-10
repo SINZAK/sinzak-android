@@ -8,6 +8,7 @@ import io.sinzak.android.model.GlobalUiModel
 import io.sinzak.android.model.GlobalValueModel
 import io.sinzak.android.model.context.SignModel
 import io.sinzak.android.model.navigate.Navigation
+import io.sinzak.android.system.App
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -21,7 +22,7 @@ abstract class BaseViewModel : ViewModel() {
 
     @Inject lateinit var signModel: SignModel
 
-    @Inject lateinit var valueModel : GlobalValueModel
+    val valueModel = App.globalValueModel
 
     fun showToast(msg : String){
         uiModel.showToast(msg)

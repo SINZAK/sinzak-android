@@ -78,7 +78,7 @@ object FileUtil {
     fun getBitmapFile(context : Context, uri : Uri) : Bitmap{
         val path = getRealPath(context,uri)
         val bitmap = BitmapFactory.decodeFile(path)
-        return Bitmap.createScaledBitmap(bitmap,256,256,true).apply{
+        return Bitmap.createScaledBitmap(bitmap,512,512,true).apply{
             LogDebug(TAG,"Size : ${this.byteCount} ${this.allocationByteCount} ${this.rowBytes}")
         }
     }

@@ -23,6 +23,7 @@ class HomeFragment : BaseFragment() {
     private val artMarketViewModel by activityViewModels<ArtMarketViewModel>()
     private val artRecentViewModel by activityViewModels<ArtRecentViewModel>()
     private val artistViewModel : ArtistViewModel by activityViewModels()
+    private val categoryViewModel : ArtCategoryViewModel by activityViewModels()
 
     override fun getFragmentRoot(): View {
         bind = FragmentHomeBinding.inflate(layoutInflater)
@@ -47,11 +48,13 @@ class HomeFragment : BaseFragment() {
             inflateArtOnmarketView()
             inflateArtistView()
             inflateRecentView()
+            inflateCategory()
         }
         else{
             inflateRecentView()
             inflateArtReferView()
             inflateArtOnmarketView()
+            inflateCategory()
         }
 
 
@@ -113,6 +116,15 @@ class HomeFragment : BaseFragment() {
         DataBindingUtil.inflate<ViewHomeArtRecentBinding>(layoutInflater, R.layout.view_home_art_recent, null,true).apply{
             lifecycleOwner = viewLifecycleOwner
             vm = artRecentViewModel
+            fg = this@HomeFragment
+            bind.llMain.addView(root)
+        }
+    }
+
+    private fun inflateCategory(){
+        DataBindingUtil.inflate<ViewHomeLinearBinding>(layoutInflater, R.layout.view_home_linear, null, true).apply{
+            lifecycleOwner = viewLifecycleOwner
+            vm = categoryViewModel
             fg = this@HomeFragment
             bind.llMain.addView(root)
         }

@@ -53,6 +53,7 @@ class MarketFragment : BaseFragment(), ProductListener {
     }
 
     override fun onFragmentCreated() {
+        filterViewModel.loadCategory()
         viewModel.getMarketProductRemote(refresh = true)
         inflateChild()
     }

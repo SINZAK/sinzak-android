@@ -11,7 +11,7 @@ import retrofit2.Call
 import retrofit2.http.*
 
 interface RemoteMarketInterface {
-    @POST("/market/products")
+    @POST("/products")
     fun getMarketProducts(@HeaderMap header : HashMap<String,String>, @Query("page") page : Int, @Query("size") size : Int, @Query("align") align : String, @Query("category") category : String ) : Call<MarketProductResponse>
 
     @POST("/products/build")

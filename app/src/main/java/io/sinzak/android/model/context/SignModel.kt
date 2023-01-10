@@ -36,7 +36,8 @@ class SignModel @Inject constructor(
     val valueModel: GlobalValueModel
 ) : BaseModel() {
 
-    val univList : List<SchoolData> = valueModel.univMap.map {
+
+    val univList : List<SchoolData> get() = valueModel.univMap.map {
         SchoolData(it.key, it.value)
     }
 

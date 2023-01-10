@@ -2,10 +2,12 @@ package io.sinzak.android.ui.main
 
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.sinzak.android.enums.Page
-import io.sinzak.android.model.navigate.Navigation
 import io.sinzak.android.ui.base.BaseViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -13,6 +15,27 @@ class MainBottomViewModel @Inject constructor(): BaseViewModel() {
 
     private val _currentButton = MutableStateFlow(0)
     val currentButton : StateFlow<Int> get() = _currentButton
+
+    init{
+        val pages = listOf(
+            Page.HOME,
+            Page.MARKET,
+            Page.OUTSOURCING,
+            Page.CHAT,
+            Page.PROFILE
+        )
+        CoroutineScope(Dispatchers.Main).launch {
+
+            invokeStateFlow(navigation.topPage){
+                if(it in pages){
+                    if(currentButton.value != pages.indexOf(it)){
+                        _currentButton.value = pages.indexOf(it)
+                    }
+                }
+            }
+        }
+
+    }
 
 
     fun setCurrentButton(button : Int){

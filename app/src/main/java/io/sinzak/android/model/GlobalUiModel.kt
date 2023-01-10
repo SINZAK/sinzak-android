@@ -15,11 +15,11 @@ import io.sinzak.android.ui.base.BaseDialog
 import io.sinzak.android.ui.main.market.artdetail.ArtistReportDialog
 import javax.inject.Inject
 
-class GlobalUiModel @Inject constructor(val context : Context) {
+class GlobalUiModel @Inject constructor(val context : Context,
+val navigation: Navigation
+) {
 
 
-    @Inject lateinit var navigation : Navigation
-    @Inject lateinit var detailModel : MarketProductModel
 
     fun showToast(msg : String){
         Toast.makeText(context,msg,Toast.LENGTH_SHORT).show()
@@ -28,10 +28,10 @@ class GlobalUiModel @Inject constructor(val context : Context) {
 
 
 
-    fun openProductDetail(product : Product){
+    fun openProductDetail(){
 
         navigation.changePage(Page.ART_DETAIL)
-        detailModel.loadProduct(product.id!!)
+
     }
 
 
@@ -53,8 +53,9 @@ class GlobalUiModel @Inject constructor(val context : Context) {
     @InstallIn(SingletonComponent::class)
     internal object Provider{
         @Provides
-        fun provideModel(@ApplicationContext context : Context) : GlobalUiModel{
-            return GlobalUiModel(context)
+        fun provideModel(@ApplicationContext context : Context,
+        navigation : Navigation) : GlobalUiModel{
+            return GlobalUiModel(context, navigation)
         }
     }
 }

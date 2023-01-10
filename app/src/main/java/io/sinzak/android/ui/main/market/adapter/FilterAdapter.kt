@@ -19,6 +19,14 @@ class FilterAdapter(private val filterItems : MutableList<String>, val selectFil
         filterNotChosen.addAll(filterItems)
     }
 
+    fun setCurrentFilter(filter : String){
+        val filters = filter.split(',')
+        filterChosenItem = filters.toMutableList()
+        filterNotChosen = filterItems.toMutableList()
+        filterNotChosen.removeAll(filters)
+        notifyDataSetChanged()
+    }
+
     override fun getItemCount(): Int {
         return filterItems.size + 1
     }

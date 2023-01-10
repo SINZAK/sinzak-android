@@ -46,6 +46,7 @@ class MarketWriteModel @Inject constructor() : BaseModel(){
 
     fun setImgUri(u : List<Uri>){
         imgUris = u
+        LogInfo(javaClass.name,"[MARKETWRITEMODEL] : URI Loaded $u")
         loadBitmaps()
     }
 

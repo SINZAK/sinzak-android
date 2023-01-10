@@ -38,6 +38,9 @@ class MarketArtModel @Inject constructor() : BaseModel() {
         categoryString = str
         getRemoteMarketProducts(refresh = true)
     }
+    fun getCategoryString() : String{
+        return categoryString
+    }
 
     fun setMarketSort(sort: Sort)
     {
