@@ -65,10 +65,19 @@
     <string name="str_certification_school">학교 이름</string>
     <string name="str_certification_school_hint">학교 이름을 검색하세요.</string>
 
+    <string name="str_webMail_type_select">인증 방식 선택</string>
+    <string name="str_webMail_type_mail">학교 웹메일 인증</string>
+    <string name="str_webMail_type_school_id">학생증 인증</string>
     <string name="str_webMail_explain">이메일을 입력하면 인증 메일을 보내드립니다.\n이메일에 포함된 인증번호 확인 후 입력해주세요.</string>
     <string name="str_webMail_hint">학교 메일을 입력해주세요.</string>
+    <string name="str_webMail_validation">올바른 형식의 메일을 입력하세요.</string>
+    <string name="str_webMail_send_message">인증메일이 전송되었습니다</string>
     <string name="str_webMail_code">인증번호</string>
     <string name="str_webMail_code_hint">4자리 인증번호를 입력해주세요.</string>
+    <string name="str_webMail_code_err">다시 입력해주세요.</string>
+    <string name="str_webMail_code_complete">인증 완료!</string>
+    <string name="str_webMail_schoolId_explain">모바일 학생증 캡쳐 화면 또는 실물 학생증 사진을\n업로드해주세요. 2~3일 내에 승인이 완료됩니다.</string>
+    <string name="str_webMail_upload">사진 업로드하기</string>
     <string name="str_webMail_next_time">다음에 하기</string>
     <string name="str_webMail_send">메일 전송</string>
 
@@ -88,6 +97,7 @@
     <string name="str_next">다음</string>
     <string name="str_cancel">취소</string>
     <string name="str_apply">신청하기</string>
+    <string name="str_graduate">대학생이 아니에요</string>
 
     <string name="str_login_subtitle">신세대의 작품을 만나다</string>
     <string name="str_login_naver">네이버로 시작하기</string>
@@ -158,7 +168,7 @@
     <string name="str_report_type_cheat">사기 당했어요</string>
     <string name="str_report_type_other">다른 문제가 있어요</string>
     <string name="str_report_content">신고 내용을 작성해주세요.</string>
-    <string name="str_report_reason">: %s</string>
+    <string name="str_report_dot">: </string>
     <string name="str_report_input_hint">신작이 조치를 취해드릴 수 있게 문제 상황을 최대한 구체적으로 설명해주세요.</string>
     <string name="str_report_input_length">글자 수 제한 %d/300</string>
     <string name="str_report_send_explain">신고하면 더 이상 채팅을 보낼 수 없어요.</string>

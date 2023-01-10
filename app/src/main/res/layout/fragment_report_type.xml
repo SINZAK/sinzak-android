@@ -48,7 +48,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{@string/str_report_type_title(null)}"
+                android:text="@{vm.isFromProfile ? @string/str_report_type_title(vm.profile.name) : @string/str_report_type_title(vm.art.author)}"
                 style="@style/bold16"
                 android:layout_marginHorizontal="17dp"/>
             <View

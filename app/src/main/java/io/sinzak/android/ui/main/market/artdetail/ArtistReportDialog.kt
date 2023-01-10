@@ -7,7 +7,7 @@ import io.sinzak.android.ui.base.BaseDialog
 
 class ArtistReportDialog(
     context: Context,
-    val artist: String = "김지호 ",
+    val artist: String = "",
     val reportArtist: () -> Unit,
     val blockArtist: () -> Unit
 ) :

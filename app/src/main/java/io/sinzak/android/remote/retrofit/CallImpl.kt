@@ -8,6 +8,7 @@ import io.sinzak.android.remote.dataclass.request.login.JoinRequest
 import io.sinzak.android.remote.dataclass.request.login.LoginEmailBody
 import io.sinzak.android.remote.dataclass.request.login.TokenRequest
 import io.sinzak.android.remote.dataclass.request.market.ProductBuildRequest
+import io.sinzak.android.remote.dataclass.request.profile.UpdateUserRequest
 import io.sinzak.android.system.App.Companion.prefs
 import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaType
@@ -56,6 +57,15 @@ class CallImpl(
 
             API_EMAIL_GET_NAVER -> remoteApi.loginGetNaverEmail("Bearer $paramStr0")
 
+            API_GET_USER_PROFILE -> remoteApi.getUserProfile(header,paramStr0!!)
+
+            API_GET_FOLLOWING_LIST -> remoteApi.getFollowingList(header,paramStr0!!)
+
+            API_GET_FOLLOWER_LIST -> remoteApi.getFollowerList(header, paramStr0!!)
+
+            API_GET_MY_PROFILE -> remoteApi.getMyProfile(header)
+
+            API_EDIT_MY_PROFILE -> remoteApi.editMyProfile(header,requestBody as UpdateUserRequest)
 
             API_GET_MARKET_PRODUCTS -> remoteApi.getMarketProducts(header,paramInt0!!, paramInt1!!, paramStr0!!, paramStr1!!)
 

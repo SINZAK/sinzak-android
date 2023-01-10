@@ -41,11 +41,11 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@+id/textView2"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
             android:paddingStart="23dp"
+            android:paddingVertical="25.2dp"
             android:paddingEnd="36dp"
-            android:paddingTop="25.2dp">
+            app:layout_constraintBottom_toTopOf="@+id/linearLayoutCompat3"
+            app:layout_constraintTop_toBottomOf="@+id/textView">
 
 
             <TextView
@@ -75,45 +75,62 @@
                     android:background="@null"
                     android:hint="@string/str_certification_school_hint"
                     android:inputType="text"
-                    android:textColorHint="@color/gray60"
+                    android:onTextChanged="@{(cs,a,b,c) -> vm.schoolInputText(cs)}"
                     android:text="@{vm.schoolInput}"
-                    android:onTextChanged="@{(cs,a,b,c) -> vm.schoolInputText(cs)}"/>
+                    android:textColorHint="@color/gray60" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.recyclerview.widget.RecyclerView
+                adapter="@{vm.certificationAdapter}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/ll_certi_search"
                 android:layout_marginTop="11dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ll_univ_name"
+                android:background="@drawable/ll_certi_search"
+                android:orientation="vertical"
                 android:visibility="@{vm.showSchoolList ? 0 : 8}"
-                adapter="@{vm.certificationAdapter}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                android:orientation="vertical"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ll_univ_name" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
-            android:id="@+id/textView2"
-            style="@style/bold16"
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/linearLayoutCompat3"
             android:layout_width="match_parent"
             android:layout_height="@dimen/btn_height"
-            android:layout_marginHorizontal="8dp"
             android:layout_marginBottom="25.5dp"
-            android:background="@drawable/btn_red_filled"
-            android:enabled="@{vm.schoolInserted}"
-            android:gravity="center"
-            android:text="@string/str_next"
-            android:textColor="@color/on_primary"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp"
+            app:layout_constraintBottom_toBottomOf="parent">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/str_graduate"
+                style="@style/bold16"
+                android:textColor="@color/white"
+                android:background="@drawable/btn_gray_filled"
+                android:gravity="center"
 
+                android:onClick="@{v->fg.gotoRegisterComplete()}"/>
+            <Space
+                android:layout_width="11dp"
+                android:layout_height="match_parent"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/str_next"
+                style="@style/bold16"
+                android:textColor="@color/white"
+                android:background="@drawable/btn_red_filled"
+                android:gravity="center"
 
-            android:onClick="@{v->vm.onSubmit() &amp; fg.gotoSchoolAuth()}"/>
+                android:enabled="@{vm.schoolInserted}"
+                android:onClick="@{v->vm.onSubmit() &amp; fg.gotoSchoolAuth()}"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
