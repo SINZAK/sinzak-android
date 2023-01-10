@@ -35,7 +35,6 @@ class App : Application() {
         initKaKaoSdk()
         initNaverSdk()
 
-        loadUnivList()
     }
 
 
@@ -77,15 +76,5 @@ class App : Application() {
     }
 
 
-    fun loadUnivList(){
 
-        val univ = resources.getStringArray(R.array.univ_name).toList()
-        val domain = resources.getStringArray(R.array.univ_mail).toList()
-        signModel.univList = univ.map{
-            SchoolData(
-                it,
-                domain[univ.indexOf(it)]
-            )
-        }
-    }
 }

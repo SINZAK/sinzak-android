@@ -10,7 +10,7 @@
 
 
     <string name="str_art_refer_title">%s님을 위한 추천 작품</string>
-    <string name="str_art_onmarket_title">현재 거래중인 작품</string>
+    <string name="str_art_onmarket_title">지금 거래중</string>
     <string name="str_home_artist_title">지금 뜨는 아티스트</string>
 
 
@@ -168,4 +168,6 @@
     <string name="str_holder_won">%d원</string>
     <string name="str_holder_univ_cert">%sverifed</string>
     <string name="str_author_follower_holder">·팔로워 %d</string>
+    <string name="str_holder_author">%s 작가</string>
+    <string name="str_home_recent">최신 작품</string>
 </resources>

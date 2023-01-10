@@ -9,7 +9,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class WebmailViewModel @Inject constructor(
-    val signModel: SignModel
 ) : BaseViewModel() {
 
     private val _webMailInput = MutableStateFlow("")

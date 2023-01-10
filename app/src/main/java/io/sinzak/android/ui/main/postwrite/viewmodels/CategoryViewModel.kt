@@ -14,8 +14,8 @@ class CategoryViewModel @Inject constructor(
 ) : BaseViewModel() {
 
 
-    val marketCategories = mutableListOf("회화일반", "동양화", "조소", "판화", "공예", "기타")
-    val outsourcingCategories = mutableListOf("초상화","일러스트","로고/브랜딩","포스터/배너/간판","앱/웹 디자인","인쇄물","패키지/라벨","기타")
+    val marketCategories = valueModel.categoryMarket.toMutableList()
+    val outsourcingCategories = valueModel.categoryWork.toMutableList()
     val categorySelected = MutableStateFlow(listOf<String>())
 
     val currentField = MutableStateFlow(0)

@@ -1,5 +1,6 @@
 package io.sinzak.android.remote.retrofit
 
+import io.sinzak.android.remote.dataclass.response.market.MarketHomeResponse
 import io.sinzak.android.remote.dataclass.CResponse
 import io.sinzak.android.remote.dataclass.request.market.ProductBuildRequest
 import io.sinzak.android.remote.dataclass.response.market.MarketDetailResponse
@@ -23,4 +24,8 @@ interface RemoteMarketInterface {
     @Multipart
     @POST("/products/{id}/image")
     fun uploadProductImage(@HeaderMap headerMap: HashMap<String,String>,@Path("id") id : String, @Part parts : List<MultipartBody.Part>) : Call<CResponse>
+
+
+    @POST("/home/products")
+    fun getHomeProducts(@HeaderMap headerMap : HashMap<String,String>) : Call<MarketHomeResponse>
 }

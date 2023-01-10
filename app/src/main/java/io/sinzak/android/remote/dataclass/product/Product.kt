@@ -16,6 +16,7 @@ data class Product(
     @SerializedName("id") val id: String? = null,
     @SerializedName("like") val like: Boolean? = null,
     @SerializedName("likesCnt") val likeCnt: Int? = null,
+    @SerializedName("popularity") val popularity : Int? = null,
     @SerializedName("thumbnail") val thumbnail: String? = null,
     @SerializedName("price") val price: Int? = null,
     @SerializedName("suggest") val suggest: Boolean? = null,

@@ -9,10 +9,7 @@ import io.sinzak.android.databinding.*
 import io.sinzak.android.enums.Page
 import io.sinzak.android.system.LogDebug
 import io.sinzak.android.ui.base.BaseFragment
-import io.sinzak.android.ui.main.home.viewmodel.ArtMarketViewModel
-import io.sinzak.android.ui.main.home.viewmodel.ArtReferViewModel
-import io.sinzak.android.ui.main.home.viewmodel.ArtistViewModel
-import io.sinzak.android.ui.main.home.viewmodel.HomeViewModel
+import io.sinzak.android.ui.main.home.viewmodel.*
 
 
 @AndroidEntryPoint
@@ -24,6 +21,7 @@ class HomeFragment : BaseFragment() {
 
     private val artReferViewModel by activityViewModels<ArtReferViewModel>()
     private val artMarketViewModel by activityViewModels<ArtMarketViewModel>()
+    private val artRecentViewModel by activityViewModels<ArtRecentViewModel>()
     private val artistViewModel : ArtistViewModel by activityViewModels()
 
     override fun getFragmentRoot(): View {
@@ -40,11 +38,25 @@ class HomeFragment : BaseFragment() {
         }
         LogDebug(javaClass.name,"FRAGMENT_CREATED")
 
+
         inflateAppbar()
         inflateBanner()
-        inflateArtReferView()
-        inflateArtOnmarketView()
-        inflateArtistView()
+
+        if(viewModel.signModel.isLogin())
+        {
+            inflateArtOnmarketView()
+            inflateArtistView()
+            inflateRecentView()
+        }
+        else{
+            inflateRecentView()
+            inflateArtReferView()
+            inflateArtOnmarketView()
+        }
+
+
+
+        viewModel.getProducts()
 
     }
 
@@ -92,6 +104,15 @@ class HomeFragment : BaseFragment() {
         DataBindingUtil.inflate<ViewHomeArtistBinding>(layoutInflater,R.layout.view_home_artist,null,true).apply{
             lifecycleOwner = viewLifecycleOwner
             vm = artistViewModel
+            fg = this@HomeFragment
+            bind.llMain.addView(root)
+        }
+    }
+
+    private fun inflateRecentView(){
+        DataBindingUtil.inflate<ViewHomeArtRecentBinding>(layoutInflater, R.layout.view_home_art_recent, null,true).apply{
+            lifecycleOwner = viewLifecycleOwner
+            vm = artRecentViewModel
             fg = this@HomeFragment
             bind.llMain.addView(root)
         }

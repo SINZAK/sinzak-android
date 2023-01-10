@@ -69,6 +69,7 @@ class CallImpl(
 
             API_GET_PRODUCT_DETAIL -> remoteApi.getMarketProductDetail(header,paramStr0!!)
 
+            API_GET_HOME_PRODUCTS -> remoteApi.getHomeProducts(header)
 
             else -> throw NoSuchMethodException()
         } as Call<CResponse>

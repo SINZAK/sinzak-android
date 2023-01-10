@@ -12,18 +12,18 @@ import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
 @HiltViewModel
-class CertificationViewModel @Inject constructor(val regNav : RegisterNavigation, val signModel: SignModel) : BaseViewModel() {
+class CertificationViewModel @Inject constructor(val regNav: RegisterNavigation) : BaseViewModel() {
 
     private val _schoolInput = MutableStateFlow("")
-    val schoolInput : StateFlow<String> get() = _schoolInput
+    val schoolInput: StateFlow<String> get() = _schoolInput
 
     private val _showSchoolList = MutableStateFlow(false)
-    val showSchoolList : StateFlow<Boolean> get() = _showSchoolList
+    val showSchoolList: StateFlow<Boolean> get() = _showSchoolList
 
-    var school : SchoolData? = null
+    var school: SchoolData? = null
     val schoolInserted = MutableStateFlow(false)
 
-    val certificationAdapter = CertificationAdapter{
+    val certificationAdapter = CertificationAdapter {
         _schoolInput.value = it.schoolName
         school = it
         schoolInserted.value = true
@@ -32,12 +32,12 @@ class CertificationViewModel @Inject constructor(val regNav : RegisterNavigation
 
     fun schoolInputText(cs: CharSequence) {
         cs.toString().let { text ->
-            if(_schoolInput.value != text) {
+            if (_schoolInput.value != text) {
                 _schoolInput.value = text
             }
 
             certificationAdapter.setSchoolList(
-                signModel.univList.filter{it.schoolName.contains(text)}.toList()
+                signModel.univList.filter { it.schoolName.contains(text) }.toList()
             )
 
             _showSchoolList.value = text != ""
@@ -45,8 +45,7 @@ class CertificationViewModel @Inject constructor(val regNav : RegisterNavigation
     }
 
 
-
-    fun onSubmit(){
+    fun onSubmit() {
         signModel.setUniv(school!!)
         regNav.changePage(RegisterPage.PAGE_UNIVERSITY_CERT)
     }
