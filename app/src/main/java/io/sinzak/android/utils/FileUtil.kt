@@ -23,7 +23,7 @@ object FileUtil {
 
     fun pickFromGallery(
         activity : BaseActivity<*>,
-        onSuccess : (List<Uri>)->Unit
+        onSuccess : (List<Uri>)->Unit,
     ){
 
 

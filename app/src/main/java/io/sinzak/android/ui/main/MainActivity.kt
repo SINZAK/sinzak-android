@@ -38,6 +38,7 @@ import io.sinzak.android.ui.main.profile.report.ReportTypeFragment
 import io.sinzak.android.ui.main.profile.sale_with_work.SaleFragment
 import io.sinzak.android.ui.main.profile.sale_with_work.WorkFragment
 import io.sinzak.android.ui.main.profile.setting.SettingFragment
+import io.sinzak.android.ui.main.profile.viewmodel.ProfileViewModel
 import io.sinzak.android.utils.RootViewDeferringInsetsCallback
 import javax.inject.Inject
 import kotlin.math.sign
@@ -56,6 +57,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main)
     private val viewModel : MainViewModel by viewModels()
 
     private val bottomViewModel : MainBottomViewModel by viewModels()
+
+    private val profileViewModel : ProfileViewModel by viewModels()
 
     private var fragment : BaseFragment? = null
 
@@ -96,6 +99,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main)
             DataBindingUtil.inflate<ViewMainBottomMenuBinding>(layoutInflater,R.layout.view_main_bottom_menu,null,false).apply{
                 activity = this@MainActivity
                 viewmodel = bottomViewModel
+                pViewmodel = profileViewModel
                 lifecycleOwner = this@MainActivity
                 flBottomMenu.addView(root)
             }

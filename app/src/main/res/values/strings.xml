@@ -168,7 +168,7 @@
     <string name="str_report_type_cheat">사기 당했어요</string>
     <string name="str_report_type_other">다른 문제가 있어요</string>
     <string name="str_report_content">신고 내용을 작성해주세요.</string>
-    <string name="str_report_reason">: %s</string>
+    <string name="str_report_dot">: </string>
     <string name="str_report_input_hint">신작이 조치를 취해드릴 수 있게 문제 상황을 최대한 구체적으로 설명해주세요.</string>
     <string name="str_report_input_length">글자 수 제한 %d/300</string>
     <string name="str_report_send_explain">신고하면 더 이상 채팅을 보낼 수 없어요.</string>
