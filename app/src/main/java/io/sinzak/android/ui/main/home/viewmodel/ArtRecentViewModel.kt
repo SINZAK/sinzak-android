@@ -5,8 +5,7 @@ import io.sinzak.android.R
 import io.sinzak.android.enums.Page
 import io.sinzak.android.model.market.HomeProductModel
 import io.sinzak.android.model.market.MarketProductModel
-import io.sinzak.android.ui.base.BaseViewModel
-import io.sinzak.android.ui.main.home.adapter.ArtReferAdapter
+import io.sinzak.android.ui.main.home.adapter.ArtLinearAdapter
 import javax.inject.Inject
 
 @HiltViewModel
@@ -14,7 +13,7 @@ class ArtRecentViewModel @Inject constructor(
     val model : HomeProductModel,
     val pModel : MarketProductModel
 ) : HomeLinearViewModel() {
-    override val adapter = ArtReferAdapter{
+    override val adapter = ArtLinearAdapter{
         navigation.changePage(Page.ART_DETAIL)
         pModel.loadProduct(it.id.toString())
     }

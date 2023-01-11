@@ -11,21 +11,21 @@ import retrofit2.Call
 import retrofit2.http.*
 
 interface RemoteMarketInterface {
-    @POST("/products")
+    @POST("api/products")
     fun getMarketProducts(@HeaderMap header : HashMap<String,String>, @Query("page") page : Int, @Query("size") size : Int, @Query("align") align : String, @Query("category") category : String ) : Call<MarketProductResponse>
 
-    @POST("/products/build")
+    @POST("api/products/build")
     fun buildMarketProduct(@HeaderMap header: HashMap<String, String>, @Body body : ProductBuildRequest) : Call<ProductBuildResponse>
 
-    @POST("/products/{id}")
+    @POST("api/products/{id}")
     fun getMarketProductDetail(@HeaderMap headerMap: HashMap<String,String>, @Path("id") id : String) : Call<MarketDetailResponse>
 
 
     @Multipart
-    @POST("/products/{id}/image")
+    @POST("api/products/{id}/image")
     fun uploadProductImage(@HeaderMap headerMap: HashMap<String,String>,@Path("id") id : String, @Part parts : List<MultipartBody.Part>) : Call<CResponse>
 
 
-    @POST("/home/products")
+    @POST("api/home/products")
     fun getHomeProducts(@HeaderMap headerMap : HashMap<String,String>) : Call<MarketHomeResponse>
 }

@@ -12,18 +12,18 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface RemoteProfileInterface {
-    @GET("/users/{userId}")
+    @GET("api/users/{userId}")
     fun getUserProfile(@HeaderMap header: HashMap<String,String>, @Path("userId") userId : String) : Call<UserProfileResponse>
 
-    @GET("/users/{userId}/followers")
+    @GET("api/users/{userId}/followers")
     fun getFollowerList(@HeaderMap header: HashMap<String,String>, @Path("userId") userId : String) : Call<FollowResponse>
 
-    @GET("/users/{userId}/followings")
+    @GET("api/users/{userId}/followings")
     fun getFollowingList(@HeaderMap header: HashMap<String,String>, @Path("userId") userId : String) : Call<FollowResponse>
 
-    @GET("/users/myProfile")
+    @GET("api/users/myProfile")
     fun getMyProfile(@HeaderMap header: HashMap<String,String>) : Call<UserProfileResponse>
 
-    @POST("/users/edit")
+    @POST("api/users/edit")
     fun editMyProfile(@HeaderMap header: HashMap<String, String>, @Body body: UpdateUserRequest) : Call<CResponse>
 }

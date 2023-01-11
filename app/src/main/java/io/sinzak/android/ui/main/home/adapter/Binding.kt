@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 
 @BindingAdapter("adapter")
-fun setAdapter(view : RecyclerView, adapter : ArtReferAdapter)
+fun setAdapter(view : RecyclerView, adapter : ArtLinearAdapter)
 {
     view.adapter?:run{
         view.adapter = adapter
