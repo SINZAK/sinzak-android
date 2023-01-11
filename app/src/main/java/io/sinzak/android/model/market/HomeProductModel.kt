@@ -2,6 +2,7 @@ package io.sinzak.android.model.market
 
 import com.google.gson.annotations.SerializedName
 import io.sinzak.android.constants.API_GET_HOME_PRODUCTS
+import io.sinzak.android.enums.HomeMore
 import io.sinzak.android.model.BaseModel
 import io.sinzak.android.remote.dataclass.CResponse
 import io.sinzak.android.remote.dataclass.product.Product
@@ -21,6 +22,14 @@ class HomeProductModel @Inject constructor() : BaseModel() {
     val newProducts : StateFlow<List<Product>> get() = _newProducts
     val tradingProducts : StateFlow<List<Product>> get() = _tradingProducts
 
+
+    val referProductsAll = MutableStateFlow(listOf<Product>())
+    val recentProductsAll = MutableStateFlow(listOf<Product>())
+    val followingProductsAll = MutableStateFlow(listOf<Product>())
+
+
+
+    val morePageType = MutableStateFlow(HomeMore.REFER)
 
 
     fun getProducts(){

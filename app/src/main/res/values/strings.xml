@@ -184,4 +184,6 @@
     <string name="str_home_recent">최신 작품</string>
     <string name="str_home_title_category">장르별 작품</string>
     <string name="str_home_refer_null_title">신작에서 사랑받는 작품</string>
+    <string name="str_home_more_refer">맞춤 장르</string>
+    <string name="str_home_more_following">팔로잉</string>
 </resources>

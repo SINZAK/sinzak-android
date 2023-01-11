@@ -68,7 +68,7 @@ class ArtLinearAdapter(val onNextClick : ()->Unit = {},
 
         fun bind(){
             bind as HolderHomeLinearNextBinding
-            bind.root.setOnClickListener {
+            bind.setOnClick {
                 onNextClick()
             }
         }
@@ -77,7 +77,7 @@ class ArtLinearAdapter(val onNextClick : ()->Unit = {},
             bind as HolderHomeArtLinearBinding
             bind.product = product
             bind.apply{
-
+                if(!product.thumbnail.isNullOrEmpty())
                 Glide.with(ivPoster).asBitmap().load(GlideUrl(product.thumbnail))
                     .transform(CenterCrop(),RoundedCorners(10.dp.toInt())).into(ivPoster)
 

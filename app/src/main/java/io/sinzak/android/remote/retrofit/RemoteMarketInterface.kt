@@ -1,11 +1,8 @@
 package io.sinzak.android.remote.retrofit
 
-import io.sinzak.android.remote.dataclass.response.market.MarketHomeResponse
 import io.sinzak.android.remote.dataclass.CResponse
 import io.sinzak.android.remote.dataclass.request.market.ProductBuildRequest
-import io.sinzak.android.remote.dataclass.response.market.MarketDetailResponse
-import io.sinzak.android.remote.dataclass.response.market.MarketProductResponse
-import io.sinzak.android.remote.dataclass.response.market.ProductBuildResponse
+import io.sinzak.android.remote.dataclass.response.market.*
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.*
@@ -28,4 +25,12 @@ interface RemoteMarketInterface {
 
     @POST("api/home/products")
     fun getHomeProducts(@HeaderMap headerMap : HashMap<String,String>) : Call<MarketHomeResponse>
+
+    @POST("api/home/following")
+    fun getHomeFollowing(@HeaderMap headerMap : HashMap<String,String>) : Call<MarketHomeMoreResponse>
+
+    @POST("api/home/recommend")
+    fun getHomeRefer(@HeaderMap headerMap : HashMap<String,String>) : Call<MarketHomeMoreResponse>
+
+
 }

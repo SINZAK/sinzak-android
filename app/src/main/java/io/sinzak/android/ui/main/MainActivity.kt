@@ -20,6 +20,7 @@ import io.sinzak.android.ui.base.BaseFragment
 import io.sinzak.android.ui.login.LoginActivity
 import io.sinzak.android.ui.main.chat.ChatFragment
 import io.sinzak.android.ui.main.home.HomeFragment
+import io.sinzak.android.ui.main.home.HomeMoreFragment
 import io.sinzak.android.ui.main.home.notification.NotificationFragment
 import io.sinzak.android.ui.main.market.MarketFragment
 import io.sinzak.android.ui.main.market.artdetail.ArtDetailFragment
@@ -124,6 +125,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main)
             HOME -> {
                 navigation.clearHistory()
                 HomeFragment()
+            }
+            HOME_MORE ->{
+                HomeMoreFragment()
             }
             MARKET ->{
                 navigation.clearHistory()
