@@ -9,11 +9,13 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ArtistViewModel @Inject constructor() : HomeLinearViewModel() {
-    override val adapter = ArtistAdapter()
+    override val adapter = ArtReferAdapter(){
+
+    }
     override val hMargin: Float
         get() = 20f
 
     override var title: String
-     = valueModel.getString(R.string.str_home_artist_title)
+            = valueModel.getString(R.string.str_home_artist_title)
 
 }

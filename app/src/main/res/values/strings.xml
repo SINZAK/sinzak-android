@@ -11,7 +11,7 @@
 
     <string name="str_art_refer_title">%s님을 위한 맞춤 거래</string>
     <string name="str_art_onmarket_title">지금 거래중</string>
-    <string name="str_home_artist_title">내가 팔로우한 아티스트</string>
+    <string name="str_home_artist_title">내가 팔로잉하는 작가</string>
 
 
     <string name="str_market_btn_onsale">판매중 작품만 보기</string>
