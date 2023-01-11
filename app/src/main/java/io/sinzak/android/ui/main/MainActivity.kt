@@ -106,17 +106,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main)
         }
     }
 
-    fun checkIsLogin() : Boolean{
-
-        LogDebug(javaClass.name,"[MAINACTIVYT] ISLOGIN  ? ${signModel.isLogin.value}")
-        if(!signModel.isLogin.value)
-        {
-            startActivity(Intent(this,LoginActivity::class.java))
-            return false
-        }
-        return true
-    }
-
     override fun onBackPressed() {
         fragment?.run {
             this.navigateOnBackPressed()

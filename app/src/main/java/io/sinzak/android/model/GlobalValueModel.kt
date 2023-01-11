@@ -12,8 +12,8 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 
-
-class GlobalValueModel @Inject constructor(val context: Context) {
+@Singleton
+class GlobalValueModel @Inject constructor(@ApplicationContext val context: Context) {
 
     val univMap : Map<String, String> get() =  context.resources.getStringArray(R.array.univ_name).let{univ ->
         val mail = context.resources.getStringArray(R.array.univ_mail)
@@ -48,12 +48,5 @@ class GlobalValueModel @Inject constructor(val context: Context) {
         = context.getString(resourceId)
 
 
-    @Module
-    @InstallIn(SingletonComponent::class)
-    internal object Provider{
-        @Provides
-        fun provide(@ApplicationContext context : Context) : GlobalValueModel{
-            return App.globalValueModel
-        }
-    }
+
 }

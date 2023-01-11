@@ -40,6 +40,14 @@ class MainBottomViewModel @Inject constructor(): BaseViewModel() {
 
     fun setCurrentButton(button : Int){
 
+        if(button == PAGE_PROFILE){
+            if(!signModel.isLogin())
+            {
+                uiModel.gotoLogin()
+                return
+            }
+        }
+
         when(button)
         {
             PAGE_HOME -> navigation.changePage(Page.HOME)

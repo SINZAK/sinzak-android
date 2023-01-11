@@ -1,18 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <data>
+        <variable
+            name="vm"
+            type="io.sinzak.android.ui.main.home.viewmodel.BannerViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:paddingBottom="36dp"
         android:paddingTop="36dp"
         android:layout_height="wrap_content">
-        <ImageView
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:paddingHorizontal="16dp"
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vp_banner"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:adapter="@{vm.adapter}"
+            android:clipToPadding="false"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="343:147"
-            android:src="@drawable/ic_banner_temp"/>
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+            android:layout_width="wrap_content"
+            android:layout_height="8dp"
+            android:layout_marginBottom="8dp"
+            app:dotsColor="@color/text2"
+            app:attachTo="@{vpBanner}"
+            app:dotsSize="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/vp_banner"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:selectedDotColor="@color/primary" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

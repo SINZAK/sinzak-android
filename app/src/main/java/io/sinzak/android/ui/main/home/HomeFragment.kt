@@ -3,6 +3,7 @@ package io.sinzak.android.ui.main.home
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import io.sinzak.android.R
 import io.sinzak.android.databinding.*
@@ -19,6 +20,7 @@ class HomeFragment : BaseFragment() {
 
     private val viewModel : HomeViewModel by activityViewModels()
 
+    private val vpModel : BannerViewModel by viewModels()
     private val artReferViewModel by activityViewModels<ArtReferViewModel>()
     private val artMarketViewModel by activityViewModels<ArtMarketViewModel>()
     private val artRecentViewModel by activityViewModels<ArtRecentViewModel>()
@@ -70,7 +72,7 @@ class HomeFragment : BaseFragment() {
     private fun inflateBanner(){
         DataBindingUtil.inflate<ViewHomeBannerBinding>(layoutInflater,R.layout.view_home_banner,null,true).apply{
             lifecycleOwner = viewLifecycleOwner
-
+            vm = vpModel
             bind.llMain.addView(root)
 
         }
