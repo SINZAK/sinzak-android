@@ -43,25 +43,30 @@ class HomeFragment : BaseFragment() {
 
 
         inflateAppbar()
-        inflateBanner()
 
-        if(viewModel.signModel.isLogin())
-        {
-            inflateArtOnmarketView()
-            inflateArtistView()
-            inflateRecentView()
-            inflateCategory()
-        }
-        else{
-            inflateRecentView()
-            inflateArtReferView()
-            inflateArtOnmarketView()
-            inflateCategory()
-        }
 
 
 
         viewModel.getProducts()
+
+        invokeStateFlow(viewModel.signModel.isLogin){status->
+            bind.llMain.removeAllViews()
+            inflateBanner()
+            if(status)
+            {
+                inflateArtReferView()
+                inflateArtistView()
+                inflateRecentView()
+                inflateCategory()
+            }
+            else{
+                inflateRecentView()
+                inflateArtReferView()
+                inflateArtOnmarketView()
+                inflateCategory()
+            }
+
+        }
 
     }
 

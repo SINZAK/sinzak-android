@@ -24,11 +24,18 @@ class ArtReferViewModel @Inject constructor(
 
     override var title: String = ""
         get() =
-        String.format(valueModel.getString(
-            R.string.str_art_refer_title
-        ),
-        signModel.getUserDisplayName())
+            signModel.getUserDisplayName().let{
+                name->
+                if(name.isEmpty())
+                    valueModel.getString(R.string.str_home_refer_null_title)
+                else
+                    String.format(valueModel.getString(
+                        R.string.str_art_refer_title
+                    ),
+                        name)
 
+            }
+       
 
 
     init{

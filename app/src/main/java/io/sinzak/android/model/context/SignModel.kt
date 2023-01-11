@@ -43,8 +43,7 @@ class SignModel @Inject constructor(
 
 
     fun getUserDisplayName() : String{
-        if (username.isEmpty())
-            return "User"
+
         return username
     }
 

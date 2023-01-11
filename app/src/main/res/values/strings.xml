@@ -9,9 +9,9 @@
     <string name="ic_menu_profile">프로필</string>
 
 
-    <string name="str_art_refer_title">%s님을 위한 추천 작품</string>
+    <string name="str_art_refer_title">%s님을 위한 맞춤 거래</string>
     <string name="str_art_onmarket_title">지금 거래중</string>
-    <string name="str_home_artist_title">지금 뜨는 아티스트</string>
+    <string name="str_home_artist_title">내가 팔로우한 아티스트</string>
 
 
     <string name="str_market_btn_onsale">판매중 작품만 보기</string>
@@ -181,4 +181,5 @@
     <string name="str_holder_author">%s 작가</string>
     <string name="str_home_recent">최신 작품</string>
     <string name="str_home_title_category">장르별 작품</string>
+    <string name="str_home_refer_null_title">신작에서 사랑받는 작품</string>
 </resources>
