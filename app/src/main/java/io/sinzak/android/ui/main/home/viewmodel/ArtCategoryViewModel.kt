@@ -12,7 +12,7 @@ import javax.inject.Inject
 class ArtCategoryViewModel @Inject constructor(val marketArtModel: MarketArtModel) : HomeLinearViewModel() {
 
 
-    override val adapter = CategoryAdapter(valueModel.categoryMarket){
+    override val adapter = CategoryAdapter(valueModel.categoryMarket, valueModel.categoryMarketDraw){
         marketArtModel.setCategoryString(it)
         navigation.changePage(Page.MARKET)
 

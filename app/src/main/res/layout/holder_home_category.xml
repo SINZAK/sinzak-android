@@ -23,10 +23,10 @@
             app:cardCornerRadius="8dp"
             app:cardElevation="10dp">
             <ImageView
+                android:id="@+id/iv_category"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/ic_category_thumb_temp"/>
-
+               />
         </androidx.cardview.widget.CardView>
 
 

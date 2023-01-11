@@ -26,7 +26,22 @@ class GlobalValueModel @Inject constructor(val context: Context) {
 
     val categoryMarket = context.resources.getStringArray(R.array.category_market).toList()
 
+    val categoryMarketDraw = listOf(
+        R.drawable.ic_category_normal,
+        R.drawable.ic_category_orient,
+        R.drawable.ic_category_carv,
+        R.drawable.ic_category_rawdraw,
+        R.drawable.ic_category_arch,
+        R.drawable.ic_category_other
+    ).map{
+        context.getDrawable(it)
+    }
+
+
+
     val categoryWork = context.resources.getStringArray(R.array.category_work).toList()
+
+
 
 
     fun getString(resourceId : Int)
