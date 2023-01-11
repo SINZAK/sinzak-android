@@ -15,6 +15,13 @@ class ImageViewModel @Inject constructor(
 
     val imgUris : MutableList<Uri> = mutableListOf()
 
+    fun initData(){
+        imgUris.clear()
+        imgUris.addAll(model.imgUris)
+        adapter.notifyDataSetChanged()
+        updateCount()
+    }
+
     val adapter = ImageAdapter(imgUris){
 
         imgUris.remove(it)

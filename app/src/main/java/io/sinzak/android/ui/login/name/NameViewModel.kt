@@ -11,8 +11,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NameViewModel @Inject constructor(
-    val regNav: RegisterNavigation,
-    val signModel: SignModel
+    val regNav: RegisterNavigation
     ) :
     BaseViewModel() {
 

@@ -7,6 +7,7 @@ import com.navercorp.nid.oauth.NidOAuthBehavior
 import io.sinzak.android.constants.*
 import io.sinzak.android.enums.SDK
 import io.sinzak.android.model.BaseModel
+import io.sinzak.android.model.GlobalValueModel
 import io.sinzak.android.remote.dataclass.CResponse
 import io.sinzak.android.remote.dataclass.local.SchoolData
 import io.sinzak.android.remote.dataclass.request.login.JoinRequest
@@ -31,11 +32,20 @@ import javax.inject.Singleton
 
 
 @Singleton
-class SignModel @Inject constructor() : BaseModel() {
+class SignModel @Inject constructor(
+    val valueModel: GlobalValueModel
+) : BaseModel() {
 
-    lateinit var univList : List<SchoolData>
+
+    val univList : List<SchoolData> get() = valueModel.univMap.map {
+        SchoolData(it.key, it.value)
+    }
 
 
+    fun getUserDisplayName() : String{
+
+        return username
+    }
 
     private val _isLogin = MutableStateFlow(false)
     val isLogin : StateFlow<Boolean> get() = _isLogin

@@ -16,11 +16,21 @@ data class Product(
     @SerializedName("id") val id: String? = null,
     @SerializedName("like") val like: Boolean? = null,
     @SerializedName("likesCnt") val likeCnt: Int? = null,
+    @SerializedName("popularity") val popularity : Int? = null,
     @SerializedName("thumbnail") val thumbnail: String? = null,
     @SerializedName("price") val price: Int? = null,
     @SerializedName("suggest") val suggest: Boolean? = null,
     @SerializedName("title") val title: String? = null,
+    @SerializedName("authorUniv") val authorUniv : String? = null
 ){
+
+    fun getLickCntFit() : String{
+        return if((likeCnt ?: 0) < 1000)
+            likeCnt.toString()
+        else
+            "${((likeCnt ?: 0)/100).toFloat() / 10}K"
+    }
+
     override fun equals(other: Any?): Boolean {
         if(other is Product)
             return id == other.id

@@ -7,7 +7,7 @@ import io.sinzak.android.ui.base.BaseViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(val signModel: SignModel) : BaseViewModel() {
+class LoginViewModel @Inject constructor() : BaseViewModel() {
 
 
     val loginSuccess get() =  signModel.isLogin

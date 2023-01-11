@@ -14,9 +14,20 @@ class FilterViewModel @Inject constructor(
     val marketArtModel: MarketArtModel
 ) : BaseViewModel() {
 
-    val adapter = FilterAdapter(mutableListOf("회화일반", "동양화", "조소", "판화", "공예", "기타")) {
+    val adapter = FilterAdapter(valueModel.categoryMarket.toMutableList()) {
         marketArtModel.setCategoryString(it.joinToString(separator = ","))
     }
+
+
+    fun loadCategory(){
+        marketArtModel.getCategoryString().let{
+            filter->
+            if(filter.isEmpty())
+                return
+            adapter.setCurrentFilter(filter)
+        }
+    }
+
 
 
 

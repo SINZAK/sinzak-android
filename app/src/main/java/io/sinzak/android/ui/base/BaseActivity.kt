@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.lifecycleScope
+import io.sinzak.android.model.GlobalUiModel
 import io.sinzak.android.model.insets.SoftKeyModel
 import io.sinzak.android.system.LogDebug
 import io.sinzak.android.system.LogInfo
@@ -23,14 +24,17 @@ abstract class BaseActivity<T : ViewDataBinding>(private val layoutId : Int) : A
 
 
     @Inject lateinit var softKey : SoftKeyModel
+    @Inject lateinit var uiModel : GlobalUiModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bind = DataBindingUtil.setContentView(this,layoutId)
         bind.lifecycleOwner = this
+        softKey.registerActivity(this)
+        uiModel.registerActivity(this)
         LogDebug(javaClass.name,"ACTIVITY CREATED")
         onActivityCreate()
-        softKey.registerActivity(this)
+
     }
 
     fun useBind(_bind : T.()->Unit)
@@ -41,11 +45,15 @@ abstract class BaseActivity<T : ViewDataBinding>(private val layoutId : Int) : A
     override fun onResume() {
         super.onResume()
         softKey.registerActivity(this)
+        uiModel.registerActivity(this)
+
     }
 
     override fun onDestroy() {
         super.onDestroy()
     }
+
+
 
 
     fun showToast(msg : String)

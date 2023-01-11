@@ -8,6 +8,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.net.URL
 import java.util.concurrent.TimeUnit
 
 @Module
@@ -28,7 +29,7 @@ object Module {
 
     @Provides
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
-        return Retrofit.Builder().client(okHttpClient).baseUrl(BASE_URL)
+        return Retrofit.Builder().client(okHttpClient).baseUrl(URL(BASE_URL))
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(CallAdapter.Factory()).build()
     }
@@ -40,7 +41,7 @@ object Module {
 
 }
 
-const val BASE_URL = "http://ec2-13-209-121-29.ap-northeast-2.compute.amazonaws.com:8080/api/"
+const val BASE_URL = "https://sinzak.net/"
 
 const val CONNECT_TIMEOUT = 1L
 const val WRITE_TIMEOUT = 5L

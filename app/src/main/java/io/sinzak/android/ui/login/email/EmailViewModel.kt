@@ -7,7 +7,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class EmailViewModel @Inject constructor(
-    val signModel: SignModel
 ) : BaseViewModel() {
 
 

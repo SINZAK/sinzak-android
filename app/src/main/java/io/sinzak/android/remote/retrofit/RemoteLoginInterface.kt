@@ -12,13 +12,13 @@ import retrofit2.http.*
 
 interface RemoteLoginInterface {
 
-    @POST("/login")
+    @POST("api/login")
     fun loginEmail(@HeaderMap header : HashMap<String, String>, @Body body : LoginEmailBody) : Call<LoginEmailResponse>
 
 
     @GET("https://openapi.naver.com/v1/nid/me")
     fun loginGetNaverEmail(@Header("Authorization") auth : String) : Call<NaverProfile>
 
-    @POST("/join")
+    @POST("api/join")
     fun joinAccount(@HeaderMap header : HashMap<String,String>, @Body body : JoinRequest) : Call<JoinResponse>
 }

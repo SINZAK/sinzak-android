@@ -4,7 +4,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
+import io.sinzak.android.model.GlobalUiModel
+import io.sinzak.android.model.GlobalValueModel
+import io.sinzak.android.model.context.SignModel
 import io.sinzak.android.model.navigate.Navigation
+import io.sinzak.android.system.App
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -14,6 +18,15 @@ abstract class BaseViewModel : ViewModel() {
 
     @Inject lateinit var navigation: Navigation
 
+    @Inject lateinit var uiModel : GlobalUiModel
+
+    @Inject lateinit var signModel: SignModel
+
+    val valueModel = App.globalValueModel
+
+    fun showToast(msg : String){
+        uiModel.showToast(msg)
+    }
 
     fun <T> invokeStateFlow(state : StateFlow<T>, collect : (T)->Unit)
     {

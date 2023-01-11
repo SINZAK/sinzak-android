@@ -12,8 +12,7 @@ import kotlin.math.sign
 
 @HiltViewModel
 class InterestViewModel @Inject constructor(
-    val regNav: RegisterNavigation,
-    val signModel: SignModel
+    val regNav: RegisterNavigation
 ) : BaseViewModel() {
 
     val genrePure = listOf("회화일반", "동양화", "조소", "판화", "공예", "초상화", "기타")

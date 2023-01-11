@@ -9,7 +9,6 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.widget.TextViewCompat
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -20,11 +19,11 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 import io.sinzak.android.model.insets.SoftKeyModel
-import io.sinzak.android.system.LogDebug
 import io.sinzak.android.system.dp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.lang.Exception
 
 
 @BindingAdapter("isSelect")
@@ -78,8 +77,11 @@ fun setImg(view : ImageView, url : String, radius : Float)
 }
 
 @BindingAdapter("remoteImgUrl")
-fun setImg(view : ImageView, url : String)
+fun setImg(view : ImageView, url : String?)
 {
+    url?:run{
+        return
+    }
     CoroutineScope(Dispatchers.IO).launch {
         Glide.with(view).asBitmap().load(GlideUrl(url)).transform(CenterCrop()).apply {
             CoroutineScope(Dispatchers.Main).launch {
@@ -131,4 +133,20 @@ fun imageTint(view : ImageView, color: Int)
 fun drawableTint(view : TextView, color : Int)
 {
     TextViewCompat.setCompoundDrawableTintList(view,ColorStateList.valueOf(color))
+}
+
+
+@BindingAdapter("app:attachTo")
+fun attachToRecyclerView(view : DotsIndicator, viewPager: ViewPager2){
+    CoroutineScope(Dispatchers.Main).launch {
+        try {
+            view.attachTo(viewPager)
+        }
+        catch(e:Exception){
+            CoroutineScope(Dispatchers.Main).launch {
+                view.attachTo(viewPager)
+            }
+        }
+    }
+
 }

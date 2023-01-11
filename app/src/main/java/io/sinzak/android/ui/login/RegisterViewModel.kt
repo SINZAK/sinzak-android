@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class RegisterViewModel @Inject constructor(val regNav : RegisterNavigation, val signModel: SignModel) : BaseViewModel() {
+class RegisterViewModel @Inject constructor(val regNav : RegisterNavigation) : BaseViewModel() {
 
 
     val topPage = regNav.topPage

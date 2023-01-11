@@ -14,7 +14,6 @@ import kotlin.coroutines.coroutineContext
 
 @HiltViewModel
 class WebmailViewModel @Inject constructor(
-    val signModel: SignModel
 ) : BaseViewModel() {
 
     private val _currentPage = MutableStateFlow(0)

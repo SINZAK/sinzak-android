@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="category_market">
+        <item>회화일반</item>
+        <item>동양화</item>
+        <item>조소</item>
+        <item>판화</item>
+        <item>공예</item>
+        <item>기타</item>
+    </string-array>
+
+    <integer-array name="category_picture">
+        <item>@drawable/ic_category_normal</item>
+        <item>@drawable/ic_category_orient</item>
+        <item>@drawable/ic_category_carv</item>
+        <item>@drawable/ic_category_rawdraw</item>
+        <item>@drawable/ic_category_arch</item>
+        <item>@drawable/ic_category_other</item>
+
+    </integer-array>
+
+
+    <string-array name="category_work">
+        <item>초상화</item>
+        <item>일러스트</item>
+        <item>로고/브랜딩</item>
+        <item>포스터/배너/간판</item>
+        <item>앱/웹 디자인</item>
+        <item>인쇄물</item>
+        <item>패키지/라벨</item>
+        <item>기타</item>
+    </string-array>
+</resources>

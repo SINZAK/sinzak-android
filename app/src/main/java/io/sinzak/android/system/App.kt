@@ -14,6 +14,7 @@ import io.sinzak.android.constants.KAKAO_NATIVE
 import io.sinzak.android.constants.NAVER_CLIENT_ID
 import io.sinzak.android.constants.NAVER_SECRET_ID
 import io.sinzak.android.constants.getHashKey
+import io.sinzak.android.model.GlobalValueModel
 import io.sinzak.android.model.context.SignModel
 import io.sinzak.android.remote.dataclass.local.SchoolData
 import java.lang.RuntimeException
@@ -22,8 +23,6 @@ import javax.inject.Inject
 @HiltAndroidApp
 class App : Application() {
 
-    @Inject
-    lateinit var signModel: SignModel
 
 
     override fun onCreate() {
@@ -35,7 +34,8 @@ class App : Application() {
         initKaKaoSdk()
         initNaverSdk()
 
-        loadUnivList()
+        globalValueModel = GlobalValueModel(this)
+
     }
 
 
@@ -72,20 +72,11 @@ class App : Application() {
 
     companion object{
         lateinit var prefs : PreferenceUtil
+        lateinit var globalValueModel: GlobalValueModel
 
         var NAVER_SDK_PREPARED = true
     }
 
 
-    fun loadUnivList(){
 
-        val univ = resources.getStringArray(R.array.univ_name).toList()
-        val domain = resources.getStringArray(R.array.univ_mail).toList()
-        signModel.univList = univ.map{
-            SchoolData(
-                it,
-                domain[univ.indexOf(it)]
-            )
-        }
-    }
 }

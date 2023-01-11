@@ -8,10 +8,8 @@ import io.sinzak.android.enums.Sort
 import io.sinzak.android.enums.Sort.*
 import io.sinzak.android.remote.dataclass.product.Product
 import io.sinzak.android.remote.dataclass.product.ProductListener
-import io.sinzak.android.ui.main.home.adapter.ArtReferAdapter
 import io.sinzak.android.ui.main.market.adapter.ArtProductAdapter
 import io.sinzak.android.ui.main.market.adapter.ArtsAdapter
-import io.sinzak.android.ui.main.market.adapter.FilterAdapter
 
 @BindingAdapter("adapter")
 fun setAdapter(view : RecyclerView, adapter : ArtsAdapter)

@@ -117,7 +117,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:onClick="@{v->activity.checkIsLogin() ? viewmodel.setCurrentButton(viewmodel.PAGE_PROFILE) &amp; pViewmodel.getMyProfile() : void}"
+            android:onClick="@{v->viewmodel.setCurrentButton(viewmodel.PAGE_PROFILE) &amp; pViewmodel.getMyProfile()}"
             android:layout_weight="1"
             isSelect="@{viewmodel.currentButton == viewmodel.PAGE_PROFILE}"
             android:orientation="vertical">
