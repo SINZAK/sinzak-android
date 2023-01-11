@@ -179,6 +179,8 @@
     <string name="str_holder_univ_cert">%sverifed</string>
     <string name="str_author_follower_holder">·팔로워 %d</string>
     <string name="str_holder_author">%s 작가</string>
+    <string name="str_holder_author_">%s 작가 · </string>
+
     <string name="str_home_recent">최신 작품</string>
     <string name="str_home_title_category">장르별 작품</string>
     <string name="str_home_refer_null_title">신작에서 사랑받는 작품</string>

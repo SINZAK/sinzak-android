@@ -24,12 +24,14 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_marginHorizontal="16dp"
             android:layout_marginTop="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
                 android:layout_weight="1"
                 android:orientation="vertical">
                 <TextView
@@ -50,7 +52,12 @@
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
                 <TextView
-                    android:text="%s작가 "
+                    android:text="@{@string/str_holder_author_(product.author)}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/medium13"/>
+                <TextView
+                    android:text="@{product.authorUniv}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/medium13"/>
