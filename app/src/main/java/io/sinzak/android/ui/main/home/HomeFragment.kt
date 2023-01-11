@@ -86,7 +86,7 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun inflateArtReferView(){
-        DataBindingUtil.inflate<ViewHomeArtReferBinding>(layoutInflater,R.layout.view_home_art_refer,null,true).apply{
+        DataBindingUtil.inflate<ViewHomeLinearBinding>(layoutInflater,R.layout.view_home_linear,null,true).apply{
             vm = artReferViewModel
             fg = this@HomeFragment
             lifecycleOwner = viewLifecycleOwner
@@ -95,7 +95,7 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun inflateArtOnmarketView(){
-        DataBindingUtil.inflate<ViewHomeArtOnmarketBinding>(layoutInflater,R.layout.view_home_art_onmarket,null,true).apply{
+        DataBindingUtil.inflate<ViewHomeLinearBinding>(layoutInflater,R.layout.view_home_linear,null,true).apply{
             lifecycleOwner = viewLifecycleOwner
             vm = artMarketViewModel
             fg = this@HomeFragment
@@ -104,7 +104,7 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun inflateArtistView(){
-        DataBindingUtil.inflate<ViewHomeArtistBinding>(layoutInflater,R.layout.view_home_artist,null,true).apply{
+        DataBindingUtil.inflate<ViewHomeLinearBinding>(layoutInflater,R.layout.view_home_linear,null,true).apply{
             lifecycleOwner = viewLifecycleOwner
             vm = artistViewModel
             fg = this@HomeFragment
@@ -113,7 +113,7 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun inflateRecentView(){
-        DataBindingUtil.inflate<ViewHomeArtRecentBinding>(layoutInflater, R.layout.view_home_art_recent, null,true).apply{
+        DataBindingUtil.inflate<ViewHomeLinearBinding>(layoutInflater, R.layout.view_home_linear, null,true).apply{
             lifecycleOwner = viewLifecycleOwner
             vm = artRecentViewModel
             fg = this@HomeFragment

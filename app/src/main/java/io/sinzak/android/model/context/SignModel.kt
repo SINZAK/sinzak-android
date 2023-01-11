@@ -42,6 +42,11 @@ class SignModel @Inject constructor(
     }
 
 
+    fun getUserDisplayName() : String{
+        if (username.isEmpty())
+            return "User"
+        return username
+    }
 
     private val _isLogin = MutableStateFlow(false)
     val isLogin : StateFlow<Boolean> get() = _isLogin
