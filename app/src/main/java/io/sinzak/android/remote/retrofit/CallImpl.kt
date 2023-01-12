@@ -8,6 +8,7 @@ import io.sinzak.android.remote.dataclass.request.login.JoinRequest
 import io.sinzak.android.remote.dataclass.request.login.LoginEmailBody
 import io.sinzak.android.remote.dataclass.request.login.TokenRequest
 import io.sinzak.android.remote.dataclass.request.market.ProductBuildRequest
+import io.sinzak.android.remote.dataclass.request.profile.FollowRequest
 import io.sinzak.android.remote.dataclass.request.profile.UpdateUserRequest
 import io.sinzak.android.system.App.Companion.prefs
 import okhttp3.MediaType
@@ -58,6 +59,10 @@ class CallImpl(
             API_EMAIL_GET_NAVER -> remoteApi.loginGetNaverEmail("Bearer $paramStr0")
 
             API_GET_USER_PROFILE -> remoteApi.getUserProfile(header,paramStr0!!)
+
+            API_FOLLOW_USER -> remoteApi.followUser(header, requestBody as FollowRequest)
+
+            API_UNFOLLOW_USER -> remoteApi.unfollowUser(header, requestBody as FollowRequest)
 
             API_GET_FOLLOWING_LIST -> remoteApi.getFollowingList(header,paramStr0!!)
 

@@ -151,12 +151,12 @@
                 android:gravity="center"
                 android:paddingHorizontal="45dp"
                 android:paddingVertical="8dp"
-                android:text="@string/str_profile_follow"
+                android:text="@{pVm.profile.ifFollow ? @string/str_profile_unfollow : @string/str_profile_follow}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:onClick="@{v->fg.follow()}"
+                android:onClick="@{v->fg.follow(pVm.profile.ifFollow)}"
                 android:visibility="@{!pVm.isMyProfile() ? 0 : 8}"
                 />
 

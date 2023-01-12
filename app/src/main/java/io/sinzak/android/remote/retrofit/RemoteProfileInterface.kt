@@ -1,6 +1,7 @@
 package io.sinzak.android.remote.retrofit
 
 import io.sinzak.android.remote.dataclass.CResponse
+import io.sinzak.android.remote.dataclass.request.profile.FollowRequest
 import io.sinzak.android.remote.dataclass.request.profile.UpdateUserRequest
 import io.sinzak.android.remote.dataclass.response.profile.FollowResponse
 import io.sinzak.android.remote.dataclass.response.profile.UserProfileResponse
@@ -26,4 +27,10 @@ interface RemoteProfileInterface {
 
     @POST("api/users/edit")
     fun editMyProfile(@HeaderMap header: HashMap<String, String>, @Body body: UpdateUserRequest) : Call<CResponse>
+
+    @POST("api/users/follow")
+    fun followUser(@HeaderMap header: HashMap<String, String>, @Body body: FollowRequest) : Call<CResponse>
+
+    @POST("api/users/unfollow")
+    fun unfollowUser(@HeaderMap header: HashMap<String, String>, @Body body: FollowRequest) : Call<CResponse>
 }

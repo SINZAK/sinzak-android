@@ -32,7 +32,6 @@
             android:layout_height="34dp"
             android:background="@drawable/ic_bg_button"
             android:src="@drawable/ic_profile_setting"
-
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
 

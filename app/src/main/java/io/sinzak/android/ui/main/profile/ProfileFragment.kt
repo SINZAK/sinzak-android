@@ -148,8 +148,9 @@ class ProfileFragment :BaseFragment() {
     }
 
     // 팔로우 버튼
-    fun follow() {
-
+    fun follow(ifFollow : Boolean) {
+        if(ifFollow) profileModel.followUser(viewModel.profile.value!!.userId)
+        else profileModel.unfollowUser(viewModel.profile.value!!.userId)
     }
 
     //채팅하기 클릭
