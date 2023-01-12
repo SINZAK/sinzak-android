@@ -24,6 +24,7 @@
             android:layout_width="73dp"
             android:layout_height="73dp"
             android:background="@drawable/iv_profile_avatar"
+            android:src="@{pVm.profile.imageUrl}"
             android:layout_marginBottom="12dp"/>
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -52,13 +53,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="홍익대학교"
+                android:text="@{pVm.profile.univ}"
                 style="@style/medium13"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{eVm.hasCertification ? @string/str_profile_verify_true : @string/str_profile_verify_false }"
-                android:textColor="@{eVm.hasCertification ? @color/primary_variant : @color/gray60}"
+                android:text="@{pVm.profile.cert_uni ? @string/str_profile_verify_true : @string/str_profile_verify_false }"
+                android:textColor="@{pVm.profile.cert_uni ? @color/primary_variant : @color/gray60}"
                 style="@style/medium13"
                 android:layout_marginStart="5dp"/>
         </androidx.appcompat.widget.LinearLayoutCompat>

@@ -61,6 +61,7 @@
                     android:layout_width="73dp"
                     android:layout_height="73dp"
                     android:background="@drawable/iv_profile_avatar"
+                    android:src="@{pVm.profile.imageUrl}"
                     android:layout_marginBottom="19dp"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -155,7 +156,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="홍익대학교"
+                        android:text="@{pVm.profile.univ}"
                         style="@style/regular16"
                         android:background="@color/on_primary"/>
                     <TextView
@@ -163,9 +164,9 @@
                         android:layout_height="wrap_content"
                         style="@style/medium16"
                         android:layout_marginEnd="3.8dp"
-                        android:text="@{!vm.hasCertification ? @string/str_edit_auth_false : @string/str_edit_auth_true }"
-                        android:textColor="@{!vm.hasCertification ? @color/secondary : @color/gray60 }"
-                        android:onClick="@{v-> fg.gotoCertificationPage(vm.hasCertification)}"/>
+                        android:text="@{!pVm.profile.cert_uni ? @string/str_edit_auth_false : @string/str_edit_auth_true }"
+                        android:textColor="@{!pVm.profile.cert_uni ? @color/secondary : @color/gray60 }"
+                        android:onClick="@{v-> fg.gotoCertificationPage(pVm.profile.cert_uni)}"/>
                 </androidx.appcompat.widget.LinearLayoutCompat>
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"

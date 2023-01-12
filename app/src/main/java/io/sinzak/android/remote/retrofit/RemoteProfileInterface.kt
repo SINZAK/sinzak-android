@@ -12,7 +12,7 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface RemoteProfileInterface {
-    @GET("api/users/{userId}")
+    @GET("api/users/{userId}/profile")
     fun getUserProfile(@HeaderMap header: HashMap<String,String>, @Path("userId") userId : String) : Call<UserProfileResponse>
 
     @GET("api/users/{userId}/followers")
@@ -21,7 +21,7 @@ interface RemoteProfileInterface {
     @GET("api/users/{userId}/followings")
     fun getFollowingList(@HeaderMap header: HashMap<String,String>, @Path("userId") userId : String) : Call<FollowResponse>
 
-    @GET("api/users/myProfile")
+    @GET("api/users/my-profile")
     fun getMyProfile(@HeaderMap header: HashMap<String,String>) : Call<UserProfileResponse>
 
     @POST("api/users/edit")
