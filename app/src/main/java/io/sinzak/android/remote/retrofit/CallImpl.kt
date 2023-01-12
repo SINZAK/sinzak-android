@@ -4,6 +4,8 @@ import com.google.gson.Gson
 import io.sinzak.android.constants.*
 import io.sinzak.android.remote.dataclass.CRequest
 import io.sinzak.android.remote.dataclass.CResponse
+import io.sinzak.android.remote.dataclass.request.certify.MailRequest
+import io.sinzak.android.remote.dataclass.request.certify.UnivCertifyRequest
 import io.sinzak.android.remote.dataclass.request.login.JoinRequest
 import io.sinzak.android.remote.dataclass.request.login.LoginEmailBody
 import io.sinzak.android.remote.dataclass.request.login.TokenRequest
@@ -11,8 +13,6 @@ import io.sinzak.android.remote.dataclass.request.market.ProductBuildRequest
 import io.sinzak.android.remote.dataclass.request.profile.FollowRequest
 import io.sinzak.android.remote.dataclass.request.profile.UpdateUserRequest
 import io.sinzak.android.system.App.Companion.prefs
-import okhttp3.MediaType
-import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import retrofit2.Call
 
@@ -24,7 +24,8 @@ class CallImpl(
     val paramInt1 : Int? = null,
     val paramStr0 : String? = null,
     val paramStr1 : String? = null,
-    val multipartList : List<MultipartBody.Part>? = null
+    val multipartList : List<MultipartBody.Part>? = null,
+    val multipart : MultipartBody.Part? = null,
 ) {
 
     private val header : HashMap<String,String> get() =
@@ -71,6 +72,15 @@ class CallImpl(
             API_GET_MY_PROFILE -> remoteApi.getMyProfile(header)
 
             API_EDIT_MY_PROFILE -> remoteApi.editMyProfile(header,requestBody as UpdateUserRequest)
+
+            API_CERTIFY_UPLOAD_IMG -> remoteApi.uploadUnivImg(header.apply {
+                this.remove(CONTENT_TYPE) }, paramStr0!!, multipart!!)
+
+            API_CERTIFY_UNIVERITY -> remoteApi.certifyUniversity(header, requestBody as UnivCertifyRequest)
+
+            API_SEND_MAIL_CODE -> remoteApi.sendMailCode(header, requestBody as MailRequest)
+
+            API_CHECK_MAIL_CODE -> remoteApi.checkMailCode(header, requestBody as MailRequest)
 
             API_GET_MARKET_PRODUCTS -> remoteApi.getMarketProducts(header,paramInt0!!, paramInt1!!, paramStr0!!, paramStr1!!)
 
