@@ -17,12 +17,13 @@
         android:paddingHorizontal="16dp">
 
         <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_menu_profile"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_back"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:onClick="@{v->vm.changeStatus(!vm.isMyProfile())}"
+            android:visibility="@{!vm.isMyProfile() ? 0 : 8}"
+            android:onClick="@{v->fg.navigateOnBackPressed()}"
             />
 
         <ImageView
