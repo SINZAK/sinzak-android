@@ -7,7 +7,7 @@ import retrofit2.http.Body
 import retrofit2.http.HeaderMap
 import retrofit2.http.POST
 
-interface RemoteInterface : RemoteLoginInterface, RemoteMarketInterface, RemoteProfileInterface {
+interface RemoteInterface : RemoteLoginInterface, RemoteMarketInterface, RemoteProfileInterface , RemoteCertifyInterface {
 
     @POST("api/reissue")
     fun refreshToken(@HeaderMap headerMap: HashMap<String,String>,@Body token : TokenRequest) : Call<Token>
