@@ -1,6 +1,8 @@
 package io.sinzak.android.ui.main.profile.report
 
+import android.os.Bundle
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.sinzak.android.constants.CODE_USER_REPORT_ID
 import io.sinzak.android.enums.Page.*
 import io.sinzak.android.enums.ReportType
 import io.sinzak.android.model.market.MarketProductModel
@@ -24,6 +26,21 @@ class ReportSendViewModel @Inject constructor(val profileModel: ProfileModel,val
 
     private val _isFromProfile = MutableStateFlow(true)
     val isFromProfile : StateFlow<Boolean> get() = _isFromProfile
+
+    init{
+        invokeStateFlow(navigation.bundleInserted){
+            navigation.getBundleData(this::class)?.apply{
+                getExtra(this)
+            }
+        }
+    }
+
+    private fun getExtra(bundle : Bundle){
+        bundle.getString(CODE_USER_REPORT_ID)?.let{
+            isFromProfile(true)
+        }
+    }
+
 
     fun reportInputText(cs : CharSequence) {
         cs.toString().let {

@@ -31,6 +31,7 @@ data class MarketDetailResponse(
         @SerializedName("trading") val isTrading: Boolean = false,
 
 
+        @SerializedName("userId") val authorId : String,
         @SerializedName("author") val author: String,
         @SerializedName("author_picture") val authorPic: String,
         @SerializedName("cert_celeb") val certCeleb: Boolean,
