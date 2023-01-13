@@ -14,7 +14,7 @@ import javax.inject.Singleton
 @Singleton
 class MarketProductModel @Inject constructor() : BaseModel() {
 
-    val art = MutableStateFlow<MarketDetailResponse?>(null)
+    val art = MutableStateFlow<MarketDetailResponse.Detail?>(null)
 
     fun loadProduct(id : String){
         art.value = null
@@ -34,7 +34,7 @@ class MarketProductModel @Inject constructor() : BaseModel() {
         when(api){
             API_GET_PRODUCT_DETAIL ->{
                 if(body is MarketDetailResponse){
-                    art.value = body
+                    art.value = body.data
                 }
             }
         }

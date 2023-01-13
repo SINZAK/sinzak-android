@@ -48,11 +48,16 @@ class SignModel @Inject constructor(
     }
 
     private val _isLogin = MutableStateFlow(false)
+
+    /**
+     * 현재 로그인되어있는지 확인
+     */
     val isLogin : StateFlow<Boolean> get() = _isLogin
+
 
     val needSignUp = MutableStateFlow(false)
 
-    fun isLogin() : Boolean{
+    fun isUserLogin() : Boolean{
         return  isLogin.value
     }
 
