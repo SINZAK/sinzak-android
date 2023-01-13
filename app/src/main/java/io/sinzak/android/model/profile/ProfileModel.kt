@@ -1,11 +1,9 @@
 package io.sinzak.android.model.profile
 
-import io.sinzak.android.constants.API_GET_FOLLOWER_LIST
-import io.sinzak.android.constants.API_GET_FOLLOWING_LIST
-import io.sinzak.android.constants.API_GET_MY_PROFILE
-import io.sinzak.android.constants.API_GET_USER_PROFILE
+import io.sinzak.android.constants.*
 import io.sinzak.android.model.BaseModel
 import io.sinzak.android.remote.dataclass.CResponse
+import io.sinzak.android.remote.dataclass.request.profile.FollowRequest
 import io.sinzak.android.remote.dataclass.response.profile.FollowResponse
 import io.sinzak.android.remote.dataclass.response.profile.UserProfileResponse
 import io.sinzak.android.remote.retrofit.CallImpl
@@ -68,6 +66,28 @@ class ProfileModel @Inject constructor() : BaseModel() {
         }
     }
 
+    fun followUser(userId: String) {
+        val request = FollowRequest(userId)
+        CallImpl(
+            API_FOLLOW_USER,
+            this,
+            request
+        ).apply {
+            remote.sendRequestApi(this)
+        }
+    }
+
+    fun unfollowUser(userId: String) {
+        val request = FollowRequest(userId)
+        CallImpl(
+            API_UNFOLLOW_USER,
+            this,
+            request
+        ).apply {
+            remote.sendRequestApi(this)
+        }
+    }
+
 
 
     override fun onConnectionSuccess(api: Int, body: CResponse) {
@@ -92,6 +112,22 @@ class ProfileModel @Inject constructor() : BaseModel() {
             API_GET_MY_PROFILE -> {
                 if (body is UserProfileResponse) {
                     profile.value = body
+                }
+            }
+
+            API_FOLLOW_USER ->
+            {
+                if (body.success == true)
+                {
+                    globalUi.showToast("팔로잉합니다")
+                }
+            }
+
+            API_UNFOLLOW_USER ->
+            {
+                if (body.success == true)
+                {
+                    globalUi.showToast("언팔로잉합니다")
                 }
             }
         }

@@ -23,8 +23,4 @@ class ProfileViewModel @Inject constructor(val profileModel: ProfileModel) : Bas
         _isMyProfile.value = status
     }
 
-    fun getMyProfile(){
-        profileModel.getMyProfile()
-    }
-
 }

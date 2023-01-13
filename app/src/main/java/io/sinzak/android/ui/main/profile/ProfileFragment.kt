@@ -1,10 +1,8 @@
 package io.sinzak.android.ui.main.profile
 
 import android.view.View
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
-import io.sinzak.android.R
 import io.sinzak.android.databinding.FragmentProfileBinding
 import io.sinzak.android.databinding.ViewProfileArtSaleBinding
 import io.sinzak.android.databinding.ViewProfileArtWorkBinding
@@ -16,6 +14,7 @@ import io.sinzak.android.model.profile.ProfileModel
 import io.sinzak.android.ui.base.BaseFragment
 import io.sinzak.android.ui.main.market.artdetail.ArtistBlockDialog
 import io.sinzak.android.ui.main.market.artdetail.ArtistReportDialog
+import io.sinzak.android.ui.main.market.artdetail.ContentViewModel
 import io.sinzak.android.ui.main.profile.edit.EditViewModel
 import io.sinzak.android.ui.main.profile.report.ReportSendViewModel
 import io.sinzak.android.ui.main.profile.viewmodel.ProfileSaleViewModel
@@ -28,11 +27,16 @@ class ProfileFragment :BaseFragment() {
 
     private lateinit var bind : FragmentProfileBinding
 
-    private val viewModel : ProfileViewModel by activityViewModels()
+    private val viewModel by activityViewModels<ProfileViewModel>()
     private val profileSaleViewModel by activityViewModels<ProfileSaleViewModel>()
     private val profileWorkViewModel by activityViewModels<ProfileWorkViewModel>()
     private val editProfileViewModel by activityViewModels<EditViewModel>()
     private val reportSendViewModel by activityViewModels<ReportSendViewModel>()
+
+    private val contentViewModel by activityViewModels<ContentViewModel>()
+
+    @Inject
+    lateinit var profileModel: ProfileModel
 
 
     override fun getFragmentRoot(): View {
@@ -43,6 +47,14 @@ class ProfileFragment :BaseFragment() {
     }
 
     override fun onFragmentCreated() {
+
+        if(viewModel.isMyProfile.value) {
+            profileModel.getMyProfile()
+        }
+        else {
+//            viewModel.profileModel.getUserProfile(contentViewModel.art.value.authorId)
+            profileModel.getUserProfile("154")
+        }
         inflateChild()
     }
 
@@ -51,7 +63,7 @@ class ProfileFragment :BaseFragment() {
     }
 
     override fun navigateOnBackPressed() {
-
+        if (!viewModel.isMyProfile.value) navigator.revealHistory()
     }
 
     /**************v
@@ -136,8 +148,9 @@ class ProfileFragment :BaseFragment() {
     }
 
     // 팔로우 버튼
-    fun follow() {
-
+    fun follow(ifFollow : Boolean) {
+        if(ifFollow) profileModel.followUser(viewModel.profile.value!!.userId)
+        else profileModel.unfollowUser(viewModel.profile.value!!.userId)
     }
 
     //채팅하기 클릭

@@ -4,10 +4,14 @@ import com.google.gson.annotations.SerializedName
 import io.sinzak.android.remote.dataclass.CResponse
 
 data class UserProfileResponse (
+    @SerializedName("cert_uni") val cert_uni : Boolean = false,
     @SerializedName("followerNumber") val followerNumber : String = "",
     @SerializedName("followingNumber") val followingNumber : String = "",
+    @SerializedName("ifFollow") val ifFollow : Boolean = false,
+    @SerializedName("imageUrl") val imageUrl : String = "",
     @SerializedName("introduction") val introduction : String = "",
-    @SerializedName("myProfile") var myProfile : Boolean = false,
+    @SerializedName("myProfile") val myProfile : Boolean = false,
     @SerializedName("name") val name : String ="",
+    @SerializedName("univ") val univ : String = "",
     @SerializedName("userId") val userId : String
     ) : CResponse()

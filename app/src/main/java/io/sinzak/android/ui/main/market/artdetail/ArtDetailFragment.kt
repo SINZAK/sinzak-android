@@ -9,6 +9,7 @@ import io.sinzak.android.model.profile.ProfileModel
 import io.sinzak.android.ui.base.BaseFragment
 import io.sinzak.android.ui.main.MainActivity
 import io.sinzak.android.ui.main.profile.report.ReportSendViewModel
+import io.sinzak.android.ui.main.profile.viewmodel.ProfileViewModel
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -18,9 +19,7 @@ class ArtDetailFragment : BaseFragment() , View.OnClickListener {
 
     private val contentViewModel by activityViewModels<ContentViewModel>()
     private val reportSendViewModel by activityViewModels<ReportSendViewModel>()
-
-    @Inject
-    lateinit var profileModel: ProfileModel
+    private val profileViewModel by activityViewModels<ProfileViewModel>()
 
     override fun getFragmentRoot(): View {
         bind = FragmentArtDetailBinding.inflate(layoutInflater)
@@ -121,7 +120,7 @@ class ArtDetailFragment : BaseFragment() , View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
-        profileModel.getUserProfile("100")
+        profileViewModel.changeStatus(false)
         navigator.changePage(Page.PROFILE)
     }
 
