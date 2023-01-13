@@ -1,12 +1,18 @@
 package io.sinzak.android.ui.main.home.viewmodel
 
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.sinzak.android.R
 import io.sinzak.android.enums.HomeMore
 import io.sinzak.android.enums.Page
 import io.sinzak.android.model.market.HomeProductModel
 import io.sinzak.android.model.market.MarketProductModel
+import io.sinzak.android.system.LogDebug
 import io.sinzak.android.ui.main.home.adapter.ArtLinearAdapter
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -44,9 +50,16 @@ class ArtReferViewModel @Inject constructor(
 
 
     init{
-        invokeStateFlow(model.hotProducts){
+
+
+
+
+        invokeStateFlow(model.recommendProducts){
             adapter.updateData(it)
         }
+
+
+
     }
 
 

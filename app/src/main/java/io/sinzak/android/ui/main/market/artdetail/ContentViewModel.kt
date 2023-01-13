@@ -8,6 +8,8 @@ import io.sinzak.android.enums.Page
 import io.sinzak.android.model.market.MarketProductModel
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.ui.main.profile.report.ReportSendViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
 @HiltViewModel
@@ -26,6 +28,9 @@ class ContentViewModel @Inject constructor(
 
     val art get() = model.art
 
+    val isLike = MutableStateFlow(false)
+    val likeCnt = MutableStateFlow(0)
+
     val imgAdapter = VpAdapter()
 
     init{
@@ -34,14 +39,24 @@ class ContentViewModel @Inject constructor(
             art?.let{
                 imgAdapter.imgs = it.imgUrls?: listOf()
                 imgAdapter.notifyDataSetChanged()
+
+                isLike.value = it.like
+                likeCnt.value = it.likeCnt
             }
 
         }
+
+    }
+
+    fun toggleLike(){
+        model.postProductLike(art.value?.productId!!,!isLike.value)
+        isLike.value = !isLike.value
+        likeCnt.value = likeCnt.value + if(isLike.value) 1 else -1
     }
 
     fun showMoreDialog(){
-        val artist = art.value?.author.toString()
-        if(artist == signModel.getUserDisplayName()){
+        val artist = art.value?.authorId.toString()
+        if(artist == profileModel.getUserId()){
             showEditDialog()
             return
         }

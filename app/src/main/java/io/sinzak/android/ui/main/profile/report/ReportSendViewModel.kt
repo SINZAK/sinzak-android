@@ -8,12 +8,15 @@ import io.sinzak.android.enums.ReportType
 import io.sinzak.android.model.market.MarketProductModel
 import io.sinzak.android.model.profile.ProfileModel
 import io.sinzak.android.ui.base.BaseViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ReportSendViewModel @Inject constructor(val profileModel: ProfileModel,val productModel: MarketProductModel) : BaseViewModel() {
+class ReportSendViewModel @Inject constructor(val productModel: MarketProductModel) : BaseViewModel() {
 
     private val _report = MutableStateFlow("")
     val report : StateFlow<String> get() = _report
@@ -28,6 +31,12 @@ class ReportSendViewModel @Inject constructor(val profileModel: ProfileModel,val
     val isFromProfile : StateFlow<Boolean> get() = _isFromProfile
 
     init{
+        CoroutineScope(Dispatchers.Main).launch {
+            subscribe()
+        }
+    }
+
+    private fun subscribe(){
         invokeStateFlow(navigation.bundleInserted){
             navigation.getBundleData(this::class)?.apply{
                 getExtra(this)

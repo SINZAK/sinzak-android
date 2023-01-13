@@ -2,6 +2,7 @@ package io.sinzak.android.remote.retrofit
 
 import io.sinzak.android.remote.dataclass.CResponse
 import io.sinzak.android.remote.dataclass.request.market.ProductBuildRequest
+import io.sinzak.android.remote.dataclass.request.market.ProductLikeRequest
 import io.sinzak.android.remote.dataclass.response.market.*
 import okhttp3.MultipartBody
 import retrofit2.Call
@@ -27,10 +28,13 @@ interface RemoteMarketInterface {
     fun getHomeProducts(@HeaderMap headerMap : HashMap<String,String>) : Call<MarketHomeResponse>
 
     @POST("api/home/following")
-    fun getHomeFollowing(@HeaderMap headerMap : HashMap<String,String>) : Call<MarketHomeMoreResponse>
+    fun getHomeFollowing(@HeaderMap headerMap : HashMap<String,String>) : Call<HomeMoreResponse>
 
     @POST("api/home/recommend")
-    fun getHomeRefer(@HeaderMap headerMap : HashMap<String,String>) : Call<MarketHomeMoreResponse>
+    fun getHomeRefer(@HeaderMap headerMap : HashMap<String,String>) : Call<HomeMoreResponse>
 
 
+
+    @POST("api/products/likes")
+    fun postProductLikes(@HeaderMap headerMap: HashMap<String, String>, @Body body : ProductLikeRequest) : Call<CResponse>
 }

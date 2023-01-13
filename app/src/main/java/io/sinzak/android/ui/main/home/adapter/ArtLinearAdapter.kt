@@ -12,6 +12,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import io.sinzak.android.databinding.HolderHomeArtLinearBinding
 import io.sinzak.android.databinding.HolderHomeLinearNextBinding
 import io.sinzak.android.remote.dataclass.product.Product
+import io.sinzak.android.system.LogDebug
 import io.sinzak.android.system.dp
 
 class ArtLinearAdapter(val onNextClick : ()->Unit = {},
@@ -22,6 +23,7 @@ class ArtLinearAdapter(val onNextClick : ()->Unit = {},
 
     fun updateData(p : List<Product>){
         products = p
+        LogDebug(javaClass.name,"[LINEAR ADAPTER] get ${p.size} items updated")
         notifyDataSetChanged()
     }
 

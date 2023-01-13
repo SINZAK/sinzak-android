@@ -138,15 +138,21 @@ fun drawableTint(view : TextView, color : Int)
 
 @BindingAdapter("app:attachTo")
 fun attachToRecyclerView(view : DotsIndicator, viewPager: ViewPager2){
-    CoroutineScope(Dispatchers.Main).launch {
+
+
+
+    fun attach(view : DotsIndicator, viewPager: ViewPager2){
         try {
             view.attachTo(viewPager)
         }
         catch(e:Exception){
             CoroutineScope(Dispatchers.Main).launch {
-                view.attachTo(viewPager)
+                attach(view, viewPager)
             }
         }
     }
+
+    attach(view,viewPager)
+
 
 }

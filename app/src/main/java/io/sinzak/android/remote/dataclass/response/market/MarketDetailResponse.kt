@@ -20,7 +20,7 @@ data class MarketDetailResponse(
         @SerializedName("date") val date: String? = "2023-01-02T18:26:27",
 
 
-        @SerializedName("id") val productId: String,
+        @SerializedName("id") val productId: Int,
         @SerializedName("images") val imgUrls: List<String>? = listOf(),
 
         @SerializedName("like") val like: Boolean = false,

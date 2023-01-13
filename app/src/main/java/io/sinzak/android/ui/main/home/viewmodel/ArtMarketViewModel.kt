@@ -19,6 +19,7 @@ class ArtMarketViewModel @Inject constructor(
      = valueModel.getString(R.string.str_art_onmarket_title)
 
     init{
+
         invokeStateFlow(model.tradingProducts){
             adapter.updateData(it)
         }

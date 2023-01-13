@@ -1,11 +1,10 @@
 package io.sinzak.android.ui.main
 
-import android.content.Intent
-import android.os.Debug
 import androidx.activity.viewModels
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import io.sinzak.android.R
 import io.sinzak.android.databinding.ActivityMainBinding
@@ -13,14 +12,14 @@ import io.sinzak.android.databinding.ViewMainBottomMenuBinding
 import io.sinzak.android.enums.Page
 import io.sinzak.android.enums.Page.*
 import io.sinzak.android.model.context.SignModel
+import io.sinzak.android.model.market.HomeProductModel
 import io.sinzak.android.model.navigate.Navigation
 import io.sinzak.android.system.LogDebug
 import io.sinzak.android.ui.base.BaseActivity
 import io.sinzak.android.ui.base.BaseFragment
-import io.sinzak.android.ui.login.LoginActivity
 import io.sinzak.android.ui.main.chat.ChatFragment
 import io.sinzak.android.ui.main.home.HomeFragment
-import io.sinzak.android.ui.main.home.HomeMoreFragment
+import io.sinzak.android.ui.main.home.more.HomeMoreFragment
 import io.sinzak.android.ui.main.home.notification.NotificationFragment
 import io.sinzak.android.ui.main.market.MarketFragment
 import io.sinzak.android.ui.main.market.artdetail.ArtDetailFragment
@@ -41,8 +40,8 @@ import io.sinzak.android.ui.main.profile.sale_with_work.WorkFragment
 import io.sinzak.android.ui.main.profile.setting.SettingFragment
 import io.sinzak.android.ui.main.profile.viewmodel.ProfileViewModel
 import io.sinzak.android.utils.RootViewDeferringInsetsCallback
+import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.math.sign
 
 
 @AndroidEntryPoint
@@ -54,6 +53,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main)
 
     @Inject
     lateinit var signModel: SignModel
+
+    @Inject
+    lateinit var homeProductModel : HomeProductModel
 
     private val viewModel : MainViewModel by viewModels()
 
@@ -69,6 +71,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main)
             activity = this@MainActivity
             lifecycleOwner = this@MainActivity
             viewmodel = viewModel
+        }
+
+        lifecycleScope.launch{
+            homeProductModel.recommendProducts.collect{
+                LogDebug(javaClass.name,"수집수집수집")
+            }
+
         }
 
         inflateBottomMenu()
