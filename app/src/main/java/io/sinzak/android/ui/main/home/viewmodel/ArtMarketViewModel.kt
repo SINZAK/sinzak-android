@@ -10,7 +10,7 @@ import javax.inject.Inject
 class ArtMarketViewModel @Inject constructor(
     val model : HomeProductModel
 ) : HomeLinearViewModel() {
-    override val adapter = ArtLinearAdapter()
+    override val adapter = ArtLinearAdapter{}
 
     override val hMargin: Float
         get() = 20f

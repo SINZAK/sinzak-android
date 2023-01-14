@@ -93,7 +93,7 @@ class CallImpl(
                 this.remove(CONTENT_TYPE)
             }, paramStr0!!, multipartList!!)
 
-            API_GET_PRODUCT_DETAIL -> remoteApi.getMarketProductDetail(header,paramStr0!!)
+            API_GET_PRODUCT_DETAIL -> remoteApi.getMarketProductDetail(header,paramInt0!!)
 
             API_GET_HOME_PRODUCTS -> remoteApi.getHomeProducts(header)
 

@@ -70,7 +70,7 @@ class MarketFragment : BaseFragment(), ProductListener {
      ***************/
 
     override fun onProductClick(product: Product) {
-        marketProductModel.loadProduct(product.id.toString())
+        marketProductModel.loadProduct(product.id!!)
         navigator.changePage(Page.ART_DETAIL)
     }
 

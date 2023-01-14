@@ -5,6 +5,12 @@
 
     <data>
         <variable
+            name="onItemClick"
+            type="android.view.View.OnClickListener" />
+        <variable
+            name="onLikeClick"
+            type="android.view.View.OnClickListener" />
+        <variable
             name="product"
             type="io.sinzak.android.remote.dataclass.product.Product" />
     </data>
@@ -12,6 +18,7 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="wrap_content"
         android:orientation="vertical"
+        android:onClickListener="@{onItemClick}"
 
         android:layout_height="wrap_content">
 
@@ -29,6 +36,7 @@
                     android:id="@+id/iv_poster"/>
 
                 <androidx.appcompat.widget.LinearLayoutCompat
+                    android:onClick="@{onLikeClick}"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:background="@drawable/btn_item_art_linear_like"

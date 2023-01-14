@@ -18,9 +18,9 @@ class MarketProductModel @Inject constructor() : BaseModel() {
 
     val art = MutableStateFlow<MarketDetailResponse.Detail?>(null)
 
-    fun loadProduct(id : String){
+    fun loadProduct(id : Int){
         art.value = null
-        CallImpl(API_GET_PRODUCT_DETAIL, this,paramStr0 = id).apply{
+        CallImpl(API_GET_PRODUCT_DETAIL, this,paramInt0 = id).apply{
             remote.sendRequestApi(this)
         }
     }

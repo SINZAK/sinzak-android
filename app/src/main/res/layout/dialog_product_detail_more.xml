@@ -3,11 +3,11 @@
 
     <data>
         <variable
-            name="blockArtist"
+            name="edit"
             type="android.view.View.OnClickListener" />
 
         <variable
-            name="reportArtist"
+            name="delete"
             type="android.view.View.OnClickListener" />
 
         <variable
@@ -34,7 +34,7 @@ android:theme="@style/AlertDialogStyle"
             android:orientation="vertical">
             
             <TextView
-                android:onClick="@{reportArtist}"
+                android:onClick="@{edit}"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -50,7 +50,7 @@ android:theme="@style/AlertDialogStyle"
                 />
 
             <TextView
-                android:onClick="@{blockArtist}"
+                android:onClick="@{delete}"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

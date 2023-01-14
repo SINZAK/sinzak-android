@@ -13,9 +13,9 @@ data class Product(
     @SerializedName("complete") val complete: Boolean? = null,
     @SerializedName("content") val content: String? = null,
     @SerializedName("date") val date: String? = null,
-    @SerializedName("id") val id: String? = null,
-    @SerializedName("like") val like: Boolean? = null,
-    @SerializedName("likesCnt") val likeCnt: Int? = null,
+    @SerializedName("id") var id: Int? = null,
+    @SerializedName("like") var like: Boolean? = null,
+    @SerializedName("likesCnt") var likeCnt: Int? = null,
     @SerializedName("popularity") val popularity : Int? = null,
     @SerializedName("thumbnail") val thumbnail: String? = null,
     @SerializedName("price") val price: Int? = null,
@@ -59,5 +59,11 @@ data class Product(
 
         }
 
+    }
+
+    fun toggleLike() : Product{
+        like = !like!!
+        likeCnt = likeCnt!! + if(like!!) 1 else -1
+        return this
     }
 }

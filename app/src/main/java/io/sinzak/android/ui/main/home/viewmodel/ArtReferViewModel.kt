@@ -1,18 +1,12 @@
 package io.sinzak.android.ui.main.home.viewmodel
 
-import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.sinzak.android.R
 import io.sinzak.android.enums.HomeMore
 import io.sinzak.android.enums.Page
 import io.sinzak.android.model.market.HomeProductModel
 import io.sinzak.android.model.market.MarketProductModel
-import io.sinzak.android.system.LogDebug
 import io.sinzak.android.ui.main.home.adapter.ArtLinearAdapter
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -24,10 +18,11 @@ class ArtReferViewModel @Inject constructor(
         onNextClick = {
             model.morePageType.value = HomeMore.REFER
             navigation.changePage(Page.HOME_MORE)
-        }
+        },
+        onLikeClick = marketProductModel::postProductLike
     ){
         uiModel.openProductDetail()
-        marketProductModel.loadProduct(it.id.toString())
+        marketProductModel.loadProduct(it.id!!)
     }
 
     override val hMargin: Float

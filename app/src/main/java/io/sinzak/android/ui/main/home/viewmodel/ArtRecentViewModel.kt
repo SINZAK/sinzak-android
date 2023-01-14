@@ -18,10 +18,12 @@ class ArtRecentViewModel @Inject constructor(
         onNextClick = {
             model.morePageType.value = HomeMore.RECENT
             navigation.changePage(Page.HOME_MORE)
-        }
+        },
+        onLikeClick = pModel::postProductLike
+
     ){
         navigation.changePage(Page.ART_DETAIL)
-        pModel.loadProduct(it.id.toString())
+        pModel.loadProduct(it.id!!)
     }
 
     override val hMargin: Float

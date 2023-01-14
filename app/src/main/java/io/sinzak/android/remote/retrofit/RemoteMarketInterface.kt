@@ -16,7 +16,7 @@ interface RemoteMarketInterface {
     fun buildMarketProduct(@HeaderMap header: HashMap<String, String>, @Body body : ProductBuildRequest) : Call<ProductBuildResponse>
 
     @POST("api/products/{id}")
-    fun getMarketProductDetail(@HeaderMap headerMap: HashMap<String,String>, @Path("id") id : String) : Call<MarketDetailResponse>
+    fun getMarketProductDetail(@HeaderMap headerMap: HashMap<String,String>, @Path("id") id : Int) : Call<MarketDetailResponse>
 
 
     @Multipart
