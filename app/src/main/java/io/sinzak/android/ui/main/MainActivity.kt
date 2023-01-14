@@ -124,6 +124,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
     override fun onBackPressed() {
+
+        if(viewModel.netStatus.onRemotePending.value)
+            return
+
         fragment?.run {
             this.navigateOnBackPressed()
         } ?: run {

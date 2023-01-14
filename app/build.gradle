@@ -92,4 +92,8 @@ dependencies {
     implementation "com.kakao.sdk:v2-user:2.9.1"
 
 
+    //Lottie
+    implementation "com.airbnb.android:lottie:5.2.0"
+
+
 }
