@@ -192,4 +192,5 @@
     <string name="str_delete_dialog_title">정말 게시글을 삭제할까요?</string>
     <string name="str_btn_no">아니요</string>
     <string name="str_dialog_delete_btn">네, 삭제할게요</string>
+    <string name="str_detail_on_trading">거래중</string>
 </resources>

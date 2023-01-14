@@ -79,12 +79,30 @@
 
                 android:onClick="@{v->void}"
 
+                android:visibility="@{vm."
                 android:paddingHorizontal="34dp"
                 android:paddingVertical="11dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:drawableLeftCompat="@drawable/ic_detail_comment_26"
-                android:background="@drawable/btn_red_filled"
+                android:background="@drawable/btn_primary_filled_enable"
+                android:gravity="center"
+                style="@style/bold16"
+                android:layout_marginBottom="8dp"
+                android:textColor="@color/white"
+                android:text="@string/str_artdetail_ask"
+                app:drawableTint="@color/white" />
+
+            <TextView
+
+                android:onClick="@{v->void}"
+
+                android:paddingHorizontal="34dp"
+                android:paddingVertical="11dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:drawableLeftCompat="@drawable/ic_detail_comment_26"
+                android:background="@drawable/btn_primary_filled_enable"
                 android:gravity="center"
                 style="@style/bold16"
                 android:layout_marginBottom="8dp"

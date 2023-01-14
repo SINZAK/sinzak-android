@@ -31,6 +31,8 @@ class ContentViewModel @Inject constructor(
     val isLike = MutableStateFlow(false)
     val likeCnt = MutableStateFlow(0)
 
+
+
     val imgAdapter = VpAdapter()
 
     init{
@@ -113,8 +115,6 @@ class ContentViewModel @Inject constructor(
             }
             navigation.changePage(Page.PROFILE_REPORT_TYPE)
         }
-
-
     }
 
 

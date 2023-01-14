@@ -20,6 +20,16 @@
             android:gravity="center_vertical"
             >
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/str_detail_on_trading"
+                style="@style/medium13"
+                android:textColor="@color/on_primary"
+                android:background="@drawable/tv_detail_ontrading"
+                android:paddingHorizontal="2dp"
+                android:visibility="@{vm.art.trading ? 0 : 8}"
+                />
+            <TextView
                 android:text="@{vm.art.title}"
 
                 android:layout_width="match_parent"
@@ -29,8 +39,7 @@
                 />
 
             <TextView
-                android:text="환상"
-
+                android:text="@{vm.art.category}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/gray60"
