@@ -80,21 +80,13 @@ class HomeProductModel @Inject constructor() : BaseModel() {
                 _tradingProducts.value = listOf()
                 _newProducts.value = listOf()
                 _followingProducts.value = listOf()
+                recommendProducts.value = listOf()
 
 
                 _hotProducts.value = body.data.hotProducts?.toMutableList() ?: listOf()
                 _newProducts.value = body.data.newProducts?.toMutableList() ?: listOf()
-
                 _tradingProducts.value = body.data.tradingProducts?.toMutableList() ?: listOf()
-
-
-                recommendProducts.value = listOf()
                 recommendProducts.value = body.data.recommends?.toMutableList() ?: listOf()
-
-
-
-
-
                 _followingProducts.value = body.data.followingProducts?.toMutableList() ?: listOf()
 
 

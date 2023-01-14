@@ -59,6 +59,7 @@ class MarketArtModel @Inject constructor() : BaseModel() {
         val pageSize = 10
 
         val page = if(refresh) {
+            _marketProducts.value = mutableListOf()
             maxPage = 9999
             0
         }else currentPage + 1

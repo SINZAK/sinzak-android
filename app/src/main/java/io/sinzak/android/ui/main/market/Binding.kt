@@ -39,13 +39,3 @@ fun setSortText(view : TextView, sort : Sort)
         }
     )
 }
-
-@BindingAdapter("adapter","products", "onItemClick")
-fun setAdapter(view : RecyclerView, adapter : ArtProductAdapter, products : List<Product>, onItemClick : ProductListener)
-{
-    view.adapter?:run{
-        view.adapter = adapter
-    }
-    adapter.registerListener(onItemClick)
-    adapter.setProducts(products)
-}
