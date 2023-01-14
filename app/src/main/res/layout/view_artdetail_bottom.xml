@@ -90,7 +90,7 @@
                 android:layout_marginBottom="8dp"
                 android:background="@drawable/btn_primary_filled_enable"
                 android:gravity="center"
-                android:onClick="@{v->void}"
+                android:onClick="@{v->vm.onClickChat()}"
                 android:paddingHorizontal="34dp"
                 android:paddingVertical="11dp"
                 android:text="@string/str_artdetail_ask"
@@ -127,7 +127,7 @@
 
             <TextView
                 style="@style/bold13"
-
+                android:onClick="@{v->vm.onClickSuggest()}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/str_artdetail_nagotiate"

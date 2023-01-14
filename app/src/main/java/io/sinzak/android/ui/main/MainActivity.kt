@@ -23,6 +23,7 @@ import io.sinzak.android.ui.main.home.more.HomeMoreFragment
 import io.sinzak.android.ui.main.home.notification.NotificationFragment
 import io.sinzak.android.ui.main.market.MarketFragment
 import io.sinzak.android.ui.main.market.artdetail.ArtDetailFragment
+import io.sinzak.android.ui.main.market.artdetail.suggest.SuggestFragment
 import io.sinzak.android.ui.main.outsourcing.OutsourcingFragment
 import io.sinzak.android.ui.main.postwrite.fragment.ArtInfoFragment
 import io.sinzak.android.ui.main.postwrite.fragment.CategoryFragment
@@ -45,8 +46,7 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main)
-{
+class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     @Inject
     lateinit var navigation: Navigation
@@ -55,15 +55,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main)
     lateinit var signModel: SignModel
 
     @Inject
-    lateinit var homeProductModel : HomeProductModel
+    lateinit var homeProductModel: HomeProductModel
 
-    private val viewModel : MainViewModel by viewModels()
+    private val viewModel: MainViewModel by viewModels()
 
-    private val bottomViewModel : MainBottomViewModel by viewModels()
+    private val bottomViewModel: MainBottomViewModel by viewModels()
 
-    private val profileViewModel : ProfileViewModel by viewModels()
+    private val profileViewModel: ProfileViewModel by viewModels()
 
-    private var fragment : BaseFragment? = null
+    private var fragment: BaseFragment? = null
 
     override fun onActivityCreate() {
         useBind {
@@ -73,9 +73,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main)
             viewmodel = viewModel
         }
 
-        lifecycleScope.launch{
-            homeProductModel.recommendProducts.collect{
-                LogDebug(javaClass.name,"수집수집수집")
+        lifecycleScope.launch {
+            homeProductModel.recommendProducts.collect {
+                LogDebug(javaClass.name, "수집수집수집")
             }
 
         }
@@ -88,25 +88,30 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main)
     }
 
 
-    private fun attachInsetsCallback(){
+    private fun attachInsetsCallback() {
         RootViewDeferringInsetsCallback(
             WindowInsetsCompat.Type.systemBars(),
             WindowInsetsCompat.Type.ime()
-        ).apply{
+        ).apply {
             useBind {
-                ViewCompat.setOnApplyWindowInsetsListener(root,this@apply)
-                ViewCompat.setWindowInsetsAnimationCallback(root,this@apply)
+                ViewCompat.setOnApplyWindowInsetsListener(root, this@apply)
+                ViewCompat.setWindowInsetsAnimationCallback(root, this@apply)
 
             }
         }
     }
 
 
-    private fun inflateBottomMenu(){
+    private fun inflateBottomMenu() {
 
 
         useBind {
-            DataBindingUtil.inflate<ViewMainBottomMenuBinding>(layoutInflater,R.layout.view_main_bottom_menu,null,false).apply{
+            DataBindingUtil.inflate<ViewMainBottomMenuBinding>(
+                layoutInflater,
+                R.layout.view_main_bottom_menu,
+                null,
+                false
+            ).apply {
                 activity = this@MainActivity
                 viewmodel = bottomViewModel
                 pViewmodel = profileViewModel
@@ -119,43 +124,88 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main)
     override fun onBackPressed() {
         fragment?.run {
             this.navigateOnBackPressed()
-        }?:run{
+        } ?: run {
             super.onBackPressed()
         }
     }
 
 
-    fun inflateFragment(page: Page) : Boolean
-    {
-
+    fun inflateFragment(page: Page): Boolean {
         fragment =
-        when(page)
-        {
-            HOME -> {
-                navigation.clearHistory()
-                HomeFragment()
+            when (page) {
+                HOME -> {
+                    navigation.clearHistory()
+                    HomeFragment()
+                }
+                HOME_MORE -> {
+                    HomeMoreFragment()
+                }
+                MARKET -> {
+                    navigation.clearHistory()
+                    MarketFragment()
+                }
+                HOME_NOTIFICATION ->
+                    NotificationFragment()
+                PROFILE -> {
+                    navigation.clearHistory()
+                    ProfileFragment()
+                }
+                OUTSOURCING -> {
+                    navigation.clearHistory()
+                    OutsourcingFragment()
+                }
+                CHAT -> {
+                    navigation.clearHistory()
+                    ChatFragment()
+                }
+
+                PROFILE_SALE,
+                PROFILE_WORK,
+                PROFILE_EDIT,
+                PROFILE_SETTING,
+                PROFILE_CERTIFICATION,
+                PROFILE_REPORT_TYPE,
+                PROFILE_REPORT_SEND ->
+                    inflateProfileFragments(page)
+
+
+                NEW_POST, NEW_POST_IMAGE, NEW_POST_INFO, NEW_POST_SPEC ->
+                    inflateWriteFragments(page)
+
+                PROFILE_WEBMAIL ->
+                    WebmailFragment()
+                PROFILE_VERIFY ->
+                    VerifyFragment()
+                ART_DETAIL ->
+                    ArtDetailFragment()
+
+                ART_DETAIL_SUGGEST ->
+                    SuggestFragment()
             }
-            HOME_MORE ->{
-                HomeMoreFragment()
-            }
-            MARKET ->{
-                navigation.clearHistory()
-                MarketFragment()
-            }
-            HOME_NOTIFICATION ->
-                NotificationFragment()
-            PROFILE -> {
-                navigation.clearHistory()
-                ProfileFragment()
-            }
-            OUTSOURCING ->{
-                navigation.clearHistory()
-                OutsourcingFragment()
-            }
-            CHAT ->{
-                navigation.clearHistory()
-                ChatFragment()
-            }
+
+        fragment?.let {
+            supportFragmentManager.beginTransaction().replace(R.id.fc_main, it).commit()
+            viewModel.setBottomMenuVisibility(it.showBottomBar())
+            LogDebug(javaClass.name, "BOTTOM VISIBLITY = ${it.showBottomBar()}")
+        }
+
+
+        return true
+    }
+
+
+    private fun inflateWriteFragments(page: Page): BaseFragment {
+        return when (page) {
+            NEW_POST -> CategoryFragment()
+            NEW_POST_IMAGE -> ImageFragment()
+            NEW_POST_SPEC -> SpecFragment()
+            else -> ArtInfoFragment()
+        }
+    }
+
+
+    private fun inflateProfileFragments(page: Page): BaseFragment {
+        return when (page) {
             PROFILE_SALE ->
                 SaleFragment()
             PROFILE_WORK ->
@@ -166,47 +216,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main)
                 SettingFragment()
             PROFILE_CERTIFICATION ->
                 CertificationFragment()
-            PROFILE_REPORT_TYPE  ->
+            PROFILE_REPORT_TYPE ->
                 ReportTypeFragment()
-            PROFILE_REPORT_SEND ->
+            else ->
                 ReportSendFragment()
-
-
-            NEW_POST,NEW_POST_IMAGE,NEW_POST_INFO, NEW_POST_SPEC ->
-                inflateWriteFragments(page)
-
-            PROFILE_WEBMAIL ->
-                WebmailFragment()
-            PROFILE_VERIFY ->
-                VerifyFragment()
-            ART_DETAIL ->
-                ArtDetailFragment()
-        }
-
-        fragment?.let{
-            supportFragmentManager.beginTransaction().replace(R.id.fc_main,it).commit()
-            viewModel.setBottomMenuVisibility(it.showBottomBar())
-            LogDebug(javaClass.name,"BOTTOM VISIBLITY = ${it.showBottomBar()}")
-        }
-
-
-        return true
-    }
-
-
-
-
-    fun inflateWriteFragments(page : Page) : BaseFragment{
-        return when(page)
-        {
-            NEW_POST -> CategoryFragment()
-            NEW_POST_IMAGE -> ImageFragment()
-            NEW_POST_SPEC -> SpecFragment()
-            else -> ArtInfoFragment()
         }
     }
-
-
 
 
 }

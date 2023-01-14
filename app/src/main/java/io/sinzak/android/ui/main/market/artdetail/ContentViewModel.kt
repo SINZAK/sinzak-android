@@ -70,32 +70,7 @@ class ContentViewModel @Inject constructor(
 
     val imgAdapter = VpAdapter()
 
-    init{
-        collectArt()
 
-    }
-
-    /**
-     * 작품 데이터를 구독한다. 필요한 데이터를 분리해서 state 를 저장한다.
-     */
-    private fun collectArt(){
-        invokeStateFlow(model.art){art->
-            art?.let{
-                imgAdapter.imgs = it.imgUrls?: listOf()
-                imgAdapter.notifyDataSetChanged()
-
-                isLike.value = it.like
-                likeCnt.value = it.likeCnt
-                isWish.value = it.wish
-                wishCnt.value = it.wishCnt
-                product = it.productId
-
-                isMyProduct.value = it.authorId == profileModel.getUserId()
-            }
-
-        }
-
-    }
 
     /*********************************************************************
      * Click Event
@@ -145,6 +120,46 @@ class ContentViewModel @Inject constructor(
 
     }
 
+    /**
+     * 팔로우 버튼
+     */
+    fun onClickFollow(){
+
+    }
+
+
+
+    /***********************************************************************
+     * DATA FLOW
+     **********************************************************************/
+
+
+    init{
+        collectArt()
+
+    }
+
+    /**
+     * 작품 데이터를 구독한다. 필요한 데이터를 분리해서 state 를 저장한다.
+     */
+    private fun collectArt(){
+        invokeStateFlow(model.art){art->
+            art?.let{
+                imgAdapter.imgs = it.imgUrls?: listOf()
+                imgAdapter.notifyDataSetChanged()
+
+                isLike.value = it.like
+                likeCnt.value = it.likeCnt
+                isWish.value = it.wish
+                wishCnt.value = it.wishCnt
+                product = it.productId
+
+                isMyProduct.value = it.authorId == profileModel.getUserId()
+            }
+
+        }
+
+    }
 
 
     /***********************************************************************

@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:onClick="@{v->fg.onClick(v)}">
+        >
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -80,7 +80,7 @@
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <TextView
-
+                android:visibility="@{vm.isMyProduct() ? 8 : 0}"
                 android:id="@+id/btn_follow"
                 style="@style/medium13"
                 android:layout_width="60dp"
@@ -88,6 +88,7 @@
                 android:background="@drawable/btn_follow"
                 android:gravity="center"
                 android:text="@string/str_follow"
+                android:onClick="@{v->vm.onClickFollow()}"
 
                 android:textColor="@{@color/primary, default = @color/primary}"/>
 

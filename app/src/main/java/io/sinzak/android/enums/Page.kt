@@ -24,5 +24,6 @@ enum class Page {
     NEW_POST_SPEC,
 
     ART_DETAIL,
+    ART_DETAIL_SUGGEST,
 
 }
