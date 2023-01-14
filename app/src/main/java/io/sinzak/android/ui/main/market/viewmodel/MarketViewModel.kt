@@ -1,6 +1,7 @@
 package io.sinzak.android.ui.main.market.viewmodel
 
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.sinzak.android.enums.Page
 import io.sinzak.android.model.insets.SoftKeyModel
 import io.sinzak.android.model.market.MarketArtModel
 import io.sinzak.android.model.market.MarketHistoryModel
@@ -65,8 +66,15 @@ class MarketViewModel @Inject constructor(val soft : SoftKeyModel, val marketArt
         = marketArtModel.getRemoteMarketProducts(refresh)
 
 
-
-
+    /**
+     * PAGE TRANSACTION
+     */
+    
+    fun gotoBuildPage(){
+        navigation.changePage(Page.NEW_POST)
+    }
+    
+    
 
     fun closeSearchPage(){
 

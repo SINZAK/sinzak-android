@@ -37,4 +37,7 @@ interface RemoteMarketInterface {
 
     @POST("api/products/likes")
     fun postProductLikes(@HeaderMap headerMap: HashMap<String, String>, @Body body : ProductLikeRequest) : Call<CResponse>
+
+    @POST("api/products/wish")
+    fun postProductWish(@HeaderMap headerMap: HashMap<String, String>, @Body body : ProductLikeRequest) : Call<CResponse>
 }

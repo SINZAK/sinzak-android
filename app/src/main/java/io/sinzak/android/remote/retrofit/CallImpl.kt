@@ -55,6 +55,9 @@ class CallImpl(
             API_REFRESH_TOKEN -> remoteApi.refreshToken(header,requestBody as TokenRequest)
 
 
+
+
+
             API_LOGIN_EMAIL -> remoteApi.loginEmail(header,requestBody as LoginEmailBody)
 
 
@@ -70,6 +73,12 @@ class CallImpl(
 
             API_GET_FOLLOWER_LIST -> remoteApi.getFollowerList(header, paramStr0!!)
 
+
+
+
+
+
+
             API_GET_MY_PROFILE -> remoteApi.getMyProfile(header)
 
             API_EDIT_MY_PROFILE -> remoteApi.editMyProfile(header,requestBody as UpdateUserRequest)
@@ -83,15 +92,28 @@ class CallImpl(
 
             API_CHECK_MAIL_CODE -> remoteApi.checkMailCode(header, requestBody as MailRequest)
 
-            API_GET_MARKET_PRODUCTS -> remoteApi.getMarketProducts(header,paramInt0!!, paramInt1!!, paramStr0!!, paramStr1!!)
-
             API_JOIN_ACCOUNT -> remoteApi.joinAccount(header,requestBody as JoinRequest)
+
+
+
+
+
+
+
+            API_GET_MARKET_PRODUCTS -> remoteApi.getMarketProducts(header,paramInt0!!, paramInt1!!, paramStr0!!, paramStr1!!)
 
             API_BUILD_MARKET_PRODUCT -> remoteApi.buildMarketProduct(header, requestBody as ProductBuildRequest)
 
             API_PRODUCT_UPLOAD_IMG -> remoteApi.uploadProductImage(header.apply{
                 this.remove(CONTENT_TYPE)
             }, paramStr0!!, multipartList!!)
+
+
+
+
+
+
+
 
             API_GET_PRODUCT_DETAIL -> remoteApi.getMarketProductDetail(header,paramInt0!!)
 
@@ -102,6 +124,8 @@ class CallImpl(
             API_GET_HOME_FOLLOWING -> remoteApi.getHomeFollowing(header)
 
             API_POST_LIKE_PRODUCT -> remoteApi.postProductLikes(header, requestBody as ProductLikeRequest)
+
+            API_POST_WISH_PRODUCT -> remoteApi.postProductWish(header, requestBody as ProductLikeRequest)
 
 
 

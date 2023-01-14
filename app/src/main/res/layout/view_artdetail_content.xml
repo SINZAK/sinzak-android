@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
@@ -35,13 +35,13 @@
             >
             <TextView
 
-                android:text="@{String.valueOf(vm.art.wishCnt)}"
+                android:text="@{String.valueOf(vm.wishCnt)}"
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/gray60"
                 style="@style/medium13"
-                android:drawableStart="@drawable/ic_detail_scrap"/>
+                app:drawableStartCompat="@drawable/ic_detail_scrap" />
 
             <TextView
 
@@ -52,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/gray60"
                 style="@style/medium13"
-                android:drawableStart="@drawable/ic_detail_watch"/>
+                app:drawableStartCompat="@drawable/ic_detail_watch" />
 
             <TextView
 
@@ -63,7 +63,7 @@
                 android:textColor="@color/gray60"
                 style="@style/medium13"
                 android:layout_marginStart="5dp"
-                android:drawableStart="@drawable/ic_detail_comment"/>
+                app:drawableStartCompat="@drawable/ic_detail_comment" />
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

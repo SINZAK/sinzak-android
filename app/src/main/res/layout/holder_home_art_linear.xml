@@ -32,7 +32,7 @@
             android:layout_height="165dp">
 
             <ImageView
-                remoteImgUrl="@{product.thumbnail}"
+                remoteImgUrl="@{product.thumbnail.toString()}"
                 cornerRadius="@{10f}"
                 android:id="@+id/iv_poster"
                 android:layout_width="match_parent"

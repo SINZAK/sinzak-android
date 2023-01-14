@@ -130,7 +130,4 @@ class MarketFragment : BaseFragment() {
         sortView.show(requireActivity().supportFragmentManager,sortView.tag)
     }
 
-    fun newPostPage(){
-        navigator.changePage(Page.NEW_POST)
-    }
 }

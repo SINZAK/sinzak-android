@@ -24,6 +24,7 @@ import io.sinzak.android.system.App.Companion.prefs
 import io.sinzak.android.system.LogError
 import io.sinzak.android.system.LogInfo
 import io.sinzak.android.system.social.NaverImpl
+import io.sinzak.android.ui.base.setIsSelect
 import io.sinzak.android.ui.login.LoginActivity
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -62,7 +63,7 @@ class SignModel @Inject constructor(
     }
 
     fun checkToken(){
-
+        setIsLogin(false)
         CallImpl(
             API_REFRESH_TOKEN,
             this,
@@ -145,7 +146,7 @@ class SignModel @Inject constructor(
     fun initSignStatus(){
         _signFailed.value = false
         _errorString.value = ""
-        _isLogin.value = false
+        setIsLogin(false)
         needSignUp.value = false
         _sdkSignSuccess.value = false
     }
@@ -265,12 +266,17 @@ class SignModel @Inject constructor(
 
     }
 
+    private fun setIsLogin(status : Boolean){
+        _isLogin.value = status
+        prefs.setBoolean(CODE_IS_LOGIN, status)
+    }
+
     fun onRefreshToken(response : Token)
     {
         if(response.accessToken.isNullOrEmpty())
             return
 
-        _isLogin.value = true
+        setIsLogin(true)
         prefs.setString(ACCESS_TOKEN,response.accessToken)
         prefs.setString(REFRESH_TOKEN,response.refreshToken)
     }
@@ -284,7 +290,7 @@ class SignModel @Inject constructor(
             }
         }else{
             // login
-            _isLogin.value = true
+            setIsLogin(true)
         }
     }
 
@@ -292,7 +298,7 @@ class SignModel @Inject constructor(
     {
         if(success){
             needSignUp.value = false
-            _isLogin.value = true
+            setIsLogin(true)
         }else{
             //todo 회원가입 실패
             LogError(javaClass.name,"회원가입 실패 $message")
