@@ -2,6 +2,7 @@ package io.sinzak.android.model.market
 
 import io.sinzak.android.constants.API_GET_PRODUCT_DETAIL
 import io.sinzak.android.constants.API_POST_LIKE_PRODUCT
+import io.sinzak.android.constants.API_POST_WISH_PRODUCT
 import io.sinzak.android.constants.API_PRODUCT_UPLOAD_IMG
 import io.sinzak.android.model.BaseModel
 import io.sinzak.android.remote.dataclass.CResponse
@@ -18,12 +19,20 @@ class MarketProductModel @Inject constructor() : BaseModel() {
 
     val art = MutableStateFlow<MarketDetailResponse.Detail?>(null)
 
+
+
+
+
     fun loadProduct(id : Int){
         art.value = null
         CallImpl(API_GET_PRODUCT_DETAIL, this,paramInt0 = id).apply{
             remote.sendRequestApi(this)
         }
     }
+
+
+
+
 
 
     fun postProductLike(id : Int, status : Boolean){
@@ -36,6 +45,24 @@ class MarketProductModel @Inject constructor() : BaseModel() {
             )
         )
     }
+
+
+
+
+
+
+    fun postProductWish(id : Int, status : Boolean){
+        remote.sendRequestApi(
+            CallImpl(API_POST_WISH_PRODUCT, this,
+                ProductLikeRequest(
+                    id,
+                    status
+                )
+            )
+        )
+    }
+
+
 
 
 

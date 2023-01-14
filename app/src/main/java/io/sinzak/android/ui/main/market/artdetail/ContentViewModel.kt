@@ -28,8 +28,15 @@ class ContentViewModel @Inject constructor(
 
     val art get() = model.art
 
+
+    val isMyProduct = MutableStateFlow(false)
+
     val isLike = MutableStateFlow(false)
     val likeCnt = MutableStateFlow(0)
+    val isWish = MutableStateFlow(false)
+    val wishCnt = MutableStateFlow(0)
+
+    private var product = -1
 
     val imgAdapter = VpAdapter()
 
@@ -42,21 +49,36 @@ class ContentViewModel @Inject constructor(
 
                 isLike.value = it.like
                 likeCnt.value = it.likeCnt
+                isWish.value = it.wish
+                wishCnt.value = it.wishCnt
+                product = it.productId
+
+                isMyProduct.value = it.authorId == profileModel.getUserId()
             }
 
         }
 
     }
 
+    /**
+     * Click Event
+     */
+
     fun toggleLike(){
-        model.postProductLike(art.value?.productId!!,!isLike.value)
+        model.postProductLike(product,!isLike.value)
         isLike.value = !isLike.value
         likeCnt.value = likeCnt.value + if(isLike.value) 1 else -1
     }
 
+
+    fun toggleWish(){
+        model.postProductWish(product,!isWish.value)
+        isWish.value = !isWish.value
+        wishCnt.value = wishCnt.value + if(isWish.value) 1 else -1
+    }
+
     fun showMoreDialog(){
-        val artist = art.value?.authorId.toString()
-        if(artist == profileModel.getUserId()){
+        if(isMyProduct.value){
             showEditDialog()
             return
         }
@@ -64,7 +86,14 @@ class ContentViewModel @Inject constructor(
     }
 
 
-    fun showEditDialog(){
+
+
+    /**
+     * Dialog Show
+     */
+
+
+    private fun showEditDialog(){
         connect.productEditDialog(
             edit = {
 
@@ -75,7 +104,7 @@ class ContentViewModel @Inject constructor(
         )
     }
 
-    fun showReportDialog(){
+    private fun showReportDialog(){
 
         connect.artistReportDialog(
             art.value!!.author,
@@ -97,7 +126,7 @@ class ContentViewModel @Inject constructor(
 
     }
 
-    fun showDeleteDialog(){
+    private fun showDeleteDialog(){
         connect.productDeleteDialog {
 
         }

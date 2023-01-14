@@ -32,16 +32,14 @@ import java.lang.Exception
 
 
 @BindingAdapter("isSelect")
-fun setIsSelect(view : View, status : Boolean)
-{
+fun setIsSelect(view: View, status: Boolean) {
     view.isSelected = status
 }
 
-@BindingAdapter("marginVertical","marginHorizon")
-fun setRecyclerViewItemMargin(view : RecyclerView, vertical : Float = 0f, horizontal : Float = 0f)
-{
+@BindingAdapter("marginVertical", "marginHorizon")
+fun setRecyclerViewItemMargin(view: RecyclerView, vertical: Float = 0f, horizontal: Float = 0f) {
     view.addItemDecoration(
-        object : RecyclerView.ItemDecoration(){
+        object : RecyclerView.ItemDecoration() {
             override fun getItemOffsets(
                 outRect: Rect,
                 view: View,
@@ -59,29 +57,25 @@ fun setRecyclerViewItemMargin(view : RecyclerView, vertical : Float = 0f, horizo
 }
 
 @BindingAdapter("requestFocus", "soft")
-fun requestFocus(view : EditText, focus : Boolean, soft : SoftKeyModel)
-{
-    if(focus)
-    {
+fun requestFocus(view: EditText, focus: Boolean, soft: SoftKeyModel) {
+    if (focus) {
         view.requestFocus()
-        soft.imm.showSoftInput(view,0)
+        soft.imm.showSoftInput(view, 0)
     }
 }
 
 
-@BindingAdapter("remoteImgUrl","cornerRadius")
-fun setImg(view : ImageView, url : String?, radius : Float)
-{
-    view.findViewTreeLifecycleOwner()?.let{lifecycleOwner ->
-        lifecycleOwner.lifecycleScope.launch {
-            Glide.with(view).asBitmap().let{g->
-                url?.let{
-                    g.load(GlideUrl(it))
-                }?:run{
-                    g.load(AppCompatResources.getDrawable(view.context, R.drawable.ic_img_null_holder))
-                }
+@BindingAdapter("remoteImgUrl", "cornerRadius")
+fun setImg(view: ImageView, url: String?, radius: Float) {
+    if(url.isNullOrEmpty())
+    {
+        view.setImageDrawable(AppCompatResources.getDrawable(view.context,R.drawable.ic_img_null_holder))
+        return
+    }
 
-            }.transform(CenterCrop(), RoundedCorners(radius.dp.toInt())).apply {
+    view.findViewTreeLifecycleOwner()?.let { lifecycleOwner ->
+        lifecycleOwner.lifecycleScope.launch {
+            Glide.with(view).asBitmap().load(GlideUrl(url)).transform(CenterCrop(), RoundedCorners(radius.dp.toInt())).apply {
                 lifecycleOwner.lifecycleScope.launch {
                     into(view)
                 }
@@ -92,9 +86,8 @@ fun setImg(view : ImageView, url : String?, radius : Float)
 }
 
 @BindingAdapter("remoteImgUrl")
-fun setImg(view : ImageView, url : String?)
-{
-    url?:run{
+fun setImg(view: ImageView, url: String?) {
+    url ?: run {
         return
     }
     CoroutineScope(Dispatchers.IO).launch {
@@ -107,10 +100,13 @@ fun setImg(view : ImageView, url : String?)
 }
 
 
-@BindingAdapter("viewpager","adapter")
-fun provideViewpager(view : DotsIndicator, viewPager : ViewPager2, adapter : RecyclerView.Adapter<*>?)
-{
-    adapter?.let{
+@BindingAdapter("viewpager", "adapter")
+fun provideViewpager(
+    view: DotsIndicator,
+    viewPager: ViewPager2,
+    adapter: RecyclerView.Adapter<*>?
+) {
+    adapter?.let {
         viewPager.adapter = adapter
         view.attachTo(viewPager)
     }
@@ -118,16 +114,15 @@ fun provideViewpager(view : DotsIndicator, viewPager : ViewPager2, adapter : Rec
 }
 
 @BindingAdapter("onActionDone")
-fun onActionDone(view : EditText, listener : View.OnClickListener)
-{
+fun onActionDone(view: EditText, listener: View.OnClickListener) {
     view.setOnEditorActionListener { view, i, keyEvent ->
-        when(i)
-        {
-            EditorInfo.IME_ACTION_DONE, EditorInfo.IME_ACTION_SEARCH, EditorInfo.IME_ACTION_NEXT ->{
+        when (i) {
+            EditorInfo.IME_ACTION_DONE, EditorInfo.IME_ACTION_SEARCH, EditorInfo.IME_ACTION_NEXT -> {
 
                 listener.onClick(view)
-                val im = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                im.hideSoftInputFromWindow(view.windowToken,0)
+                val im =
+                    view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                im.hideSoftInputFromWindow(view.windowToken, 0)
                 view.clearFocus()
 
                 return@setOnEditorActionListener true
@@ -139,47 +134,42 @@ fun onActionDone(view : EditText, listener : View.OnClickListener)
 }
 
 @BindingAdapter("app:tint")
-fun imageTint(view : ImageView, color: Int)
-{
+fun imageTint(view: ImageView, color: Int) {
     view.imageTintList = ColorStateList.valueOf(color)
 }
 
 @BindingAdapter("app:drawableTint")
-fun drawableTint(view : TextView, color : Int)
-{
-    TextViewCompat.setCompoundDrawableTintList(view,ColorStateList.valueOf(color))
+fun drawableTint(view: TextView, color: Int) {
+    TextViewCompat.setCompoundDrawableTintList(view, ColorStateList.valueOf(color))
 }
 
 
 @BindingAdapter("app:attachTo")
-fun attachToRecyclerView(view : DotsIndicator, viewPager: ViewPager2){
+fun attachToRecyclerView(view: DotsIndicator, viewPager: ViewPager2) {
 
 
-
-    fun attach(view : DotsIndicator, viewPager: ViewPager2){
+    fun attach(view: DotsIndicator, viewPager: ViewPager2) {
         try {
             view.attachTo(viewPager)
-        }
-        catch(e:Exception){
+        } catch (e: Exception) {
             CoroutineScope(Dispatchers.Main).launch {
                 attach(view, viewPager)
             }
         }
     }
 
-    attach(view,viewPager)
+    attach(view, viewPager)
 
 
 }
 
 
-
 @BindingAdapter("app:bottomReached")
-fun recyclerViewBottomReached(view : RecyclerView, listener : View.OnClickListener){
+fun recyclerViewBottomReached(view: RecyclerView, listener: View.OnClickListener) {
     view.addOnScrollListener(
-        object : RecyclerView.OnScrollListener(){
+        object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                if(view.computeVerticalScrollOffset() >= view.computeVerticalScrollRange() - view.computeVerticalScrollExtent())
+                if (view.computeVerticalScrollOffset() >= view.computeVerticalScrollRange() - view.computeVerticalScrollExtent())
                     listener.onClick(view)
             }
         }
