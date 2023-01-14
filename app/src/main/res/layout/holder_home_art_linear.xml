@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="onItemClick"
             type="android.view.View.OnClickListener" />
+
         <variable
             name="onLikeClick"
             type="android.view.View.OnClickListener" />
+
         <variable
             name="product"
             type="io.sinzak.android.remote.dataclass.product.Product" />
@@ -17,92 +20,91 @@
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="wrap_content"
-        android:orientation="vertical"
+        android:layout_height="wrap_content"
         android:onClickListener="@{onItemClick}"
 
-        android:layout_height="wrap_content">
+        android:orientation="vertical">
 
-        <androidx.cardview.widget.CardView
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="165dp"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="4dp"
+
             android:layout_height="165dp">
-            <androidx.constraintlayout.widget.ConstraintLayout
+
+            <ImageView
+                remoteImgUrl="@{product.thumbnail}"
+                cornerRadius="@{10f}"
+                android:id="@+id/iv_poster"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_margin="8.5dp"
+                android:background="@drawable/btn_item_art_linear_like"
+                android:gravity="center"
+                android:onClick="@{onLikeClick}"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
                 <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/iv_poster"/>
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:src="@drawable/ic_heart_red"
+                    android:visibility="@{product.like ? 0 : 8}" />
 
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:onClick="@{onLikeClick}"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:background="@drawable/btn_item_art_linear_like"
-                    android:orientation="vertical"
-                    android:layout_margin="8.5dp"
-                    android:gravity="center"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent">
+                <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:src="@drawable/ic_heart_white_stroke"
+                    android:visibility="@{product.like ? 8 : 0}" />
 
-                    <ImageView
-                        android:layout_width="12dp"
-                        android:layout_height="12dp"
-                        android:visibility="@{product.like ? 0 : 8}"
-                        android:src="@drawable/ic_heart_red"/>
-                    <ImageView
-                        android:layout_width="12dp"
-                        android:layout_height="12dp"
-                        android:visibility="@{product.like ? 8 : 0}"
-                        android:src="@drawable/ic_heart_white_stroke"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{product.lickCntFit}"
-                        style="@style/medium10"
-                        android:textColor="@color/on_primary"/>
+                <TextView
+                    style="@style/medium10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{product.lickCntFit}"
+                    android:textColor="@color/on_primary" />
 
 
-
-                </androidx.appcompat.widget.LinearLayoutCompat>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </androidx.cardview.widget.CardView>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         <TextView
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="7dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{product.title}"
             style="@style/medium16"
-            />
-        <TextView
-            android:layout_marginStart="7dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{@string/str_holder_won(product.price)}"
-            style="@style/bold16"
-            />
-        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_marginStart="7dp"
+            android:layout_marginTop="10dp"
+            android:text="@{product.title}" />
+
+        <TextView
+            style="@style/bold16"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="7dp"
+            android:text="@{@string/str_holder_won(product.price)}" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="7dp">
+
             <TextView
+                style="@style/regular13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{@string/str_holder_author(product.author)}"
-                style="@style/regular13"
-                />
+                android:text="@{@string/str_holder_author(product.author)}" />
+
             <TextView
+                style="@style/medium13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{product.timePassed}"
-                style="@style/medium13"
-                android:textColor="@color/gray60"
-                />
+                android:textColor="@color/gray60" />
 
 
         </androidx.appcompat.widget.LinearLayoutCompat>
