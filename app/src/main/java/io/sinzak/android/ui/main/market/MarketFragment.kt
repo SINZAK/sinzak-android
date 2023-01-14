@@ -21,7 +21,7 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class MarketFragment : BaseFragment(), ProductListener {
+class MarketFragment : BaseFragment() {
 
     private val artsViewModel : ArtsViewModel by activityViewModels()
     private val filterViewModel : FilterViewModel by activityViewModels()
@@ -69,11 +69,6 @@ class MarketFragment : BaseFragment(), ProductListener {
      *
      ***************/
 
-    override fun onProductClick(product: Product) {
-        marketProductModel.loadProduct(product.id.toString())
-        navigator.changePage(Page.ART_DETAIL)
-    }
-
     private fun inflateChild(){
         inflateArts()
         inflateAppbar()
@@ -104,7 +99,6 @@ class MarketFragment : BaseFragment(), ProductListener {
         ViewMarketArtsBinding.inflate(layoutInflater).apply{
             lifecycleOwner = viewLifecycleOwner
             vm = artsViewModel
-            onItemClick = this@MarketFragment
             fg = this@MarketFragment
             bind.flArts.addView(root)
         }

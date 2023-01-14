@@ -14,9 +14,28 @@ import javax.inject.Singleton
 @Singleton
 class ProfileModel @Inject constructor() : BaseModel() {
 
+    /**
+     * 내 프로필을 저장하는 공간
+     */
     val profile = MutableStateFlow<UserProfileResponse?>(null)
 
     val followList = MutableStateFlow<FollowResponse?>(null)
+
+    fun getUserId() : String?{
+        profile.value?.let{
+            return it.userId
+        }
+        return null
+    }
+
+    fun getUserDisplayName() : String?{
+        profile.value?.let{
+            return it.name
+        }
+        return null
+    }
+
+
 
 
     fun getMyProfile()

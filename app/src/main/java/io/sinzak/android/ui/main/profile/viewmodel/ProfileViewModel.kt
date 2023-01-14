@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
 @HiltViewModel
-class ProfileViewModel @Inject constructor(val profileModel: ProfileModel) : BaseViewModel() {
+class ProfileViewModel @Inject constructor() : BaseViewModel() {
 
     private val _isVerify = MutableStateFlow(false)
     val isVerify : StateFlow<Boolean> get() = _isVerify

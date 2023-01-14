@@ -22,7 +22,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                isSelect="@{vm.art.like}"
+                isSelect="@{vm.isLike}"
+                android:onClick="@{v->vm.toggleLike()}"
                 android:gravity="center"
                 android:orientation="vertical">
                 <ImageView
@@ -31,7 +32,7 @@
                     android:src="@drawable/btn_artdetail_like"/>
 
                 <TextView
-                    android:text="@{String.valueOf(vm.art.likeCnt)}"
+                    android:text="@{String.valueOf(vm.likeCnt)}"
 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

@@ -1,9 +1,11 @@
 package io.sinzak.android.model.market
 
 import io.sinzak.android.constants.API_GET_PRODUCT_DETAIL
+import io.sinzak.android.constants.API_POST_LIKE_PRODUCT
 import io.sinzak.android.constants.API_PRODUCT_UPLOAD_IMG
 import io.sinzak.android.model.BaseModel
 import io.sinzak.android.remote.dataclass.CResponse
+import io.sinzak.android.remote.dataclass.request.market.ProductLikeRequest
 import io.sinzak.android.remote.dataclass.response.market.MarketDetailResponse
 import io.sinzak.android.remote.retrofit.CallImpl
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,13 +16,25 @@ import javax.inject.Singleton
 @Singleton
 class MarketProductModel @Inject constructor() : BaseModel() {
 
-    val art = MutableStateFlow<MarketDetailResponse?>(null)
+    val art = MutableStateFlow<MarketDetailResponse.Detail?>(null)
 
-    fun loadProduct(id : String){
+    fun loadProduct(id : Int){
         art.value = null
-        CallImpl(API_GET_PRODUCT_DETAIL, this,paramStr0 = id).apply{
+        CallImpl(API_GET_PRODUCT_DETAIL, this,paramInt0 = id).apply{
             remote.sendRequestApi(this)
         }
+    }
+
+
+    fun postProductLike(id : Int, status : Boolean){
+        remote.sendRequestApi(
+            CallImpl(API_POST_LIKE_PRODUCT, this,
+                ProductLikeRequest(
+                    id,
+                    status
+                )
+            )
+        )
     }
 
 
@@ -34,7 +48,7 @@ class MarketProductModel @Inject constructor() : BaseModel() {
         when(api){
             API_GET_PRODUCT_DETAIL ->{
                 if(body is MarketDetailResponse){
-                    art.value = body
+                    art.value = body.data
                 }
             }
         }

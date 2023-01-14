@@ -10,6 +10,7 @@ import io.sinzak.android.remote.dataclass.request.login.JoinRequest
 import io.sinzak.android.remote.dataclass.request.login.LoginEmailBody
 import io.sinzak.android.remote.dataclass.request.login.TokenRequest
 import io.sinzak.android.remote.dataclass.request.market.ProductBuildRequest
+import io.sinzak.android.remote.dataclass.request.market.ProductLikeRequest
 import io.sinzak.android.remote.dataclass.request.profile.FollowRequest
 import io.sinzak.android.remote.dataclass.request.profile.UpdateUserRequest
 import io.sinzak.android.system.App.Companion.prefs
@@ -92,13 +93,17 @@ class CallImpl(
                 this.remove(CONTENT_TYPE)
             }, paramStr0!!, multipartList!!)
 
-            API_GET_PRODUCT_DETAIL -> remoteApi.getMarketProductDetail(header,paramStr0!!)
+            API_GET_PRODUCT_DETAIL -> remoteApi.getMarketProductDetail(header,paramInt0!!)
 
             API_GET_HOME_PRODUCTS -> remoteApi.getHomeProducts(header)
 
             API_GET_HOME_REFER -> remoteApi.getHomeRefer(header)
 
             API_GET_HOME_FOLLOWING -> remoteApi.getHomeFollowing(header)
+
+            API_POST_LIKE_PRODUCT -> remoteApi.postProductLikes(header, requestBody as ProductLikeRequest)
+
+
 
             else -> throw NoSuchMethodException()
         } as Call<CResponse>

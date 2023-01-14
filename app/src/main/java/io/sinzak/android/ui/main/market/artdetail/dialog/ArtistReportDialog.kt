@@ -1,4 +1,4 @@
-package io.sinzak.android.ui.main.market.artdetail
+package io.sinzak.android.ui.main.market.artdetail.dialog
 
 import android.content.Context
 import io.sinzak.android.R

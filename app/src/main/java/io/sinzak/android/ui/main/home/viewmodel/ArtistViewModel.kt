@@ -18,7 +18,8 @@ class ArtistViewModel @Inject constructor(
         onNextClick = {
             model.morePageType.value = HomeMore.FOLLOWING
             navigation.changePage(Page.HOME_MORE)
-        }
+        },
+        onLikeClick = detailModel::postProductLike
     ){
         detailModel.loadProduct(it.id!!)
         uiModel.openProductDetail()

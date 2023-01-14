@@ -12,9 +12,11 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import io.sinzak.android.databinding.HolderHomeArtLinearBinding
 import io.sinzak.android.databinding.HolderHomeLinearNextBinding
 import io.sinzak.android.remote.dataclass.product.Product
+import io.sinzak.android.system.LogDebug
 import io.sinzak.android.system.dp
 
 class ArtLinearAdapter(val onNextClick : ()->Unit = {},
+                       val onLikeClick : ((Int, Boolean)->Unit)? = null,
                        val onItemClick : ((Product)->Unit)? = null,
 ) : RecyclerView.Adapter<ArtLinearAdapter.ViewHolder>() {
 
@@ -22,6 +24,7 @@ class ArtLinearAdapter(val onNextClick : ()->Unit = {},
 
     fun updateData(p : List<Product>){
         products = p
+        LogDebug(javaClass.name,"[LINEAR ADAPTER] get ${p.size} items updated")
         notifyDataSetChanged()
     }
 
@@ -76,17 +79,25 @@ class ArtLinearAdapter(val onNextClick : ()->Unit = {},
         fun bind(product: Product){
             bind as HolderHomeArtLinearBinding
             bind.product = product
+
+            bind.setOnItemClick {
+                onItemClick?.let{c->
+                    c(product)
+                }
+            }
+            bind.setOnLikeClick {
+                onLikeClick?.let{c->
+                    bind.product = product.toggleLike()
+                    c(product.id!!,product.like!!)
+
+                }
+            }
             bind.apply{
                 if(!product.thumbnail.isNullOrEmpty())
                 Glide.with(ivPoster).asBitmap().load(GlideUrl(product.thumbnail))
                     .transform(CenterCrop(),RoundedCorners(10.dp.toInt())).into(ivPoster)
 
 
-                root.setOnClickListener {
-                    onItemClick?.let{onItemClick ->
-                        onItemClick(product)
-                    }
-                }
             }
         }
     }

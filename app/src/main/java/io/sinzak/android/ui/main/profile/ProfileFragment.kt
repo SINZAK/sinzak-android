@@ -12,8 +12,8 @@ import io.sinzak.android.databinding.ViewProfileTopAppbarBinding
 import io.sinzak.android.enums.Page
 import io.sinzak.android.model.profile.ProfileModel
 import io.sinzak.android.ui.base.BaseFragment
-import io.sinzak.android.ui.main.market.artdetail.ArtistBlockDialog
-import io.sinzak.android.ui.main.market.artdetail.ArtistReportDialog
+import io.sinzak.android.ui.main.market.artdetail.dialog.ArtistBlockDialog
+import io.sinzak.android.ui.main.market.artdetail.dialog.ArtistReportDialog
 import io.sinzak.android.ui.main.market.artdetail.ContentViewModel
 import io.sinzak.android.ui.main.profile.edit.EditViewModel
 import io.sinzak.android.ui.main.profile.report.ReportSendViewModel

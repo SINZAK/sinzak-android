@@ -5,9 +5,10 @@ import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
 import io.sinzak.android.databinding.*
 import io.sinzak.android.enums.Page
-import io.sinzak.android.model.profile.ProfileModel
 import io.sinzak.android.ui.base.BaseFragment
 import io.sinzak.android.ui.main.MainActivity
+import io.sinzak.android.ui.main.market.artdetail.dialog.ArtistBlockDialog
+import io.sinzak.android.ui.main.market.artdetail.dialog.ArtistReportDialog
 import io.sinzak.android.ui.main.profile.report.ReportSendViewModel
 import io.sinzak.android.ui.main.profile.viewmodel.ProfileViewModel
 import javax.inject.Inject
@@ -17,9 +18,17 @@ class ArtDetailFragment : BaseFragment() , View.OnClickListener {
 
     lateinit var bind : FragmentArtDetailBinding
 
+    @Inject
+    lateinit var connect: ArtDetailConnect
+
     private val contentViewModel by activityViewModels<ContentViewModel>()
     private val reportSendViewModel by activityViewModels<ReportSendViewModel>()
     private val profileViewModel by activityViewModels<ProfileViewModel>()
+
+    override fun onResume() {
+        super.onResume()
+        contentViewModel.registerConnect(connect)
+    }
 
     override fun getFragmentRoot(): View {
         bind = FragmentArtDetailBinding.inflate(layoutInflater)
@@ -34,6 +43,7 @@ class ArtDetailFragment : BaseFragment() , View.OnClickListener {
     override fun onFragmentCreated() {
         bind.apply{
             activity = requireActivity() as MainActivity
+            vm = contentViewModel
             fg = this@ArtDetailFragment
         }
 
@@ -51,20 +61,7 @@ class ArtDetailFragment : BaseFragment() , View.OnClickListener {
 
 
 
-    fun showReportDialog(){
 
-        ArtistReportDialog(requireContext(),contentViewModel.art.value!!.author,{ goToReportPage() },{ showBlockDialog() }).show()
-    }
-
-    // 차단하기 다이얼로그
-    fun showBlockDialog(){
-        ArtistBlockDialog(requireContext(),{/*차단 api*/}).show()
-    }
-    // 사용자 신고 페이지로
-    fun goToReportPage(){
-        reportSendViewModel.isFromProfile(false)
-        navigator.changePage(Page.PROFILE_REPORT_TYPE)
-    }
 
     private fun inflateImage(){
         ViewArtdetailImageBinding.inflate(layoutInflater).apply{

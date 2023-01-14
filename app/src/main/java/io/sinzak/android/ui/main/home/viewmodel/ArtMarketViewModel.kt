@@ -10,7 +10,7 @@ import javax.inject.Inject
 class ArtMarketViewModel @Inject constructor(
     val model : HomeProductModel
 ) : HomeLinearViewModel() {
-    override val adapter = ArtLinearAdapter()
+    override val adapter = ArtLinearAdapter{}
 
     override val hMargin: Float
         get() = 20f
@@ -19,6 +19,7 @@ class ArtMarketViewModel @Inject constructor(
      = valueModel.getString(R.string.str_art_onmarket_title)
 
     init{
+
         invokeStateFlow(model.tradingProducts){
             adapter.updateData(it)
         }

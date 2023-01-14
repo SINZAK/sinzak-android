@@ -1,4 +1,4 @@
-package io.sinzak.android.ui.main.home.viewmodel
+package io.sinzak.android.ui.main.home.more
 
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.sinzak.android.R
@@ -32,10 +32,12 @@ class HomeMoreViewModel  @Inject constructor(
     init{
         when(model.morePageType.value){
             REFER -> {
+                model.getMoreRefer()
                 invokeStateFlow(model.referProductsAll, ::updateProducts)
                 title.value = valueModel.getString(R.string.str_home_more_refer)
             }
             FOLLOWING -> {
+                model.getMoreFollowing()
                 invokeStateFlow(model.followingProductsAll, ::updateProducts)
                 title.value = valueModel.getString(R.string.str_home_more_following)
             }
@@ -54,6 +56,7 @@ class HomeMoreViewModel  @Inject constructor(
                 it !in this.products
             }
         )
+        adapter.notifyDataSetChanged()
     }
 
 }

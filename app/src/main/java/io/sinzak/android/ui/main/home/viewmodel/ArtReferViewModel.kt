@@ -18,10 +18,11 @@ class ArtReferViewModel @Inject constructor(
         onNextClick = {
             model.morePageType.value = HomeMore.REFER
             navigation.changePage(Page.HOME_MORE)
-        }
+        },
+        onLikeClick = marketProductModel::postProductLike
     ){
         uiModel.openProductDetail()
-        marketProductModel.loadProduct(it.id.toString())
+        marketProductModel.loadProduct(it.id!!)
     }
 
     override val hMargin: Float
@@ -44,9 +45,16 @@ class ArtReferViewModel @Inject constructor(
 
 
     init{
-        invokeStateFlow(model.hotProducts){
+
+
+
+
+        invokeStateFlow(model.recommendProducts){
             adapter.updateData(it)
         }
+
+
+
     }
 
 

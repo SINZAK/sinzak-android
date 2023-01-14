@@ -6,6 +6,9 @@
     <data
         >
         <variable
+            name="vm"
+            type="io.sinzak.android.ui.main.market.artdetail.ContentViewModel" />
+        <variable
             name="activity"
             type="io.sinzak.android.ui.main.MainActivity" />
         <variable
@@ -40,7 +43,7 @@
 
             <ImageView
                 android:layout_width="24dp"
-                android:onClick="@{v->fg.showReportDialog()}"
+                android:onClick="@{v->vm.showMoreDialog()}"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_more" />
         </androidx.appcompat.widget.LinearLayoutCompat>

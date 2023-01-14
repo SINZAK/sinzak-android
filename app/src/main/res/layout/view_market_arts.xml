@@ -3,9 +3,6 @@
 
     <data>
         <variable
-            name="onItemClick"
-            type="io.sinzak.android.remote.dataclass.product.ProductListener" />
-        <variable
             name="fg"
             type="io.sinzak.android.ui.main.market.MarketFragment" />
         <variable
@@ -67,10 +64,9 @@
             android:layout_height="match_parent"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:spanCount="2"
-            products="@{vm.productList}"
-            adapter="@{vm.adapter}"
-            onItemClick="@{onItemClick}"
+            android:adapter="@{vm.adapter}"
             marginHorizon="@{6}"
+            app:bottomReached="@{v->vm.md.getRemoteMarketProducts(false)}"
             marginVertical="@{10}"
             android:layout_weight="1"/>
 

@@ -1,11 +1,10 @@
-package io.sinzak.android.ui.main.home
+package io.sinzak.android.ui.main.home.more
 
 import android.view.View
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import io.sinzak.android.databinding.FragmentHomeMoreBinding
 import io.sinzak.android.ui.base.BaseFragment
-import io.sinzak.android.ui.main.home.viewmodel.HomeMoreViewModel
 
 
 @AndroidEntryPoint

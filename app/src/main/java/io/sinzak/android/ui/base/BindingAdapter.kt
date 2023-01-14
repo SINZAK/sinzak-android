@@ -9,8 +9,11 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.widget.TextViewCompat
 import androidx.databinding.BindingAdapter
+import androidx.lifecycle.findViewTreeLifecycleOwner
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
@@ -18,7 +21,9 @@ import com.bumptech.glide.load.model.GlideUrl
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+import io.sinzak.android.R
 import io.sinzak.android.model.insets.SoftKeyModel
+import io.sinzak.android.system.LogDebug
 import io.sinzak.android.system.dp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -65,15 +70,25 @@ fun requestFocus(view : EditText, focus : Boolean, soft : SoftKeyModel)
 
 
 @BindingAdapter("remoteImgUrl","cornerRadius")
-fun setImg(view : ImageView, url : String, radius : Float)
+fun setImg(view : ImageView, url : String?, radius : Float)
 {
-    CoroutineScope(Dispatchers.IO).launch {
-        Glide.with(view).asBitmap().load(GlideUrl(url)).transform(CenterCrop(), RoundedCorners(radius.dp.toInt())).apply {
-            CoroutineScope(Dispatchers.Main).launch {
-                into(view)
+    view.findViewTreeLifecycleOwner()?.let{lifecycleOwner ->
+        lifecycleOwner.lifecycleScope.launch {
+            Glide.with(view).asBitmap().let{g->
+                url?.let{
+                    g.load(GlideUrl(it))
+                }?:run{
+                    g.load(AppCompatResources.getDrawable(view.context, R.drawable.ic_img_null_holder))
+                }
+
+            }.transform(CenterCrop(), RoundedCorners(radius.dp.toInt())).apply {
+                lifecycleOwner.lifecycleScope.launch {
+                    into(view)
+                }
             }
         }
     }
+
 }
 
 @BindingAdapter("remoteImgUrl")
@@ -138,15 +153,35 @@ fun drawableTint(view : TextView, color : Int)
 
 @BindingAdapter("app:attachTo")
 fun attachToRecyclerView(view : DotsIndicator, viewPager: ViewPager2){
-    CoroutineScope(Dispatchers.Main).launch {
+
+
+
+    fun attach(view : DotsIndicator, viewPager: ViewPager2){
         try {
             view.attachTo(viewPager)
         }
         catch(e:Exception){
             CoroutineScope(Dispatchers.Main).launch {
-                view.attachTo(viewPager)
+                attach(view, viewPager)
             }
         }
     }
 
+    attach(view,viewPager)
+
+
+}
+
+
+
+@BindingAdapter("app:bottomReached")
+fun recyclerViewBottomReached(view : RecyclerView, listener : View.OnClickListener){
+    view.addOnScrollListener(
+        object : RecyclerView.OnScrollListener(){
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                if(view.computeVerticalScrollOffset() >= view.computeVerticalScrollRange() - view.computeVerticalScrollExtent())
+                    listener.onClick(view)
+            }
+        }
+    )
 }
