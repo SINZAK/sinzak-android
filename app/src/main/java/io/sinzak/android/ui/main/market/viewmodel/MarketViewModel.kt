@@ -1,50 +1,68 @@
 package io.sinzak.android.ui.main.market.viewmodel
 
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.sinzak.android.enums.Page
 import io.sinzak.android.model.insets.SoftKeyModel
 import io.sinzak.android.model.market.MarketArtModel
 import io.sinzak.android.model.market.MarketHistoryModel
+import io.sinzak.android.model.market.MarketWriteModel
 import io.sinzak.android.ui.base.BaseViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
 @HiltViewModel
-class MarketViewModel @Inject constructor(val soft : SoftKeyModel, val marketArtModel: MarketArtModel, val marketHistory: MarketHistoryModel) : BaseViewModel() {
+class MarketViewModel @Inject constructor(
+    val soft: SoftKeyModel,
+    val marketArtModel: MarketArtModel,
+    val marketHistory: MarketHistoryModel,
+    val writeModel: MarketWriteModel
+) : BaseViewModel() {
 
     private val _searchPageOn = MutableStateFlow(false)
-    val searchPageOn : StateFlow<Boolean> get() = _searchPageOn
+    val searchPageOn: StateFlow<Boolean> get() = _searchPageOn
     private val _searchHistoryOn = MutableStateFlow(false)
-    val searchHistoryOn : StateFlow<Boolean> get() = _searchHistoryOn
+    val searchHistoryOn: StateFlow<Boolean> get() = _searchHistoryOn
 
 
     private val _searchFieldText = MutableStateFlow("")
-    val searchFieldText : StateFlow<String> get() = _searchFieldText
+    val searchFieldText: StateFlow<String> get() = _searchFieldText
 
     val artProducts = marketArtModel.marketProducts
 
-    fun openSearchPage(){
+
+    /********************************
+     * LOCAL VARIABLE CHANGE
+     ********************************/
+
+
+
+    fun openSearchPage() {
         _searchPageOn.value = true
         _searchHistoryOn.value = true
     }
 
-    fun typeSearchFieldText(cs : CharSequence){
-        cs.toString().let{
-            if(_searchFieldText.value != it)
-            {
+    fun typeSearchFieldText(cs: CharSequence) {
+        cs.toString().let {
+            if (_searchFieldText.value != it) {
                 _searchFieldText.value = it
             }
         }
     }
 
-    fun deleteSearchField(){
+    fun deleteSearchField() {
         _searchFieldText.value = ""
     }
 
-    fun searchText(){
-        searchFieldText.value.let{
-            keyword->
-            if(keyword.isEmpty())
+
+    /********************************
+     * REQUEST
+     ********************************/
+
+
+    fun searchText() {
+        searchFieldText.value.let { keyword ->
+            if (keyword.isEmpty())
                 return
 
             search(keyword)
@@ -52,8 +70,7 @@ class MarketViewModel @Inject constructor(val soft : SoftKeyModel, val marketArt
         }
     }
 
-    fun search(tag : String)
-    {
+    fun search(tag: String) {
         marketHistory.putHistory(tag)
         soft.hideKeyboard()
         _searchFieldText.value = tag
@@ -61,24 +78,29 @@ class MarketViewModel @Inject constructor(val soft : SoftKeyModel, val marketArt
     }
 
 
-    fun getMarketProductRemote(refresh : Boolean)
-        = marketArtModel.getRemoteMarketProducts(refresh)
 
 
+    fun getMarketProductRemote(refresh: Boolean) = marketArtModel.getRemoteMarketProducts(refresh)
 
 
+    /********************************
+     * PAGE TRANSACTION
+     ********************************/
 
-    fun closeSearchPage(){
+    fun gotoBuildPage() {
+        writeModel.startBuild()
+        navigation.changePage(Page.NEW_POST)
+    }
 
-        if(searchHistoryOn.value)
-        {
+
+    fun closeSearchPage() {
+
+        if (searchHistoryOn.value) {
             _searchHistoryOn.value = false
-            if(searchFieldText.value.isBlank())
-            {
+            if (searchFieldText.value.isBlank()) {
                 _searchPageOn.value = false
             }
-        }
-        else if(searchPageOn.value)
+        } else if (searchPageOn.value)
             _searchPageOn.value = false
         soft.hideKeyboard()
     }

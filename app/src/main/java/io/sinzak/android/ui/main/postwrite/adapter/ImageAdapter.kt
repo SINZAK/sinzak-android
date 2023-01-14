@@ -19,8 +19,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.*
 
-class ImageAdapter(val img : MutableList<Uri>, val removeImg : (Uri)->Unit) : RecyclerView.Adapter<ImageAdapter.ViewHolder>() {
+class ImageAdapter(val img : MutableList<String>, val removeImg : (String)->Unit) : RecyclerView.Adapter<ImageAdapter.ViewHolder>() {
 
+    var thumbRemovable : Boolean = true
 
     val touchHelperCallback = ItemTouchListener()
 
@@ -56,11 +57,12 @@ class ImageAdapter(val img : MutableList<Uri>, val removeImg : (Uri)->Unit) : Re
             bind.btnDelete.visibility = View.INVISIBLE
         }
 
-        fun bindImg(uri : Uri, idx : Int){
+        fun bindImg(uri : String, idx : Int){
 
             bind.isFirst = idx == 0
             bind.btnDelete.visibility = View.VISIBLE
-
+            if(idx == 0 && !thumbRemovable)
+                bind.btnDelete.visibility = View.GONE
             bind.setOnDelete {
                 val idx = img.indexOf(uri)
                 removeImg(uri)
@@ -108,6 +110,9 @@ class ImageAdapter(val img : MutableList<Uri>, val removeImg : (Uri)->Unit) : Re
 
             val fromPosition = recyclerView.getChildAdapterPosition(viewHolder.itemView)
             val toPosition = recyclerView.getChildAdapterPosition(target.itemView)
+
+            if(!thumbRemovable && (fromPosition == 0 || toPosition == 0))
+                return true
 
             if (fromPosition < toPosition) {
                 for (i in fromPosition until toPosition) {

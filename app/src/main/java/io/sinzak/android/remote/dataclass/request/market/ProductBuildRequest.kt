@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 import io.sinzak.android.remote.dataclass.CRequest
 
 data class ProductBuildRequest(
-    @SerializedName("category") val category : String,
+    @SerializedName("category") val category : String? = null,
     @SerializedName("content") val content : String,
     @SerializedName("height") val height : Int,
     @SerializedName("price") val price : Int,

@@ -13,7 +13,7 @@ class ProductEditDialog(
 ) :
     BaseDialog<DialogProductDetailMoreBinding>(
     context,
-    R.layout.dialog_artist_block
+    R.layout.dialog_product_detail_more
 ) {
     override fun initBind(bind: DialogProductDetailMoreBinding) {
         bind.setEdit {

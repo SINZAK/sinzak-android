@@ -33,7 +33,7 @@ class CategoryFragment : BaseFragment() {
             vm = viewModel
         }
 
-        viewModel.model.provideContext(requireContext())
+      // viewModel.model.provideContext(requireContext())
     }
 
     override fun showBottomBar(): Boolean {

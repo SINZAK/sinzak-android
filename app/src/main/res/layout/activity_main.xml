@@ -37,5 +37,28 @@
             android:background="?attr/colorOnPrimary"
             app:layout_constraintBottom_toBottomOf="parent" />
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="@{viewmodel.netStatus.onRemotePending ? 0 : 8}"
+            android:onClick="@{v->void}">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:visibility="@{viewmodel.netStatus.lottieVisible ? 0 : 8}"
+                android:id="@+id/lottie"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.75"
+                app:lottie_autoPlay="true"
+                app:lottie_ignoreDisabledSystemAnimations="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/lottie_loading"
+              />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

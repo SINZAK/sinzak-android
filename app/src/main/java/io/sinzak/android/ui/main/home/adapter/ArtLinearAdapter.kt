@@ -9,11 +9,14 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.model.GlideUrl
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import io.sinzak.android.constants.CODE_IS_LOGIN
 import io.sinzak.android.databinding.HolderHomeArtLinearBinding
 import io.sinzak.android.databinding.HolderHomeLinearNextBinding
 import io.sinzak.android.remote.dataclass.product.Product
+import io.sinzak.android.system.App.Companion.prefs
 import io.sinzak.android.system.LogDebug
 import io.sinzak.android.system.dp
+
 
 class ArtLinearAdapter(val onNextClick : ()->Unit = {},
                        val onLikeClick : ((Int, Boolean)->Unit)? = null,
@@ -86,11 +89,12 @@ class ArtLinearAdapter(val onNextClick : ()->Unit = {},
                 }
             }
             bind.setOnLikeClick {
-                onLikeClick?.let{c->
-                    bind.product = product.toggleLike()
-                    c(product.id!!,product.like!!)
+                if(prefs.getBoolean(CODE_IS_LOGIN,false))
+                    onLikeClick?.let{c->
+                        bind.product = product.toggleLike()
+                        c(product.id!!,product.like!!)
 
-                }
+                    }
             }
             bind.apply{
                 if(!product.thumbnail.isNullOrEmpty())

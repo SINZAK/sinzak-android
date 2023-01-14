@@ -37,7 +37,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="@string/str_write_spec" />
+                android:text="@{vm.isOnBuild ? @string/str_write_spec : @string/str_write_spec_edit}"
+                />
 
             <Space
                 android:layout_width="24dp"
@@ -65,6 +66,7 @@
                 android:drawableStart="@drawable/ic_gray_dot"/>
 
             <androidx.appcompat.widget.LinearLayoutCompat
+                android:visibility="gone"
                 android:layout_marginTop="12dp"
                 android:id="@+id/linearLayoutCompat"
                 android:layout_width="match_parent"
@@ -106,15 +108,16 @@
                 android:id="@+id/fl_canvas"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:visibility="gone"
                 android:layout_weight="1"
-                android:visibility="@{vm.currentPage == 0 ? 0 : 8}"/>
+                />
 
             <FrameLayout
                 android:id="@+id/fl_dimension"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:visibility="@{vm.currentPage == 1 ? 0 : 8}"/>
+              />
 
 
             <TextView

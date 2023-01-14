@@ -14,7 +14,7 @@ import io.sinzak.android.ui.main.profile.viewmodel.ProfileViewModel
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ArtDetailFragment : BaseFragment() , View.OnClickListener {
+class ArtDetailFragment : BaseFragment(){
 
     lateinit var bind : FragmentArtDetailBinding
 
@@ -22,7 +22,6 @@ class ArtDetailFragment : BaseFragment() , View.OnClickListener {
     lateinit var connect: ArtDetailConnect
 
     private val contentViewModel by activityViewModels<ContentViewModel>()
-    private val reportSendViewModel by activityViewModels<ReportSendViewModel>()
     private val profileViewModel by activityViewModels<ProfileViewModel>()
 
     override fun onResume() {
@@ -84,14 +83,11 @@ class ArtDetailFragment : BaseFragment() , View.OnClickListener {
         ViewArtdetailArtistBinding.inflate(layoutInflater).apply{
             lifecycleOwner = viewLifecycleOwner
             vm = contentViewModel
-            fg = this@ArtDetailFragment
             bind.llContent.addView(root)
         }
     }
 
     private fun inflateSpec(){
-
-        //todo : 표시할 자료 없으면 패스
         ViewArtdetailSpecBinding.inflate(layoutInflater).apply{
             lifecycleOwner = viewLifecycleOwner
             vm = contentViewModel
@@ -116,10 +112,7 @@ class ArtDetailFragment : BaseFragment() , View.OnClickListener {
         }
     }
 
-    override fun onClick(v: View?) {
-        profileViewModel.changeStatus(false)
-        navigator.changePage(Page.PROFILE)
-    }
+
 
 
 }

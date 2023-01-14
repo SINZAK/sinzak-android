@@ -38,11 +38,7 @@ class SpecFragment : BaseFragment() {
         inflateDimension()
 
 
-        invokeBooleanFlow(viewModel.model.flagBuildSuccess){
-            showToast("작성 성공")
-            navigator.changePage(Page.MARKET)
-            viewModel.model.flagBuildSuccess.value = false
-        }
+
 
     }
 

@@ -4,5 +4,5 @@ import com.google.gson.annotations.SerializedName
 import io.sinzak.android.remote.dataclass.CResponse
 
 data class ProductBuildResponse(
-    @SerializedName("id") val id : String? = null
+    @SerializedName("id") val id : Int? = null
 ) : CResponse()
