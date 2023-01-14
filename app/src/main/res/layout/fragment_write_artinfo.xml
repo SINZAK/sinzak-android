@@ -38,7 +38,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="@string/str_write_art_info" />
+                android:text="@{vm.isOnBuild ? @string/str_write_art_info :@string/str_write_art_info_edit}"
+                />
 
             <Space
                 android:layout_width="24dp"
@@ -70,6 +71,7 @@
                 android:layout_marginTop="12dp"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
+                android:text="@{vm.title}"
                 android:background="@drawable/et_gray_filled"
                 android:gravity="center_vertical"
                 android:paddingStart="24dp"
@@ -102,6 +104,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_weight="1"
+                    android:text="@{String.valueOf(vm.price)}"
                     android:onTextChanged="@{(cs,s,e,c)->vm.setPrice(cs)}"
                     android:background="@drawable/et_gray_filled"
                     android:gravity="center"
@@ -158,6 +161,7 @@
             <EditText
                 android:layout_marginTop="12dp"
                 android:layout_width="match_parent"
+                android:text="@{vm.content}"
                 android:onTextChanged="@{(cs,s,e,c)->vm.setContentString(cs)}"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

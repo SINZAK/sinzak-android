@@ -8,6 +8,7 @@ import io.sinzak.android.constants.*
 import io.sinzak.android.enums.SDK
 import io.sinzak.android.model.BaseModel
 import io.sinzak.android.model.GlobalValueModel
+import io.sinzak.android.model.profile.ProfileModel
 import io.sinzak.android.remote.dataclass.CResponse
 import io.sinzak.android.remote.dataclass.local.SchoolData
 import io.sinzak.android.remote.dataclass.request.login.JoinRequest
@@ -37,6 +38,8 @@ class SignModel @Inject constructor(
     val valueModel: GlobalValueModel
 ) : BaseModel() {
 
+
+    @Inject lateinit var profile : ProfileModel
 
     val univList : List<SchoolData> get() = valueModel.univMap.map {
         SchoolData(it.key, it.value)
@@ -279,6 +282,7 @@ class SignModel @Inject constructor(
         setIsLogin(true)
         prefs.setString(ACCESS_TOKEN,response.accessToken)
         prefs.setString(REFRESH_TOKEN,response.refreshToken)
+        profile.getMyProfile()
     }
 
     fun onResponseLogin(response : LoginEmailResponse){

@@ -6,6 +6,7 @@ import io.sinzak.android.constants.CODE_USER_REPORT_ID
 import io.sinzak.android.constants.CODE_USER_REPORT_NAME
 import io.sinzak.android.enums.Page
 import io.sinzak.android.model.market.MarketProductModel
+import io.sinzak.android.model.market.MarketWriteModel
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.ui.main.profile.report.ReportSendViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,6 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ContentViewModel @Inject constructor(
     val model : MarketProductModel,
+    val writeModel: MarketWriteModel
 
 ): BaseViewModel(){
 
@@ -173,7 +175,8 @@ class ContentViewModel @Inject constructor(
     private fun showEditDialog(){
         connect.productEditDialog(
             edit = {
-
+                writeModel.startEdit(product, art.value!!)
+                navigation.changePage(Page.NEW_POST_IMAGE)
             },
             delete = {
                 showDeleteDialog()

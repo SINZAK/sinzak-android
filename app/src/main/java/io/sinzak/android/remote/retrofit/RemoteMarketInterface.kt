@@ -1,5 +1,6 @@
 package io.sinzak.android.remote.retrofit
 
+import com.google.gson.JsonObject
 import io.sinzak.android.remote.dataclass.CResponse
 import io.sinzak.android.remote.dataclass.request.market.ProductBuildRequest
 import io.sinzak.android.remote.dataclass.request.market.ProductLikeRequest
@@ -15,13 +16,22 @@ interface RemoteMarketInterface {
     @POST("api/products/build")
     fun buildMarketProduct(@HeaderMap header: HashMap<String, String>, @Body body : ProductBuildRequest) : Call<ProductBuildResponse>
 
+    @POST("api/products/{id}/edit")
+    fun editMarketProduct(@HeaderMap header: HashMap<String, String>, @Path("id") id : Int, @Body body : ProductBuildRequest) : Call<ProductBuildResponse>
+
+
+
     @POST("api/products/{id}")
     fun getMarketProductDetail(@HeaderMap headerMap: HashMap<String,String>, @Path("id") id : Int) : Call<MarketDetailResponse>
 
 
     @Multipart
     @POST("api/products/{id}/image")
-    fun uploadProductImage(@HeaderMap headerMap: HashMap<String,String>,@Path("id") id : String, @Part parts : List<MultipartBody.Part>) : Call<CResponse>
+    fun uploadProductImage(@HeaderMap headerMap: HashMap<String,String>,@Path("id") id : Int, @Part parts : List<MultipartBody.Part>) : Call<CResponse>
+
+
+    @POST("api/products/{id}/deleteimage")
+    fun deleteProductImage(@HeaderMap headerMap: HashMap<String,String>,@Path("id") id : Int, @Body body : JsonObject) : Call<CResponse>
 
 
     @POST("api/home/products")

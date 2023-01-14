@@ -195,4 +195,7 @@
     <string name="str_detail_on_trading">거래중</string>
     <string name="str_btn_wish">찜하기</string>
     <string name="str_detail_holder_chatcnt">문의 중인 채팅방 %d</string>
+    <string name="str_submiet_picture_edit">사진 수정</string>
+    <string name="str_write_spec_edit">작품 사이즈 수정</string>
+    <string name="str_write_art_info_edit">작품 정보 수정</string>
 </resources>

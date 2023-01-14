@@ -37,7 +37,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="@string/str_submit_picture" />
+                android:text="@{vm.isOnBuild ? @string/str_submit_picture : @string/str_submiet_picture_edit}"
+                />
 
             <Space
                 android:layout_width="24dp"

@@ -1,5 +1,6 @@
 package io.sinzak.android.ui.base
 
+import android.os.Bundle
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
@@ -54,6 +55,12 @@ abstract class BaseViewModel : ViewModel() {
                 onTrue()
             else
                 onFalse()
+        }
+    }
+
+    protected fun requireExtra(onCollected : (Bundle)->Unit){
+        invokeStateFlow(navigation.bundleInserted){
+            navigation.getBundleData(this::class)?.let(onCollected)
         }
     }
 

@@ -1,6 +1,7 @@
 package io.sinzak.android.remote.retrofit
 
 import com.google.gson.Gson
+import com.google.gson.JsonObject
 import io.sinzak.android.constants.*
 import io.sinzak.android.remote.dataclass.CRequest
 import io.sinzak.android.remote.dataclass.CResponse
@@ -104,9 +105,15 @@ class CallImpl(
 
             API_BUILD_MARKET_PRODUCT -> remoteApi.buildMarketProduct(header, requestBody as ProductBuildRequest)
 
+            API_UPDATE_MARKET_PRODUCT -> remoteApi.editMarketProduct(header, paramInt0!!, requestBody as ProductBuildRequest)
+
             API_PRODUCT_UPLOAD_IMG -> remoteApi.uploadProductImage(header.apply{
                 this.remove(CONTENT_TYPE)
-            }, paramStr0!!, multipartList!!)
+            }, paramInt0!!, multipartList!!)
+
+            API_PRODUCT_DELETE_IMG -> remoteApi.deleteProductImage(header,paramInt0!!, JsonObject().apply{
+                addProperty("url",paramStr0!!)
+            })
 
 
 

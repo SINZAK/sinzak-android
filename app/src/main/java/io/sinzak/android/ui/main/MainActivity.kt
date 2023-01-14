@@ -84,6 +84,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
         attachInsetsCallback()
 
+
+
         signModel.checkToken()
     }
 
