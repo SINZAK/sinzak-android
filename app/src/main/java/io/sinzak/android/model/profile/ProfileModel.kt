@@ -21,6 +21,11 @@ class ProfileModel @Inject constructor() : BaseModel() {
 
     val followList = MutableStateFlow<FollowResponse?>(null)
 
+    /**
+     * 프로필 조회를 위해 userId를 저장하는 공간
+     */
+    val currentUserId = MutableStateFlow(0)
+
     fun getUserId() : String?{
         profile.value?.let{
             return it.userId.toString()
@@ -35,9 +40,6 @@ class ProfileModel @Inject constructor() : BaseModel() {
         return null
     }
 
-
-
-
     fun getMyProfile()
     {
         profile.value = null
@@ -49,13 +51,13 @@ class ProfileModel @Inject constructor() : BaseModel() {
         }
     }
 
-    fun getUserProfile(userId : Int)
+    fun getUserProfile()
     {
         profile.value = null
         CallImpl(
             API_GET_USER_PROFILE,
             this,
-            paramInt0 = userId
+            paramInt0 = currentUserId.value
         ).apply {
             remote.sendRequestApi(this)
         }
@@ -133,6 +135,7 @@ class ProfileModel @Inject constructor() : BaseModel() {
             API_GET_MY_PROFILE -> {
                 if (body is UserProfileResponse) {
                     profile.value = body
+                    currentUserId.value = body.userId
                 }
             }
 

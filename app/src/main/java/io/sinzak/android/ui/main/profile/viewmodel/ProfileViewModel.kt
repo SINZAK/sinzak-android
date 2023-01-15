@@ -90,27 +90,27 @@ class ProfileViewModel @Inject constructor(
     /**
      * 유저 아이디
      */
-    val userId = MutableStateFlow(0)
+    val userId get() = model.currentUserId
 
     /***********************************************************************
      * DATA FLOW
      **********************************************************************/
     init {
-        CoroutineScope(Dispatchers.Main).launch {
-            subscribe()
-        }
+//        CoroutineScope(Dispatchers.Main).launch {
+//            subscribe()
+//        }
         collectProfile()
     }
 
-    private fun subscribe() {
-        invokeStateFlow(navigation.bundleInserted){
-            navigation.getBundleData(this::class)?.apply {
-                this.getString(CODE_USER_ID)?.let {
-                    userId.value = it.toInt()
-                }
-            }
-        }
-    }
+//    private fun subscribe() {
+//        invokeStateFlow(navigation.bundleInserted){
+//            navigation.getBundleData(this::class)?.apply {
+//                this.getString(CODE_USER_ID)?.let {
+//                    userId.value = it.toInt()
+//                }
+//            }
+//        }
+//    }
 
     /**
      * 프로필 데이터를 구독하고 필요한 데이터를 분리해 state를 저장해요

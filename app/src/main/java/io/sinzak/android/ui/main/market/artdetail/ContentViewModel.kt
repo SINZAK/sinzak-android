@@ -133,13 +133,14 @@ class ContentViewModel @Inject constructor(
      * 작가 프로필 조회
      */
     fun onClickArtistProfile(){
-        art.value?.let{product->
-            Bundle().apply{
-                putString(CODE_USER_ID, product.authorId)
-                navigation.putBundleData(ProfileViewModel::class,this)
-            }
-            navigation.changePage(Page.PROFILE_OTHER)
-        }
+//        art.value?.let{product->
+//            Bundle().apply{
+//                putString(CODE_USER_ID, product.authorId)
+//                navigation.putBundleData(ProfileViewModel::class,this)
+//            }
+//            navigation.changePage(Page.PROFILE_OTHER)
+//        }
+        navigation.changePage(Page.PROFILE_OTHER)
     }
 
 
@@ -150,7 +151,6 @@ class ContentViewModel @Inject constructor(
 
     init{
         collectArt()
-
 
         useFlag(model.productDeleteSuccessFlag){
             showToast("작품을 삭제했습니다.")
@@ -174,6 +174,8 @@ class ContentViewModel @Inject constructor(
                 product = it.productId
 
                 isMyProduct.value = it.authorId == profileModel.getUserId()
+
+                profileModel.currentUserId.value = it.authorId.toInt()
             }
 
         }

@@ -11,6 +11,7 @@ import io.sinzak.android.databinding.ViewProfileMyprofileBinding
 import io.sinzak.android.databinding.ViewProfileTopAppbarBinding
 import io.sinzak.android.enums.Page
 import io.sinzak.android.model.profile.ProfileModel
+import io.sinzak.android.system.LogDebug
 import io.sinzak.android.ui.base.BaseFragment
 import io.sinzak.android.ui.main.market.artdetail.dialog.ArtistBlockDialog
 import io.sinzak.android.ui.main.market.artdetail.dialog.ArtistReportDialog
@@ -50,6 +51,7 @@ open class ProfileFragment : BaseFragment() {
 
     override fun onFragmentCreated() {
         profileModel.getMyProfile()
+        LogDebug(javaClass.name,"내 프로필 실행")
         inflateChild()
     }
 
