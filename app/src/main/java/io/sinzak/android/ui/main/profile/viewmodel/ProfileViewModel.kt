@@ -2,6 +2,7 @@ package io.sinzak.android.ui.main.profile.viewmodel
 
 import android.os.Bundle
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.sinzak.android.constants.CODE_USER_ID
 import io.sinzak.android.constants.CODE_USER_REPORT_ID
 import io.sinzak.android.constants.CODE_USER_REPORT_NAME
 import io.sinzak.android.enums.Page
@@ -9,8 +10,11 @@ import io.sinzak.android.model.profile.ProfileModel
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.ui.main.profile.ProfileConnect
 import io.sinzak.android.ui.main.profile.report.ReportSendViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -36,13 +40,7 @@ class ProfileViewModel @Inject constructor(
     /**
      * 내 프로필인가?
      */
-    private val _isMyProfile = MutableStateFlow(false)
-    val isMyProfile : StateFlow<Boolean> get() = _isMyProfile
-
-    fun changeStatus(status : Boolean)
-    {
-        _isMyProfile.value = status
-    }
+    val isMyProfile = MutableStateFlow(false)
 
     /**
      * 프로필 이미지 url
@@ -92,13 +90,26 @@ class ProfileViewModel @Inject constructor(
     /**
      * 유저 아이디
      */
-    private var userId = -1
+    val userId = MutableStateFlow(0)
 
     /***********************************************************************
      * DATA FLOW
      **********************************************************************/
     init {
+        CoroutineScope(Dispatchers.Main).launch {
+            subscribe()
+        }
         collectProfile()
+    }
+
+    private fun subscribe() {
+        invokeStateFlow(navigation.bundleInserted){
+            navigation.getBundleData(this::class)?.apply {
+                this.getString(CODE_USER_ID)?.let {
+                    userId.value = it.toInt()
+                }
+            }
+        }
     }
 
     /**
@@ -108,6 +119,8 @@ class ProfileViewModel @Inject constructor(
     {
         invokeStateFlow(profile) {profile ->
             profile?.let {
+                isMyProfile.value = it.myProfile
+
                 profileImg.value = it.imageUrl
                 name.value = it.name
                 isCertify.value = it.cert_uni
@@ -118,7 +131,7 @@ class ProfileViewModel @Inject constructor(
                 introduction.value = it.introduction
                 isFollow.value = it.ifFollow
 
-                userId = it.userId.toInt()
+                userId.value = it.userId
             }
         }
     }
@@ -132,7 +145,7 @@ class ProfileViewModel @Inject constructor(
      */
     fun toggleFollow()
     {
-        profileModel.followUser(userId,isFollow.value)
+        profileModel.followUser(userId.value,isFollow.value)
         isFollow.value = !isFollow.value
         follower.value = follower.value + if (isFollow.value) 1 else -1
     }
@@ -190,7 +203,7 @@ class ProfileViewModel @Inject constructor(
         profile.value?.let{profile->
             Bundle().apply{
                 putString(CODE_USER_REPORT_NAME, profile.name)
-                putString(CODE_USER_REPORT_ID, profile.userId)
+                putString(CODE_USER_REPORT_ID, profile.userId.toString())
                 navigation.putBundleData(ReportSendViewModel::class,this)
             }
             navigation.changePage(Page.PROFILE_REPORT_TYPE)

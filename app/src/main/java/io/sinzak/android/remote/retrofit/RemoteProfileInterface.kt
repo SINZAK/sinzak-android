@@ -14,13 +14,13 @@ import retrofit2.http.Path
 
 interface RemoteProfileInterface {
     @GET("api/users/{userId}/profile")
-    fun getUserProfile(@HeaderMap header: HashMap<String,String>, @Path("userId") userId : String) : Call<UserProfileResponse>
+    fun getUserProfile(@HeaderMap header: HashMap<String,String>, @Path("userId") userId : Int) : Call<UserProfileResponse>
 
     @GET("api/users/{userId}/followers")
-    fun getFollowerList(@HeaderMap header: HashMap<String,String>, @Path("userId") userId : String) : Call<FollowResponse>
+    fun getFollowerList(@HeaderMap header: HashMap<String,String>, @Path("userId") userId : Int) : Call<FollowResponse>
 
     @GET("api/users/{userId}/followings")
-    fun getFollowingList(@HeaderMap header: HashMap<String,String>, @Path("userId") userId : String) : Call<FollowResponse>
+    fun getFollowingList(@HeaderMap header: HashMap<String,String>, @Path("userId") userId : Int) : Call<FollowResponse>
 
     @GET("api/users/my-profile")
     fun getMyProfile(@HeaderMap header: HashMap<String,String>) : Call<UserProfileResponse>

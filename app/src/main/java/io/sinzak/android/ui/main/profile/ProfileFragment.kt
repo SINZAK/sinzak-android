@@ -23,15 +23,13 @@ import io.sinzak.android.ui.main.profile.viewmodel.ProfileWorkViewModel
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ProfileFragment : BaseFragment() {
+open class ProfileFragment : BaseFragment() {
 
     private lateinit var bind : FragmentProfileBinding
 
-    private val viewModel by activityViewModels<ProfileViewModel>()
+    protected val viewModel by activityViewModels<ProfileViewModel>()
     private val profileSaleViewModel by activityViewModels<ProfileSaleViewModel>()
     private val profileWorkViewModel by activityViewModels<ProfileWorkViewModel>()
-
-    private val contentViewModel by activityViewModels<ContentViewModel>()
 
     @Inject
     lateinit var profileModel: ProfileModel
@@ -51,13 +49,7 @@ class ProfileFragment : BaseFragment() {
     }
 
     override fun onFragmentCreated() {
-
-        if(viewModel.isMyProfile.value) {
-            profileModel.getMyProfile()
-        }
-        else {
-            profileModel.getUserProfile(contentViewModel.art.value!!.authorId)
-        }
+        profileModel.getMyProfile()
         inflateChild()
     }
 
@@ -66,7 +58,7 @@ class ProfileFragment : BaseFragment() {
     }
 
     override fun navigateOnBackPressed() {
-        if (!viewModel.isMyProfile.value) navigator.revealHistory()
+
     }
 
     /**************v
@@ -78,6 +70,16 @@ class ProfileFragment : BaseFragment() {
         inflateAppbar()
         inflateMyProfile()
         inflateLinkList()
+        inflateArtSale()
+        inflateArtWork()
+    }
+
+    /**
+     * 타인 프로필의 뷰 인플레이팅
+     */
+    protected fun inflateOtherChild(){
+        inflateAppbar()
+        inflateMyProfile()
         inflateArtSale()
         inflateArtWork()
     }

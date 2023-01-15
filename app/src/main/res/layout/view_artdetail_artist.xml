@@ -21,7 +21,8 @@
             android:layout_height="84dp"
             android:layout_marginHorizontal="22dp"
             android:layout_weight="1"
-            android:gravity="center">
+            android:gravity="center"
+            android:onClick="@{v-> vm.onClickArtistProfile()}">
 
             <ImageView
                 android:layout_width="42dp"

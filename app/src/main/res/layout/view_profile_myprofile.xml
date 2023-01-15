@@ -43,7 +43,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="24dp">
+            android:layout_marginBottom="24dp"
+            android:visibility="@{vm.university==null ? 8 : 0}">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -95,7 +96,7 @@
             <Space
                 android:layout_width="30dp"
                 android:layout_height="wrap_content"
-                android:visibility="@{vm.isMyProfile ? 0 : 8}"
+                android:visibility="@{!vm.isMyProfile ? 0 : 8}"
                 />
             <TextView
                 android:layout_width="wrap_content"
@@ -114,7 +115,8 @@
             style="@style/regular13"
             android:text="@{vm.introduction}"
             android:textAlignment="center"
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginBottom="20dp"
+            android:visibility="@{vm.introduction == null ? 8 : 0}"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"

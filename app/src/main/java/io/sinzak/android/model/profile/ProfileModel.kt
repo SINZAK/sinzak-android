@@ -23,7 +23,7 @@ class ProfileModel @Inject constructor() : BaseModel() {
 
     fun getUserId() : String?{
         profile.value?.let{
-            return it.userId
+            return it.userId.toString()
         }
         return null
     }
@@ -49,37 +49,37 @@ class ProfileModel @Inject constructor() : BaseModel() {
         }
     }
 
-    fun getUserProfile(userId : String)
+    fun getUserProfile(userId : Int)
     {
         profile.value = null
         CallImpl(
             API_GET_USER_PROFILE,
             this,
-            paramStr0 = userId
+            paramInt0 = userId
         ).apply {
             remote.sendRequestApi(this)
         }
     }
 
-    fun getFollowerList(userId : String)
+    fun getFollowerList(userId : Int)
     {
         followList.value = null
         CallImpl(
             API_GET_FOLLOWER_LIST,
             this,
-            paramStr0 = userId
+            paramInt0 = userId
         ).apply {
             remote.sendRequestApi(this)
         }
     }
 
-    fun getFollowingList(userId : String)
+    fun getFollowingList(userId : Int)
     {
         followList.value = null
         CallImpl(
             API_GET_FOLLOWING_LIST,
             this,
-            paramStr0 = userId
+            paramInt0 = userId
         ).apply {
             remote.sendRequestApi(this)
         }

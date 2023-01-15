@@ -13,5 +13,5 @@ data class UserProfileResponse (
     @SerializedName("myProfile") val myProfile : Boolean = false,
     @SerializedName("name") val name : String ="",
     @SerializedName("univ") val univ : String = "",
-    @SerializedName("userId") val userId : String
+    @SerializedName("userId") val userId : Int
     ) : CResponse()

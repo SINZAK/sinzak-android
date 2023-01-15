@@ -2,6 +2,7 @@ package io.sinzak.android.ui.main.market.artdetail
 
 import android.os.Bundle
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.sinzak.android.constants.CODE_USER_ID
 import io.sinzak.android.constants.CODE_USER_REPORT_ID
 import io.sinzak.android.constants.CODE_USER_REPORT_NAME
 import io.sinzak.android.enums.Page
@@ -9,14 +10,14 @@ import io.sinzak.android.model.market.ProductDetailModel
 import io.sinzak.android.model.market.MarketWriteModel
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.ui.main.profile.report.ReportSendViewModel
+import io.sinzak.android.ui.main.profile.viewmodel.ProfileViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 
 @HiltViewModel
 class ContentViewModel @Inject constructor(
     val model : ProductDetailModel,
-    val writeModel: MarketWriteModel
-
+    val writeModel: MarketWriteModel,
 ): BaseViewModel(){
 
     private var _connect : ArtDetailConnect? = null
@@ -128,6 +129,18 @@ class ContentViewModel @Inject constructor(
 
     }
 
+    /**
+     * 작가 프로필 조회
+     */
+    fun onClickArtistProfile(){
+        art.value?.let{product->
+            Bundle().apply{
+                putString(CODE_USER_ID, product.authorId)
+                navigation.putBundleData(ProfileViewModel::class,this)
+            }
+            navigation.changePage(Page.PROFILE_OTHER)
+        }
+    }
 
 
     /***********************************************************************
