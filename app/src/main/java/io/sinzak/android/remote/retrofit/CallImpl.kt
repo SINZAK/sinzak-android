@@ -126,6 +126,25 @@ class CallImpl(
 
 
 
+            API_BUILD_MARKET_WORK -> remoteApi.buildMarketWork(header, requestBody as ProductBuildRequest)
+
+            API_UPDATE_MARKET_WORK -> remoteApi.editMarketWork(header, paramInt0!!, requestBody as ProductBuildRequest)
+
+            API_WORK_UPLOAD_IMG -> remoteApi.uploadWorkImage(header.apply{
+                this.remove(CONTENT_TYPE)
+            }, paramInt0!!, multipartList!!)
+
+            API_WORK_DELETE_IMG -> remoteApi.deleteWorkImage(header,paramInt0!!, JsonObject().apply{
+                addProperty("url",paramStr0!!)
+            })
+
+            API_DELETE_MARKET_WORK -> remoteApi.deleteWork(header,paramInt0!!)
+
+
+
+
+
+
 
             API_GET_PRODUCT_DETAIL -> remoteApi.getMarketProductDetail(header,paramInt0!!)
 

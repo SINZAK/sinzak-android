@@ -25,6 +25,7 @@ class CategoryViewModel @Inject constructor(
         if(this.currentField.value != currentField)
         {
             this.currentField.value = currentField
+            model.setProductType(currentField)
             categorySelected.value = listOf()
         }
     }
@@ -53,6 +54,12 @@ class CategoryViewModel @Inject constructor(
         )
     }
 
+
+    init{
+        invokeBooleanFlow(model.flagPrepareBuild){
+            categorySelected.value = listOf()
+        }
+    }
 
 
 

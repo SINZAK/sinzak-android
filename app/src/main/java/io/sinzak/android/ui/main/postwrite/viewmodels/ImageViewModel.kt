@@ -4,9 +4,11 @@ import android.net.Uri
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.sinzak.android.constants.CODE_ON_EDIT
+import io.sinzak.android.enums.Page
 import io.sinzak.android.model.market.MarketWriteModel
 import io.sinzak.android.system.LogDebug
 import io.sinzak.android.ui.base.BaseViewModel
+import io.sinzak.android.ui.main.postwrite.WriteConnect
 import io.sinzak.android.ui.main.postwrite.adapter.ImageAdapter
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -15,7 +17,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ImageViewModel @Inject constructor(
-    val model: MarketWriteModel
+    val model: MarketWriteModel,
+    val connect: WriteConnect
 ) : BaseViewModel() {
     private val imgUris: MutableList<String> = mutableListOf()
 
@@ -92,8 +95,23 @@ class ImageViewModel @Inject constructor(
 
     }
 
+    fun onBackPressed(){
+        navigation.revealHistory()
+    }
+
+    fun loadImage(){
+        connect.loadImage {
+            insertImg(it)
+        }
+    }
+
     fun submit() {
         model.setImgUri(imgUris.toMutableList())
+
+        if(model.productType.value == 0)
+            navigation.changePage(Page.NEW_POST_INFO)
+        else
+            navigation.changePage(Page.NEW_POST_WORKINFO)
     }
 
 }

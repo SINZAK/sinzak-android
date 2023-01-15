@@ -41,6 +41,42 @@ interface RemoteMarketInterface {
 
 
 
+
+
+
+
+
+    @POST("api/works/build")
+    fun buildMarketWork(@HeaderMap header: HashMap<String, String>, @Body body : ProductBuildRequest) : Call<ProductBuildResponse>
+
+    @POST("api/works/{id}/edit")
+    fun editMarketWork(@HeaderMap header: HashMap<String, String>, @Path("id") id : Int, @Body body : ProductBuildRequest) : Call<ProductBuildResponse>
+
+
+
+    @POST("api/works/{id}")
+    fun getMarketWorkDetail(@HeaderMap headerMap: HashMap<String,String>, @Path("id") id : Int) : Call<MarketDetailResponse>
+
+
+    @Multipart
+    @POST("api/works/{id}/image")
+    fun uploadWorkImage(@HeaderMap headerMap: HashMap<String,String>,@Path("id") id : Int, @Part parts : List<MultipartBody.Part>) : Call<CResponse>
+
+
+    @POST("api/works/{id}/deleteimage")
+    fun deleteWorkImage(@HeaderMap headerMap: HashMap<String,String>,@Path("id") id : Int, @Body body : JsonObject) : Call<CResponse>
+
+    @POST("api/works/{id}/delete")
+    fun deleteWork(@HeaderMap headerMap: HashMap<String,String>,@Path("id") id : Int) : Call<CResponse>
+
+
+
+
+
+
+
+
+
     @POST("api/home/products")
     fun getHomeProducts(@HeaderMap headerMap : HashMap<String,String>) : Call<MarketHomeResponse>
 

@@ -55,7 +55,12 @@ class MarketWriteModel @Inject constructor(@ApplicationContext val context : Con
     val flagBuildSuccess = MutableStateFlow(false)
 
 
+    val productType = MutableStateFlow(0) // 0 : Art, 1 : Work Buy 2 : Work Sell
 
+
+    fun setProductType(type : Int){
+        productType.value = type
+    }
 
     /************************************************
      * Flag
@@ -191,11 +196,25 @@ class MarketWriteModel @Inject constructor(@ApplicationContext val context : Con
 
 
     fun doneInput(){
-        if(isBuildMode.value)
-            buildProduct()
-        else
-            updateProduct()
+        if(productType.value == 0)
+        {
+            if(isBuildMode.value)
+                buildProduct()
+            else
+                updateProduct()
+        }
+        else{
+            if(isBuildMode.value)
+                buildWork()
+            else
+                updateWork()
+        }
+
     }
+
+    /**********************************************************************************************************************
+     * REQUEST ( MARKET PRODUCT )
+     ***********************************************************************************************************************/
 
     /**
      * 정보를 조합하여 build api 를 요청합니다.
@@ -239,6 +258,49 @@ class MarketWriteModel @Inject constructor(@ApplicationContext val context : Con
         }
     }
 
+
+    /**********************************************************************************************************************
+     * REQUEST ( WORK PRODUCT )
+     ***********************************************************************************************************************/
+
+    private fun buildWork(){
+        val request = ProductBuildRequest(
+            title = title,
+            category = categoryText,
+            priceSuggest = canSuggestPrice,
+            content = content
+        )
+        remote.sendRequestApi(
+            CallImpl(
+                API_BUILD_MARKET_WORK,
+                this,
+                request
+            )
+        )
+
+    }
+
+
+
+
+    private fun updateWork(){
+        val request = ProductBuildRequest(
+            title = title,
+            priceSuggest = canSuggestPrice,
+            content = content
+        )
+        remote.sendRequestApi(
+            CallImpl(
+                API_UPDATE_MARKET_WORK,
+                this,
+                request
+            )
+        )
+
+
+    }
+
+
     /**
      * 현재 가지고 있는 비트맵을 모두 업로드합니다.
      */
@@ -248,15 +310,35 @@ class MarketWriteModel @Inject constructor(@ApplicationContext val context : Con
 
         imgUris = listOf()
 
-
-        CallImpl(API_PRODUCT_UPLOAD_IMG, this, paramInt0 = id, multipartList = requestBodies).apply{
-            remote.sendRequestApi(this)
-        }
+        if(productType.value == 0)
+            CallImpl(API_PRODUCT_UPLOAD_IMG, this, paramInt0 = id, multipartList = requestBodies).apply{
+                remote.sendRequestApi(this)
+            }
+        else
+            CallImpl(API_WORK_UPLOAD_IMG, this, paramInt0 = id, multipartList = requestBodies).apply{
+                remote.sendRequestApi(this)
+            }
     }
 
     /**
      * 이미지를 삭제합니다.
      */
+
+    private fun deleteImg(){
+
+        val url = deleteUris[0]
+        deleteUris.removeAt(0)
+
+        if(productType.value == 0)
+            CallImpl(API_PRODUCT_DELETE_IMG, this, paramStr0 = url, paramInt0 = productId).apply{
+                remote.sendRequestApi(this)
+            }
+        else
+            CallImpl(API_WORK_DELETE_IMG, this, paramStr0 = url, paramInt0 = productId).apply{
+                remote.sendRequestApi(this)
+            }
+
+    }
 
 
     private fun checkImage(){
@@ -275,15 +357,7 @@ class MarketWriteModel @Inject constructor(@ApplicationContext val context : Con
             flagBuildSuccess.value = true
     }
 
-    private fun deleteImg(){
 
-        val url = deleteUris[0]
-        deleteUris.removeAt(0)
-        CallImpl(API_PRODUCT_DELETE_IMG, this, paramStr0 = url, paramInt0 = productId).apply{
-            remote.sendRequestApi(this)
-        }
-
-    }
 
 
     override fun onConnectionSuccess(api: Int, body: CResponse) {
@@ -302,17 +376,27 @@ class MarketWriteModel @Inject constructor(@ApplicationContext val context : Con
                 }
             }
 
-            API_PRODUCT_UPLOAD_IMG ->{
+            API_BUILD_MARKET_WORK ->{
+                if(body.success == true){
+                    body as ProductBuildResponse
+                    productId = body.id!!
+                    checkUploadImage()
+                }
+            }
+
+            API_UPDATE_MARKET_WORK ->{
+                if(body.success == true){
+                    checkImage()
+                }
+            }
+
+            API_PRODUCT_UPLOAD_IMG, API_WORK_UPLOAD_IMG ->{
                 if(body.success == true)
                     checkUploadImage()
             }
 
-            API_EDIT_MY_PROFILE ->{
-                if(body.success == true)
-                    checkImage()
-            }
 
-            API_PRODUCT_DELETE_IMG ->{
+            API_PRODUCT_DELETE_IMG, API_WORK_DELETE_IMG ->{
                 checkImage()
             }
         }

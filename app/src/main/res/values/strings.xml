@@ -203,4 +203,6 @@
     <string name="str_welcome_sub">신작에 가입이 완료되었습니다.\n이제 자유롭게 작품을 탐색하고 거래해보세요.</string>
     <string name="str_welcome_title">Welcome!</string>
     <string name="str_welcome_done">작품 보러가기</string>
+    <string name="str_write_work_content">의뢰 내용</string>
+    <string name="str_title">제목</string>
 </resources>

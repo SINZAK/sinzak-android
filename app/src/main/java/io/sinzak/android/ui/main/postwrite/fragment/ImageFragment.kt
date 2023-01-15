@@ -31,23 +31,15 @@ class ImageFragment : BaseFragment() {
     override fun showBottomBar(): Boolean = false
 
     override fun onFragmentCreated() {
-        bind.fg = this
         bind.vm = viewModel
         bind.lifecycleOwner = this
+
+        viewModel.connect.registerActivity(requireActivity() as BaseActivity<*>)
 
         viewModel.initData()
     }
 
 
-    fun moveToInfo(){
-        navigator.changePage(Page.NEW_POST_INFO)
-    }
 
-
-    fun loadImage(){
-        FileUtil.pickFromGallery(requireActivity() as BaseActivity<*>){
-            viewModel.insertImg(it[0])
-        }
-    }
 
 }

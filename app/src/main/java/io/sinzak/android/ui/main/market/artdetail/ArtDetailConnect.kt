@@ -6,6 +6,8 @@ import dagger.hilt.android.qualifiers.ActivityContext
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import dagger.hilt.android.scopes.ActivityScoped
+import io.sinzak.android.enums.Page
+import io.sinzak.android.model.navigate.Navigation
 import io.sinzak.android.ui.main.market.artdetail.dialog.ArtistBlockDialog
 import io.sinzak.android.ui.main.market.artdetail.dialog.ArtistReportDialog
 import io.sinzak.android.ui.main.market.artdetail.dialog.ProductDeleteDialog
@@ -15,7 +17,8 @@ import javax.inject.Singleton
 
 
 @ActivityScoped
-class ArtDetailConnect @Inject constructor(@ActivityContext val context: Context) {
+class ArtDetailConnect @Inject constructor(@ActivityContext val context: Context,
+val navigation: Navigation) {
 
 
 

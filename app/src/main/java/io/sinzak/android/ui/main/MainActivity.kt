@@ -25,10 +25,7 @@ import io.sinzak.android.ui.main.market.MarketFragment
 import io.sinzak.android.ui.main.market.artdetail.ArtDetailFragment
 import io.sinzak.android.ui.main.market.artdetail.suggest.SuggestFragment
 import io.sinzak.android.ui.main.outsourcing.OutsourcingFragment
-import io.sinzak.android.ui.main.postwrite.fragment.ArtInfoFragment
-import io.sinzak.android.ui.main.postwrite.fragment.CategoryFragment
-import io.sinzak.android.ui.main.postwrite.fragment.ImageFragment
-import io.sinzak.android.ui.main.postwrite.fragment.SpecFragment
+import io.sinzak.android.ui.main.postwrite.fragment.*
 import io.sinzak.android.ui.main.profile.ProfileFragment
 import io.sinzak.android.ui.main.profile.certification.CertificationFragment
 import io.sinzak.android.ui.main.profile.certification.VerifyFragment
@@ -175,7 +172,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     inflateProfileFragments(page)
 
 
-                NEW_POST, NEW_POST_IMAGE, NEW_POST_INFO, NEW_POST_SPEC ->
+                NEW_POST, NEW_POST_IMAGE, NEW_POST_INFO, NEW_POST_SPEC, NEW_POST_WORKINFO ->
                     inflateWriteFragments(page)
 
                 PROFILE_WEBMAIL ->
@@ -205,6 +202,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             NEW_POST -> CategoryFragment()
             NEW_POST_IMAGE -> ImageFragment()
             NEW_POST_SPEC -> SpecFragment()
+            NEW_POST_WORKINFO -> ArtWorkFragment()
             else -> ArtInfoFragment()
         }
     }

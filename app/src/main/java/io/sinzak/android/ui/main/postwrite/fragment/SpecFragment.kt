@@ -2,6 +2,7 @@ package io.sinzak.android.ui.main.postwrite.fragment
 
 import android.view.View
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import io.sinzak.android.databinding.FragmentWriteSpecBinding
 import io.sinzak.android.databinding.ViewWriteCanvasBinding
@@ -16,7 +17,7 @@ class SpecFragment : BaseFragment() {
 
     lateinit var bind : FragmentWriteSpecBinding
 
-    val viewModel by activityViewModels<SpecViewModel>()
+    val viewModel by viewModels<SpecViewModel>()
 
     override fun getFragmentRoot(): View {
         bind = FragmentWriteSpecBinding.inflate(layoutInflater)
