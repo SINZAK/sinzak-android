@@ -34,14 +34,13 @@ class InterestFragment : BaseFragment() {
         bind.apply{
             lifecycleOwner = viewLifecycleOwner
             vm = viewModel
-            fg = this@InterestFragment
         }
 
         inflateDesignChips(viewModel.chosenDesignChip.value)
         inflatePureChips(viewModel.chosenPureChip.value)
     }
 
-    fun inflateDesignChips(chosenChip : MutableList<String>) : Boolean{
+    private fun inflateDesignChips(chosenChip : MutableList<String>) : Boolean{
 
         bind.cgDesign.removeAllViews()
         for (genre in viewModel.genreDesign) {
@@ -61,7 +60,7 @@ class InterestFragment : BaseFragment() {
         return true
     }
 
-    fun inflatePureChips(chosenChip : MutableList<String>) : Boolean{
+    private fun inflatePureChips(chosenChip : MutableList<String>) : Boolean{
 
         bind.cgPure.removeAllViews()
         for (genre in viewModel.genrePure) {

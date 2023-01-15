@@ -1,8 +1,12 @@
 package io.sinzak.android.remote.dataclass.local
 
+import com.google.gson.annotations.SerializedName
+
 data class BannerData(
     val bannerMode : Int = BANNER_MAIN,
-    val bannerImageUrl : String? = null,
+    @SerializedName("title") val title : String? = "",
+    @SerializedName("content") val content : String? = "",
+    @SerializedName("imageUrl") val bannerImageUrl : String? = null,
     val bannerDrawableId : Int? = null
 ){
 

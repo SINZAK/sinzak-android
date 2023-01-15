@@ -5,6 +5,7 @@ import io.sinzak.android.enums.Page
 import io.sinzak.android.model.market.ProductDetailModel
 import io.sinzak.android.model.market.MarketWriteModel
 import io.sinzak.android.ui.base.BaseViewModel
+import io.sinzak.android.ui.main.postwrite.WriteConnect
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
@@ -12,7 +13,8 @@ import javax.inject.Inject
 @HiltViewModel
 class SpecViewModel @Inject constructor(
     val model: MarketWriteModel,
-    val productModel: ProductDetailModel
+    val productModel: ProductDetailModel,
+    val connect: WriteConnect
 ) : BaseViewModel() {
 
     private val _currentPage = MutableStateFlow(0)
@@ -27,16 +29,11 @@ class SpecViewModel @Inject constructor(
 
     init {
         invokeBooleanFlow(model.flagBuildSuccess) {
+            uiModel.showToast("작성 완료")
 
             productModel.loadProduct(model.getProductId())
-            navigation.removeHistory(Page.NEW_POST_IMAGE)
-            navigation.removeHistory(Page.NEW_POST_INFO)
-            navigation.removeHistory(Page.NEW_POST)
-            navigation.removeHistory(Page.ART_DETAIL)
-            navigation.changePage(Page.ART_DETAIL)
-            navigation.removeHistory(Page.NEW_POST_SPEC)
+            connect.gotoDetailAfterBuild()
 
-            uiModel.showToast("작성 완료")
             model.flagBuildSuccess.value = false
 
         }

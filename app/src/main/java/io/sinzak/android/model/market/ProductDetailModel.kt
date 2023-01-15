@@ -22,12 +22,20 @@ class ProductDetailModel @Inject constructor() : BaseModel() {
     val productDeleteSuccessFlag = MutableStateFlow(false)
 
 
+    val itemType = MutableStateFlow(0) // 0 : product, 1 : work
+
+
 
     fun loadProduct(id : Int){
         art.value = null
+        itemType.value = 0
         CallImpl(API_GET_PRODUCT_DETAIL, this,paramInt0 = id).apply{
             remote.sendRequestApi(this)
         }
+    }
+
+    fun loadWork(id : Int){
+        itemType.value = 1
     }
 
 

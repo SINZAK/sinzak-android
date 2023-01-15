@@ -114,7 +114,7 @@
                 android:background="@drawable/btn_gray_filled"
                 android:gravity="center"
 
-                android:onClick="@{v->fg.gotoRegisterComplete()}"/>
+                android:onClick="@{v->vm.onCancel()}"/>
             <Space
                 android:layout_width="11dp"
                 android:layout_height="match_parent"/>
@@ -129,7 +129,7 @@
                 android:gravity="center"
 
                 android:enabled="@{vm.schoolInserted}"
-                android:onClick="@{v->vm.onSubmit() &amp; fg.gotoSchoolAuth()}"/>
+                android:onClick="@{v->vm.onSubmit()}"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

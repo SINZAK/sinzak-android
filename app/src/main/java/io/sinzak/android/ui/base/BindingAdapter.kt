@@ -64,6 +64,14 @@ fun requestFocus(view: EditText, focus: Boolean, soft: SoftKeyModel) {
     }
 }
 
+@BindingAdapter("onFocused")
+fun onFocused(view : EditText, action : View.OnClickListener){
+    view.setOnFocusChangeListener { view, t ->
+        if(t)
+            action.onClick(view)
+    }
+}
+
 
 @BindingAdapter("remoteImgUrl", "cornerRadius")
 fun setImg(view: ImageView, url: String?, radius: Float) {

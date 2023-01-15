@@ -5,13 +5,14 @@ import io.sinzak.android.enums.RegisterPage
 import io.sinzak.android.model.context.SignModel
 import io.sinzak.android.model.navigate.RegisterNavigation
 import io.sinzak.android.ui.base.BaseViewModel
+import io.sinzak.android.ui.login.RegisterConnect
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
 @HiltViewModel
 class NameViewModel @Inject constructor(
-    val regNav: RegisterNavigation
+    val connect: RegisterConnect
     ) :
     BaseViewModel() {
 
@@ -47,6 +48,10 @@ class NameViewModel @Inject constructor(
 
         signModel.setUsername(typedName)
 
-        regNav.changePage(RegisterPage.PAGE_INTEREST)
+        connect.gotoCategoryPage()
+    }
+
+    fun onBackPressed(){
+        navigation.revealHistory()
     }
 }

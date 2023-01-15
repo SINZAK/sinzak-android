@@ -5,6 +5,7 @@ import io.sinzak.android.enums.RegisterPage
 import io.sinzak.android.model.context.SignModel
 import io.sinzak.android.model.navigate.RegisterNavigation
 import io.sinzak.android.ui.base.BaseViewModel
+import io.sinzak.android.ui.login.RegisterConnect
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 import kotlin.math.sign
@@ -12,7 +13,7 @@ import kotlin.math.sign
 
 @HiltViewModel
 class InterestViewModel @Inject constructor(
-    val regNav: RegisterNavigation
+    val connect: RegisterConnect
 ) : BaseViewModel() {
 
     val genrePure = listOf("회화일반", "동양화", "조소", "판화", "공예", "초상화", "기타")
@@ -47,7 +48,12 @@ class InterestViewModel @Inject constructor(
         signModel.setInterests(
             chosenDesignChip.value + chosenPureChip.value
         )
-        regNav.changePage(RegisterPage.PAGE_UNIVERSITY)
+        connect.gotoUnivPage()
+    }
+
+
+    fun onBackPressed(){
+        connect.navigation.revealHistory()
     }
 
 

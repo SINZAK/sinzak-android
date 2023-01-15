@@ -9,11 +9,11 @@ import io.sinzak.android.ui.base.BaseFragment
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class CertificationFragment : BaseFragment() {
+open class CertificationFragment : BaseFragment() {
 
     private lateinit var bind : FragmentCertificationBinding
 
-    private val viewModel : CertificationViewModel by activityViewModels()
+    open val viewModel : CertificationViewModel by activityViewModels()
 
 
     override fun getFragmentRoot(): View {
@@ -37,14 +37,5 @@ class CertificationFragment : BaseFragment() {
         navigator.revealHistory()
     }
 
-    //학교 인증으로
-    fun gotoSchoolAuth() {
-        if(navigator.topPage.value==Page.PROFILE_CERTIFICATION)
-            navigator.changePage(Page.PROFILE_WEBMAIL)
-    }
-    //가입 완료 화면으로
-    fun gotoRegisterComplete(){
-
-    }
 
 }

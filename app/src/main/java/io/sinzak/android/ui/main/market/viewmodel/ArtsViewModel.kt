@@ -7,23 +7,34 @@ import io.sinzak.android.model.market.MarketArtModel
 import io.sinzak.android.model.market.ProductDetailModel
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.ui.main.market.adapter.ArtProductAdapter
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @HiltViewModel
-class ArtsViewModel @Inject constructor(val md : MarketArtModel, val productModel: ProductDetailModel) : BaseViewModel() {
+class ArtsViewModel @Inject constructor(
+    val md: MarketArtModel,
+    val productModel: ProductDetailModel
+) : BaseViewModel() {
 
 
-    val adapter = ArtProductAdapter(productModel::postProductLike){
-        p ->
+    val adapter = ArtProductAdapter(productModel::postProductLike) { p ->
         productModel.loadProduct(p.id!!)
         navigation.changePage(Page.ART_DETAIL)
-    }.apply{
+    }.apply {
         md.marketProducts.onEach {
             setProducts(it)
         }.launchIn(viewModelScope)
     }
 
-    val productList = md.marketProducts
+
+    val stShowOnSale: StateFlow<Boolean> get() = md.stShowOnSale
+
+
+    fun toggleShowOnSale() {
+        md.onClickShowOnSale(!stShowOnSale.value)
+    }
+
+
 }

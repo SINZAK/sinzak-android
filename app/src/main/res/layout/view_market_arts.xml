@@ -21,13 +21,13 @@
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_marginStart="16dp"
                 android:layout_width="wrap_content"
-                android:onClick="@{v->vm.md.onClickShowOnSale(vm.md.stShowOnSale)}"
+                android:onClick="@{v->vm.toggleShowOnSale()}"
                 android:id="@+id/btn_show_on_sale"
                 android:layout_height="wrap_content">
                 <CheckBox
                     android:layout_width="22dp"
                     android:layout_height="22dp"
-                    android:checked="@{vm.md.stShowOnSale}"
+                    android:checked="@{vm.stShowOnSale}"
                     android:clickable="false"
                     android:button="@null"
                     android:background="@drawable/ic_checkbox_r"/>
