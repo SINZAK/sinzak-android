@@ -1,13 +1,13 @@
 package io.sinzak.android.ui.main.market.artdetail.suggest
 
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.sinzak.android.model.market.MarketProductModel
+import io.sinzak.android.model.market.ProductDetailModel
 import io.sinzak.android.ui.base.BaseViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class SuggestViewModel @Inject constructor(
-    val model : MarketProductModel
+    val model : ProductDetailModel
 ) : BaseViewModel() {
 
     private var price : Int = 0
@@ -22,7 +22,7 @@ class SuggestViewModel @Inject constructor(
 
 
     fun onClickSuggest(){
-
+        model.postProductSuggest(productId, price)
 
     }
 
@@ -42,6 +42,7 @@ class SuggestViewModel @Inject constructor(
 
     init{
         collectArt()
+        collectSuccessFlag()
     }
 
     private fun collectArt(){
@@ -50,6 +51,13 @@ class SuggestViewModel @Inject constructor(
                 productId = p.productId
             }
 
+        }
+    }
+
+    private fun collectSuccessFlag(){
+        useFlag(model.productSuggestSuccessFlag){
+            navigation.revealHistory()
+            uiModel.showToast("가격제안을 전송했습니다.")
         }
     }
 }

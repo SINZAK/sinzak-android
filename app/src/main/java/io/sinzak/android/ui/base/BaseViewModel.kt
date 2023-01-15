@@ -12,6 +12,7 @@ import io.sinzak.android.model.navigate.Navigation
 import io.sinzak.android.model.profile.ProfileModel
 import io.sinzak.android.system.App
 import io.sinzak.android.system.LogDebug
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -55,6 +56,16 @@ abstract class BaseViewModel : ViewModel() {
                 onTrue()
             else
                 onFalse()
+        }
+    }
+
+    /**
+     * true 일때 활성화 된 이후 자동으로 flag 를 false 처리합니다.
+     */
+    fun useFlag(state : MutableStateFlow<Boolean>, onFlag : ()->Unit){
+        invokeBooleanFlow(state){
+            onFlag()
+            state.value = false
         }
     }
 

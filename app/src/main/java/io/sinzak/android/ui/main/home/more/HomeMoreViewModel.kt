@@ -4,7 +4,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import io.sinzak.android.R
 import io.sinzak.android.enums.HomeMore.*
 import io.sinzak.android.model.market.HomeProductModel
-import io.sinzak.android.model.market.MarketProductModel
+import io.sinzak.android.model.market.ProductDetailModel
 import io.sinzak.android.remote.dataclass.product.Product
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.ui.main.home.adapter.ArtVerticalAdapter
@@ -14,7 +14,7 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeMoreViewModel  @Inject constructor(
     val model : HomeProductModel,
-    val detailModel : MarketProductModel
+    val detailModel : ProductDetailModel
 ): BaseViewModel() {
 
 

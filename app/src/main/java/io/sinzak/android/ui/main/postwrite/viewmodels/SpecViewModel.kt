@@ -2,7 +2,7 @@ package io.sinzak.android.ui.main.postwrite.viewmodels
 
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.sinzak.android.enums.Page
-import io.sinzak.android.model.market.MarketProductModel
+import io.sinzak.android.model.market.ProductDetailModel
 import io.sinzak.android.model.market.MarketWriteModel
 import io.sinzak.android.ui.base.BaseViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,7 +12,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SpecViewModel @Inject constructor(
     val model: MarketWriteModel,
-    val productModel: MarketProductModel
+    val productModel: ProductDetailModel
 ) : BaseViewModel() {
 
     private val _currentPage = MutableStateFlow(0)

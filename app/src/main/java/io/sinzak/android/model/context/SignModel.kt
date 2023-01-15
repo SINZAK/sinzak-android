@@ -18,14 +18,11 @@ import io.sinzak.android.remote.dataclass.response.login.LoginEmailResponse
 import io.sinzak.android.remote.dataclass.response.login.NaverProfile
 import io.sinzak.android.remote.dataclass.response.login.Token
 import io.sinzak.android.remote.retrofit.CallImpl
-import io.sinzak.android.remote.retrofit.Remote
-import io.sinzak.android.remote.retrofit.RemoteListener
 import io.sinzak.android.system.App.Companion.NAVER_SDK_PREPARED
 import io.sinzak.android.system.App.Companion.prefs
 import io.sinzak.android.system.LogError
 import io.sinzak.android.system.LogInfo
 import io.sinzak.android.system.social.NaverImpl
-import io.sinzak.android.ui.base.setIsSelect
 import io.sinzak.android.ui.login.LoginActivity
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -37,29 +34,45 @@ import javax.inject.Singleton
 class SignModel @Inject constructor(
     val valueModel: GlobalValueModel
 ) : BaseModel() {
-
-
     @Inject lateinit var profile : ProfileModel
 
-    val univList : List<SchoolData> get() = valueModel.univMap.map {
-        SchoolData(it.key, it.value)
-    }
-
-
-    fun getUserDisplayName() : String{
-
-        return username
-    }
 
     private val _isLogin = MutableStateFlow(false)
+
+
 
     /**
      * 현재 로그인되어있는지 확인
      */
     val isLogin : StateFlow<Boolean> get() = _isLogin
 
-
     val needSignUp = MutableStateFlow(false)
+
+
+    private val _sdkSignSuccess = MutableStateFlow(false)
+    val sdkSignSuccess : StateFlow<Boolean> get() = _sdkSignSuccess
+
+    private val _signFailed = MutableStateFlow(false)
+    private val _errorString = MutableStateFlow("")
+
+
+    /**************************************************************************************************************************
+     * REGISTER ACTIVITY
+     *********************************************************************************************************************************/
+
+    private lateinit var loginIntentActivity : LoginActivity
+
+    fun registerLoginActivity(activity: LoginActivity)
+    {
+        loginIntentActivity = activity
+    }
+
+
+
+    /**************************************************************************************************************************
+     * SESSION CHECK
+     *********************************************************************************************************************************/
+
 
     fun isUserLogin() : Boolean{
         return  isLogin.value
@@ -80,15 +93,33 @@ class SignModel @Inject constructor(
 
     }
     fun clearJoinInfo(){
-        username = ""
+        userDisplayName = ""
         interests = listOf()
         univ = null
         univEmail = ""
     }
 
-    private var username : String = ""
+
+    /**************************************************************************************************************************
+     * SIGNUP INFORMATION
+     *********************************************************************************************************************************/
+
+
+    val univList : List<SchoolData> get() = valueModel.univMap.map {
+        SchoolData(it.key, it.value)
+    }
+
+
+    /**
+     * 유저 본명
+     */
+    private var username : String = "'"
+    /**
+     * 닉네임
+     */
+    private var userDisplayName : String = ""
     fun setUsername(t : String){
-        username = t
+        userDisplayName = t
     }
     private var interests = listOf<String>()
     fun setInterests(i : List<String>){
@@ -102,6 +133,15 @@ class SignModel @Inject constructor(
     //todo : 이메일 인증
 
 
+    var sdkType : SDK? = null
+
+    private var loginEmail : String = ""
+
+
+    fun getUserDisplayName() : String{
+        return userDisplayName
+    }
+
 
     fun join(){
         JoinRequest(
@@ -109,7 +149,7 @@ class SignModel @Inject constructor(
             certUniv = false, // todo 이메일 인증하면 true 로
             email = loginEmail,
             name = username,
-            nickname = username,
+            nickname = userDisplayName,
             SDKOrigin = sdkType!!.name,
             term = true, // todo 거절시 false
             university = univ!!.schoolName,
@@ -123,23 +163,11 @@ class SignModel @Inject constructor(
 
 
 
-    private val _sdkSignSuccess = MutableStateFlow(false)
-    val sdkSignSuccess : StateFlow<Boolean> get() = _sdkSignSuccess
-
-    private val _signFailed = MutableStateFlow(false)
-    private val _errorString = MutableStateFlow("")
-
-    var sdkType : SDK? = null
-
-    private var loginEmail : String = ""
 
 
-    lateinit var loginIntentActivity : LoginActivity
 
-    fun registerLoginActivity(activity: LoginActivity)
-    {
-        loginIntentActivity = activity
-    }
+
+
 
     private lateinit var naverCallback : NaverImpl
 
@@ -155,20 +183,31 @@ class SignModel @Inject constructor(
     }
 
 
+
+
+    /**************************************************************************************************************************
+     * NAVER
+     *********************************************************************************************************************************/
+
+
+
     private fun initNaverSdk(){
         if(!::naverCallback.isInitialized)
             naverCallback = NaverImpl(_sdkSignSuccess,_signFailed,_errorString)
     }
 
-    private fun initKakaoSdk(){
-        if(!::loginKaKao .isInitialized)
-            loginKaKao = UserApiClient()
-    }
 
 
+
+    /**
+     * 네이버 네아로 로그인을 요청합니다.
+     */
     fun loginViaNaver(){
 
         if(!NAVER_SDK_PREPARED){
+            /**
+             * 일부 빌드 환경에서 google crypto 문제로 네아로 initialize 가 안되는 경우가 생깁니다.
+             */
             globalUi.showToast("네이버 로그인 사용 불가합니다.")
             return
         }
@@ -183,9 +222,13 @@ class SignModel @Inject constructor(
 
     }
 
+    /**
+     * 네이버 로그인 성공하여, 토큰을 통해 네이버 유저 정보를 가져옵니다.
+     */
     fun onSuccessNaverLogin()
     {
         NaverIdLoginSDK.getAccessToken()?.let{token->
+
             CallImpl(API_EMAIL_GET_NAVER,
             this,
             paramStr0 = token).apply{
@@ -195,17 +238,32 @@ class SignModel @Inject constructor(
     }
 
 
+    /**************************************************************************************************************************
+     * KAKAO
+     *********************************************************************************************************************************/
+
+
+    private fun initKakaoSdk(){
+        if(!::loginKaKao .isInitialized)
+            loginKaKao = UserApiClient()
+    }
+
+
+
+
+    /**
+     * 카카오톡 로그인을 요청합니다.
+     */
     fun loginViaKakao(){
         initSignStatus()
         initKakaoSdk()
 
         loginIntentActivity.requestKakaoLoginActivity(loginKaKao,::onLoginKakao)
-
-
-
-        //todo : Login With Kakao
     }
 
+    /**
+     * 토큰을 취득하여, 카카오 계정 정보 취득을 합니다.
+     */
     private fun onLoginKakao(token : OAuthToken?, error : Throwable?)
     {
         error?.let{
@@ -216,6 +274,7 @@ class SignModel @Inject constructor(
         }
         token?.let{
             _sdkSignSuccess.value = true
+
             LogInfo(javaClass.name,"카카오 로그인 성공 : $token")
             getKakaoEmail()
 
@@ -226,32 +285,57 @@ class SignModel @Inject constructor(
         }
     }
 
-    fun getKakaoEmail(){
+    private fun getKakaoEmail(){
         loginKaKao.me { user, error ->
 
             error?.let{
                 LogError(error)
             }
 
-            user?.let{
-                it.kakaoAccount?.email?.let{
-                    _sdkSignSuccess.value = true
-                    loginEmail = it
-                    sdkType = SDK.kakao
-                    loginToServer()
-                   return@me
-                }
-
-                _signFailed.value = true
-
+            user?.kakaoAccount?.let{
+                _sdkSignSuccess.value = true
+                loginEmail = it.email.toString()
+                username = it.name.toString()
+                sdkType = SDK.kakao
+                loginToServer()
+                return@me
             }
 
+            _signFailed.value = true
 
         }
 
     }
 
-    fun loginToServer(){
+    /**************************************************************************************************************************
+     * GOOGLE
+     *********************************************************************************************************************************/
+
+
+    fun loginViaGoogle(){
+
+        //todo : Login With Google
+
+    }
+
+
+    /**************************************************************************************************************************
+     * REQUEST
+     *********************************************************************************************************************************/
+
+
+    private fun setIsLogin(status : Boolean){
+        _isLogin.value = status
+        prefs.setBoolean(CODE_IS_LOGIN, status)
+    }
+
+
+
+
+    /**
+     * 백엔드에 로그인을 요청합니다.
+     */
+    private fun loginToServer(){
         CallImpl(
             API_LOGIN_EMAIL,
             this,
@@ -262,19 +346,15 @@ class SignModel @Inject constructor(
             remote.sendRequestApi(this)
         }
     }
+    /**************************************************************************************************************************
+     * RESPONSE
+     *********************************************************************************************************************************/
 
-    fun loginViaGoogle(){
 
-        //todo : Login With Google
-
-    }
-
-    private fun setIsLogin(status : Boolean){
-        _isLogin.value = status
-        prefs.setBoolean(CODE_IS_LOGIN, status)
-    }
-
-    fun onRefreshToken(response : Token)
+    /**
+     * 토큰 재발급 응답 처리
+     */
+    private fun onRefreshToken(response : Token)
     {
         if(response.accessToken.isNullOrEmpty())
             return
@@ -285,12 +365,13 @@ class SignModel @Inject constructor(
         profile.getMyProfile()
     }
 
-    fun onResponseLogin(response : LoginEmailResponse){
+    /**
+     * 로그인 응답 처리
+     */
+    private fun onResponseLogin(response : LoginEmailResponse){
         if(response.success == false){
             if(response.message == "가입되지 않은 ID입니다."){
                 needSignUp.value = true
-            }else{
-
             }
         }else{
             // login
@@ -298,7 +379,11 @@ class SignModel @Inject constructor(
         }
     }
 
-    fun onResponseJoin(success : Boolean, message : String)
+
+    /**
+     * 회원가입
+     */
+    private fun onResponseJoin(success : Boolean, message : String)
     {
         if(success){
             needSignUp.value = false
@@ -325,6 +410,7 @@ class SignModel @Inject constructor(
                 if(body is NaverProfile)
                 {
                     loginEmail = body.profile?.email.toString()
+                    username = body.profile?.name.toString()
 
                     loginToServer()
                 }

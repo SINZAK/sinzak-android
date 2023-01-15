@@ -12,6 +12,7 @@ import io.sinzak.android.remote.dataclass.request.login.LoginEmailBody
 import io.sinzak.android.remote.dataclass.request.login.TokenRequest
 import io.sinzak.android.remote.dataclass.request.market.ProductBuildRequest
 import io.sinzak.android.remote.dataclass.request.market.ProductLikeRequest
+import io.sinzak.android.remote.dataclass.request.market.ProductSuggestRequest
 import io.sinzak.android.remote.dataclass.request.profile.FollowRequest
 import io.sinzak.android.remote.dataclass.request.profile.UpdateUserRequest
 import io.sinzak.android.system.App.Companion.prefs
@@ -115,6 +116,8 @@ class CallImpl(
                 addProperty("url",paramStr0!!)
             })
 
+            API_DELETE_MARKET_PRODUCT -> remoteApi.deleteProduct(header,paramInt0!!)
+
 
 
 
@@ -133,6 +136,8 @@ class CallImpl(
             API_POST_LIKE_PRODUCT -> remoteApi.postProductLikes(header, requestBody as ProductLikeRequest)
 
             API_POST_WISH_PRODUCT -> remoteApi.postProductWish(header, requestBody as ProductLikeRequest)
+
+            API_POST_SUGGEST_PRODUCT -> remoteApi.postProductSuggest(header, requestBody as ProductSuggestRequest)
 
 
 

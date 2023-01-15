@@ -5,24 +5,24 @@ import io.sinzak.android.R
 import io.sinzak.android.enums.HomeMore
 import io.sinzak.android.enums.Page
 import io.sinzak.android.model.market.HomeProductModel
-import io.sinzak.android.model.market.MarketProductModel
+import io.sinzak.android.model.market.ProductDetailModel
 import io.sinzak.android.ui.main.home.adapter.ArtLinearAdapter
 import javax.inject.Inject
 
 @HiltViewModel
 class ArtReferViewModel @Inject constructor(
     val model : HomeProductModel,
-    val marketProductModel: MarketProductModel
+    val productDetailModel: ProductDetailModel
 ) : HomeLinearViewModel() {
     override val adapter = ArtLinearAdapter(
         onNextClick = {
             model.morePageType.value = HomeMore.REFER
             navigation.changePage(Page.HOME_MORE)
         },
-        onLikeClick = marketProductModel::postProductLike
+        onLikeClick = productDetailModel::postProductLike
     ){
         uiModel.openProductDetail()
-        marketProductModel.loadProduct(it.id!!)
+        productDetailModel.loadProduct(it.id!!)
     }
 
     override val hMargin: Float

@@ -8,6 +8,7 @@ data class NaverProfile(
     @SerializedName("response") val profile : Profile? = null
 ) : CResponse() {
     data class Profile(
-        @SerializedName("email") val email : String? = null
+        @SerializedName("email") val email : String? = null,
+        @SerializedName("name") val name : String? = null
     )
 }

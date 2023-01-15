@@ -4,6 +4,7 @@ import com.google.gson.JsonObject
 import io.sinzak.android.remote.dataclass.CResponse
 import io.sinzak.android.remote.dataclass.request.market.ProductBuildRequest
 import io.sinzak.android.remote.dataclass.request.market.ProductLikeRequest
+import io.sinzak.android.remote.dataclass.request.market.ProductSuggestRequest
 import io.sinzak.android.remote.dataclass.response.market.*
 import okhttp3.MultipartBody
 import retrofit2.Call
@@ -33,6 +34,11 @@ interface RemoteMarketInterface {
     @POST("api/products/{id}/deleteimage")
     fun deleteProductImage(@HeaderMap headerMap: HashMap<String,String>,@Path("id") id : Int, @Body body : JsonObject) : Call<CResponse>
 
+    @POST("api/products/{id}/delete")
+    fun deleteProduct(@HeaderMap headerMap: HashMap<String,String>,@Path("id") id : Int) : Call<CResponse>
+
+
+
 
     @POST("api/home/products")
     fun getHomeProducts(@HeaderMap headerMap : HashMap<String,String>) : Call<MarketHomeResponse>
@@ -50,4 +56,7 @@ interface RemoteMarketInterface {
 
     @POST("api/products/wish")
     fun postProductWish(@HeaderMap headerMap: HashMap<String, String>, @Body body : ProductLikeRequest) : Call<CResponse>
+
+    @POST("api/products/suggest")
+    fun postProductSuggest(@HeaderMap headerMap: HashMap<String, String>, @Body body : ProductSuggestRequest) : Call<CResponse>
 }
