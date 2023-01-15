@@ -19,6 +19,11 @@ class ProfileModel @Inject constructor() : BaseModel() {
      */
     val profile = MutableStateFlow<UserProfileResponse?>(null)
 
+    /**
+     * 타인 프로필을 저장하는 공간
+     */
+    val otherProfile = MutableStateFlow<UserProfileResponse?>(null)
+
     val followList = MutableStateFlow<FollowResponse?>(null)
 
     /**
@@ -53,7 +58,7 @@ class ProfileModel @Inject constructor() : BaseModel() {
 
     fun getUserProfile()
     {
-        profile.value = null
+        otherProfile.value = null
         CallImpl(
             API_GET_USER_PROFILE,
             this,
@@ -118,7 +123,7 @@ class ProfileModel @Inject constructor() : BaseModel() {
         {
             API_GET_USER_PROFILE -> {
                 if (body is UserProfileResponse) {
-                    profile.value = body
+                    otherProfile.value = body
                 }
             }
 

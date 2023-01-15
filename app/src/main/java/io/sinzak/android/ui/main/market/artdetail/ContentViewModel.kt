@@ -66,6 +66,20 @@ class ContentViewModel @Inject constructor(
     val wishCnt = MutableStateFlow(0)
 
     /**
+     * 팔로우 한 작가인가?
+     */
+    val isFollowing = MutableStateFlow(false)
+
+    /**
+     * 작가 팔로워 수
+     */
+    val follower = MutableStateFlow(0)
+
+    /**
+     * 작가 아이디
+     */
+    private var authorId = -1
+    /**
      * 상품 id
      */
     private var product = -1
@@ -126,20 +140,15 @@ class ContentViewModel @Inject constructor(
      * 팔로우 버튼
      */
     fun onClickFollow(){
-
+        profileModel.followUser(authorId,isFollowing.value)
+        isFollowing.value = !isFollowing.value
+        follower.value = follower.value + if (isFollowing.value) 1 else -1
     }
 
     /**
      * 작가 프로필 조회
      */
     fun onClickArtistProfile(){
-//        art.value?.let{product->
-//            Bundle().apply{
-//                putString(CODE_USER_ID, product.authorId)
-//                navigation.putBundleData(ProfileViewModel::class,this)
-//            }
-//            navigation.changePage(Page.PROFILE_OTHER)
-//        }
         navigation.changePage(Page.PROFILE_OTHER)
     }
 
@@ -172,10 +181,15 @@ class ContentViewModel @Inject constructor(
                 isWish.value = it.wish
                 wishCnt.value = it.wishCnt
                 product = it.productId
+                isFollowing.value = it.isFollowing
+                follower.value = it.authorFollowerCnt
 
                 isMyProduct.value = it.authorId == profileModel.getUserId()
 
-                profileModel.currentUserId.value = it.authorId.toInt()
+                it.authorId.toInt().apply {
+                    profileModel.currentUserId.value = this
+                    authorId = this
+                }
             }
 
         }

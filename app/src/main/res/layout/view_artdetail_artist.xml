@@ -69,7 +69,7 @@
                         style="@style/regular13"/>
 
                     <TextView
-                        android:text="@{@string/str_author_follower_holder(vm.art.authorFollowerCnt)}"
+                        android:text="@{@string/str_author_follower_holder(vm.follower)}"
 
                         android:textColor="@color/gray60"
                         android:layout_width="wrap_content"
@@ -88,10 +88,10 @@
                 android:layout_height="30dp"
                 android:background="@drawable/btn_follow"
                 android:gravity="center"
-                android:text="@string/str_follow"
-                android:onClick="@{v->vm.onClickFollow()}"
-
-                android:textColor="@{@color/primary, default = @color/primary}"/>
+                android:textColor="@color/color_follow_select"
+                isSelect="@{vm.isFollowing}"
+                android:text="@{vm.isFollowing ? @string/str_profile_follow : @string/str_profile_unfollow}"
+                android:onClick="@{v->vm.onClickFollow()}"/>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 

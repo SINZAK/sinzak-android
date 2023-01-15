@@ -7,6 +7,7 @@ import io.sinzak.android.constants.CODE_USER_REPORT_ID
 import io.sinzak.android.constants.CODE_USER_REPORT_NAME
 import io.sinzak.android.enums.Page
 import io.sinzak.android.model.profile.ProfileModel
+import io.sinzak.android.remote.dataclass.response.profile.UserProfileResponse
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.ui.main.profile.ProfileConnect
 import io.sinzak.android.ui.main.profile.report.ReportSendViewModel
@@ -33,9 +34,14 @@ class ProfileViewModel @Inject constructor(
         _connect = connect
     }
     /**
-     * 현재 조회중인 프로필
+     * 내 프로필
      */
     val profile get() = model.profile
+
+    /**
+     * 타인 프로필
+     */
+    val otherProfile get() = model.otherProfile
 
     /**
      * 내 프로필인가?
@@ -90,34 +96,28 @@ class ProfileViewModel @Inject constructor(
     /**
      * 유저 아이디
      */
-    val userId get() = model.currentUserId
+    val userId get() = model.currentUserId.value
 
     /***********************************************************************
      * DATA FLOW
      **********************************************************************/
     init {
-//        CoroutineScope(Dispatchers.Main).launch {
-//            subscribe()
-//        }
-        collectProfile()
+        if (userId == profileModel.getUserId()!!.toInt()){
+            collectProfile(profile)
+        }
+        else {
+            collectProfile(otherProfile)
+        }
+
     }
 
-//    private fun subscribe() {
-//        invokeStateFlow(navigation.bundleInserted){
-//            navigation.getBundleData(this::class)?.apply {
-//                this.getString(CODE_USER_ID)?.let {
-//                    userId.value = it.toInt()
-//                }
-//            }
-//        }
-//    }
 
     /**
      * 프로필 데이터를 구독하고 필요한 데이터를 분리해 state를 저장해요
      */
-    private fun collectProfile()
+    private fun collectProfile(stateFlow : MutableStateFlow<UserProfileResponse?>)
     {
-        invokeStateFlow(profile) {profile ->
+        invokeStateFlow(stateFlow) {profile ->
             profile?.let {
                 isMyProfile.value = it.myProfile
 
@@ -131,7 +131,6 @@ class ProfileViewModel @Inject constructor(
                 introduction.value = it.introduction
                 isFollow.value = it.ifFollow
 
-                userId.value = it.userId
             }
         }
     }
@@ -145,7 +144,7 @@ class ProfileViewModel @Inject constructor(
      */
     fun toggleFollow()
     {
-        profileModel.followUser(userId.value,isFollow.value)
+        profileModel.followUser(userId,isFollow.value)
         isFollow.value = !isFollow.value
         follower.value = follower.value + if (isFollow.value) 1 else -1
     }
