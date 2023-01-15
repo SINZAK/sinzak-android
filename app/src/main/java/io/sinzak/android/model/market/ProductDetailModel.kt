@@ -19,6 +19,7 @@ class ProductDetailModel @Inject constructor() : BaseModel() {
     val art = MutableStateFlow<MarketDetailResponse.Detail?>(null)
 
     val productSuggestSuccessFlag = MutableStateFlow(false)
+    val productDeleteSuccessFlag = MutableStateFlow(false)
 
 
 
@@ -73,6 +74,16 @@ class ProductDetailModel @Inject constructor() : BaseModel() {
         )
     }
 
+    fun deleteProduct(id : Int){
+        productDeleteSuccessFlag.value = false
+        remote.sendRequestApi(
+            CallImpl(
+                API_DELETE_MARKET_PRODUCT, this,
+                paramInt0 = id
+            )
+        )
+    }
+
 
 
 
@@ -91,9 +102,17 @@ class ProductDetailModel @Inject constructor() : BaseModel() {
             }
 
             API_POST_SUGGEST_PRODUCT ->{
-                if(body.success == true){
+                if(body.success == true)
                     productSuggestSuccessFlag.value = true
-                }
+                else
+                    globalUi.showToast(body.message.toString())
+            }
+
+            API_DELETE_MARKET_PRODUCT ->{
+                if(body.success == true)
+                    productDeleteSuccessFlag.value = true
+                else
+                    globalUi.showToast(body.message.toString())
             }
         }
     }

@@ -12,7 +12,7 @@ class ProductDeleteDialog(
 ) :
     BaseDialog<DialogProductDeleteBinding>(
         context,
-        R.layout.dialog_artist_report
+        R.layout.dialog_product_delete
     ) {
 
     override fun initBind(bind: DialogProductDeleteBinding) {

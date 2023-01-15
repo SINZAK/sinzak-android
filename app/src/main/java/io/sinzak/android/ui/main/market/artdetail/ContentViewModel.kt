@@ -138,6 +138,11 @@ class ContentViewModel @Inject constructor(
     init{
         collectArt()
 
+
+        useFlag(model.productDeleteSuccessFlag){
+            showToast("작품을 삭제했습니다.")
+            navigation.revealHistory()
+        }
     }
 
     /**
@@ -215,7 +220,7 @@ class ContentViewModel @Inject constructor(
      */
     private fun showDeleteDialog(){
         connect.productDeleteDialog {
-
+            model.deleteProduct(product)
         }
     }
 

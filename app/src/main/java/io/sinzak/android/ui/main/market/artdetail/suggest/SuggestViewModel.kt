@@ -55,7 +55,7 @@ class SuggestViewModel @Inject constructor(
     }
 
     private fun collectSuccessFlag(){
-        invokeBooleanFlow(model.productSuggestSuccessFlag){
+        useFlag(model.productSuggestSuccessFlag){
             navigation.revealHistory()
             uiModel.showToast("가격제안을 전송했습니다.")
         }

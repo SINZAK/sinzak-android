@@ -34,6 +34,11 @@ interface RemoteMarketInterface {
     @POST("api/products/{id}/deleteimage")
     fun deleteProductImage(@HeaderMap headerMap: HashMap<String,String>,@Path("id") id : Int, @Body body : JsonObject) : Call<CResponse>
 
+    @POST("api/products/{id}/delete")
+    fun deleteProduct(@HeaderMap headerMap: HashMap<String,String>,@Path("id") id : Int) : Call<CResponse>
+
+
+
 
     @POST("api/home/products")
     fun getHomeProducts(@HeaderMap headerMap : HashMap<String,String>) : Call<MarketHomeResponse>

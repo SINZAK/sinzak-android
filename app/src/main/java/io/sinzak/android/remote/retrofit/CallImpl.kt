@@ -116,6 +116,8 @@ class CallImpl(
                 addProperty("url",paramStr0!!)
             })
 
+            API_DELETE_MARKET_PRODUCT -> remoteApi.deleteProduct(header,paramInt0!!)
+
 
 
 
