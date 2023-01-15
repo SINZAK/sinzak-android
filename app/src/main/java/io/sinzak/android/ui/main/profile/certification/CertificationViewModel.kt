@@ -1,6 +1,7 @@
 package io.sinzak.android.ui.main.profile.certification
 
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.sinzak.android.enums.Page
 import io.sinzak.android.enums.RegisterPage
 import io.sinzak.android.model.context.SignModel
 import io.sinzak.android.model.navigate.RegisterNavigation
@@ -12,7 +13,7 @@ import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
 @HiltViewModel
-class CertificationViewModel @Inject constructor(val regNav: RegisterNavigation) : BaseViewModel() {
+open class CertificationViewModel @Inject constructor() : BaseViewModel() {
 
     private val _schoolInput = MutableStateFlow("")
     val schoolInput: StateFlow<String> get() = _schoolInput
@@ -47,8 +48,11 @@ class CertificationViewModel @Inject constructor(val regNav: RegisterNavigation)
     }
 
 
-    fun onSubmit() {
-        signModel.setUniv(school!!)
-        regNav.changePage(RegisterPage.PAGE_UNIVERSITY_CERT)
+    open fun onSubmit() {
+        navigation.changePage(Page.PROFILE_WEBMAIL)
+    }
+
+    open fun onCancel(){
+
     }
 }

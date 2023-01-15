@@ -142,6 +142,14 @@ class SignModel @Inject constructor(
         return userDisplayName
     }
 
+    fun getUnivAddress() : String{
+        return univ!!.schoolDomain
+    }
+
+    fun getUnivName() : String{
+        return univ!!.schoolName
+    }
+
 
     fun join(){
         JoinRequest(

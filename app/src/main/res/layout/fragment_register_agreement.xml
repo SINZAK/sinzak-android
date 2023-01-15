@@ -7,9 +7,6 @@
         <variable
             name="vm"
             type="io.sinzak.android.ui.login.agreement.AgreementViewModel" />
-        <variable
-            name="fg"
-            type="io.sinzak.android.ui.login.agreement.AgreementFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -25,7 +22,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:onClick="@{v->fg.navigateOnBackPressed()}"
+                android:onClick="@{v->vm.onBackPressed()}"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginHorizontal="16dp"

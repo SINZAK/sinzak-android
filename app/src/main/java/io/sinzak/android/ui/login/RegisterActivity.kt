@@ -20,14 +20,18 @@ import io.sinzak.android.ui.login.agreement.AgreementFragment
 import io.sinzak.android.ui.login.email.EmailFragment
 import io.sinzak.android.ui.login.interest.InterestFragment
 import io.sinzak.android.ui.login.name.NameFragment
+import io.sinzak.android.ui.login.welcome.WelcomeFragment
 import io.sinzak.android.ui.main.MainActivity
 import io.sinzak.android.ui.main.profile.certification.CertificationFragment
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class RegisterActivity : BaseActivity<ActivityRegisterBinding>(R.layout.activity_register) {
 
 
+    @Inject
+    lateinit var registerConnect: RegisterConnect
 
     private val viewModel by viewModels<RegisterViewModel>()
     override fun onActivityCreate() {
@@ -41,6 +45,9 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>(R.layout.activity
         LogDebug(javaClass.name,"[REGISTER ACTIVITY] ${viewModel.signModel.isLogin.value}")
         viewModel.regNav.changePage(PAGE_AGREEMENT)
         observeNavigation()
+
+        registerConnect.registerActivityContext(this)
+
     }
 
 
@@ -49,14 +56,6 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>(R.layout.activity
         lifecycleScope.launch{
             viewModel.topPage.collect(::setPage)
         }
-
-        lifecycleScope.launch{
-            viewModel.signModel.isLogin.collect{
-                if(it)
-                    gotoMain()
-            }
-        }
-
     }
 
     private var fragment : BaseFragment? = null
@@ -77,20 +76,12 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>(R.layout.activity
                 InterestFragment()
             PAGE_UNIVERSITY ->
                 CertificationFragment()
+            Welcome ->
+                WelcomeFragment()
         }
 
         supportFragmentManager.beginTransaction().replace(R.id.fc_register,fragment!!).commit()
 
-    }
-
-    fun gotoMain(){
-
-        LogInfo(javaClass.name,"메인으로 가자")
-        finish()
-        /*Intent(this,MainActivity::class.java).apply{
-            addFlags(Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY)
-            startActivity(this)
-        }*/
     }
 
 

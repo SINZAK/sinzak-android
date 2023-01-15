@@ -4,7 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
 
-
+        <variable
+            name="vm"
+            type="io.sinzak.android.ui.login.welcome.WelcomeViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -61,6 +63,7 @@
                 android:layout_marginHorizontal="12dp"
                 android:gravity="center"
                 android:text="@string/str_welcome_done"
+                android:onClick="@{v->vm.done()}"
                 android:textColor="@color/on_primary"
                 app:layout_constraintBottom_toBottomOf="parent" />
 
