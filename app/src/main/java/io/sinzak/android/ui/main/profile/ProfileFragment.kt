@@ -23,25 +23,29 @@ import io.sinzak.android.ui.main.profile.viewmodel.ProfileWorkViewModel
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ProfileFragment :BaseFragment() {
+class ProfileFragment : BaseFragment() {
 
     private lateinit var bind : FragmentProfileBinding
 
     private val viewModel by activityViewModels<ProfileViewModel>()
     private val profileSaleViewModel by activityViewModels<ProfileSaleViewModel>()
     private val profileWorkViewModel by activityViewModels<ProfileWorkViewModel>()
-    private val editProfileViewModel by activityViewModels<EditViewModel>()
-    private val reportSendViewModel by activityViewModels<ReportSendViewModel>()
 
     private val contentViewModel by activityViewModels<ContentViewModel>()
 
     @Inject
     lateinit var profileModel: ProfileModel
 
+    @Inject
+    lateinit var connect: ProfileConnect
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.registerConnect(connect)
+    }
 
     override fun getFragmentRoot(): View {
         bind = FragmentProfileBinding.inflate(layoutInflater)
-        bind.vm = viewModel
         bind.lifecycleOwner = viewLifecycleOwner
         return bind.root
     }
@@ -52,8 +56,7 @@ class ProfileFragment :BaseFragment() {
             profileModel.getMyProfile()
         }
         else {
-//            viewModel.profileModel.getUserProfile(contentViewModel.art.value.authorId)
-            profileModel.getUserProfile("154")
+            profileModel.getUserProfile(contentViewModel.art.value!!.authorId)
         }
         inflateChild()
     }
@@ -90,9 +93,7 @@ class ProfileFragment :BaseFragment() {
     private fun inflateMyProfile(){
         ViewProfileMyprofileBinding.inflate(layoutInflater).apply {
             lifecycleOwner = viewLifecycleOwner
-            pVm = viewModel
-            eVm = editProfileViewModel
-            fg = this@ProfileFragment
+            vm = viewModel
             bind.llProfiles.addView(root)
         }
     }
@@ -107,7 +108,7 @@ class ProfileFragment :BaseFragment() {
         ViewProfileArtSaleBinding.inflate(layoutInflater).apply {
             lifecycleOwner = viewLifecycleOwner
             vm = profileSaleViewModel
-            fg = this@ProfileFragment
+            pVm = viewModel
             bind.llProfiles.addView(root)
         }
     }
@@ -115,66 +116,9 @@ class ProfileFragment :BaseFragment() {
         ViewProfileArtWorkBinding.inflate(layoutInflater).apply {
             lifecycleOwner = viewLifecycleOwner
             vm = profileWorkViewModel
-            fg = this@ProfileFragment
+            pVm = viewModel
             bind.llProfiles.addView(root)
         }
     }
 
-
-    //세팅 아이콘 클릭
-    fun gotoSettingPage() {
-        navigator.changePage(Page.PROFILE_SETTING)
-    }
-
-    // 더 보기 다이얼로그
-    fun showMoreMenu(){
-        ArtistReportDialog(requireContext(),
-           viewModel.profile.value!!.name,{ goToReportPage()}, { showBlockDialog() }).show()
-    }
-
-    // 차단하기 다이얼로그
-    fun showBlockDialog(){
-        ArtistBlockDialog(requireContext(),{/*차단 api*/}).show()
-    }
-    // 사용자 신고 페이지로
-    fun goToReportPage(){
-        reportSendViewModel.isFromProfile(true)
-        navigator.changePage(Page.PROFILE_REPORT_TYPE)
-    }
-
-    //프로필 편집 클릭
-    fun gotoProfileEditPage() {
-        navigator.changePage(Page.PROFILE_EDIT)
-    }
-
-    // 팔로우 버튼
-    fun follow(ifFollow : Boolean) {
-        if(ifFollow) profileModel.followUser(viewModel.profile.value!!.userId)
-        else profileModel.unfollowUser(viewModel.profile.value!!.userId)
-    }
-
-    //채팅하기 클릭
-    fun goToChat() {
-
-    }
-
-    //스크랩 목록 클릭
-    fun gotoScrapPage(){
-
-    }
-
-    //의뢰해요 클릭
-    fun gotoRequestPage(){
-
-    }
-
-    //판매 작품 클릭
-    fun gotoSalePage(){
-        navigator.changePage(Page.PROFILE_SALE)
-    }
-
-    // 작업해요 클릭릭
-    fun gotoWorkPage(){
-        navigator.changePage(Page.PROFILE_WORK)
-    }
 }

@@ -36,8 +36,10 @@ import io.sinzak.android.ui.main.profile.certification.WebmailFragment
 import io.sinzak.android.ui.main.profile.edit.EditFragment
 import io.sinzak.android.ui.main.profile.report.ReportSendFragment
 import io.sinzak.android.ui.main.profile.report.ReportTypeFragment
+import io.sinzak.android.ui.main.profile.sale_with_work.RequestFragment
 import io.sinzak.android.ui.main.profile.sale_with_work.SaleFragment
 import io.sinzak.android.ui.main.profile.sale_with_work.WorkFragment
+import io.sinzak.android.ui.main.profile.scrap.ScrapFragment
 import io.sinzak.android.ui.main.profile.setting.SettingFragment
 import io.sinzak.android.ui.main.profile.viewmodel.ProfileViewModel
 import io.sinzak.android.utils.RootViewDeferringInsetsCallback
@@ -171,7 +173,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 PROFILE_SETTING,
                 PROFILE_CERTIFICATION,
                 PROFILE_REPORT_TYPE,
-                PROFILE_REPORT_SEND ->
+                PROFILE_REPORT_SEND,
+                PROFILE_SCRAP,
+                PROFILE_REQUEST->
                     inflateProfileFragments(page)
 
 
@@ -224,6 +228,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 CertificationFragment()
             PROFILE_REPORT_TYPE ->
                 ReportTypeFragment()
+            PROFILE_SCRAP ->
+                ScrapFragment()
+            PROFILE_REQUEST ->
+                RequestFragment()
             else ->
                 ReportSendFragment()
         }

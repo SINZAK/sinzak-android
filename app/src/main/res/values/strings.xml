@@ -31,8 +31,8 @@
 
     <string name="str_profile_follower">팔로워</string>
     <string name="str_profile_following">팔로잉</string>
-    <string name="str_profile_follow">팔로우</string>
-    <string name="str_profile_unfollow">팔로우 취소</string>
+    <string name="str_profile_follow">팔로잉</string>
+    <string name="str_profile_unfollow">팔로우</string>
     <string name="str_profile_chat">채팅하기</string>
     <string name="str_profile_edit">프로필 편집</string>
     <string name="str_profile_scrap">스크랩 목록</string>

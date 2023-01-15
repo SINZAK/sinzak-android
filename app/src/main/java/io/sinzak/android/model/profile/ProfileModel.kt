@@ -85,26 +85,28 @@ class ProfileModel @Inject constructor() : BaseModel() {
         }
     }
 
-    fun followUser(userId: String) {
+    fun followUser(userId: Int , isFollow : Boolean) {
         val request = FollowRequest(userId)
-        CallImpl(
-            API_FOLLOW_USER,
-            this,
-            request
-        ).apply {
-            remote.sendRequestApi(this)
-        }
-    }
 
-    fun unfollowUser(userId: String) {
-        val request = FollowRequest(userId)
-        CallImpl(
-            API_UNFOLLOW_USER,
-            this,
-            request
-        ).apply {
-            remote.sendRequestApi(this)
+        if (isFollow){
+            CallImpl(
+                API_UNFOLLOW_USER,
+                this,
+                request
+            ).apply {
+                remote.sendRequestApi(this)
+            }
         }
+        else {
+            CallImpl(
+                API_FOLLOW_USER,
+                this,
+                request
+            ).apply {
+                remote.sendRequestApi(this)
+            }
+        }
+
     }
 
 

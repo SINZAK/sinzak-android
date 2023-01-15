@@ -3,14 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <variable
-            name="fg"
-            type="io.sinzak.android.ui.main.profile.ProfileFragment" />
-        <variable
-            name="pVm"
+            name="vm"
             type="io.sinzak.android.ui.main.profile.viewmodel.ProfileViewModel" />
-        <variable
-            name="eVm"
-            type="io.sinzak.android.ui.main.profile.edit.EditViewModel" />
+        <import type="io.sinzak.android.enums.Page"/>
     </data>
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -23,8 +18,7 @@
         <ImageView
             android:layout_width="73dp"
             android:layout_height="73dp"
-            android:background="@drawable/iv_profile_avatar"
-            android:src="@{pVm.profile.imageUrl}"
+            android:src="@drawable/ic_user_temp"
             android:layout_marginBottom="12dp"/>
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -36,13 +30,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{pVm.profile.name}"
+                android:text="@{vm.name}"
                 style="@style/bold16"/>
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_profile_verify_active"
-                android:visibility="@{pVm.isVerify ? 0 : 8}"/>
+                android:visibility="@{vm.isVerify ? 0 : 8}"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -53,13 +47,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{pVm.profile.univ}"
+                android:text="@{vm.university}"
                 style="@style/medium13"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{pVm.profile.cert_uni ? @string/str_profile_verify_true : @string/str_profile_verify_false }"
-                android:textColor="@{pVm.profile.cert_uni ? @color/primary_variant : @color/gray60}"
+                android:text="@{vm.isCertify ? @string/str_profile_verify_true : @string/str_profile_verify_false }"
+                android:textColor="@{vm.isCertify ? @color/primary_variant : @color/gray60}"
                 style="@style/medium13"
                 android:layout_marginStart="5dp"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -73,7 +67,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{pVm.profile.followerNumber}"
+                android:text="@{String.valueOf(vm.follower)}"
                 style="@style/bold16"/>
             <TextView
                 android:layout_width="wrap_content"
@@ -89,7 +83,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{pVm.profile.followingNumber}"
+                android:text="@{String.valueOf(vm.following)}"
                 style="@style/bold16"
                 android:layout_marginEnd="5dp"/>
             <TextView
@@ -101,7 +95,7 @@
             <Space
                 android:layout_width="30dp"
                 android:layout_height="wrap_content"
-                android:visibility="@{!pVm.isMyProfile() ? 0 : 8}"
+                android:visibility="@{vm.isMyProfile ? 0 : 8}"
                 />
             <TextView
                 android:layout_width="wrap_content"
@@ -109,8 +103,8 @@
                 android:text="@string/str_profile_chat"
                 style="@style/bold13"
                 android:textColor="@color/secondary"
-                android:visibility="@{!pVm.isMyProfile() ? 0 : 8}"
-                android:onClick="@{v-> fg.goToChat()}"
+                android:visibility="@{!vm.isMyProfile ? 0 : 8}"
+                android:onClick="@{v-> vm.changePage(Page.CHAT)}"
                 />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -118,7 +112,7 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             style="@style/regular13"
-            android:text="@{pVm.profile.introduction}"
+            android:text="@{vm.introduction}"
             android:textAlignment="center"
             android:layout_marginBottom="20dp"/>
 
@@ -138,8 +132,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:onClick="@{v->fg.gotoProfileEditPage()}"
-                android:visibility="@{pVm.isMyProfile() ? 0 : 8}"
+                android:onClick="@{v->vm.changePage(Page.PROFILE_EDIT)}"
+                android:visibility="@{vm.isMyProfile ? 0 : 8}"
                 />
 
             <TextView
@@ -151,13 +145,13 @@
                 android:gravity="center"
                 android:paddingHorizontal="45dp"
                 android:paddingVertical="8dp"
-                android:text="@{pVm.profile.ifFollow ? @string/str_profile_unfollow : @string/str_profile_follow}"
+                android:text="@{vm.isFollow ? @string/str_profile_follow : @string/str_profile_unfollow}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:onClick="@{v->fg.follow(pVm.profile.ifFollow)}"
-                android:visibility="@{!pVm.isMyProfile() ? 0 : 8}"
+                android:onClick="@{v->vm.toggleFollow()}"
+                android:visibility="@{!vm.isMyProfile ? 0 : 8}"
                 />
 
 

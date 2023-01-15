@@ -5,8 +5,8 @@ import io.sinzak.android.remote.dataclass.CResponse
 
 data class UserProfileResponse (
     @SerializedName("cert_uni") val cert_uni : Boolean = false,
-    @SerializedName("followerNumber") val followerNumber : String = "",
-    @SerializedName("followingNumber") val followingNumber : String = "",
+    @SerializedName("followerNumber") val followerNumber : Int = 0,
+    @SerializedName("followingNumber") val followingNumber : Int = 0,
     @SerializedName("ifFollow") val ifFollow : Boolean = false,
     @SerializedName("imageUrl") val imageUrl : String = "",
     @SerializedName("introduction") val introduction : String = "",
