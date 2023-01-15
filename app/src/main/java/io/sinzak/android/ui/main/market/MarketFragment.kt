@@ -6,10 +6,7 @@ import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
 import io.sinzak.android.R
 import io.sinzak.android.databinding.*
-import io.sinzak.android.enums.Page
-import io.sinzak.android.model.market.MarketProductModel
-import io.sinzak.android.remote.dataclass.product.Product
-import io.sinzak.android.remote.dataclass.product.ProductListener
+import io.sinzak.android.model.market.ProductDetailModel
 import io.sinzak.android.system.LogDebug
 import io.sinzak.android.ui.base.BaseFragment
 import io.sinzak.android.ui.main.market.viewmodel.ArtsViewModel
@@ -32,7 +29,7 @@ class MarketFragment : BaseFragment() {
     lateinit var historyViewModel : HistoryViewModel
 
     @Inject
-    lateinit var marketProductModel: MarketProductModel
+    lateinit var productDetailModel: ProductDetailModel
 
     private lateinit var bind : FragmentMarketBinding
 

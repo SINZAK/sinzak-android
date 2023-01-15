@@ -5,17 +5,16 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import io.sinzak.android.constants.CODE_USER_REPORT_ID
 import io.sinzak.android.constants.CODE_USER_REPORT_NAME
 import io.sinzak.android.enums.Page
-import io.sinzak.android.model.market.MarketProductModel
+import io.sinzak.android.model.market.ProductDetailModel
 import io.sinzak.android.model.market.MarketWriteModel
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.ui.main.profile.report.ReportSendViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
 @HiltViewModel
 class ContentViewModel @Inject constructor(
-    val model : MarketProductModel,
+    val model : ProductDetailModel,
     val writeModel: MarketWriteModel
 
 ): BaseViewModel(){
@@ -119,7 +118,7 @@ class ContentViewModel @Inject constructor(
      * 가격 제안하기 버튼 눌렀을때 동작
      */
     fun onClickSuggest(){
-
+        navigation.changePage(Page.ART_DETAIL_SUGGEST)
     }
 
     /**

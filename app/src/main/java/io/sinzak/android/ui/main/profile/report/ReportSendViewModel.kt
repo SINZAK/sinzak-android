@@ -3,10 +3,8 @@ package io.sinzak.android.ui.main.profile.report
 import android.os.Bundle
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.sinzak.android.constants.CODE_USER_REPORT_ID
-import io.sinzak.android.enums.Page.*
 import io.sinzak.android.enums.ReportType
-import io.sinzak.android.model.market.MarketProductModel
-import io.sinzak.android.model.profile.ProfileModel
+import io.sinzak.android.model.market.ProductDetailModel
 import io.sinzak.android.ui.base.BaseViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -16,7 +14,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ReportSendViewModel @Inject constructor(val productModel: MarketProductModel) : BaseViewModel() {
+class ReportSendViewModel @Inject constructor(val productModel: ProductDetailModel) : BaseViewModel() {
 
     private val _report = MutableStateFlow("")
     val report : StateFlow<String> get() = _report

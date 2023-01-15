@@ -39,7 +39,7 @@
                 android:layout_weight="1"
                 android:layout_height="@dimen/appbar_height"
                 android:gravity="center"
-                android:text="가격 제안하기"
+                android:text="@string/str_suggest_app_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -62,7 +62,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/bold16"
-                android:text="시세에 맞는 가격을 제안해보세요."/>
+                android:text="@string/str_suggest_title"/>
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="wrap_content"
@@ -94,6 +94,8 @@
                 android:layout_marginTop="24dp"
                 android:layout_height="wrap_content">
                 <EditText
+                    android:gravity="center"
+                    android:imeOptions="actionDone"
                     android:layout_width="230dp"
                     android:layout_height="54dp"
                     android:inputType="numberDecimal"
