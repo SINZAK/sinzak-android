@@ -14,5 +14,6 @@ class HomeViewModel @Inject constructor(
 
     fun getProducts(){
         model.getProducts()
+        model.getBanner()
     }
 }

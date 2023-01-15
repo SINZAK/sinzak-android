@@ -27,6 +27,8 @@ class CallImpl(
     val paramInt1 : Int? = null,
     val paramStr0 : String? = null,
     val paramStr1 : String? = null,
+    val paramStr2 : String? = null,
+    val paramBool0 : Boolean? = null,
     val multipartList : List<MultipartBody.Part>? = null,
     val multipart : MultipartBody.Part? = null,
 ) {
@@ -102,7 +104,7 @@ class CallImpl(
 
 
 
-            API_GET_MARKET_PRODUCTS -> remoteApi.getMarketProducts(header,paramInt0!!, paramInt1!!, paramStr0!!, paramStr1!!)
+            API_GET_MARKET_PRODUCTS -> remoteApi.getMarketProducts(header,paramInt0!!, paramInt1!!, paramStr0!!, paramStr1!!, paramStr2!!, paramBool0!!)
 
             API_BUILD_MARKET_PRODUCT -> remoteApi.buildMarketProduct(header, requestBody as ProductBuildRequest)
 
@@ -132,6 +134,8 @@ class CallImpl(
             API_GET_HOME_REFER -> remoteApi.getHomeRefer(header)
 
             API_GET_HOME_FOLLOWING -> remoteApi.getHomeFollowing(header)
+
+            API_GET_HOME_BANNER -> remoteApi.getBanner(header)
 
             API_POST_LIKE_PRODUCT -> remoteApi.postProductLikes(header, requestBody as ProductLikeRequest)
 

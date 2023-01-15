@@ -34,6 +34,9 @@ class MarketArtModel @Inject constructor() : BaseModel() {
     private var maxPage = 9999
 
     private var categoryString = ""
+
+    private var searchKeyword = ""
+
     fun setCategoryString(str : String){
         categoryString = str
         getRemoteMarketProducts(refresh = true)
@@ -54,13 +57,19 @@ class MarketArtModel @Inject constructor() : BaseModel() {
         _stShowOnSale.value = !status
     }
 
-    fun getRemoteMarketProducts(refresh : Boolean = false)
+
+    fun getRemoteMarketProducts(refresh : Boolean = false){
+        getRemoteMarketProducts(refresh,"")
+    }
+
+    fun getRemoteMarketProducts(refresh : Boolean = false, search : String = "")
     {
         val pageSize = 10
 
         val page = if(refresh) {
             _marketProducts.value = mutableListOf()
             maxPage = 9999
+            searchKeyword = search
             0
         }else currentPage + 1
 
@@ -82,7 +91,9 @@ class MarketArtModel @Inject constructor() : BaseModel() {
             paramInt0 = page,
             paramInt1 = pageSize,
             paramStr0 = align,
-            paramStr1 = category
+            paramStr1 = category,
+            paramStr2 = searchKeyword,
+            paramBool0 = stShowOnSale.value
 
         ).apply{
             remote.sendRequestApi(this)

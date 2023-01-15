@@ -7,6 +7,7 @@ import io.sinzak.android.model.market.MarketArtModel
 import io.sinzak.android.model.market.ProductDetailModel
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.ui.main.market.adapter.ArtProductAdapter
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
@@ -25,5 +26,13 @@ class ArtsViewModel @Inject constructor(val md : MarketArtModel, val productMode
         }.launchIn(viewModelScope)
     }
 
-    val productList = md.marketProducts
+
+    val stShowOnSale : StateFlow<Boolean> get() = md.stShowOnSale
+
+
+    fun toggleShowOnSale(){
+       md.onClickShowOnSale(!stShowOnSale.value)
+    }
+
+
 }

@@ -5,7 +5,9 @@ import io.sinzak.android.constants.*
 import io.sinzak.android.enums.HomeMore
 import io.sinzak.android.model.BaseModel
 import io.sinzak.android.remote.dataclass.CResponse
+import io.sinzak.android.remote.dataclass.local.BannerData
 import io.sinzak.android.remote.dataclass.product.Product
+import io.sinzak.android.remote.dataclass.response.home.BannerResponse
 import io.sinzak.android.remote.dataclass.response.market.HomeMoreResponse
 import io.sinzak.android.remote.dataclass.response.market.MarketHomeResponse
 import io.sinzak.android.remote.retrofit.CallImpl
@@ -38,6 +40,9 @@ class HomeProductModel @Inject constructor() : BaseModel() {
     val followingProductsAll = MutableStateFlow(listOf<Product>())
 
 
+    val banners = MutableStateFlow(listOf<BannerData>())
+
+
     val noti = MutableStateFlow(0)
 
 
@@ -59,6 +64,13 @@ class HomeProductModel @Inject constructor() : BaseModel() {
     fun getMoreFollowing(){
         remote.sendRequestApi(
             CallImpl(API_GET_HOME_FOLLOWING, this)
+        )
+    }
+
+    fun getBanner(){
+        banners.value = listOf()
+        remote.sendRequestApi(
+            CallImpl(API_GET_HOME_BANNER, this)
         )
     }
 
@@ -90,6 +102,11 @@ class HomeProductModel @Inject constructor() : BaseModel() {
                 _followingProducts.value = body.data.followingProducts?.toMutableList() ?: listOf()
 
 
+            }
+
+            API_GET_HOME_BANNER ->{
+                body as BannerResponse
+                banners.value = body.banners
             }
 
             API_GET_HOME_REFER ->{

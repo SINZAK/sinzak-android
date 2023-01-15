@@ -31,6 +31,7 @@ class MarketViewModel @Inject constructor(
     val artProducts = marketArtModel.marketProducts
 
 
+
     /********************************
      * LOCAL VARIABLE CHANGE
      ********************************/
@@ -72,6 +73,7 @@ class MarketViewModel @Inject constructor(
 
     fun search(tag: String) {
         marketHistory.putHistory(tag)
+        marketArtModel.getRemoteMarketProducts(refresh = true, search = tag)
         soft.hideKeyboard()
         _searchFieldText.value = tag
         _searchHistoryOn.value = false
