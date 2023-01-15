@@ -39,7 +39,7 @@ class MarketArtModel @Inject constructor() : BaseModel() {
 
     fun setCategoryString(str : String){
         categoryString = str
-        getRemoteMarketProducts(refresh = true)
+        getRemoteMarketProducts(refresh = true, search = searchKeyword)
     }
     fun getCategoryString() : String{
         return categoryString

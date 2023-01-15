@@ -51,8 +51,13 @@ class MarketViewModel @Inject constructor(
         }
     }
 
+    fun showHistory(){
+        _searchHistoryOn.value = true
+    }
+
     fun deleteSearchField() {
         _searchFieldText.value = ""
+        marketArtModel.getRemoteMarketProducts(refresh = true, search = "")
     }
 
 
@@ -104,6 +109,10 @@ class MarketViewModel @Inject constructor(
             }
         } else if (searchPageOn.value)
             _searchPageOn.value = false
+
+        if(!searchPageOn.value)
+            marketArtModel.getRemoteMarketProducts(refresh = true)
+
         soft.hideKeyboard()
     }
 }
