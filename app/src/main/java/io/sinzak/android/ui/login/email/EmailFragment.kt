@@ -2,6 +2,7 @@ package io.sinzak.android.ui.login.email
 
 import android.view.View
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import io.sinzak.android.databinding.FragmentRegisterEmailBinding
 import io.sinzak.android.ui.base.BaseFragment
@@ -13,7 +14,7 @@ class EmailFragment : BaseFragment() {
 
     lateinit var bind : FragmentRegisterEmailBinding
 
-    val viewModel by activityViewModels<EmailViewModel>()
+    val viewModel by viewModels<EmailViewModel>()
 
     override fun getFragmentRoot(): View {
         bind = FragmentRegisterEmailBinding.inflate(layoutInflater)
@@ -31,7 +32,6 @@ class EmailFragment : BaseFragment() {
     override fun onFragmentCreated() {
         bind.apply{
             vm = viewModel
-            fg = this@EmailFragment
             lifecycleOwner = viewLifecycleOwner
         }
     }

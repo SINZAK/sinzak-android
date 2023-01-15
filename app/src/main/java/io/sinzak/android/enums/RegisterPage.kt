@@ -5,5 +5,6 @@ enum class RegisterPage {
     PAGE_NAME,
     PAGE_INTEREST,
     PAGE_UNIVERSITY,
-    PAGE_UNIVERSITY_CERT
+    PAGE_UNIVERSITY_CERT,
+    Welcome
 }

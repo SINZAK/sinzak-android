@@ -31,6 +31,7 @@
             app:dotsColor="@color/text2"
             app:attachTo="@{vpBanner}"
             app:dotsSize="8dp"
+            app:dotsSpacing="4dp"
             app:layout_constraintBottom_toBottomOf="@+id/vp_banner"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

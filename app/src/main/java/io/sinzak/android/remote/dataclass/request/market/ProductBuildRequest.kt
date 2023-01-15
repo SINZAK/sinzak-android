@@ -6,10 +6,10 @@ import io.sinzak.android.remote.dataclass.CRequest
 data class ProductBuildRequest(
     @SerializedName("category") val category : String? = null,
     @SerializedName("content") val content : String,
-    @SerializedName("height") val height : Int,
-    @SerializedName("price") val price : Int,
-    @SerializedName("vertical") val vertical : Int,
-    @SerializedName("width") val width : Int,
-    @SerializedName("suggest") val priceSuggest : Boolean,
+    @SerializedName("height") val height : Int? = null,
+    @SerializedName("price") val price : Int? = null,
+    @SerializedName("vertical") val vertical : Int? = null,
+    @SerializedName("width") val width : Int? = null,
+    @SerializedName("suggest") val priceSuggest : Boolean? = null,
     @SerializedName("title") val title : String,
 )  : CRequest()

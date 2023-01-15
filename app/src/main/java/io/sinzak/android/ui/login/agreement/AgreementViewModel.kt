@@ -4,16 +4,24 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import io.sinzak.android.enums.RegisterPage
 import io.sinzak.android.model.navigate.RegisterNavigation
 import io.sinzak.android.ui.base.BaseViewModel
+import io.sinzak.android.ui.login.RegisterConnect
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 
 
 @HiltViewModel
-class AgreementViewModel @Inject constructor(val regNav : RegisterNavigation) : BaseViewModel() {
+class AgreementViewModel @Inject constructor(
+    val connect: RegisterConnect
+    ) : BaseViewModel() {
 
-    fun onSubmit(){
-        regNav.changePage(RegisterPage.PAGE_NAME)
+    fun onSubmit() {
+        connect.gotoDisplayNamePage()
     }
+
+    fun onBackPressed(){
+        connect.navigation.revealHistory()
+    }
+
 
 
     val checkAge = MutableStateFlow(false)
@@ -22,19 +30,17 @@ class AgreementViewModel @Inject constructor(val regNav : RegisterNavigation) : 
     val checkMarketing = MutableStateFlow(false)
 
 
-    fun toggleAge(){
+    fun toggleAge() {
         checkAge.value = !checkAge.value
     }
 
-    fun toggleAll(){
-        if(checkAge.value && checkAge.value && checkPersonal.value && checkMarketing.value)
-        {
+    fun toggleAll() {
+        if (checkAge.value && checkAge.value && checkPersonal.value && checkMarketing.value) {
             toggleAge()
             toggleMarketing()
             togglePersonal()
             toggleRequire()
-        }
-        else{
+        } else {
             checkAge.value = true
             checkRequire.value = true
             checkPersonal.value = true
@@ -43,19 +49,20 @@ class AgreementViewModel @Inject constructor(val regNav : RegisterNavigation) : 
     }
 
 
-    fun toggleRequire(){
+    fun toggleRequire() {
         checkRequire.value = !checkRequire.value
     }
 
 
-    fun togglePersonal(){
+    fun togglePersonal() {
         checkPersonal.value = !checkPersonal.value
     }
 
 
-    fun toggleMarketing(){
+    fun toggleMarketing() {
         checkMarketing.value = !checkMarketing.value
     }
+
 
 
 }

@@ -32,7 +32,6 @@ class NameFragment() : BaseFragment() {
     override fun onFragmentCreated() {
         bind.apply{
             lifecycleOwner = viewLifecycleOwner
-            fg= this@NameFragment
             vm = viewModel
         }
     }

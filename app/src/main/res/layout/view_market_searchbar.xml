@@ -28,6 +28,7 @@
             android:background="@drawable/ll_search"
             android:layout_weight="1">
             <EditText
+                android:id="@+id/et_search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -35,16 +36,18 @@
                 style="@style/medium16"
                 android:onTextChanged="@{(cs,a,b,c) -> marketVM.typeSearchFieldText(cs)}"
                 requestFocus="@{marketVM.searchPageOn}"
+                onFocused="@{v->marketVM.showHistory()}"
                 soft="@{marketVM.soft}"
                 onActionDone="@{v->marketVM.searchText()}"
-
+                android:imeOptions="actionDone"
+                android:inputType="text"
 
                 android:layout_marginStart="15dp"
                 android:textColorHint="@color/gray80"
                 android:background="@null"
                 android:hint="@string/str_market_search_hint"/>
             <ImageView
-                android:onClick="@{v->marketVM.deleteSearchField()}"
+                android:onClick="@{v->marketVM.deleteSearchField() &amp; marketVM.soft.showKeyboard(etSearch)}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_btn_clear"

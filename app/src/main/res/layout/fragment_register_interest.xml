@@ -3,10 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
-            name="fg"
-            type="io.sinzak.android.ui.login.interest.InterestFragment" />
-
-        <variable
             name="vm"
             type="io.sinzak.android.ui.login.interest.InterestViewModel" />
     </data>
@@ -23,7 +19,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:onClick="@{v->fg.navigateOnBackPressed()}"
+                android:onClick="@{v->vm.onBackPressed()}"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginHorizontal="16dp"

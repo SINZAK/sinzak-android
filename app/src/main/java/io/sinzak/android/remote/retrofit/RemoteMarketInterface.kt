@@ -5,6 +5,7 @@ import io.sinzak.android.remote.dataclass.CResponse
 import io.sinzak.android.remote.dataclass.request.market.ProductBuildRequest
 import io.sinzak.android.remote.dataclass.request.market.ProductLikeRequest
 import io.sinzak.android.remote.dataclass.request.market.ProductSuggestRequest
+import io.sinzak.android.remote.dataclass.response.home.BannerResponse
 import io.sinzak.android.remote.dataclass.response.market.*
 import okhttp3.MultipartBody
 import retrofit2.Call
@@ -12,7 +13,7 @@ import retrofit2.http.*
 
 interface RemoteMarketInterface {
     @POST("api/products")
-    fun getMarketProducts(@HeaderMap header : HashMap<String,String>, @Query("page") page : Int, @Query("size") size : Int, @Query("align") align : String, @Query("category") category : String ) : Call<MarketProductResponse>
+    fun getMarketProducts(@HeaderMap header : HashMap<String,String>, @Query("page") page : Int, @Query("size") size : Int, @Query("align") align : String, @Query("category") category : String, @Query("search") search : String, @Query("sale") sale : Boolean ) : Call<MarketProductResponse>
 
     @POST("api/products/build")
     fun buildMarketProduct(@HeaderMap header: HashMap<String, String>, @Body body : ProductBuildRequest) : Call<ProductBuildResponse>
@@ -40,6 +41,42 @@ interface RemoteMarketInterface {
 
 
 
+
+
+
+
+
+    @POST("api/works/build")
+    fun buildMarketWork(@HeaderMap header: HashMap<String, String>, @Body body : ProductBuildRequest) : Call<ProductBuildResponse>
+
+    @POST("api/works/{id}/edit")
+    fun editMarketWork(@HeaderMap header: HashMap<String, String>, @Path("id") id : Int, @Body body : ProductBuildRequest) : Call<ProductBuildResponse>
+
+
+
+    @POST("api/works/{id}")
+    fun getMarketWorkDetail(@HeaderMap headerMap: HashMap<String,String>, @Path("id") id : Int) : Call<MarketDetailResponse>
+
+
+    @Multipart
+    @POST("api/works/{id}/image")
+    fun uploadWorkImage(@HeaderMap headerMap: HashMap<String,String>,@Path("id") id : Int, @Part parts : List<MultipartBody.Part>) : Call<CResponse>
+
+
+    @POST("api/works/{id}/deleteimage")
+    fun deleteWorkImage(@HeaderMap headerMap: HashMap<String,String>,@Path("id") id : Int, @Body body : JsonObject) : Call<CResponse>
+
+    @POST("api/works/{id}/delete")
+    fun deleteWork(@HeaderMap headerMap: HashMap<String,String>,@Path("id") id : Int) : Call<CResponse>
+
+
+
+
+
+
+
+
+
     @POST("api/home/products")
     fun getHomeProducts(@HeaderMap headerMap : HashMap<String,String>) : Call<MarketHomeResponse>
 
@@ -49,6 +86,9 @@ interface RemoteMarketInterface {
     @POST("api/home/recommend")
     fun getHomeRefer(@HeaderMap headerMap : HashMap<String,String>) : Call<HomeMoreResponse>
 
+
+    @GET("api/banner")
+    fun getBanner(@HeaderMap headerMap: HashMap<String, String> /* = java.util.HashMap<kotlin.String, kotlin.String> */) : Call<BannerResponse>
 
 
     @POST("api/products/likes")

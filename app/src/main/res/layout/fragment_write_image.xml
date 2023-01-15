@@ -4,10 +4,6 @@
 
     <data>
         <variable
-            name="fg"
-            type="io.sinzak.android.ui.main.postwrite.fragment.ImageFragment" />
-
-        <variable
             name="vm"
             type="io.sinzak.android.ui.main.postwrite.viewmodels.ImageViewModel" />
     </data>
@@ -25,7 +21,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:onClick="@{v->fg.navigateOnBackPressed()}"
+                android:onClick="@{v->vm.onBackPressed()}"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginHorizontal="16dp"
@@ -89,7 +85,7 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
             <TextView
-                android:onClick="@{v->fg.loadImage()}"
+                android:onClick="@{v->vm.loadImage()}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_camera"
@@ -116,7 +112,7 @@
             android:enabled="@{vm.canGoNext}"
             style="@style/medium16"
             android:layout_marginBottom="26dp"
-            android:onClick="@{v->fg.moveToInfo() &amp; vm.submit()}"
+            android:onClick="@{v->vm.submit()}"
             android:layout_marginHorizontal="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             android:textColor="@color/on_primary"/>

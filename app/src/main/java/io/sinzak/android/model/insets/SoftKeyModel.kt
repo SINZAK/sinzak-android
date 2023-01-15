@@ -18,8 +18,10 @@ class SoftKeyModel @Inject constructor() {
     }
 
 
-    fun showKeyboard(view : EditText) =
-        imm.showSoftInput(view,0)
+    fun showKeyboard(view : EditText) {
+        view.requestFocus()
+        imm.showSoftInput(view, 0)
+    }
 
 
     fun hideKeyboard(){
