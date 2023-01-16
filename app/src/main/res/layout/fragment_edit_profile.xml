@@ -90,7 +90,7 @@
                         android:background="@null"
                         android:inputType="text"
                         android:textColorHint="@color/gray60"
-                        android:text="@{pVm.profile.name}"
+                        android:text="@{pVm.name}"
                         android:onTextChanged="@{(cs,a,b,c)-> vm.inputName(cs)}"/>
                 </androidx.appcompat.widget.LinearLayoutCompat>
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -121,7 +121,7 @@
                         android:background="@null"
                         android:hint="@string/str_edit_introduction"
                         android:inputType="textMultiLine"
-                        android:text="@{pVm.profile.introduction}"
+                        android:text="@{pVm.introduction}"
                         android:textColorHint="@color/gray60"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -156,7 +156,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@{pVm.profile.univ}"
+                        android:text="@{pVm.university}"
                         style="@style/regular16"
                         android:background="@color/on_primary"/>
                     <TextView

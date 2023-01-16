@@ -12,9 +12,6 @@
         <variable
             name="activity"
             type="io.sinzak.android.ui.main.MainActivity" />
-        <variable
-            name="pViewmodel"
-            type="io.sinzak.android.ui.main.profile.viewmodel.ProfileViewModel" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat android:layout_width="match_parent"
@@ -117,7 +114,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:onClick="@{v->viewmodel.setCurrentButton(viewmodel.PAGE_PROFILE) &amp; pViewmodel.changeStatus(true)}"
+            android:onClick="@{v->viewmodel.setCurrentButton(viewmodel.PAGE_PROFILE)}"
             android:layout_weight="1"
             isSelect="@{viewmodel.currentButton == viewmodel.PAGE_PROFILE}"
             android:orientation="vertical">

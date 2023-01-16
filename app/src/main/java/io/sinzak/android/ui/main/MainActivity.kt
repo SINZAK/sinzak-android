@@ -27,14 +27,18 @@ import io.sinzak.android.ui.main.market.artdetail.suggest.SuggestFragment
 import io.sinzak.android.ui.main.outsourcing.OutsourcingFragment
 import io.sinzak.android.ui.main.postwrite.fragment.*
 import io.sinzak.android.ui.main.profile.ProfileFragment
+import io.sinzak.android.ui.main.profile.ProfileOtherFragment
 import io.sinzak.android.ui.main.profile.certification.CertificationFragment
 import io.sinzak.android.ui.main.profile.certification.VerifyFragment
 import io.sinzak.android.ui.main.profile.certification.WebmailFragment
 import io.sinzak.android.ui.main.profile.edit.EditFragment
+import io.sinzak.android.ui.main.profile.follow.FollowFragment
 import io.sinzak.android.ui.main.profile.report.ReportSendFragment
 import io.sinzak.android.ui.main.profile.report.ReportTypeFragment
+import io.sinzak.android.ui.main.profile.sale_with_work.RequestFragment
 import io.sinzak.android.ui.main.profile.sale_with_work.SaleFragment
 import io.sinzak.android.ui.main.profile.sale_with_work.WorkFragment
+import io.sinzak.android.ui.main.profile.scrap.ScrapFragment
 import io.sinzak.android.ui.main.profile.setting.SettingFragment
 import io.sinzak.android.ui.main.profile.viewmodel.ProfileViewModel
 import io.sinzak.android.utils.RootViewDeferringInsetsCallback
@@ -57,8 +61,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private val viewModel: MainViewModel by viewModels()
 
     private val bottomViewModel: MainBottomViewModel by viewModels()
-
-    private val profileViewModel: ProfileViewModel by viewModels()
 
     private var fragment: BaseFragment? = null
 
@@ -113,7 +115,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             ).apply {
                 activity = this@MainActivity
                 viewmodel = bottomViewModel
-                pViewmodel = profileViewModel
                 lifecycleOwner = this@MainActivity
                 flBottomMenu.addView(root)
             }
@@ -162,13 +163,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     ChatFragment()
                 }
 
+                PROFILE_OTHER,
                 PROFILE_SALE,
                 PROFILE_WORK,
                 PROFILE_EDIT,
                 PROFILE_SETTING,
                 PROFILE_CERTIFICATION,
                 PROFILE_REPORT_TYPE,
-                PROFILE_REPORT_SEND ->
+                PROFILE_REPORT_SEND,
+                PROFILE_SCRAP,
+                PROFILE_REQUEST,
+                PROFILE_FOLLOW->
                     inflateProfileFragments(page)
 
 
@@ -210,6 +215,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private fun inflateProfileFragments(page: Page): BaseFragment {
         return when (page) {
+            PROFILE_OTHER ->
+                ProfileOtherFragment()
             PROFILE_SALE ->
                 SaleFragment()
             PROFILE_WORK ->
@@ -222,6 +229,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 CertificationFragment()
             PROFILE_REPORT_TYPE ->
                 ReportTypeFragment()
+            PROFILE_SCRAP ->
+                ScrapFragment()
+            PROFILE_REQUEST ->
+                RequestFragment()
+            PROFILE_FOLLOW ->
+                FollowFragment()
             else ->
                 ReportSendFragment()
         }
