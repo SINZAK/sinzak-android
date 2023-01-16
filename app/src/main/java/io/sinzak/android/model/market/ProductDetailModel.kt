@@ -2,6 +2,7 @@ package io.sinzak.android.model.market
 
 import io.sinzak.android.constants.*
 import io.sinzak.android.model.BaseModel
+import io.sinzak.android.model.profile.ProfileModel
 import io.sinzak.android.remote.dataclass.CResponse
 import io.sinzak.android.remote.dataclass.request.market.ProductLikeRequest
 import io.sinzak.android.remote.dataclass.request.market.ProductSuggestRequest

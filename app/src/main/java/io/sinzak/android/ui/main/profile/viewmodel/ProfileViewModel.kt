@@ -39,11 +39,6 @@ class ProfileViewModel @Inject constructor(
     val profile get() = model.profile
 
     /**
-     * 타인 프로필
-     */
-    val otherProfile get() = model.otherProfile
-
-    /**
      * 내 프로필인가?
      */
     val isMyProfile = MutableStateFlow(false)
@@ -96,29 +91,24 @@ class ProfileViewModel @Inject constructor(
     /**
      * 유저 아이디
      */
-    val userId get() = model.currentUserId.value
+    val userId = MutableStateFlow("-1")
 
     /***********************************************************************
      * DATA FLOW
      **********************************************************************/
     init {
-        if (userId == profileModel.getUserId()!!.toInt()){
-            collectProfile(profile)
-        }
-        else {
-            collectProfile(otherProfile)
-        }
-
+        collectProfile()
     }
 
 
     /**
      * 프로필 데이터를 구독하고 필요한 데이터를 분리해 state를 저장해요
      */
-    private fun collectProfile(stateFlow : MutableStateFlow<UserProfileResponse?>)
+    private fun collectProfile()
     {
-        invokeStateFlow(stateFlow) {profile ->
+        invokeStateFlow(profile) {profile ->
             profile?.let {
+                userId.value = it.userId
                 isMyProfile.value = it.myProfile
 
                 profileImg.value = it.imageUrl
@@ -135,6 +125,14 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
+    /********************************
+     * REQUEST
+     ********************************/
+
+    fun getMyProfileRemote() = model.getProfile()
+
+    fun getOtherProfileRemote() = model.getOtherProfile()
+
     /*********************************************************************
      * Click Event
      **********************************************************************/
@@ -144,7 +142,7 @@ class ProfileViewModel @Inject constructor(
      */
     fun toggleFollow()
     {
-        profileModel.followUser(userId,isFollow.value)
+        model.followUser(userId.value,isFollow.value)
         isFollow.value = !isFollow.value
         follower.value = follower.value + if (isFollow.value) 1 else -1
     }
@@ -202,7 +200,7 @@ class ProfileViewModel @Inject constructor(
         profile.value?.let{profile->
             Bundle().apply{
                 putString(CODE_USER_REPORT_NAME, profile.name)
-                putString(CODE_USER_REPORT_ID, profile.userId.toString())
+                putString(CODE_USER_REPORT_ID, profile.userId)
                 navigation.putBundleData(ReportSendViewModel::class,this)
             }
             navigation.changePage(Page.PROFILE_REPORT_TYPE)

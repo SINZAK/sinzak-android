@@ -8,6 +8,7 @@ import io.sinzak.android.constants.CODE_USER_REPORT_NAME
 import io.sinzak.android.enums.Page
 import io.sinzak.android.model.market.ProductDetailModel
 import io.sinzak.android.model.market.MarketWriteModel
+import io.sinzak.android.model.profile.ProfileModel
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.ui.main.profile.report.ReportSendViewModel
 import io.sinzak.android.ui.main.profile.viewmodel.ProfileViewModel
@@ -18,6 +19,7 @@ import javax.inject.Inject
 class ContentViewModel @Inject constructor(
     val model : ProductDetailModel,
     val writeModel: MarketWriteModel,
+    val pModel: ProfileModel
 ): BaseViewModel(){
 
     private var _connect : ArtDetailConnect? = null
@@ -78,7 +80,7 @@ class ContentViewModel @Inject constructor(
     /**
      * 작가 아이디
      */
-    private var authorId = -1
+    private var authorId = "-1"
     /**
      * 상품 id
      */
@@ -184,12 +186,13 @@ class ContentViewModel @Inject constructor(
                 isFollowing.value = it.isFollowing
                 follower.value = it.authorFollowerCnt
 
-                isMyProduct.value = it.authorId == profileModel.getUserId()
-
-                it.authorId.toInt().apply {
-                    profileModel.currentUserId.value = this
-                    authorId = this
+                it.authorId.let {
+                    authorId = it
+                    pModel.setCurrentUserId(it)
                 }
+
+                isMyProduct.value = pModel.isMine()
+
             }
 
         }

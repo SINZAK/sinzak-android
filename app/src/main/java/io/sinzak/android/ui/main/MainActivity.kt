@@ -32,6 +32,7 @@ import io.sinzak.android.ui.main.profile.certification.CertificationFragment
 import io.sinzak.android.ui.main.profile.certification.VerifyFragment
 import io.sinzak.android.ui.main.profile.certification.WebmailFragment
 import io.sinzak.android.ui.main.profile.edit.EditFragment
+import io.sinzak.android.ui.main.profile.follow.FollowFragment
 import io.sinzak.android.ui.main.profile.report.ReportSendFragment
 import io.sinzak.android.ui.main.profile.report.ReportTypeFragment
 import io.sinzak.android.ui.main.profile.sale_with_work.RequestFragment
@@ -171,7 +172,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 PROFILE_REPORT_TYPE,
                 PROFILE_REPORT_SEND,
                 PROFILE_SCRAP,
-                PROFILE_REQUEST->
+                PROFILE_REQUEST,
+                PROFILE_FOLLOW->
                     inflateProfileFragments(page)
 
 
@@ -231,6 +233,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 ScrapFragment()
             PROFILE_REQUEST ->
                 RequestFragment()
+            PROFILE_FOLLOW ->
+                FollowFragment()
             else ->
                 ReportSendFragment()
         }

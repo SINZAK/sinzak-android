@@ -370,7 +370,7 @@ class SignModel @Inject constructor(
         setIsLogin(true)
         prefs.setString(ACCESS_TOKEN,response.accessToken)
         prefs.setString(REFRESH_TOKEN,response.refreshToken)
-        profile.getMyProfile()
+        profile.getProfile()
     }
 
     /**

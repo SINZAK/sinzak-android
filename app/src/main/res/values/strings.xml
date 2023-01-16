@@ -42,6 +42,7 @@
     <string name="str_profile_verify_true">verified</string>
     <string name="str_profile_verify_false">unverified</string>
 
+    <string name="str_follow_username">%s</string>
 
     <string name="str_sale_onsale_true">판매중</string>
     <string name="str_sale_onsale_false">판매완료</string>
@@ -173,6 +174,7 @@
     <string name="str_report_input_hint">신작이 조치를 취해드릴 수 있게 문제 상황을 최대한 구체적으로 설명해주세요.</string>
     <string name="str_report_input_length">글자 수 제한 %d/300</string>
     <string name="str_report_send_explain">신고하면 더 이상 채팅을 보낼 수 없어요.</string>
+
     <string name="str_app_name_kr">신작</string>
     <string name="str_art_artist_holder">%s 작가</string>
     <string name="str_btn_upload_picture">사진 업로드하기</string>

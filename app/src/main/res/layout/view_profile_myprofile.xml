@@ -4,7 +4,10 @@
     <data>
         <variable
             name="vm"
-            type="io.sinzak.android.ui.main.profile.viewmodel.ProfileViewModel" />
+            type="io.sinzak.android.ui.main.profile.viewmodel.ProfileViewModel"/>
+        <variable
+            name="fVm"
+            type="io.sinzak.android.ui.main.profile.follow.FollowViewModel" />
         <import type="io.sinzak.android.enums.Page"/>
     </data>
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -69,7 +72,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{String.valueOf(vm.follower)}"
-                style="@style/bold16"/>
+                style="@style/bold16"
+                android:onClick="@{v-> fVm.changePage(0) &amp; vm.changePage(Page.PROFILE_FOLLOW)}"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -77,7 +81,8 @@
                 style="@style/regular13"
                 android:layout_centerVertical="true"
                 android:layout_toEndOf="@+id/tv_follower_num"
-                android:layout_marginStart="5dp"/>
+                android:layout_marginStart="5dp"
+                android:onClick="@{v-> fVm.changePage(0) &amp; vm.changePage(Page.PROFILE_FOLLOW)}"/>
             <Space
                 android:layout_width="30dp"
                 android:layout_height="wrap_content"/>
@@ -86,13 +91,15 @@
                 android:layout_height="wrap_content"
                 android:text="@{String.valueOf(vm.following)}"
                 style="@style/bold16"
-                android:layout_marginEnd="5dp"/>
+                android:layout_marginEnd="5dp"
+                android:onClick="@{v-> fVm.changePage(1) &amp; vm.changePage(Page.PROFILE_FOLLOW)}"/>
             <TextView
                 android:id="@+id/tv_following_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/str_profile_following"
-                style="@style/regular13"/>
+                style="@style/regular13"
+                android:onClick="@{v-> fVm.changePage(1) &amp; vm.changePage(Page.PROFILE_FOLLOW)}"/>
             <Space
                 android:layout_width="30dp"
                 android:layout_height="wrap_content"

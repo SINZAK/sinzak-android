@@ -67,15 +67,15 @@ class CallImpl(
 
             API_EMAIL_GET_NAVER -> remoteApi.loginGetNaverEmail("Bearer $paramStr0")
 
-            API_GET_USER_PROFILE -> remoteApi.getUserProfile(header,paramInt0!!)
+            API_GET_USER_PROFILE -> remoteApi.getUserProfile(header,paramStr0!!)
 
             API_FOLLOW_USER -> remoteApi.followUser(header, requestBody as FollowRequest)
 
             API_UNFOLLOW_USER -> remoteApi.unfollowUser(header, requestBody as FollowRequest)
 
-            API_GET_FOLLOWING_LIST -> remoteApi.getFollowingList(header,paramInt0!!)
+            API_GET_FOLLOWING_LIST -> remoteApi.getFollowingList(header,paramStr0!!)
 
-            API_GET_FOLLOWER_LIST -> remoteApi.getFollowerList(header, paramInt0!!)
+            API_GET_FOLLOWER_LIST -> remoteApi.getFollowerList(header, paramStr0!!)
 
 
 

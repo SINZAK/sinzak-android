@@ -17,6 +17,7 @@ import io.sinzak.android.ui.main.market.artdetail.dialog.ArtistBlockDialog
 import io.sinzak.android.ui.main.market.artdetail.dialog.ArtistReportDialog
 import io.sinzak.android.ui.main.market.artdetail.ContentViewModel
 import io.sinzak.android.ui.main.profile.edit.EditViewModel
+import io.sinzak.android.ui.main.profile.follow.FollowViewModel
 import io.sinzak.android.ui.main.profile.report.ReportSendViewModel
 import io.sinzak.android.ui.main.profile.viewmodel.ProfileSaleViewModel
 import io.sinzak.android.ui.main.profile.viewmodel.ProfileViewModel
@@ -31,9 +32,7 @@ open class ProfileFragment : BaseFragment() {
     protected val viewModel by activityViewModels<ProfileViewModel>()
     private val profileSaleViewModel by activityViewModels<ProfileSaleViewModel>()
     private val profileWorkViewModel by activityViewModels<ProfileWorkViewModel>()
-
-    @Inject
-    lateinit var profileModel: ProfileModel
+    private val followViewModel by activityViewModels<FollowViewModel>()
 
     @Inject
     lateinit var connect: ProfileConnect
@@ -50,7 +49,7 @@ open class ProfileFragment : BaseFragment() {
     }
 
     override fun onFragmentCreated() {
-        profileModel.getMyProfile()
+        viewModel.getMyProfileRemote()
         LogDebug(javaClass.name,"내 프로필 실행")
         inflateChild()
     }
@@ -98,6 +97,7 @@ open class ProfileFragment : BaseFragment() {
         ViewProfileMyprofileBinding.inflate(layoutInflater).apply {
             lifecycleOwner = viewLifecycleOwner
             vm = viewModel
+            fVm = followViewModel
             bind.llProfiles.addView(root)
         }
     }
