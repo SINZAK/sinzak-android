@@ -44,10 +44,10 @@ class FollowViewModel @Inject constructor(
 
     fun getFollowListRemote() {
         if (_page.value == 0){
-            model.getFollowerList(userId = model.profile.value!!.userId)
+            model.getFollowerList(userId = model.currenUserId.value)
         }
         else {
-            model.getFollowingList(userId = model.profile.value!!.userId)
+            model.getFollowingList(userId = model.currenUserId.value)
         }
     }
 }

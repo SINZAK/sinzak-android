@@ -142,7 +142,7 @@ class ProfileViewModel @Inject constructor(
      */
     fun toggleFollow()
     {
-        model.followUser(userId.value,isFollow.value)
+        model.followUser(isFollow.value)
         isFollow.value = !isFollow.value
         follower.value = follower.value + if (isFollow.value) 1 else -1
     }

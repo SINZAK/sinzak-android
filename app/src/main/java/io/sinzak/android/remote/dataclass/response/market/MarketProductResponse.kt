@@ -18,6 +18,4 @@ data class MarketProductResponse(
     @SerializedName("totalElements") val totalElements : Int? = null,
     @SerializedName("totalPages") val totalPage : Int? = null,
     @SerializedName("sort") val sort : Sort? = null,
-
-
     ) : CResponse()

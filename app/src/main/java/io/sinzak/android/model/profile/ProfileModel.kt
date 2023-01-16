@@ -27,7 +27,7 @@ class ProfileModel @Inject constructor() : BaseModel() {
     val myUserId = MutableStateFlow("-1")
 
     /**
-     * 조회중의 타인 유저 아이디 저장하는 공간
+     * 조회중인 유저 아이디 저장하는 공간
      */
     val currenUserId = MutableStateFlow("-1")
     /**
@@ -118,8 +118,8 @@ class ProfileModel @Inject constructor() : BaseModel() {
         }
     }
 
-    fun followUser(userId: String , isFollow : Boolean) {
-        val request = FollowRequest(userId)
+    fun followUser(isFollow : Boolean) {
+        val request = FollowRequest(currenUserId.value)
 
         if (isFollow){
             CallImpl(
@@ -142,15 +142,6 @@ class ProfileModel @Inject constructor() : BaseModel() {
 
     }
 
-    private fun onFollowListResponse(response: FollowResponse, stateFlow: MutableStateFlow<MutableList<Follow>>)
-    {
-        response.followList.let{ follow ->
-            val list = mutableListOf<Follow>()
-            list.addAll(stateFlow.value)
-            list.addAll(follow)
-        }
-    }
-
 
 
     override fun onConnectionSuccess(api: Int, body: CResponse) {
@@ -163,15 +154,18 @@ class ProfileModel @Inject constructor() : BaseModel() {
             }
 
             API_GET_FOLLOWER_LIST -> {
-                onFollowListResponse(body as FollowResponse, _followerList)
+
             }
 
             API_GET_FOLLOWING_LIST -> {
-                onFollowListResponse(body as FollowResponse, _followingList)
+
             }
             API_GET_MY_PROFILE -> {
                 if (body is UserProfileResponse) {
-                    myUserId.value = body.userId
+                    body.userId.let {
+                        myUserId.value = it
+                        currenUserId.value = it
+                    }
                     profile.value = body
                 }
             }

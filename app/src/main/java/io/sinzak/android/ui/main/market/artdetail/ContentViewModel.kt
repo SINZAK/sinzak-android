@@ -142,7 +142,7 @@ class ContentViewModel @Inject constructor(
      * 팔로우 버튼
      */
     fun onClickFollow(){
-        profileModel.followUser(authorId,isFollowing.value)
+        profileModel.followUser(isFollowing.value)
         isFollowing.value = !isFollowing.value
         follower.value = follower.value + if (isFollowing.value) 1 else -1
     }
