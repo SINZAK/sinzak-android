@@ -9,9 +9,7 @@
         <variable
             name="vm"
             type="io.sinzak.android.ui.main.outsourcing.viewmodel.OutsourcingViewModel" />
-        <variable
-            name="fg"
-            type="io.sinzak.android.ui.main.outsourcing.OutsourcingFragment" />
+
 
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -57,9 +55,8 @@
             app:layout_constraintTop_toBottomOf="@+id/ll_appbar">
 
             <Space
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_width="16dp"
+                android:layout_height="0dp"/>
 
             <TextView
                 style="@style/bold16"
@@ -68,7 +65,7 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/btn_noti_list_select"
                 android:gravity="center"
-                android:onClick="@{v->fg.inflateClient()}"
+                android:onClick="@{v->vm.setIsClient(true)}"
                 android:text="@string/str_btn_outsourcing_client"
                 android:textColor="@{vm.isClientList ? @color/on_secondary : @color/gray60}" />
 
@@ -79,7 +76,7 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/btn_noti_list_select"
                 android:gravity="center"
-                android:onClick="@{v->fg.inflateArtist()}"
+                android:onClick="@{v->vm.setIsClient(false)}"
                 android:text="@string/str_btn_outsourcing_artist"
                 android:textColor="@{!vm.isClientList ? @color/on_secondary : @color/gray60}" />
 
@@ -87,6 +84,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
+
+            <TextView
+                android:onClick="@{v->vm.showSortBottom()}"
+                android:layout_width="wrap_content"
+                android:layout_gravity="end"
+                android:gravity="center"
+                android:layout_marginHorizontal="18dp"
+                style="@style/bold13"
+                android:textColor="@color/gray60"
+                android:layout_height="match_parent"
+                sortText="@{vm.sortOrder}"
+                app:drawableStartCompat="@drawable/ic_order" />
+
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <FrameLayout

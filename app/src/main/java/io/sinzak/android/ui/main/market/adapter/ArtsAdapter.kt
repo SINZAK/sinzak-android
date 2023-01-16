@@ -2,6 +2,7 @@ package io.sinzak.android.ui.main.market.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -15,22 +16,26 @@ import io.sinzak.android.databinding.HolderMarketArtGridBinding
 import io.sinzak.android.remote.dataclass.product.Product
 import io.sinzak.android.system.dp
 
-class ArtsAdapter : RecyclerView.Adapter<ArtsAdapter.ViewHolder>() {
+class ArtsAdapter(
+    val products : MutableList<Product> = mutableListOf(),
+    val likeClick : ((Int, Boolean) -> Unit)? = null,
+    val itemClick : (Product) -> Unit = {}
+) : RecyclerView.Adapter<ArtsAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int {
-        return 8
+        return products.size
     }
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind()
+        holder.bind(products[position])
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
             DataBindingUtil.inflate(
                 LayoutInflater.from(parent.context),
-                R.layout.holder_home_art_grid,
+                R.layout.holder_market_art_grid,
                 null,
                 true
             )
@@ -38,13 +43,24 @@ class ArtsAdapter : RecyclerView.Adapter<ArtsAdapter.ViewHolder>() {
     }
 
 
-    inner class ViewHolder(val bind: HolderHomeArtGridBinding) :
+    inner class ViewHolder(val bind: HolderMarketArtGridBinding) :
         RecyclerView.ViewHolder(bind.root) {
 
-        fun bind(){
+        fun bind(p : Product){
             bind.apply{
-                Glide.with(ivPoster).asBitmap().load(GlideUrl("https://wallpaperaccess.com/full/2339301.jpg"))
-                    .transform(CenterCrop(),RoundedCorners(10.dp.toInt())).into(ivPoster)
+                tvPrice.isVisible = false
+                this.product = p
+                setOnItemClick {
+                    itemClick(p)
+                }
+                setOnLikeClick {
+                    likeClick?.let{c->
+                        p.like = !p.like!!
+                        p.likeCnt = p.likeCnt!! + if(p.like!!) 1 else -1
+                        product = p
+                        c(p.id!!, p.like!!)
+                    }
+                }
             }
         }
     }

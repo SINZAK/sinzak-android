@@ -21,7 +21,6 @@ class OutsourcingFragment : BaseFragment(){
 
     private val filterViewModel : FilterViewModel by activityViewModels()
     private val viewModel : OutsourcingViewModel by activityViewModels()
-    private val clientViewModel : ClientViewModel by activityViewModels()
     private val artistViewModel : ArtistViewModel by activityViewModels()
 
     override fun getFragmentRoot(): View {
@@ -40,16 +39,15 @@ class OutsourcingFragment : BaseFragment(){
     override fun onFragmentCreated() {
         bind.apply{
             lifecycleOwner = viewLifecycleOwner
-            fg = this@OutsourcingFragment
             vm = viewModel
         }
 
         inflateFilter()
-        inflateClient()
+        inflateArtist()
     }
 
 
-    fun inflateFilter(){
+    private fun inflateFilter(){
         ViewOutsourcingFilterBinding.inflate(layoutInflater).apply{
 
             vm = filterViewModel
@@ -57,24 +55,7 @@ class OutsourcingFragment : BaseFragment(){
             bind.flFilter.addView(root)
         }
     }
-
-    fun inflateClient(){
-        if(viewModel.isClientList.value && bind.flOutsourcing.childCount > 0)
-            return
-        bind.flOutsourcing.removeAllViews()
-        viewModel.isClientList.value = true
-        ViewOutsourcingClientBinding.inflate(layoutInflater).apply{
-            vm = clientViewModel
-            lifecycleOwner = viewLifecycleOwner
-            bind.flOutsourcing.addView(root)
-        }
-    }
-
-    fun inflateArtist(){
-        if(!viewModel.isClientList.value)
-            return
-        bind.flOutsourcing.removeAllViews()
-        viewModel.isClientList.value = false
+    private fun inflateArtist(){
         ViewOutsourcingArtistBinding.inflate(layoutInflater).apply{
             vm = artistViewModel
             lifecycleOwner = viewLifecycleOwner

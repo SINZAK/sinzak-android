@@ -18,9 +18,10 @@
             android:layout_height="match_parent"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:spanCount="2"
-            adapter="@{vm.adapter}"
+            android:adapter="@{vm.adapter}"
             marginHorizon="@{6}"
             marginVertical="@{10}"
+            app:bottomReached="@{v->vm.getMoreWorks()}"
             android:layout_weight="1"/>
 
     </FrameLayout>

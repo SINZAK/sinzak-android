@@ -124,6 +124,8 @@ class CallImpl(
 
 
 
+            API_GET_MARKET_WORKS -> remoteApi.getMarketWorks(header,paramInt0!!, paramInt1!!, paramStr0!!, paramStr1!!, paramStr2!!, paramBool0!!)
+
 
 
             API_BUILD_MARKET_WORK -> remoteApi.buildMarketWork(header, requestBody as ProductBuildRequest)

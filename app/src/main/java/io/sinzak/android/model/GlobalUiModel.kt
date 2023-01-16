@@ -3,6 +3,7 @@ package io.sinzak.android.model
 import android.content.Context
 import android.content.Intent
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.sinzak.android.enums.Page
 import io.sinzak.android.model.navigate.Navigation
@@ -15,11 +16,15 @@ import javax.inject.Singleton
 class GlobalUiModel @Inject constructor(@ApplicationContext val context : Context,
 val navigation: Navigation
 ) {
-    private lateinit var activity : BaseActivity<*>
+    private var activity : BaseActivity<*>? = null
 
 
     fun registerActivity(_activity : BaseActivity<*>){
         activity = _activity
+    }
+
+    fun getActivity() : AppCompatActivity?{
+        return activity
     }
 
 
@@ -44,7 +49,7 @@ val navigation: Navigation
 
 
     fun gotoLogin(){
-        activity.startActivity(Intent(activity, LoginActivity::class.java))
+        activity?.startActivity(Intent(activity, LoginActivity::class.java))
     }
 
 
