@@ -22,7 +22,6 @@ class ArtDetailFragment : BaseFragment(){
     lateinit var connect: ArtDetailConnect
 
     private val contentViewModel by activityViewModels<ContentViewModel>()
-    private val profileViewModel by activityViewModels<ProfileViewModel>()
 
     override fun onResume() {
         super.onResume()

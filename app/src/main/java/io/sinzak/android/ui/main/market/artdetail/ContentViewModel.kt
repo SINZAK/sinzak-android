@@ -2,21 +2,24 @@ package io.sinzak.android.ui.main.market.artdetail
 
 import android.os.Bundle
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.sinzak.android.constants.CODE_USER_ID
 import io.sinzak.android.constants.CODE_USER_REPORT_ID
 import io.sinzak.android.constants.CODE_USER_REPORT_NAME
 import io.sinzak.android.enums.Page
 import io.sinzak.android.model.market.ProductDetailModel
 import io.sinzak.android.model.market.MarketWriteModel
+import io.sinzak.android.model.profile.ProfileModel
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.ui.main.profile.report.ReportSendViewModel
+import io.sinzak.android.ui.main.profile.viewmodel.ProfileViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 
 @HiltViewModel
 class ContentViewModel @Inject constructor(
     val model : ProductDetailModel,
-    val writeModel: MarketWriteModel
-
+    val writeModel: MarketWriteModel,
+    val pModel: ProfileModel
 ): BaseViewModel(){
 
     private var _connect : ArtDetailConnect? = null
@@ -64,6 +67,20 @@ class ContentViewModel @Inject constructor(
      */
     val wishCnt = MutableStateFlow(0)
 
+    /**
+     * 팔로우 한 작가인가?
+     */
+    val isFollowing = MutableStateFlow(false)
+
+    /**
+     * 작가 팔로워 수
+     */
+    val follower = MutableStateFlow(0)
+
+    /**
+     * 작가 아이디
+     */
+    private var authorId = "-1"
     /**
      * 상품 id
      */
@@ -125,9 +142,17 @@ class ContentViewModel @Inject constructor(
      * 팔로우 버튼
      */
     fun onClickFollow(){
-
+        profileModel.followUser(authorId,isFollowing.value)
+        isFollowing.value = !isFollowing.value
+        follower.value = follower.value + if (isFollowing.value) 1 else -1
     }
 
+    /**
+     * 작가 프로필 조회
+     */
+    fun onClickArtistProfile(){
+        navigation.changePage(Page.PROFILE_OTHER)
+    }
 
 
     /***********************************************************************
@@ -137,7 +162,6 @@ class ContentViewModel @Inject constructor(
 
     init{
         collectArt()
-
 
         useFlag(model.productDeleteSuccessFlag){
             showToast("작품을 삭제했습니다.")
@@ -159,8 +183,16 @@ class ContentViewModel @Inject constructor(
                 isWish.value = it.wish
                 wishCnt.value = it.wishCnt
                 product = it.productId
+                isFollowing.value = it.isFollowing
+                follower.value = it.authorFollowerCnt
 
-                isMyProduct.value = it.authorId == profileModel.getUserId()
+                it.authorId.let {
+                    authorId = it
+                    pModel.setCurrentUserId(it)
+                }
+
+                isMyProduct.value = pModel.isMine()
+
             }
 
         }

@@ -3,11 +3,12 @@
 
     <data>
         <variable
-            name="fg"
-            type="io.sinzak.android.ui.main.profile.ProfileFragment" />
-        <variable
             name="vm"
             type="io.sinzak.android.ui.main.profile.viewmodel.ProfileSaleViewModel" />
+        <variable
+            name="pVm"
+            type="io.sinzak.android.ui.main.profile.viewmodel.ProfileViewModel"/>
+        <import type="io.sinzak.android.enums.Page"/>
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -15,8 +16,6 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-
         android:orientation="vertical">
         <TextView
             android:paddingTop="24dp"
@@ -58,7 +57,7 @@
                 android:src="@drawable/ic_arrow_right"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:onClick="@{v -> fg.gotoSalePage()}"/>
+                android:onClick="@{v -> pVm.changePage(Page.PROFILE_SALE)}"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.appcompat.widget.LinearLayoutCompat>
 

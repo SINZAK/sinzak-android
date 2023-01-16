@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="follow"
+            type="io.sinzak.android.remote.dataclass.profile.Follow" />
+        <variable
+            name="onItemClick"
+            type="android.view.View.OnClickListener" />
+        <variable
+            name="onFollowClick"
+            type="android.view.View.OnClickListener" />
+    </data>
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="12.5dp"
+        android:paddingStart="21dp"
+        android:paddingEnd="31dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:onClick="@{v -> onItemClick}"
+        >
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_user_temp"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            style="@style/bold16"
+            android:text="@{follow.name}"
+            android:layout_marginStart="10dp"/>
+        <TextView
+            style="@style/medium13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="22.5dp"
+            android:paddingVertical="8dp"
+            android:background="@drawable/btn_follow"
+            android:gravity="center"
+            android:textColor="@color/color_follow_select"
+            android:text="@string/str_profile_unfollow"
+            android:onClick="@{v->onFollowClick}"
+            />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>
