@@ -188,7 +188,7 @@ class ContentViewModel @Inject constructor(
 
                 it.authorId.let {
                     authorId = it
-                    pModel.setCurrentUserId(it)
+                    pModel.changeProfile(it)
                 }
 
                 isMyProduct.value = pModel.isMine()

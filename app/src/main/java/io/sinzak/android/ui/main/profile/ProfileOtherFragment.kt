@@ -14,6 +14,7 @@ class ProfileOtherFragment : ProfileFragment() {
 
     override fun navigateOnBackPressed() {
         navigator.revealHistory()
+        viewModel.reavealProfileHistory()
     }
 
     override fun showBottomBar(): Boolean {

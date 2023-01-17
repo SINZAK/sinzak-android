@@ -19,7 +19,7 @@
         android:paddingEnd="31dp"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:onClick="@{v -> onItemClick}"
+        android:onClick="@{onItemClick}"
         >
         <ImageView
             android:layout_width="48dp"
@@ -45,7 +45,7 @@
             android:gravity="center"
             android:textColor="@color/color_follow_select"
             android:text="@string/str_profile_unfollow"
-            android:onClick="@{v->onFollowClick}"
+            android:onClick="@{onFollowClick}"
             />
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

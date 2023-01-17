@@ -29,7 +29,10 @@ class ProfileModel @Inject constructor() : BaseModel() {
     /**
      * 조회중인 유저 아이디 저장하는 공간
      */
-    val currenUserId = MutableStateFlow("-1")
+    private val _currenUserId = MutableStateFlow("-1")
+    val currenUserId : StateFlow<String> get() = _currenUserId
+
+    private val userHistory = mutableListOf<String>()
     /**
      * 팔로워 & 팔로잉 리스트를 저장하는 공간
      */
@@ -37,40 +40,13 @@ class ProfileModel @Inject constructor() : BaseModel() {
     val followList : StateFlow<List<Follow>> get() = _followList
 
 
-/*    fun getUserId() : String?{
-        profile.value?.let{
-            return it.userId
-        }
-        return null
-    }
-
-    fun getUserDisplayName() : String?{
-        profile.value?.let{
-            return it.name
-        }
-        return null
-    }*/
-
-    fun getCurrentName() : String?{
-        profile.value?.let {
-            return it.name
-        }
-        return null
-    }
-
     /**
      * 내 작품, 프로필인가?
      */
     fun isMine() : Boolean {
-        return myUserId.value.equals(currenUserId.value)
+        return myUserId.value.equals(_currenUserId.value)
     }
 
-    /**
-     * 조회 중인 작가 아이디 설정
-     */
-    fun setCurrentUserId(userId: String) {
-        currenUserId.value = userId
-    }
 
     fun getProfile()
     {
@@ -83,19 +59,7 @@ class ProfileModel @Inject constructor() : BaseModel() {
         }
     }
 
-    fun getOtherProfile()
-    {
-        profile.value = null
-        CallImpl(
-            API_GET_USER_PROFILE,
-            this,
-            paramStr0 = currenUserId.value
-        ).apply {
-            remote.sendRequestApi(this)
-        }
-    }
-
-    fun getOtherProfile(userId: String)
+    private fun getOtherProfile(userId: String)
     {
         profile.value = null
         CallImpl(
@@ -107,7 +71,8 @@ class ProfileModel @Inject constructor() : BaseModel() {
         }
     }
 
-    fun getFollowList(userId : String, page : Int)
+
+    fun getFollowList(page : Int)
     {
         _followList.value = mutableListOf()
 
@@ -115,7 +80,7 @@ class ProfileModel @Inject constructor() : BaseModel() {
             CallImpl(
                 API_GET_FOLLOWER_LIST,
                 this,
-                paramStr0 = userId
+                paramStr0 = _currenUserId.value
             ).apply {
                 remote.sendRequestApi(this)
             }
@@ -125,7 +90,7 @@ class ProfileModel @Inject constructor() : BaseModel() {
             CallImpl(
                 API_GET_FOLLOWING_LIST,
                 this,
-                paramStr0 = userId
+                paramStr0 = _currenUserId.value
             ).apply {
                 remote.sendRequestApi(this)
             }
@@ -135,7 +100,7 @@ class ProfileModel @Inject constructor() : BaseModel() {
 
 
     fun followUser(isFollow : Boolean) {
-        val request = FollowRequest(currenUserId.value)
+        val request = FollowRequest(_currenUserId.value)
 
         if (isFollow){
             CallImpl(
@@ -165,6 +130,32 @@ class ProfileModel @Inject constructor() : BaseModel() {
         }
     }
 
+    fun changeProfile(userId: String)
+    {
+        if (_currenUserId.value != userId)
+        {
+            userHistory.add(_currenUserId.value)
+            _currenUserId.value = userId
+            getOtherProfile(userId = _currenUserId.value)
+        }
+    }
+
+    fun revealProfileHistory() : Boolean {
+        if (userHistory.size > 1)
+        {
+            _currenUserId.value = userHistory.last()
+            userHistory.removeLast()
+            getOtherProfile(userId = _currenUserId.value)
+            return true
+        }
+        return false
+    }
+
+    fun clearUserHistory()
+    {
+        userHistory.clear()
+    }
+
 
     override fun onConnectionSuccess(api: Int, body: CResponse) {
         when(api)
@@ -186,7 +177,6 @@ class ProfileModel @Inject constructor() : BaseModel() {
                 if (body is UserProfileResponse) {
                     body.userId.let {
                         myUserId.value = it
-                        currenUserId.value = it
                     }
                     profile.value = body
                 }

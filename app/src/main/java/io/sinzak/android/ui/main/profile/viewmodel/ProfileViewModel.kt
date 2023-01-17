@@ -131,12 +131,16 @@ class ProfileViewModel @Inject constructor(
 
     fun getMyProfileRemote() = model.getProfile()
 
-    fun getOtherProfileRemote() = model.getOtherProfile()
+    fun getOtherProfileRemote() = model.changeProfile(userId = model.currenUserId.value)
 
     /*********************************************************************
      * Click Event
      **********************************************************************/
 
+    /**
+     * 뒤로 가기 클릭시 프로필 히스토리 관리
+     */
+    fun reavealProfileHistory() = model.revealProfileHistory()
     /**
      * 팔로우 버튼 클릭시 동작
      */
@@ -206,4 +210,5 @@ class ProfileViewModel @Inject constructor(
             navigation.changePage(Page.PROFILE_REPORT_TYPE)
         }
     }
+
 }

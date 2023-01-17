@@ -21,7 +21,7 @@ class FollowViewModel @Inject constructor(
     val page : StateFlow<Int> get() = _page
 
     val adapter = FollowAdapter {
-        model.getOtherProfile(userId = it)
+        model.changeProfile(it)
         navigation.changePage(Page.PROFILE_OTHER)
     }.apply {
         model.followList.onEach {
@@ -36,12 +36,12 @@ class FollowViewModel @Inject constructor(
     }
 
 
-    fun getCurrentName() = model.getCurrentName()
+    fun getCurrentName() = model.profile.value?.name
 
     fun getFollowListRemote() {
-        model.getFollowList(userId = model.currenUserId.value, page = _page.value)
+        model.getFollowList(page = _page.value)
     }
     fun getFollowListRemote(page: Int) {
-        model.getFollowList(userId = model.currenUserId.value, page = page)
+        model.getFollowList(page = page)
     }
 }
