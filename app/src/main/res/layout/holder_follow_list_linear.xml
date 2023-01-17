@@ -26,12 +26,15 @@
             android:layout_height="48dp"
             android:src="@drawable/ic_user_temp"/>
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             style="@style/bold16"
             android:text="@{follow.name}"
             android:layout_marginStart="10dp"/>
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
         <TextView
             style="@style/medium13"
             android:layout_width="wrap_content"

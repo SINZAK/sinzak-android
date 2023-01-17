@@ -31,16 +31,10 @@ class ProfileModel @Inject constructor() : BaseModel() {
      */
     val currenUserId = MutableStateFlow("-1")
     /**
-     * 팔로워 리스트를 저장하는 공간
+     * 팔로워 & 팔로잉 리스트를 저장하는 공간
      */
-    private val _followerList = MutableStateFlow(mutableListOf<Follow>())
-    val followerList : StateFlow<List<Follow>> get() = _followerList
-
-    /**
-     * 팔로잉 리스트를 저장하는 공간
-     */
-    private val _followingList = MutableStateFlow(mutableListOf<Follow>())
-    val followingList : StateFlow<List<Follow>> get() = _followingList
+    private val _followList = MutableStateFlow(mutableListOf<Follow>())
+    val followList : StateFlow<List<Follow>> get() = _followList
 
 
 /*    fun getUserId() : String?{
@@ -56,6 +50,13 @@ class ProfileModel @Inject constructor() : BaseModel() {
         }
         return null
     }*/
+
+    fun getCurrentName() : String?{
+        profile.value?.let {
+            return it.name
+        }
+        return null
+    }
 
     /**
      * 내 작품, 프로필인가?
@@ -94,11 +95,11 @@ class ProfileModel @Inject constructor() : BaseModel() {
         }
     }
 
-    fun getFollowerList(userId : String)
+    fun getOtherProfile(userId: String)
     {
-        _followerList.value = mutableListOf()
+        profile.value = null
         CallImpl(
-            API_GET_FOLLOWER_LIST,
+            API_GET_USER_PROFILE,
             this,
             paramStr0 = userId
         ).apply {
@@ -106,17 +107,32 @@ class ProfileModel @Inject constructor() : BaseModel() {
         }
     }
 
-    fun getFollowingList(userId : String)
+    fun getFollowList(userId : String, page : Int)
     {
-        _followingList.value = mutableListOf()
-        CallImpl(
-            API_GET_FOLLOWING_LIST,
-            this,
-            paramStr0 = userId
-        ).apply {
-            remote.sendRequestApi(this)
+        _followList.value = mutableListOf()
+
+        if (page == 0) {
+            CallImpl(
+                API_GET_FOLLOWER_LIST,
+                this,
+                paramStr0 = userId
+            ).apply {
+                remote.sendRequestApi(this)
+            }
         }
+
+        else {
+            CallImpl(
+                API_GET_FOLLOWING_LIST,
+                this,
+                paramStr0 = userId
+            ).apply {
+                remote.sendRequestApi(this)
+            }
+        }
+
     }
+
 
     fun followUser(isFollow : Boolean) {
         val request = FollowRequest(currenUserId.value)
@@ -142,6 +158,12 @@ class ProfileModel @Inject constructor() : BaseModel() {
 
     }
 
+    private fun onFollowResponse(response: FollowResponse)
+    {
+        response.follows?.let { follows ->
+            _followList.value = follows.toMutableList()
+        }
+    }
 
 
     override fun onConnectionSuccess(api: Int, body: CResponse) {
@@ -154,11 +176,11 @@ class ProfileModel @Inject constructor() : BaseModel() {
             }
 
             API_GET_FOLLOWER_LIST -> {
-
+                onFollowResponse(body as FollowResponse)
             }
 
             API_GET_FOLLOWING_LIST -> {
-
+                onFollowResponse(body as FollowResponse)
             }
             API_GET_MY_PROFILE -> {
                 if (body is UserProfileResponse) {

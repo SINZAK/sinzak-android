@@ -17,10 +17,10 @@ interface RemoteProfileInterface {
     fun getUserProfile(@HeaderMap header: HashMap<String,String>, @Path("userId") userId : String) : Call<UserProfileResponse>
 
     @GET("api/users/{userId}/followers")
-    fun getFollowerList(@HeaderMap header: HashMap<String,String>, @Path("userId") userId : String) : Call<List<FollowResponse>>
+    fun getFollowerList(@HeaderMap header: HashMap<String,String>, @Path("userId") userId : String) : Call<FollowResponse>
 
     @GET("api/users/{userId}/followings")
-    fun getFollowingList(@HeaderMap header: HashMap<String,String>, @Path("userId") userId : String) : Call<List<FollowResponse>>
+    fun getFollowingList(@HeaderMap header: HashMap<String,String>, @Path("userId") userId : String) : Call<FollowResponse>
 
     @GET("api/users/my-profile")
     fun getMyProfile(@HeaderMap header: HashMap<String,String>) : Call<UserProfileResponse>
