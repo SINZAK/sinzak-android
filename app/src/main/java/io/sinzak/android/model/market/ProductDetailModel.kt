@@ -37,6 +37,10 @@ class ProductDetailModel @Inject constructor() : BaseModel() {
 
     fun loadWork(id : Int){
         itemType.value = 1
+        art.value = null
+        remote.sendRequestApi(
+            CallImpl(API_GET_MARKET_WORK_DETAIL, this, paramInt0 = id)
+        )
     }
 
 
@@ -121,6 +125,13 @@ class ProductDetailModel @Inject constructor() : BaseModel() {
                 if(body.success == true)
                     productDeleteSuccessFlag.value = true
                 else
+                    globalUi.showToast(body.message.toString())
+            }
+
+            API_GET_MARKET_WORK_DETAIL ->{
+                if(body is MarketDetailResponse){
+                    art.value = body.data
+                }else
                     globalUi.showToast(body.message.toString())
             }
         }

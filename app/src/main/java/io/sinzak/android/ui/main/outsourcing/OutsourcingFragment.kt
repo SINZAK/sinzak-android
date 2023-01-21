@@ -5,11 +5,9 @@ import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
 import io.sinzak.android.databinding.FragmentOutsourcingBinding
 import io.sinzak.android.databinding.ViewOutsourcingArtistBinding
-import io.sinzak.android.databinding.ViewOutsourcingClientBinding
 import io.sinzak.android.databinding.ViewOutsourcingFilterBinding
 import io.sinzak.android.ui.base.BaseFragment
 import io.sinzak.android.ui.main.outsourcing.viewmodel.ArtistViewModel
-import io.sinzak.android.ui.main.outsourcing.viewmodel.ClientViewModel
 import io.sinzak.android.ui.main.outsourcing.viewmodel.OutsourcingViewModel
 
 

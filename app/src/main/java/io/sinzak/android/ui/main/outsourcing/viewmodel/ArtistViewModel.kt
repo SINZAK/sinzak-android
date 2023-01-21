@@ -2,6 +2,8 @@ package io.sinzak.android.ui.main.outsourcing.viewmodel
 
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.sinzak.android.enums.Page
+import io.sinzak.android.model.market.ProductDetailModel
 import io.sinzak.android.model.works.WorkListModel
 import io.sinzak.android.remote.dataclass.product.Product
 import io.sinzak.android.ui.base.BaseViewModel
@@ -12,11 +14,15 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ArtistViewModel @Inject constructor(
-    val model : WorkListModel
+    val model : WorkListModel,
+    val pModel : ProductDetailModel
 ) : BaseViewModel() {
 
     private val arts = mutableListOf<Product>()
-    val adapter = ArtsAdapter(arts)
+    val adapter = ArtsAdapter(arts){
+        pModel.loadWork(it.id!!)
+        navigation.changePage(Page.ART_DETAIL)
+    }
 
 
 
