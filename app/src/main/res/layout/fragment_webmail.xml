@@ -154,7 +154,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="@string/str_webMail_next_time"
+                android:text="@string/str_next_time"
                 style="@style/bold16"
                 android:textColor="@color/white"
                 android:background="@drawable/btn_gray_filled"

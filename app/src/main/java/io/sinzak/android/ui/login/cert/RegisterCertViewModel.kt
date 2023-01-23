@@ -11,6 +11,7 @@ class RegisterCertViewModel @Inject constructor(
     val connect: RegisterConnect
 ) : CertificationViewModel() {
 
+    override val isPartOfSignup: Boolean = true
 
     override fun onSubmit(){
 

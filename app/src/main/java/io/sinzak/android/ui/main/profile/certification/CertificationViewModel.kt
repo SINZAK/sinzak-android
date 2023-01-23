@@ -23,6 +23,7 @@ open class CertificationViewModel @Inject constructor() : BaseViewModel() {
 
     var school: SchoolData? = null
     val schoolInserted = MutableStateFlow(false)
+    open val isPartOfSignup = false
 
     val certificationAdapter = CertificationAdapter {
         _schoolInput.value = it.schoolName
@@ -53,6 +54,6 @@ open class CertificationViewModel @Inject constructor() : BaseViewModel() {
     }
 
     open fun onCancel(){
-
+        navigation.revealHistory()
     }
 }
