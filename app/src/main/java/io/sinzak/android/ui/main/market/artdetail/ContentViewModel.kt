@@ -151,6 +151,7 @@ class ContentViewModel @Inject constructor(
      * 작가 프로필 조회
      */
     fun onClickArtistProfile(){
+        profileModel.changeProfile(newUserId = authorId)
         navigation.changePage(Page.PROFILE_OTHER)
     }
 

@@ -63,7 +63,7 @@ class ProfileModel @Inject constructor() : BaseModel() {
         }
     }
 
-    private fun getOtherProfile()
+    fun getOtherProfile()
     {
         profile.value = null
         CallImpl(
@@ -134,13 +134,12 @@ class ProfileModel @Inject constructor() : BaseModel() {
         }
     }
 
-    fun changeProfile(userId: String)
+    fun changeProfile(newUserId: String)
     {
-        if (_currentUserId.value != userId)
+        if (_currentUserId.value != newUserId)
         {
             userHistory.add(_currentUserId.value)
-            _currentUserId.value = userId
-            getOtherProfile()
+            _currentUserId.value = newUserId
         }
     }
 
@@ -150,6 +149,7 @@ class ProfileModel @Inject constructor() : BaseModel() {
         {
             _currentUserId.value = userHistory.last()
             userHistory.removeLast()
+            getOtherProfile()
             return true
         }
         return false
@@ -181,7 +181,6 @@ class ProfileModel @Inject constructor() : BaseModel() {
                 if (body is UserProfileResponse) {
                     body.userId.let {
                         myUserId.value = it
-                        _currentUserId.value = it
                     }
                     profile.value = body
                 }

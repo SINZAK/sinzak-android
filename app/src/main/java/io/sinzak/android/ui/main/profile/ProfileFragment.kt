@@ -33,6 +33,10 @@ open class ProfileFragment : BaseFragment() {
     private val profileSaleViewModel by activityViewModels<ProfileSaleViewModel>()
     private val profileWorkViewModel by activityViewModels<ProfileWorkViewModel>()
 
+    protected fun isMyProfilePage() : Boolean {
+        return true
+    }
+
     @Inject
     lateinit var connect: ProfileConnect
 
@@ -66,8 +70,11 @@ open class ProfileFragment : BaseFragment() {
      * VIEW INFLATING
      *
      ***************/
+    /**
+     * 내 프로필 뷰 인플레이팅
+     */
     private fun inflateChild() {
-        inflateAppbar()
+        inflateAppbar(false)
         inflateMyProfile()
         inflateLinkList()
         inflateArtSale()
@@ -78,17 +85,18 @@ open class ProfileFragment : BaseFragment() {
      * 타인 프로필의 뷰 인플레이팅
      */
     protected fun inflateOtherChild(){
-        inflateAppbar()
+        inflateAppbar(true)
         inflateMyProfile()
         inflateArtSale()
         inflateArtWork()
     }
 
-    private fun inflateAppbar(){
+    private fun inflateAppbar(showBackIc : Boolean){
         ViewProfileTopAppbarBinding.inflate(layoutInflater).apply {
             lifecycleOwner = viewLifecycleOwner
             vm = viewModel
             fg = this@ProfileFragment
+            showBack = showBackIc
             bind.flAppbar.addView(root)
         }
     }

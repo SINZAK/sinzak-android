@@ -53,7 +53,7 @@ class ProfileViewModel @Inject constructor(
     /**
      * 유저 이름
      */
-    val name = MutableStateFlow("")
+//    val name = MutableStateFlow("")
 
     /**
      * 학교 인증 받았는지?
@@ -114,7 +114,7 @@ class ProfileViewModel @Inject constructor(
                 isMyProfile.value = it.myProfile
 
                 profileImg.value = it.imageUrl
-                name.value = it.name
+//                name.value = it.name
                 isCertify.value = it.cert_uni
                 university.value = it.univ
 //                isVerify.value = it.isVerify
@@ -133,7 +133,7 @@ class ProfileViewModel @Inject constructor(
 
     fun getMyProfileRemote() = model.getProfile()
 
-    fun getOtherProfileRemote() = model.changeProfile(userId = model.currentUserId.value)
+    fun getOtherProfileRemote() = model.getOtherProfile()
 
     /*********************************************************************
      * Click Event

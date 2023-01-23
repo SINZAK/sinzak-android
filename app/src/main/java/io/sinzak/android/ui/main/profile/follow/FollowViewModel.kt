@@ -25,6 +25,8 @@ class FollowViewModel @Inject constructor(
     private val _page = MutableStateFlow(0)
     val page : StateFlow<Int> get() = _page
 
+    val profile get() = model.profile
+
     val adapter = FollowAdapter {
         model.changeProfile(it)
         navigation.changePage(Page.PROFILE_OTHER)
@@ -33,6 +35,7 @@ class FollowViewModel @Inject constructor(
             setFollows(it)
         }.launchIn(viewModelScope)
     }
+
 
     init {
         CoroutineScope(Dispatchers.Main).launch {
@@ -61,8 +64,6 @@ class FollowViewModel @Inject constructor(
         _page.value = page
         getFollowListRemote(page)
     }
-
-    fun getCurrentName() = model.profile.value?.name
 
     fun getFollowListRemote() {
         model.getFollowList(page = _page.value)
