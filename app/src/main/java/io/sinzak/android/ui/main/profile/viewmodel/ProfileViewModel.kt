@@ -2,6 +2,7 @@ package io.sinzak.android.ui.main.profile.viewmodel
 
 import android.os.Bundle
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.sinzak.android.constants.CODE_FOLLOW_PAGE
 import io.sinzak.android.constants.CODE_USER_ID
 import io.sinzak.android.constants.CODE_USER_REPORT_ID
 import io.sinzak.android.constants.CODE_USER_REPORT_NAME
@@ -10,6 +11,7 @@ import io.sinzak.android.model.profile.ProfileModel
 import io.sinzak.android.remote.dataclass.response.profile.UserProfileResponse
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.ui.main.profile.ProfileConnect
+import io.sinzak.android.ui.main.profile.follow.FollowViewModel
 import io.sinzak.android.ui.main.profile.report.ReportSendViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -131,7 +133,7 @@ class ProfileViewModel @Inject constructor(
 
     fun getMyProfileRemote() = model.getProfile()
 
-    fun getOtherProfileRemote() = model.changeProfile(userId = model.currenUserId.value)
+    fun getOtherProfileRemote() = model.changeProfile(userId = model.currentUserId.value)
 
     /*********************************************************************
      * Click Event
@@ -140,7 +142,7 @@ class ProfileViewModel @Inject constructor(
     /**
      * 뒤로 가기 클릭시 프로필 히스토리 관리
      */
-    fun reavealProfileHistory() = model.revealProfileHistory()
+    fun revealProfileHistory() = model.revealProfileHistory()
     /**
      * 팔로우 버튼 클릭시 동작
      */
@@ -159,6 +161,17 @@ class ProfileViewModel @Inject constructor(
         page.apply {
             navigation.changePage(this)
         }
+    }
+    /**
+     * 팔로우/팔로워 페이지 이동
+     */
+    fun goToFollowList(page : Int)
+    {
+        Bundle().apply {
+            putInt(CODE_FOLLOW_PAGE,page)
+            navigation.putBundleData(FollowViewModel::class,this)
+        }
+        navigation.changePage(Page.PROFILE_FOLLOW)
     }
 
     /**

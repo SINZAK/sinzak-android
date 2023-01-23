@@ -31,21 +31,21 @@
             style="@style/bold16"
             android:text="@{follow.name}"
             android:layout_marginStart="10dp"/>
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
-        <TextView
-            style="@style/medium13"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="22.5dp"
-            android:paddingVertical="8dp"
-            android:background="@drawable/btn_follow"
-            android:gravity="center"
-            android:textColor="@color/color_follow_select"
-            android:text="@string/str_profile_unfollow"
-            android:onClick="@{onFollowClick}"
-            />
+<!--        <Space-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_weight="1"/>-->
+<!--        <TextView-->
+<!--            style="@style/medium13"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:paddingHorizontal="22.5dp"-->
+<!--            android:paddingVertical="8dp"-->
+<!--            android:background="@drawable/btn_follow"-->
+<!--            android:gravity="center"-->
+<!--            android:textColor="@color/color_follow_select"-->
+<!--            android:text="@string/str_profile_unfollow"-->
+<!--            android:onClick="@{onFollowClick}"-->
+<!--            />-->
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

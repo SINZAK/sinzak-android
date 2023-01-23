@@ -24,15 +24,19 @@ class ProfileModel @Inject constructor() : BaseModel() {
     /**
      * 내 아이디를 저장하는 공간
      */
-    val myUserId = MutableStateFlow("-1")
+    private val myUserId = MutableStateFlow("-1")
 
     /**
      * 조회중인 유저 아이디 저장하는 공간
      */
-    private val _currenUserId = MutableStateFlow("-1")
-    val currenUserId : StateFlow<String> get() = _currenUserId
+    private val _currentUserId = MutableStateFlow("-1")
+    val currentUserId : StateFlow<String> get() = _currentUserId
 
+    /**
+     * 유저 파도타기를 위한 히스토리 공간
+     */
     private val userHistory = mutableListOf<String>()
+
     /**
      * 팔로워 & 팔로잉 리스트를 저장하는 공간
      */
@@ -44,7 +48,7 @@ class ProfileModel @Inject constructor() : BaseModel() {
      * 내 작품, 프로필인가?
      */
     fun isMine() : Boolean {
-        return myUserId.value.equals(_currenUserId.value)
+        return myUserId.value == _currentUserId.value
     }
 
 
@@ -53,19 +57,19 @@ class ProfileModel @Inject constructor() : BaseModel() {
         profile.value = null
         CallImpl(
             API_GET_MY_PROFILE,
-            this
+            this,
         ).apply {
             remote.sendRequestApi(this)
         }
     }
 
-    private fun getOtherProfile(userId: String)
+    private fun getOtherProfile()
     {
         profile.value = null
         CallImpl(
             API_GET_USER_PROFILE,
             this,
-            paramStr0 = userId
+            paramStr0 = _currentUserId.value
         ).apply {
             remote.sendRequestApi(this)
         }
@@ -80,7 +84,7 @@ class ProfileModel @Inject constructor() : BaseModel() {
             CallImpl(
                 API_GET_FOLLOWER_LIST,
                 this,
-                paramStr0 = _currenUserId.value
+                paramStr0 = _currentUserId.value
             ).apply {
                 remote.sendRequestApi(this)
             }
@@ -90,7 +94,7 @@ class ProfileModel @Inject constructor() : BaseModel() {
             CallImpl(
                 API_GET_FOLLOWING_LIST,
                 this,
-                paramStr0 = _currenUserId.value
+                paramStr0 = _currentUserId.value
             ).apply {
                 remote.sendRequestApi(this)
             }
@@ -100,7 +104,7 @@ class ProfileModel @Inject constructor() : BaseModel() {
 
 
     fun followUser(isFollow : Boolean) {
-        val request = FollowRequest(_currenUserId.value)
+        val request = FollowRequest(_currentUserId.value)
 
         if (isFollow){
             CallImpl(
@@ -132,20 +136,20 @@ class ProfileModel @Inject constructor() : BaseModel() {
 
     fun changeProfile(userId: String)
     {
-        if (_currenUserId.value != userId)
+        if (_currentUserId.value != userId)
         {
-            userHistory.add(_currenUserId.value)
-            _currenUserId.value = userId
-            getOtherProfile(userId = _currenUserId.value)
+            userHistory.add(_currentUserId.value)
+            _currentUserId.value = userId
+            getOtherProfile()
         }
     }
+
 
     fun revealProfileHistory() : Boolean {
         if (userHistory.size > 1)
         {
-            _currenUserId.value = userHistory.last()
+            _currentUserId.value = userHistory.last()
             userHistory.removeLast()
-            getOtherProfile(userId = _currenUserId.value)
             return true
         }
         return false
@@ -177,6 +181,7 @@ class ProfileModel @Inject constructor() : BaseModel() {
                 if (body is UserProfileResponse) {
                     body.userId.let {
                         myUserId.value = it
+                        _currentUserId.value = it
                     }
                     profile.value = body
                 }
