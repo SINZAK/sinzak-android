@@ -7,8 +7,8 @@
             name="fg"
             type="io.sinzak.android.ui.main.profile.certification.VerifyFragment" />
         <variable
-            name="eVm"
-            type="io.sinzak.android.ui.main.profile.edit.EditViewModel" />
+            name="vm"
+            type="io.sinzak.android.ui.main.profile.certification.VerifyViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -107,9 +107,9 @@
                     android:layout_height="wrap_content"
                     style="@style/medium16"
                     android:layout_marginEnd="3.8dp"
-                    android:text="@{!eVm.hasCertification ? @string/str_edit_auth_false : @string/str_edit_auth_true }"
-                    android:textColor="@{!eVm.hasCertification ? @color/secondary : @color/gray60 }"
-                    android:onClick="@{v-> fg.gotoCertificationPage(eVm.hasCertification)}"/>
+                    android:text="@{!vm.profile.cert_uni ? @string/str_edit_auth_false : @string/str_edit_auth_true }"
+                    android:textColor="@{!vm.profile.cert_uni ? @color/secondary : @color/gray60 }"
+                    android:onClick="@{v-> vm.gotoCertificationPage(vm.profile.cert_uni)}"/>
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <TextView

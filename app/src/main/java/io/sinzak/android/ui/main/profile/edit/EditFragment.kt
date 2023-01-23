@@ -35,12 +35,4 @@ class EditFragment : BaseFragment() {
         navigator.revealHistory()
     }
 
-    fun gotoCertificationPage(hasCerti : Boolean){
-        if(!hasCerti) navigator.changePage(Page.PROFILE_CERTIFICATION)
-        else return
-    }
-
-    fun gotoVerifyPage(){
-        navigator.changePage(Page.PROFILE_VERIFY)
-    }
 }

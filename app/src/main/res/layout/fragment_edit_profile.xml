@@ -171,7 +171,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="3.8dp"
-                        android:onClick="@{v-> fg.gotoCertificationPage(vm.profile.cert_uni)}"
+                        android:onClick="@{v-> vm.gotoCertificationPage(vm.profile.cert_uni)}"
                         android:text="@{!vm.profile.cert_uni ? @string/str_edit_auth_false : @string/str_edit_auth_true }"
                         android:textColor="@{!vm.profile.cert_uni ? @color/secondary : @color/gray60 }" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -212,7 +212,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="23.8dp"
-                    android:onClick="@{v-> fg.gotoVerifyPage()}"
+                    android:onClick="@{v-> vm.gotoVerifyPage()}"
                     android:text="@string/str_edit_apply_verify"
                     android:textColor="@color/secondary" />
 

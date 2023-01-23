@@ -36,7 +36,7 @@ class ProfileViewModel @Inject constructor(
         _connect = connect
     }
     /**
-     * 내 프로필
+     * 조회중인 프로필 프로필
      */
     val profile get() = model.profile
 
@@ -49,11 +49,6 @@ class ProfileViewModel @Inject constructor(
      * 프로필 이미지 url
      */
     val profileImg = MutableStateFlow("")
-
-    /**
-     * 유저 이름
-     */
-//    val name = MutableStateFlow("")
 
     /**
      * 학교 인증 받았는지?
@@ -90,10 +85,6 @@ class ProfileViewModel @Inject constructor(
      */
     val isFollow = MutableStateFlow(false)
 
-    /**
-     * 유저 아이디
-     */
-    val userId = MutableStateFlow("-1")
 
     /***********************************************************************
      * DATA FLOW
@@ -110,11 +101,9 @@ class ProfileViewModel @Inject constructor(
     {
         invokeStateFlow(profile) {profile ->
             profile?.let {
-                userId.value = it.userId
                 isMyProfile.value = it.myProfile
 
                 profileImg.value = it.imageUrl
-//                name.value = it.name
                 isCertify.value = it.cert_uni
                 university.value = it.univ
 //                isVerify.value = it.isVerify

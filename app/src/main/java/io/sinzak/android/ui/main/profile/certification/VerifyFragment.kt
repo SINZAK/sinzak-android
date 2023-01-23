@@ -6,14 +6,13 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.sinzak.android.databinding.FragmentVerifyBinding
 import io.sinzak.android.enums.Page
 import io.sinzak.android.ui.base.BaseFragment
-import io.sinzak.android.ui.main.profile.edit.EditViewModel
 
 @AndroidEntryPoint
 class VerifyFragment : BaseFragment(){
 
     private lateinit var bind: FragmentVerifyBinding
 
-    private val editViewModel : EditViewModel by activityViewModels<EditViewModel>()
+    private val viewModel : VerifyViewModel by activityViewModels()
 
     override fun getFragmentRoot(): View {
         bind = FragmentVerifyBinding.inflate(layoutInflater)
@@ -23,7 +22,7 @@ class VerifyFragment : BaseFragment(){
     override fun onFragmentCreated() {
         bind.apply {
             bind.lifecycleOwner = viewLifecycleOwner
-            eVm = editViewModel
+            vm = viewModel
             fg = this@VerifyFragment
         }
     }
@@ -36,9 +35,4 @@ class VerifyFragment : BaseFragment(){
         navigator.revealHistory()
     }
 
-    //겹치는 메서드
-    fun gotoCertificationPage(hasCerti : Boolean){
-        if(!hasCerti) navigator.changePage(Page.PROFILE_CERTIFICATION)
-        else return
-    }
 }

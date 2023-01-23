@@ -7,7 +7,6 @@ import io.sinzak.android.system.LogDebug
 class ProfileOtherFragment : ProfileFragment() {
 
     override fun onFragmentCreated() {
-        LogDebug(javaClass.name,"타인 아이디: ${viewModel.userId.value}")
         viewModel.getOtherProfileRemote()
         inflateOtherChild()
     }

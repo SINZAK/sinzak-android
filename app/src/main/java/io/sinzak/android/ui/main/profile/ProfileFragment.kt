@@ -9,16 +9,8 @@ import io.sinzak.android.databinding.ViewProfileArtWorkBinding
 import io.sinzak.android.databinding.ViewProfileLinkListBinding
 import io.sinzak.android.databinding.ViewProfileMyprofileBinding
 import io.sinzak.android.databinding.ViewProfileTopAppbarBinding
-import io.sinzak.android.enums.Page
-import io.sinzak.android.model.profile.ProfileModel
 import io.sinzak.android.system.LogDebug
 import io.sinzak.android.ui.base.BaseFragment
-import io.sinzak.android.ui.main.market.artdetail.dialog.ArtistBlockDialog
-import io.sinzak.android.ui.main.market.artdetail.dialog.ArtistReportDialog
-import io.sinzak.android.ui.main.market.artdetail.ContentViewModel
-import io.sinzak.android.ui.main.profile.edit.EditViewModel
-import io.sinzak.android.ui.main.profile.follow.FollowViewModel
-import io.sinzak.android.ui.main.profile.report.ReportSendViewModel
 import io.sinzak.android.ui.main.profile.viewmodel.ProfileSaleViewModel
 import io.sinzak.android.ui.main.profile.viewmodel.ProfileViewModel
 import io.sinzak.android.ui.main.profile.viewmodel.ProfileWorkViewModel
@@ -32,10 +24,6 @@ open class ProfileFragment : BaseFragment() {
     protected val viewModel by activityViewModels<ProfileViewModel>()
     private val profileSaleViewModel by activityViewModels<ProfileSaleViewModel>()
     private val profileWorkViewModel by activityViewModels<ProfileWorkViewModel>()
-
-    protected fun isMyProfilePage() : Boolean {
-        return true
-    }
 
     @Inject
     lateinit var connect: ProfileConnect
