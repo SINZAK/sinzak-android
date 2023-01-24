@@ -23,7 +23,7 @@ class ProductDetailModel @Inject constructor() : BaseModel() {
     val productDeleteSuccessFlag = MutableStateFlow(false)
 
 
-    val itemType = MutableStateFlow(0) // 0 : product, 1 : work
+    val itemType = MutableStateFlow(TYPE_MARKET_PRODUCT) // 0 : product, 1 : work
 
 
 
