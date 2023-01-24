@@ -13,7 +13,9 @@ import javax.inject.Inject
 
 
 
-class MarketHistoryModel @Inject constructor(override val adapter : HistoryAdapter) : BaseModel(), HistoryViewModel.History {
+class MarketHistoryModel @Inject constructor(
+    override val adapter : HistoryAdapter
+    ) : BaseModel(), HistoryViewModel.History {
 
     private val _historyList = MutableStateFlow(listOf<String>("신작","게임아트"))
     override fun getHistoryList(): StateFlow<List<String>> {

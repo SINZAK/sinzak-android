@@ -2,6 +2,7 @@ package io.sinzak.android.ui.main.outsourcing.viewmodel
 
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.sinzak.android.enums.Sort
+import io.sinzak.android.model.insets.SoftKeyModel
 import io.sinzak.android.model.works.WorkListModel
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.ui.main.outsourcing.WorkConnect
@@ -11,13 +12,58 @@ import javax.inject.Inject
 @HiltViewModel
 class OutsourcingViewModel @Inject constructor(
     val model : WorkListModel,
-    val connect : WorkConnect
+    val connect : WorkConnect,
+    val soft : SoftKeyModel
 ) : BaseViewModel() {
 
     val isClientList = MutableStateFlow(true)
 
+    val searchOn = MutableStateFlow(false)
+    val historyOn = MutableStateFlow(false)
+    val searchFieldText = MutableStateFlow("")
+
     val sortOrder = MutableStateFlow(Sort.BY_REFER)
 
+    fun openSearch(){
+        searchOn.value = true
+        historyOn.value = true
+    }
+
+
+    fun closeSearchPage() {
+
+        if (historyOn.value) {
+            historyOn.value = false
+            if (searchFieldText.value.isBlank()) {
+                searchOn.value = false
+            }
+        } else if (searchOn.value)
+            searchOn.value = false
+
+        if(!searchOn.value)
+            model.getRemoteMarketWorks(refresh = true, search = "")
+
+        soft.hideKeyboard()
+    }
+
+
+    fun showHistory(){
+        historyOn.value = true
+    }
+
+    fun typeSearchFieldText(cs : CharSequence){
+        searchFieldText.value = cs.toString()
+    }
+
+    fun searchText(){
+        historyOn.value = false
+        model.getRemoteMarketWorks(refresh = true, search = searchFieldText.value)
+
+    }
+
+    fun deleteSearchField(){
+        searchFieldText.value = ""
+    }
 
 
     private fun setSortOrder(order : Sort){

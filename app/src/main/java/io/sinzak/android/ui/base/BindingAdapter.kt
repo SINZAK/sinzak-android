@@ -64,6 +64,17 @@ fun requestFocus(view: EditText, focus: Boolean, soft: SoftKeyModel) {
     }
 }
 
+@BindingAdapter("removeFocus", "soft_")
+fun removeFocus(view: EditText, focus: Boolean, soft: SoftKeyModel) {
+    if (focus) {
+        view.windowToken?.let{
+            soft.imm.hideSoftInputFromWindow(it,0)
+        }
+        view.clearFocus()
+
+    }
+}
+
 @BindingAdapter("onFocused")
 fun onFocused(view : EditText, action : View.OnClickListener){
     view.setOnFocusChangeListener { view, t ->

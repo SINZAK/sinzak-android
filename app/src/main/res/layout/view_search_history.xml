@@ -8,9 +8,6 @@
         <variable
             name="vm"
             type="io.sinzak.android.ui.main.search.HistoryViewModel" />
-        <variable
-            name="marketVM"
-            type="io.sinzak.android.ui.main.market.viewmodel.MarketViewModel" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
