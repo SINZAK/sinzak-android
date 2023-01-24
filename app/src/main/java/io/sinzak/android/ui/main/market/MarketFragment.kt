@@ -112,7 +112,6 @@ class MarketFragment : BaseFragment() {
     private fun inflateHistory(){
         ViewSearchHistoryBinding.inflate(layoutInflater).apply{
             lifecycleOwner = viewLifecycleOwner
-            marketVM = viewModel
             vm = historyViewModel
             search = object : HistoryAdapter.OnClick{
                 override fun onClick(history: String)

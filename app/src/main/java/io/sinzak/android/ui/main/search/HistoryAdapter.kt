@@ -63,7 +63,7 @@ class HistoryAdapter @Inject constructor() : RecyclerView.Adapter<HistoryAdapter
         }
     }
 
-    interface OnClick{
+    fun interface OnClick{
         fun onClick(history : String)
     }
 }

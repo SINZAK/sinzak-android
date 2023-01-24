@@ -44,6 +44,8 @@ interface RemoteMarketInterface {
 
 
 
+    @POST("api/works")
+    fun getMarketWorks(@HeaderMap header : HashMap<String,String>, @Query("page") page : Int, @Query("size") size : Int, @Query("align") align : String, @Query("category") category : String, @Query("search") search : String, @Query("employment") employment : Boolean ) : Call<MarketProductResponse>
 
 
     @POST("api/works/build")

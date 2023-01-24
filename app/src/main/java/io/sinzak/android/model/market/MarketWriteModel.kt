@@ -80,7 +80,8 @@ class MarketWriteModel @Inject constructor(@ApplicationContext val context : Con
         return productId
     }
 
-    fun startEdit(id : Int, product : MarketDetailResponse.Detail){
+    fun startEdit(type : Int, id : Int, product : MarketDetailResponse.Detail){
+        productType.value = type
         flagPrepareEdit.value = false
 
         productId = id

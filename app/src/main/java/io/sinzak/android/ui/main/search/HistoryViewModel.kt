@@ -11,7 +11,9 @@ import javax.inject.Inject
 import javax.inject.Qualifier
 
 
-class HistoryViewModel @Inject constructor(val history : History) : BaseViewModel() {
+class HistoryViewModel @Inject constructor(
+    val history : History
+    ) : BaseViewModel() {
 
 
 
@@ -37,10 +39,24 @@ class HistoryViewModel @Inject constructor(val history : History) : BaseViewMode
             return HistoryViewModel(historyModel)
         }
 
+        @Provides
+        @WorksHistory
+        fun provideWorkHistoryViewModel(historyModel: MarketHistoryModel) : HistoryViewModel
+        {
+            return HistoryViewModel(historyModel)
+        }
+
+
 
     }
 
     @Qualifier
     @Retention(AnnotationRetention.BINARY)
     annotation class MarketHistory
+
+    @Qualifier
+    @Retention(AnnotationRetention.BINARY)
+    annotation class WorksHistory
+
+
 }

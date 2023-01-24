@@ -77,6 +77,9 @@ class ContentViewModel @Inject constructor(
      */
     val follower = MutableStateFlow(0)
 
+
+    val itemType = model.itemType
+
     /**
      * 작가 아이디
      */
@@ -210,14 +213,16 @@ class ContentViewModel @Inject constructor(
      */
     private fun showEditDialog(){
         connect.productEditDialog(
-            edit = {
-                writeModel.startEdit(product, art.value!!)
-                navigation.changePage(Page.NEW_POST_IMAGE)
-            },
+            edit = ::gotoEdit,
             delete = {
                 showDeleteDialog()
             }
         )
+    }
+
+    private fun gotoEdit(){
+        writeModel.startEdit(itemType.value, product, art.value!!)
+        navigation.changePage(Page.NEW_POST_IMAGE)
     }
 
     /**
