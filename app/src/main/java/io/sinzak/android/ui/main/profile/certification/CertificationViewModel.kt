@@ -3,6 +3,7 @@ package io.sinzak.android.ui.main.profile.certification
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.sinzak.android.enums.Page
 import io.sinzak.android.enums.RegisterPage
+import io.sinzak.android.model.certify.CertifyModel
 import io.sinzak.android.model.context.SignModel
 import io.sinzak.android.model.navigate.RegisterNavigation
 import io.sinzak.android.remote.dataclass.local.SchoolData
@@ -13,7 +14,9 @@ import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
 @HiltViewModel
-open class CertificationViewModel @Inject constructor() : BaseViewModel() {
+open class CertificationViewModel @Inject constructor(
+    private val certifyModel: CertifyModel
+) : BaseViewModel() {
 
     private val _schoolInput = MutableStateFlow("")
     val schoolInput: StateFlow<String> get() = _schoolInput
@@ -21,7 +24,7 @@ open class CertificationViewModel @Inject constructor() : BaseViewModel() {
     private val _showSchoolList = MutableStateFlow(false)
     val showSchoolList: StateFlow<Boolean> get() = _showSchoolList
 
-    var school: SchoolData? = null
+    var school : SchoolData? = null
     val schoolInserted = MutableStateFlow(false)
     open val isPartOfSignup = false
 
@@ -50,6 +53,7 @@ open class CertificationViewModel @Inject constructor() : BaseViewModel() {
 
 
     open fun onSubmit() {
+        certifyModel.setUniv(school!!)
         navigation.changePage(Page.PROFILE_WEBMAIL)
     }
 
