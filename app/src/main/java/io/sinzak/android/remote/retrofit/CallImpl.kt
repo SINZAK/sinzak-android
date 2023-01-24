@@ -165,6 +165,7 @@ class CallImpl(
             API_POST_SUGGEST_PRODUCT -> remoteApi.postProductSuggest(header, requestBody as ProductSuggestRequest)
 
 
+            API_GET_MARKET_WORK_DETAIL -> remoteApi.getMarketWorkDetail(header, paramInt0!!)
 
             else -> throw NoSuchMethodException()
         } as Call<CResponse>
