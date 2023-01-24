@@ -4,6 +4,9 @@ import io.sinzak.android.constants.*
 import io.sinzak.android.model.BaseModel
 import io.sinzak.android.remote.dataclass.CResponse
 import io.sinzak.android.remote.dataclass.profile.Follow
+import io.sinzak.android.remote.dataclass.profile.UserProduct
+import io.sinzak.android.remote.dataclass.profile.UserProfile
+import io.sinzak.android.remote.dataclass.profile.UserWork
 import io.sinzak.android.remote.dataclass.request.profile.FollowRequest
 import io.sinzak.android.remote.dataclass.response.profile.FollowResponse
 import io.sinzak.android.remote.dataclass.response.profile.UserProfileResponse
@@ -16,10 +19,11 @@ import javax.inject.Singleton
 @Singleton
 class ProfileModel @Inject constructor() : BaseModel() {
 
+
     /**
      * 현재 조회중인 프로필을 저장하는 공간
      */
-    val profile = MutableStateFlow<UserProfileResponse?>(null)
+    val profile = MutableStateFlow<UserProfile?>(null)
 
     /**
      * 내 아이디를 저장하는 공간
@@ -30,7 +34,6 @@ class ProfileModel @Inject constructor() : BaseModel() {
      * 조회중인 유저 아이디 저장하는 공간
      */
     private val _currentUserId = MutableStateFlow("-1")
-    val currentUserId : StateFlow<String> get() = _currentUserId
 
     /**
      * 유저 파도타기를 위한 히스토리 공간
@@ -41,19 +44,29 @@ class ProfileModel @Inject constructor() : BaseModel() {
      * 팔로워 & 팔로잉 리스트를 저장하는 공간
      */
     private val _followList = MutableStateFlow(mutableListOf<Follow>())
-    val followList : StateFlow<List<Follow>> get() = _followList
+    val followList: StateFlow<List<Follow>> get() = _followList
 
+    /**
+     * 조회중인 유저 의뢰해요 리스트를 저장하는 공간
+     */
+    private val _workList = MutableStateFlow(mutableListOf<UserWork>())
+    val workList: StateFlow<List<UserWork>> get() = _workList
+
+    /**
+     * 조회중인 유저 판매 작품 리스트를 저장하는 공간
+     */
+    private val _productList = MutableStateFlow(mutableListOf<UserProduct>())
+    val productList: StateFlow<List<UserProduct>> get() = _productList
 
     /**
      * 내 작품, 프로필인가?
      */
-    fun isMine() : Boolean {
+    fun isMine(): Boolean {
         return myUserId.value == _currentUserId.value
     }
 
 
-    fun getProfile()
-    {
+    fun getProfile() {
         profile.value = null
         CallImpl(
             API_GET_MY_PROFILE,
@@ -63,8 +76,7 @@ class ProfileModel @Inject constructor() : BaseModel() {
         }
     }
 
-    fun getOtherProfile()
-    {
+    fun getOtherProfile() {
         profile.value = null
         CallImpl(
             API_GET_USER_PROFILE,
@@ -76,8 +88,7 @@ class ProfileModel @Inject constructor() : BaseModel() {
     }
 
 
-    fun getFollowList(page : Int)
-    {
+    fun getFollowList(page: Int) {
         _followList.value = mutableListOf()
 
         if (page == 0) {
@@ -88,9 +99,7 @@ class ProfileModel @Inject constructor() : BaseModel() {
             ).apply {
                 remote.sendRequestApi(this)
             }
-        }
-
-        else {
+        } else {
             CallImpl(
                 API_GET_FOLLOWING_LIST,
                 this,
@@ -103,10 +112,10 @@ class ProfileModel @Inject constructor() : BaseModel() {
     }
 
 
-    fun followUser(isFollow : Boolean) {
+    fun followUser(isFollow: Boolean) {
         val request = FollowRequest(_currentUserId.value)
 
-        if (isFollow){
+        if (isFollow) {
             CallImpl(
                 API_UNFOLLOW_USER,
                 this,
@@ -114,8 +123,7 @@ class ProfileModel @Inject constructor() : BaseModel() {
             ).apply {
                 remote.sendRequestApi(this)
             }
-        }
-        else {
+        } else {
             CallImpl(
                 API_FOLLOW_USER,
                 this,
@@ -127,10 +135,27 @@ class ProfileModel @Inject constructor() : BaseModel() {
 
     }
 
-    private fun onFollowResponse(response: FollowResponse)
-    {
+    private fun onFollowResponse(response: FollowResponse) {
         response.follows?.let { follows ->
             _followList.value = follows.toMutableList()
+        }
+    }
+
+    private fun onProfileResponse(response: UserProfileResponse)
+    {
+        response.data?.let { profileResponse ->
+            profile.value = profileResponse.profile
+            _workList.value = profileResponse.works!!.toMutableList()
+            _productList.value = profileResponse.products!!.toMutableList()
+        }
+    }
+    private fun onMyProfileResponse(response: UserProfileResponse)
+    {
+        response.data?.let { profileResponse ->
+            profile.value = profileResponse.profile
+            myUserId.value = profileResponse.profile.userId
+            _workList.value = profileResponse.works!!.toMutableList()
+            _productList.value = profileResponse.products!!.toMutableList()
         }
     }
 
@@ -165,9 +190,7 @@ class ProfileModel @Inject constructor() : BaseModel() {
         when(api)
         {
             API_GET_USER_PROFILE -> {
-                if (body is UserProfileResponse) {
-                    profile.value = body
-                }
+                onProfileResponse(body as UserProfileResponse)
             }
 
             API_GET_FOLLOWER_LIST -> {
@@ -178,12 +201,7 @@ class ProfileModel @Inject constructor() : BaseModel() {
                 onFollowResponse(body as FollowResponse)
             }
             API_GET_MY_PROFILE -> {
-                if (body is UserProfileResponse) {
-                    body.userId.let {
-                        myUserId.value = it
-                    }
-                    profile.value = body
-                }
+                onMyProfileResponse(body as UserProfileResponse)
             }
 
             API_FOLLOW_USER ->

@@ -30,7 +30,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{vm.profile.name}"
+                android:text="@{vm.name}"
                 style="@style/bold16"/>
             <ImageView
                 android:layout_width="wrap_content"

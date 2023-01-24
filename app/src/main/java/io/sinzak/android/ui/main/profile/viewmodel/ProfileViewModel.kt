@@ -41,6 +41,10 @@ class ProfileViewModel @Inject constructor(
     val profile get() = model.profile
 
     /**
+     * 유저 이름
+     */
+    val name = MutableStateFlow("")
+    /**
      * 내 프로필인가?
      */
     val isMyProfile = MutableStateFlow(false)
@@ -102,7 +106,7 @@ class ProfileViewModel @Inject constructor(
         invokeStateFlow(profile) {profile ->
             profile?.let {
                 isMyProfile.value = it.myProfile
-
+                name.value = it.name
                 profileImg.value = it.imageUrl
                 isCertify.value = it.cert_uni
                 university.value = it.univ
