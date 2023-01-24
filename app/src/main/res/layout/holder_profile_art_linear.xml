@@ -1,24 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="product"
+            type="io.sinzak.android.remote.dataclass.profile.UserProduct" />
+        <variable
+            name="work"
+            type="io.sinzak.android.remote.dataclass.profile.UserWork" />
+        <variable
+            name="type"
+            type="Integer" />
+    </data>
     <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-        <androidx.cardview.widget.CardView
+        <ImageView
+            android:id="@+id/iv_profile_art"
             android:layout_width="152dp"
             android:layout_height="152dp"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="4dp"
+            cornerRadius="@{12f}"
+            remoteImgUrl="@{type == 0 ? product.thumbnail : work.thumbnail}"
             app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-            <ImageView
-                android:id="@+id/iv_profile_art"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </androidx.cardview.widget.CardView>
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
