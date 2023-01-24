@@ -55,7 +55,19 @@ class WorkListModel @Inject constructor() : BaseModel() {
      * REMOTE DATASOURCE
      *************************************************************************/
 
-    fun getRemoteMarketWorks(refresh : Boolean = false, category : String = "", sort : Sort? = null, isCustomer : Boolean? = null, search : String = "")
+
+    /**
+     * Works 리스트 불러오기
+     * refresh : true - 리스트 초기화 및 파라미터 수신, false - 페이징
+     * category : 카테고리 텍스트, 콤마로 구분하여 3개까지
+     * sort : 정렬 순서
+     * isCustomer : true - 구매합니다 false - 판매합니다ㅣ
+     * search : 검색어 키워드
+     *
+     * 각 항목이 null 이면 저장된 값 사용
+     * 항목 하나씩만 변경 가능
+     */
+    fun getRemoteMarketWorks(refresh : Boolean = false, category : String? = null, sort : Sort? = null, isCustomer : Boolean? = null, search : String? = null)
     {
         val pageSize = 10
 
@@ -63,25 +75,18 @@ class WorkListModel @Inject constructor() : BaseModel() {
             _worksList.value = mutableListOf()
             maxPage = 9999
 
-            when {
-                category.isNotBlank() ->
-                    categoryString = category
-                sort != null ->
-                    this.sort = sort
-                isCustomer != null ->
-                    this.isCustomer = isCustomer
-                search.isNotBlank() ->
-                    this.searchKeyword = search
-                else ->{
-                    this.searchKeyword = ""
-                }
-
+            category?.let{
+                categoryString = it
             }
-
-
-
-
-            searchKeyword = search
+            sort?.let{
+                this.sort = sort
+            }
+            isCustomer?.let{
+                this.isCustomer = isCustomer
+            }
+            search?.let{
+                searchKeyword = search
+            }
             0
         }else currentPage + 1
 

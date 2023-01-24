@@ -44,7 +44,7 @@ class OutsourcingViewModel @Inject constructor(
 
     init{
 
-        model.getRemoteMarketWorks(true, sort = Sort.BY_RECENT)
+        model.getRemoteMarketWorks(true, sort = Sort.BY_RECENT, search = "")
 
     }
 
