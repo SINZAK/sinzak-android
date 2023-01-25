@@ -9,49 +9,52 @@
         <variable
             name="vm"
             type="io.sinzak.android.ui.main.profile.viewmodel.ProfileViewModel" />
+        <variable
+            name="showBack"
+            type="Boolean" />
         <import type="io.sinzak.android.enums.Page"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="@dimen/appbar_height"
         android:paddingVertical="6dp"
         android:paddingHorizontal="16dp">
 
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
+            android:onClick="@{v->fg.navigateOnBackPressed()}"
             android:src="@drawable/ic_back"
+            android:visibility="@{showBack ? 0 : 8}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:visibility="@{!vm.isMyProfile() ? 0 : 8}"
-            android:onClick="@{v->fg.navigateOnBackPressed()}"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="34dp"
             android:layout_height="34dp"
             android:background="@drawable/ic_bg_button"
+            android:onClick="@{v->vm.changePage(Page.PROFILE_SETTING)}"
             android:src="@drawable/ic_profile_setting"
+            android:visibility="@{vm.isMyProfile() ? 0 : 8}"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-
-            android:visibility="@{vm.isMyProfile() ? 0 : 8}"
-            android:onClick="@{v->vm.changePage(Page.PROFILE_SETTING)}"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
+            android:id="@+id/imageView4"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:background="@drawable/ic_bg_button"
-            android:src="@drawable/ic_more"
             android:layout_marginEnd="5dp"
-            android:layout_marginBottom="1dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@drawable/ic_bg_button"
+            android:onClick="@{v-> vm.showMoreDialog()}"
+            android:src="@drawable/ic_more"
 
             android:visibility="@{!vm.isMyProfile() ? 0 : 8}"
-            android:onClick="@{v-> vm.showMoreDialog()}"
-            />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

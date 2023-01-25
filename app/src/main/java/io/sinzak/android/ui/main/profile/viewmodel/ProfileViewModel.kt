@@ -2,6 +2,7 @@ package io.sinzak.android.ui.main.profile.viewmodel
 
 import android.os.Bundle
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.sinzak.android.constants.CODE_FOLLOW_PAGE
 import io.sinzak.android.constants.CODE_USER_ID
 import io.sinzak.android.constants.CODE_USER_REPORT_ID
 import io.sinzak.android.constants.CODE_USER_REPORT_NAME
@@ -10,6 +11,7 @@ import io.sinzak.android.model.profile.ProfileModel
 import io.sinzak.android.remote.dataclass.response.profile.UserProfileResponse
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.ui.main.profile.ProfileConnect
+import io.sinzak.android.ui.main.profile.follow.FollowViewModel
 import io.sinzak.android.ui.main.profile.report.ReportSendViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -34,10 +36,14 @@ class ProfileViewModel @Inject constructor(
         _connect = connect
     }
     /**
-     * 내 프로필
+     * 조회중인 프로필 프로필
      */
     val profile get() = model.profile
 
+    /**
+     * 유저 이름
+     */
+    val name = MutableStateFlow("")
     /**
      * 내 프로필인가?
      */
@@ -47,11 +53,6 @@ class ProfileViewModel @Inject constructor(
      * 프로필 이미지 url
      */
     val profileImg = MutableStateFlow("")
-
-    /**
-     * 유저 이름
-     */
-    val name = MutableStateFlow("")
 
     /**
      * 학교 인증 받았는지?
@@ -88,10 +89,6 @@ class ProfileViewModel @Inject constructor(
      */
     val isFollow = MutableStateFlow(false)
 
-    /**
-     * 유저 아이디
-     */
-    val userId = MutableStateFlow("-1")
 
     /***********************************************************************
      * DATA FLOW
@@ -108,11 +105,9 @@ class ProfileViewModel @Inject constructor(
     {
         invokeStateFlow(profile) {profile ->
             profile?.let {
-                userId.value = it.userId
                 isMyProfile.value = it.myProfile
-
-                profileImg.value = it.imageUrl
                 name.value = it.name
+                profileImg.value = it.imageUrl
                 isCertify.value = it.cert_uni
                 university.value = it.univ
 //                isVerify.value = it.isVerify
@@ -138,11 +133,15 @@ class ProfileViewModel @Inject constructor(
      **********************************************************************/
 
     /**
+     * 뒤로 가기 클릭시 프로필 히스토리 관리
+     */
+    fun revealProfileHistory() = model.revealProfileHistory()
+    /**
      * 팔로우 버튼 클릭시 동작
      */
     fun toggleFollow()
     {
-        model.followUser(userId.value,isFollow.value)
+        model.followUser(isFollow.value)
         isFollow.value = !isFollow.value
         follower.value = follower.value + if (isFollow.value) 1 else -1
     }
@@ -155,6 +154,17 @@ class ProfileViewModel @Inject constructor(
         page.apply {
             navigation.changePage(this)
         }
+    }
+    /**
+     * 팔로우/팔로워 페이지 이동
+     */
+    fun goToFollowList(page : Int)
+    {
+        Bundle().apply {
+            putInt(CODE_FOLLOW_PAGE,page)
+            navigation.putBundleData(FollowViewModel::class,this)
+        }
+        navigation.changePage(Page.PROFILE_FOLLOW)
     }
 
     /**
@@ -206,4 +216,5 @@ class ProfileViewModel @Inject constructor(
             navigation.changePage(Page.PROFILE_REPORT_TYPE)
         }
     }
+
 }

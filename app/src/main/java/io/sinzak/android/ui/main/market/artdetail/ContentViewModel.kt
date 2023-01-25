@@ -145,7 +145,7 @@ class ContentViewModel @Inject constructor(
      * 팔로우 버튼
      */
     fun onClickFollow(){
-        profileModel.followUser(authorId,isFollowing.value)
+        profileModel.followUser(isFollowing.value)
         isFollowing.value = !isFollowing.value
         follower.value = follower.value + if (isFollowing.value) 1 else -1
     }
@@ -154,6 +154,7 @@ class ContentViewModel @Inject constructor(
      * 작가 프로필 조회
      */
     fun onClickArtistProfile(){
+        profileModel.changeProfile(newUserId = authorId)
         navigation.changePage(Page.PROFILE_OTHER)
     }
 
@@ -191,7 +192,7 @@ class ContentViewModel @Inject constructor(
 
                 it.authorId.let {
                     authorId = it
-                    pModel.setCurrentUserId(it)
+                    pModel.changeProfile(it)
                 }
 
                 isMyProduct.value = pModel.isMine()
