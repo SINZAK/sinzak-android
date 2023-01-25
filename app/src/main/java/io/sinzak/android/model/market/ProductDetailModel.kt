@@ -27,6 +27,7 @@ class ProductDetailModel @Inject constructor() : BaseModel() {
 
 
 
+
     fun loadProduct(id : Int){
         art.value = null
         itemType.value = 0
@@ -50,7 +51,11 @@ class ProductDetailModel @Inject constructor() : BaseModel() {
 
     fun postProductLike(id : Int, status : Boolean){
         remote.sendRequestApi(
-            CallImpl(API_POST_LIKE_PRODUCT, this,
+            CallImpl(
+                if(itemType.value == TYPE_MARKET_PRODUCT)
+                API_POST_LIKE_PRODUCT
+                else API_POST_LIKE_WORK
+                , this,
                 ProductLikeRequest(
                     id,
                     status
@@ -66,7 +71,9 @@ class ProductDetailModel @Inject constructor() : BaseModel() {
 
     fun postProductWish(id : Int, status : Boolean){
         remote.sendRequestApi(
-            CallImpl(API_POST_WISH_PRODUCT, this,
+            CallImpl(if(itemType.value == TYPE_MARKET_PRODUCT)
+                API_POST_WISH_PRODUCT
+            else API_POST_WISH_WORK, this,
                 ProductLikeRequest(
                     id,
                     status
@@ -79,7 +86,10 @@ class ProductDetailModel @Inject constructor() : BaseModel() {
         productSuggestSuccessFlag.value = false
         remote.sendRequestApi(
             CallImpl(
-                API_POST_SUGGEST_PRODUCT, this, ProductSuggestRequest(
+                if(itemType.value == TYPE_MARKET_PRODUCT)
+                    API_POST_SUGGEST_PRODUCT
+                else API_POST_SUGGEST_WORK
+               , this, ProductSuggestRequest(
                     id = id,
                     price = price
                 )

@@ -71,7 +71,14 @@ interface RemoteMarketInterface {
     @POST("api/works/{id}/delete")
     fun deleteWork(@HeaderMap headerMap: HashMap<String,String>,@Path("id") id : Int) : Call<CResponse>
 
+    @POST("api/works/likes")
+    fun postWorkLikes(@HeaderMap headerMap: HashMap<String, String>, @Body body : ProductLikeRequest) : Call<CResponse>
 
+    @POST("api/works/wish")
+    fun postWorkWish(@HeaderMap headerMap: HashMap<String, String>, @Body body : ProductLikeRequest) : Call<CResponse>
+
+    @POST("api/works/suggest")
+    fun postWorkSuggest(@HeaderMap headerMap: HashMap<String, String>, @Body body : ProductSuggestRequest) : Call<CResponse>
 
 
 
