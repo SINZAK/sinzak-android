@@ -12,14 +12,15 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="10dp"
             android:background="@drawable/ic_bg_button"
             android:onClick="@{v->fg.navigateOnBackPressed()}"
             android:src="@drawable/ic_back"
+            app:layout_constraintBottom_toBottomOf="@+id/textView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -29,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/appbar_height"
             android:gravity="center"
-            android:text="unnamed"
+            android:text="@{vm.profile.name}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -53,7 +54,7 @@
                 android:gravity="center"
                 android:onClick="@{v->vm.changePage(0)}"
                 android:text="@string/str_profile_following"
-                android:textColor="@{vm.page == 0 ? @color/text0 : @color/text1}" />
+                android:textColor="@{vm.page == 0 ? @color/text0 : @color/text1}"/>
 
             <TextView
                 style="@style/bold16"

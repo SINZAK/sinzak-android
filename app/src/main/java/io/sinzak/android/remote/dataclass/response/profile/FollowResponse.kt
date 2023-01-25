@@ -5,5 +5,5 @@ import io.sinzak.android.remote.dataclass.CResponse
 import io.sinzak.android.remote.dataclass.profile.Follow
 
 data class FollowResponse(
-    val followList: List<Follow> = listOf()
+    @SerializedName("data") val follows : List<Follow>? = null
 ) : CResponse()

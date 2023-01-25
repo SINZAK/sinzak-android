@@ -1,13 +1,11 @@
 package io.sinzak.android.ui.login.email
 
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.sinzak.android.model.context.CertifyModel
-import io.sinzak.android.model.context.SignModel
+import io.sinzak.android.model.certify.CertifyModel
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.ui.login.RegisterConnect
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
-import kotlin.math.sign
 
 @HiltViewModel
 class EmailViewModel @Inject constructor(
@@ -25,7 +23,7 @@ class EmailViewModel @Inject constructor(
     {
         emailAddressAvailable.value = EMAIL_AVAILABLE
         certifyModel.setAddress(email)
-        certifyModel.setUnvi(signModel.getUnivName())
+        certifyModel.setUniv(signModel.getUniv())
         certifyModel.sendMailCode()
     }
 

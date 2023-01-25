@@ -4,6 +4,9 @@ import io.sinzak.android.constants.*
 import io.sinzak.android.model.BaseModel
 import io.sinzak.android.remote.dataclass.CResponse
 import io.sinzak.android.remote.dataclass.profile.Follow
+import io.sinzak.android.remote.dataclass.profile.UserProduct
+import io.sinzak.android.remote.dataclass.profile.UserProfile
+import io.sinzak.android.remote.dataclass.profile.UserWork
 import io.sinzak.android.remote.dataclass.request.profile.FollowRequest
 import io.sinzak.android.remote.dataclass.response.profile.FollowResponse
 import io.sinzak.android.remote.dataclass.response.profile.UserProfileResponse
@@ -16,112 +19,103 @@ import javax.inject.Singleton
 @Singleton
 class ProfileModel @Inject constructor() : BaseModel() {
 
+
     /**
      * 현재 조회중인 프로필을 저장하는 공간
      */
-    val profile = MutableStateFlow<UserProfileResponse?>(null)
+    val profile = MutableStateFlow<UserProfile?>(null)
 
     /**
      * 내 아이디를 저장하는 공간
      */
-    val myUserId = MutableStateFlow("-1")
+    private val myUserId = MutableStateFlow("-1")
 
     /**
-     * 조회중의 타인 유저 아이디 저장하는 공간
+     * 조회중인 유저 아이디 저장하는 공간
      */
-    val currenUserId = MutableStateFlow("-1")
-    /**
-     * 팔로워 리스트를 저장하는 공간
-     */
-    private val _followerList = MutableStateFlow(mutableListOf<Follow>())
-    val followerList : StateFlow<List<Follow>> get() = _followerList
+    private val _currentUserId = MutableStateFlow("-1")
 
     /**
-     * 팔로잉 리스트를 저장하는 공간
+     * 유저 파도타기를 위한 히스토리 공간
      */
-    private val _followingList = MutableStateFlow(mutableListOf<Follow>())
-    val followingList : StateFlow<List<Follow>> get() = _followingList
+    private val userHistory = mutableListOf<String>()
 
+    /**
+     * 팔로워 & 팔로잉 리스트를 저장하는 공간
+     */
+    private val _followList = MutableStateFlow(mutableListOf<Follow>())
+    val followList: StateFlow<List<Follow>> get() = _followList
 
-/*    fun getUserId() : String?{
-        profile.value?.let{
-            return it.userId
-        }
-        return null
-    }
+    /**
+     * 조회중인 유저 의뢰해요 리스트를 저장하는 공간
+     */
+    private val _workList = MutableStateFlow(mutableListOf<UserWork>())
+    val workList: StateFlow<List<UserWork>> get() = _workList
 
-    fun getUserDisplayName() : String?{
-        profile.value?.let{
-            return it.name
-        }
-        return null
-    }*/
+    /**
+     * 조회중인 유저 판매 작품 리스트를 저장하는 공간
+     */
+    private val _productList = MutableStateFlow(mutableListOf<UserProduct>())
+    val productList: StateFlow<List<UserProduct>> get() = _productList
 
     /**
      * 내 작품, 프로필인가?
      */
-    fun isMine() : Boolean {
-        return myUserId.value == currenUserId.value
+    fun isMine(): Boolean {
+        return myUserId.value == _currentUserId.value
     }
 
-    /**
-     * 조회 중인 작가 아이디 설정
-     */
-    fun setCurrentUserId(userId: String) {
-        currenUserId.value = userId
-    }
 
-    fun getProfile()
-    {
+    fun getProfile() {
         profile.value = null
         CallImpl(
             API_GET_MY_PROFILE,
-            this
+            this,
         ).apply {
             remote.sendRequestApi(this)
         }
     }
 
-    fun getOtherProfile()
-    {
+    fun getOtherProfile() {
         profile.value = null
         CallImpl(
             API_GET_USER_PROFILE,
             this,
-            paramStr0 = currenUserId.value
+            paramStr0 = _currentUserId.value
         ).apply {
             remote.sendRequestApi(this)
         }
     }
 
-    fun getFollowerList(userId : String)
-    {
-        _followerList.value = mutableListOf()
-        CallImpl(
-            API_GET_FOLLOWER_LIST,
-            this,
-            paramStr0 = userId
-        ).apply {
-            remote.sendRequestApi(this)
+
+    fun getFollowList(page: Int) {
+        _followList.value = mutableListOf()
+
+        if (page == 0) {
+            CallImpl(
+                API_GET_FOLLOWER_LIST,
+                this,
+                paramStr0 = _currentUserId.value
+            ).apply {
+                remote.sendRequestApi(this)
+            }
+        } else {
+            CallImpl(
+                API_GET_FOLLOWING_LIST,
+                this,
+                paramStr0 = _currentUserId.value
+            ).apply {
+                remote.sendRequestApi(this)
+            }
         }
+
     }
 
-    fun getFollowingList(userId : String)
-    {
-        _followingList.value = mutableListOf()
-        CallImpl(
-            API_GET_FOLLOWING_LIST,
-            this,
-            paramStr0 = userId
-        ).apply {
-            remote.sendRequestApi(this)
-        }
-    }
 
-    fun followUser(userId: String , isFollow : Boolean) {
-        val request = FollowRequest(userId)
+    fun followUser(isFollow: Boolean) {
+        val request = FollowRequest(_currentUserId.value)
 
-        if (isFollow){
+        if (isFollow) {
             CallImpl(
                 API_UNFOLLOW_USER,
                 this,
@@ -129,8 +123,7 @@ class ProfileModel @Inject constructor() : BaseModel() {
             ).apply {
                 remote.sendRequestApi(this)
             }
-        }
-        else {
+        } else {
             CallImpl(
                 API_FOLLOW_USER,
                 this,
@@ -142,38 +135,73 @@ class ProfileModel @Inject constructor() : BaseModel() {
 
     }
 
-    private fun onFollowListResponse(response: FollowResponse, stateFlow: MutableStateFlow<MutableList<Follow>>)
-    {
-        response.followList.let{ follow ->
-            val list = mutableListOf<Follow>()
-            list.addAll(stateFlow.value)
-            list.addAll(follow)
+    private fun onFollowResponse(response: FollowResponse) {
+        response.follows?.let { follows ->
+            _followList.value = follows.toMutableList()
         }
     }
 
+    private fun onProfileResponse(response: UserProfileResponse)
+    {
+        response.data?.let { profileResponse ->
+            profile.value = profileResponse.profile
+            _workList.value = profileResponse.works!!.toMutableList()
+            _productList.value = profileResponse.products!!.toMutableList()
+        }
+    }
+    private fun onMyProfileResponse(response: UserProfileResponse)
+    {
+        response.data?.let { profileResponse ->
+            profile.value = profileResponse.profile
+            myUserId.value = profileResponse.profile.userId
+            _workList.value = profileResponse.works!!.toMutableList()
+            _productList.value = profileResponse.products!!.toMutableList()
+        }
+    }
+
+    fun changeProfile(newUserId: String)
+    {
+        if (_currentUserId.value != newUserId)
+        {
+            userHistory.add(_currentUserId.value)
+            _currentUserId.value = newUserId
+        }
+    }
+
+
+    fun revealProfileHistory() : Boolean {
+        if (userHistory.size > 1)
+        {
+            _currentUserId.value = userHistory.last()
+            userHistory.removeLast()
+            getOtherProfile()
+            return true
+        }
+        return false
+    }
+
+    fun clearUserHistory()
+    {
+        userHistory.clear()
+    }
 
 
     override fun onConnectionSuccess(api: Int, body: CResponse) {
         when(api)
         {
             API_GET_USER_PROFILE -> {
-                if (body is UserProfileResponse) {
-                    profile.value = body
-                }
+                onProfileResponse(body as UserProfileResponse)
             }
 
             API_GET_FOLLOWER_LIST -> {
-                onFollowListResponse(body as FollowResponse, _followerList)
+                onFollowResponse(body as FollowResponse)
             }
 
             API_GET_FOLLOWING_LIST -> {
-                onFollowListResponse(body as FollowResponse, _followingList)
+                onFollowResponse(body as FollowResponse)
             }
             API_GET_MY_PROFILE -> {
-                if (body is UserProfileResponse) {
-                    myUserId.value = body.userId
-                    profile.value = body
-                }
+                onMyProfileResponse(body as UserProfileResponse)
             }
 
             API_FOLLOW_USER ->

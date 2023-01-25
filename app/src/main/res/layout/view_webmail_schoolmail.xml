@@ -42,13 +42,15 @@
                 android:text="@{vm.webMailInput}"
                 android:textColor="@color/black"
                 android:textColorHint="@color/gray60"
-                onActionDone="@{v->vm.changeWebMailState()}"/>
+                onActionDone="@{v->vm.changeWebMailState()}"
+                android:enabled="@{vm.webMailState != 2}"/>
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="@{v-> vm.deleteMailInput()}"
-                android:src="@drawable/ic_btn_clear" />
+                android:src="@drawable/ic_btn_clear"
+                android:enabled="@{vm.webMailState != 2}"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <TextView
@@ -118,13 +120,15 @@
                    android:text="@{vm.codeInput}"
                    android:textColor="@color/black"
                    android:textColorHint="@color/gray60"
-                   onActionDone="@{v->vm.changeCodeState()}"/>
+                   onActionDone="@{v->vm.changeCodeState()}"
+                   android:enabled="@{vm.codeState != 2}"/>
 
                <ImageView
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:onClick="@{v-> vm.deleteCodeInput()}"
-                   android:src="@drawable/ic_btn_clear" />
+                   android:src="@drawable/ic_btn_clear"
+                   android:enabled="@{vm.codeState != 2}"/>
            </androidx.appcompat.widget.LinearLayoutCompat>
 
            <TextView

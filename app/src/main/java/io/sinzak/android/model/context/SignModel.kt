@@ -150,6 +150,13 @@ class SignModel @Inject constructor(
         return univ!!.schoolName
     }
 
+    /**
+     * [안승우] certifyModel 변경으로 임시 getter
+     */
+    fun getUniv() : SchoolData {
+        return univ!!
+    }
+
 
     fun join(){
         JoinRequest(

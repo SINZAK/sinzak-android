@@ -2,6 +2,7 @@ package io.sinzak.android.ui.main.profile.follow.adapter
 
 import android.graphics.Bitmap
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -13,9 +14,10 @@ import io.sinzak.android.R
 import io.sinzak.android.databinding.HolderFollowListLinearBinding
 import io.sinzak.android.remote.dataclass.profile.Follow
 import io.sinzak.android.remote.dataclass.response.profile.FollowResponse
+import io.sinzak.android.system.LogDebug
 
 class FollowAdapter(
-    val onItemClick : ((Int) -> Unit)? = null,
+    val onItemClick : ((String) -> Unit)? = null,
 ) : RecyclerView.Adapter<FollowAdapter.ViewHolder>() {
 
     private var followList : List<Follow> = listOf()
@@ -36,7 +38,24 @@ class FollowAdapter(
 
     fun setFollows(follows : List<Follow>)
     {
-        this.followList = follows
+        if (this.followList != follows)
+        {
+            val oldSize = itemCount
+            this.followList = follows
+            if (oldSize >= itemCount)
+                notifyDataSetChanged()
+            else
+                notifyItemRangeInserted(oldSize,itemCount - oldSize)
+            LogDebug(javaClass.name,"[Follow List] 새로운 데이터 수신 $itemCount 개")
+        }
+    }
+
+    private fun setMatchParentToRecycelrView(view: View) {
+        val layoutParams = RecyclerView.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        view.layoutParams = layoutParams
     }
 
     inner class ViewHolder(val bind : HolderFollowListLinearBinding) : RecyclerView.ViewHolder(bind.root) , RequestListener<Bitmap>
@@ -44,6 +63,7 @@ class FollowAdapter(
 
         fun bind(follow: Follow)
         {
+            setMatchParentToRecycelrView(bind.root)
             bind.follow = follow
             bind.setOnItemClick {
                 onItemClick!!(follow.userId)
