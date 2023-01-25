@@ -124,12 +124,14 @@ class ProductDetailModel @Inject constructor() : BaseModel() {
                 }
             }
 
-            API_POST_SUGGEST_PRODUCT ->{
+            API_POST_SUGGEST_PRODUCT, API_POST_SUGGEST_WORK ->{
                 if(body.success == true)
                     productSuggestSuccessFlag.value = true
                 else
                     globalUi.showToast(body.message.toString())
             }
+
+
 
             API_DELETE_MARKET_PRODUCT ->{
                 if(body.success == true)
