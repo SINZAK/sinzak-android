@@ -153,7 +153,16 @@
                 />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
-
+        <ImageView
+            android:visibility="@{vm.signModel.isLogin ? 0 : 8}"
+            android:onClick="@{v->vm.gotoBuildPage()}"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/ic_new_post"
+            android:layout_marginBottom="6dp"
+            android:layout_marginEnd="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
 
 
