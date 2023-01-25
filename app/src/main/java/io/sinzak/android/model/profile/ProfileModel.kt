@@ -61,7 +61,7 @@ class ProfileModel @Inject constructor() : BaseModel() {
      * 내 작품, 프로필인가?
      */
     fun isMine() : Boolean {
-        return myUserId.value.equals(currenUserId.value)
+        return myUserId.value == currenUserId.value
     }
 
     /**

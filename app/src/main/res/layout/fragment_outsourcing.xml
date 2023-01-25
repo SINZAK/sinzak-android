@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:gravity="center"
             android:elevation="2dp"
-            android:background="@color/on_primary"
+            android:background="@color/background0"
             android:layout_height="@dimen/appbar_height"
             app:layout_constraintTop_toTopOf="parent"
             >
@@ -34,7 +34,6 @@
                 android:layout_width="match_parent"
                 android:gravity="center"
                 android:elevation="2dp"
-                android:background="@color/on_primary"
                 android:layout_height="match_parent"
                 app:layout_constraintTop_toTopOf="parent"
                 >
@@ -55,6 +54,7 @@
                 <ImageView
                     android:layout_width="26dp"
                     android:layout_height="26dp"
+                    style="@style/btn_default"
                     android:onClick="@{v->vm.openSearch()}"
                     android:src="@drawable/ic_search"/>
 
@@ -106,7 +106,7 @@
                     android:gravity="center"
                     android:onClick="@{v->vm.setIsClient(true)}"
                     android:text="@string/str_btn_outsourcing_client"
-                    android:textColor="@{vm.isClientList ? @color/on_secondary : @color/gray60}" />
+                    android:textColor="@{vm.isClientList ? @color/text0 : @color/text1}" />
 
                 <TextView
                     style="@style/bold16"
@@ -117,7 +117,7 @@
                     android:gravity="center"
                     android:onClick="@{v->vm.setIsClient(false)}"
                     android:text="@string/str_btn_outsourcing_artist"
-                    android:textColor="@{!vm.isClientList ? @color/on_secondary : @color/gray60}" />
+                    android:textColor="@{!vm.isClientList ? @color/text0 : @color/text1}" />
 
                 <Space
                     android:layout_width="match_parent"

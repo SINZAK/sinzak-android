@@ -28,7 +28,7 @@
             android:text="@{text}"
             tools:text="드로잉"
             style="@style/regular16"
-            android:textColor="@color/on_secondary"/>
+            android:textColor="@color/text0"/>
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
