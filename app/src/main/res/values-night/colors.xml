@@ -15,6 +15,7 @@
     <color name="secondary">#4040FF</color>
 
     <color name="background0">#212121</color>
+    <color name="background0_5">#393939</color>
     <color name="background1">#393939</color>
 
     <color name="background2_alpha">#70666666</color>
@@ -23,7 +24,10 @@
     <color name="text1">#bfbfbf</color>
     <color name="text2">#666666</color>
     <color name="text3">#999999</color>
+    <color name="text4">#D9D9D9</color>
 
+
+    <color name="gray90">#393939</color>
     <color name="gray80">#666666</color>
     <color name="gray60">#999999</color>
     <color name="gray40">#BFBFBF</color>

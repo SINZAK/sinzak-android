@@ -34,6 +34,7 @@
                 android:onClick="@{v->activity.onBackPressed()}"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
+                style="@style/btn_default"
                 android:src="@drawable/ic_back" />
 
             <Space
@@ -43,6 +44,7 @@
 
             <ImageView
                 android:layout_width="24dp"
+                style="@style/btn_default"
                 android:onClick="@{v->vm.showMoreDialog()}"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_more" />

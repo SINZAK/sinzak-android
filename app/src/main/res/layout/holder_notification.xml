@@ -37,7 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="5시간전"
-                android:textColor="@color/gray80"
+                android:textColor="@color/text3"
                 style="@style/regular13"/>
 
         </androidx.appcompat.widget.LinearLayoutCompat>

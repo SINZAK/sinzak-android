@@ -163,7 +163,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="@color/on_primary"
+                        android:background="@color/background0"
                         android:text="@{vm.profile.univ}" />
 
                     <TextView
@@ -195,7 +195,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="@color/on_primary"
+                        android:background="@color/background0"
                         android:text="일반회화" />
 
                     <TextView

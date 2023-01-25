@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
        >
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:background="@color/on_primary"
+            android:background="@color/background0"
             android:layout_width="match_parent"
             app:layout_constraintTop_toTopOf="parent"
             android:id="@+id/ll_appbar"

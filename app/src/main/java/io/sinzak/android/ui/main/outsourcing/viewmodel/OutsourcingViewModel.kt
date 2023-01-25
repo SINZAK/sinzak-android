@@ -1,8 +1,10 @@
 package io.sinzak.android.ui.main.outsourcing.viewmodel
 
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.sinzak.android.enums.Page
 import io.sinzak.android.enums.Sort
 import io.sinzak.android.model.insets.SoftKeyModel
+import io.sinzak.android.model.market.MarketWriteModel
 import io.sinzak.android.model.works.WorkListModel
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.ui.main.outsourcing.WorkConnect
@@ -12,6 +14,7 @@ import javax.inject.Inject
 @HiltViewModel
 class OutsourcingViewModel @Inject constructor(
     val model : WorkListModel,
+    val writeModel: MarketWriteModel,
     val connect : WorkConnect,
     val soft : SoftKeyModel
 ) : BaseViewModel() {
@@ -29,6 +32,11 @@ class OutsourcingViewModel @Inject constructor(
         historyOn.value = true
     }
 
+
+    fun gotoBuildPage() {
+        writeModel.startBuild()
+        navigation.changePage(Page.NEW_POST)
+    }
 
     fun closeSearchPage() {
 

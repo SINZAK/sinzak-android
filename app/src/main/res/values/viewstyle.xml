@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="btn_default">
+        <item name="android:tint">@color/text0</item>
+        <item name="android:background">@drawable/ic_bg_button</item>
+    </style>
+
+</resources>
