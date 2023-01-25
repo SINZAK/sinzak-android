@@ -5,6 +5,8 @@ import android.provider.MediaStore
 import android.text.TextUtils
 import android.util.Patterns
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.sinzak.android.enums.Page
+import io.sinzak.android.model.certify.CertifyModel
 import io.sinzak.android.model.context.SignModel
 import io.sinzak.android.ui.base.BaseViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,6 +16,7 @@ import kotlin.coroutines.coroutineContext
 
 @HiltViewModel
 class WebmailViewModel @Inject constructor(
+    private val certifyModel: CertifyModel
 ) : BaseViewModel() {
 
     private val _currentPage = MutableStateFlow(0)
@@ -59,16 +62,33 @@ class WebmailViewModel @Inject constructor(
     }
 
     //이메일 형식
-    fun emailValidation(input : String) : Boolean {
-        return !TextUtils.isEmpty(input) && Patterns.EMAIL_ADDRESS.matcher(input).matches()
+    private fun emailValidation(input : String) : Boolean {
+        return !TextUtils.isEmpty(input) && input.contains("@") && input.contains(certifyModel.getUnivAddress())
     }
 
     //이메일 인증 상태
     fun changeWebMailState() {
         if(emailValidation(_webMailInput.value)) {
-            _webMailState.value = 2
+            sendWebMail()
         }
-        else _webMailState.value = 1
+        else onWebMailError()
+    }
+
+    /**
+     * 이메일 보내기
+     */
+    private fun sendWebMail()
+    {
+        certifyModel.sendMailCode()
+        _webMailState.value = 2
+    }
+
+    /**
+     * 이메일 에러
+     */
+    private fun onWebMailError()
+    {
+        _webMailState.value = 1
     }
 
     //코드 입력란
@@ -80,13 +100,24 @@ class WebmailViewModel @Inject constructor(
         }
     }
 
-    //코드 인증 상탱
+    //코드 인증 상태
     fun changeCodeState(){
-        val code = "1111"
-        if(_codeInput.value == code){
+
+        checkCode()
+
+        if(certifyModel.flagCodeSuccess.value){
             _codeState.value = 2
         }
         else _codeState.value = 1
+    }
+
+    /**
+     * 코드 확인
+     */
+    private fun checkCode()
+    {
+        certifyModel.setCode(_codeInput.value)
+        certifyModel.checkMailCode()
     }
 
     //코드 텍스트 삭제
@@ -103,6 +134,8 @@ class WebmailViewModel @Inject constructor(
     fun onSubmit(){
         if(_currentPage.value==0){
             //웹메일 인증에서 사용
+            navigation.removeHistory(Page.PROFILE_WEBMAIL)
+            navigation.removeHistory(Page.PROFILE_CERTIFICATION)
         }
         else {
             //학생증 인증에서 사용

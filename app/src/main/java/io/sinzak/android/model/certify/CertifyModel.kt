@@ -1,9 +1,10 @@
-package io.sinzak.android.model.context
+package io.sinzak.android.model.certify
 
 import io.sinzak.android.constants.API_CHECK_MAIL_CODE
 import io.sinzak.android.constants.API_SEND_MAIL_CODE
 import io.sinzak.android.model.BaseModel
 import io.sinzak.android.remote.dataclass.CResponse
+import io.sinzak.android.remote.dataclass.local.SchoolData
 import io.sinzak.android.remote.dataclass.request.certify.MailRequest
 import io.sinzak.android.remote.retrofit.CallImpl
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,26 +14,38 @@ import javax.inject.Singleton
 @Singleton
 class CertifyModel @Inject constructor() : BaseModel() {
 
-    private var address = ""
-    private var code = ""
-    private var univ = ""
-
     val flagCodeSuccess = MutableStateFlow(false)
     val flagCodeFailed = MutableStateFlow(false)
 
+
+    /**
+     * 이메일
+     */
+    private var address : String = ""
     fun setAddress(a : String)
     {
         address = a
     }
 
+    /**
+     * 코드
+     */
+    private var code : String = ""
     fun setCode(c : String)
     {
         code = c
     }
 
-    fun setUnvi(u : String)
+    /**
+     * 학교
+     */
+    private var univ : SchoolData? = null
+    fun setUniv(u : SchoolData)
     {
         univ = u
+    }
+    fun getUnivAddress() : String{
+        return univ!!.schoolDomain
     }
 
     fun sendMailCode()
@@ -40,7 +53,7 @@ class CertifyModel @Inject constructor() : BaseModel() {
         val request = MailRequest(
             address = address,
             code = "",
-            univ = univ
+            univ = univ.toString()
         )
 
         CallImpl(
@@ -61,7 +74,7 @@ class CertifyModel @Inject constructor() : BaseModel() {
         val request = MailRequest(
             address = address,
             code = code,
-            univ = univ
+            univ = univ.toString()
         )
 
         CallImpl(

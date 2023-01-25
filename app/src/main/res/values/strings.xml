@@ -80,7 +80,6 @@
     <string name="str_webMail_code_complete">인증 완료!</string>
     <string name="str_webMail_schoolId_explain">모바일 학생증 캡쳐 화면 또는 실물 학생증 사진을\n업로드해주세요. 2~3일 내에 승인이 완료됩니다.</string>
     <string name="str_webMail_upload">사진 업로드하기</string>
-    <string name="str_webMail_next_time">다음에 하기</string>
     <string name="str_webMail_send">메일 전송</string>
 
     <string name="str_verify">인증작가 신청</string>
@@ -100,6 +99,7 @@
     <string name="str_cancel">취소</string>
     <string name="str_apply">신청하기</string>
     <string name="str_graduate">대학생이 아니에요</string>
+    <string name="str_next_time">다음에 하기</string>
 
     <string name="str_login_subtitle">신세대의 작품을 만나다</string>
     <string name="str_login_naver">네이버로 시작하기</string>
