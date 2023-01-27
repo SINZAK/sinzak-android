@@ -14,6 +14,7 @@ import io.sinzak.android.remote.dataclass.request.market.ProductBuildRequest
 import io.sinzak.android.remote.dataclass.request.market.ProductLikeRequest
 import io.sinzak.android.remote.dataclass.request.market.ProductSuggestRequest
 import io.sinzak.android.remote.dataclass.request.profile.FollowRequest
+import io.sinzak.android.remote.dataclass.request.profile.HistoryRequest
 import io.sinzak.android.remote.dataclass.request.profile.ReportRequest
 import io.sinzak.android.remote.dataclass.request.profile.UpdateUserRequest
 import io.sinzak.android.system.App.Companion.prefs
@@ -87,6 +88,12 @@ class CallImpl(
             API_GET_MY_PROFILE -> remoteApi.getMyProfile(header)
 
             API_EDIT_MY_PROFILE -> remoteApi.editMyProfile(header,requestBody as UpdateUserRequest)
+
+            API_GET_SEARCH_HISTORY -> remoteApi.getSearchHistory(header)
+
+            API_DELETE_SEARCH_HISTORY -> remoteApi.deleteSearchHistory(header, requestBody as HistoryRequest)
+
+            API_DELETE_ALL_SEARCH_HISTORY -> remoteApi.deleteAllSearchHistory(header)
 
             API_CERTIFY_UPLOAD_IMG -> remoteApi.uploadUnivImg(header.apply {
                 this.remove(CONTENT_TYPE) }, paramStr0!!, multipart!!)
