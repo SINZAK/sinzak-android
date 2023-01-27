@@ -35,8 +35,5 @@ class ReportTypeFragment : BaseFragment() {
         navigator.revealHistory()
     }
 
-    //신고 전송 페이지로
-    fun goToReportSendPage(){
-        navigator.changePage(Page.PROFILE_REPORT_SEND)
-    }
+
 }

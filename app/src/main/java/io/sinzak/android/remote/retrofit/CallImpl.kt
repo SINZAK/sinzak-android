@@ -14,6 +14,7 @@ import io.sinzak.android.remote.dataclass.request.market.ProductBuildRequest
 import io.sinzak.android.remote.dataclass.request.market.ProductLikeRequest
 import io.sinzak.android.remote.dataclass.request.market.ProductSuggestRequest
 import io.sinzak.android.remote.dataclass.request.profile.FollowRequest
+import io.sinzak.android.remote.dataclass.request.profile.ReportRequest
 import io.sinzak.android.remote.dataclass.request.profile.UpdateUserRequest
 import io.sinzak.android.system.App.Companion.prefs
 import okhttp3.MultipartBody
@@ -77,7 +78,7 @@ class CallImpl(
 
             API_GET_FOLLOWER_LIST -> remoteApi.getFollowerList(header, paramStr0!!)
 
-
+            API_REPORT_USER -> remoteApi.reportUser(header, requestBody as ReportRequest)
 
 
 
@@ -90,7 +91,7 @@ class CallImpl(
             API_CERTIFY_UPLOAD_IMG -> remoteApi.uploadUnivImg(header.apply {
                 this.remove(CONTENT_TYPE) }, paramStr0!!, multipart!!)
 
-            API_CERTIFY_UNIVERITY -> remoteApi.certifyUniversity(header, requestBody as UnivCertifyRequest)
+            API_CERTIFY_UNIVERSITY -> remoteApi.certifyUniversity(header, requestBody as UnivCertifyRequest)
 
             API_SEND_MAIL_CODE -> remoteApi.sendMailCode(header, requestBody as MailRequest)
 
