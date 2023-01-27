@@ -24,6 +24,7 @@ object FileUtil {
     fun pickFromGallery(
         activity : BaseActivity<*>,
         onSuccess : (List<Uri>)->Unit,
+        severalPicture : Boolean
     ){
 
 
@@ -40,7 +41,7 @@ object FileUtil {
         val intent = Intent()
         intent.action = Intent.ACTION_GET_CONTENT
         intent.type = "image/*"
-        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE,true)
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE,severalPicture)
         val resolveInfoList: List<ResolveInfo?> =
             activity.packageManager.queryIntentActivities(intent, 0)
         for (i in resolveInfoList.indices) {

@@ -11,10 +11,11 @@ import javax.inject.Singleton
 @Singleton
 class RegisterConnect @Inject constructor(val navigation : RegisterNavigation) {
 
-    private lateinit var context : Context
+    private lateinit var _context : Context
+    val context : Context get() = _context
 
     fun registerActivityContext(activityContext : Context){
-        context = activityContext
+        _context = activityContext
     }
 
 

@@ -90,7 +90,7 @@ class CallImpl(
             API_CERTIFY_UPLOAD_IMG -> remoteApi.uploadUnivImg(header.apply {
                 this.remove(CONTENT_TYPE) }, paramStr0!!, multipart!!)
 
-            API_CERTIFY_UNIVERITY -> remoteApi.certifyUniversity(header, requestBody as UnivCertifyRequest)
+            API_CERTIFY_UNIVERSITY -> remoteApi.certifyUniversity(header, requestBody as UnivCertifyRequest)
 
             API_SEND_MAIL_CODE -> remoteApi.sendMailCode(header, requestBody as MailRequest)
 

@@ -19,10 +19,10 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="10dp"
             android:background="@drawable/ic_bg_button"
             android:onClick="@{v->fg.navigateOnBackPressed()}"
             android:src="@drawable/ic_back"
+            app:layout_constraintBottom_toBottomOf="@+id/textView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -174,7 +174,7 @@
                 android:background="@drawable/btn_red_filled"
                 android:gravity="center"
 
-                android:enabled="@{vm.webMailState==2 &amp; vm.codeState==2}"
+                android:enabled="@{(vm.webMailState==2 &amp; vm.codeState==2) || vm.isUpload()}"
                 android:onClick="@{v->vm.onSubmit()}"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
         

@@ -4,11 +4,14 @@ import android.content.Intent
 import android.provider.MediaStore
 import android.text.TextUtils
 import android.util.Patterns
+import com.bumptech.glide.Glide
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.sinzak.android.R
 import io.sinzak.android.enums.Page
 import io.sinzak.android.model.certify.CertifyModel
 import io.sinzak.android.model.context.SignModel
 import io.sinzak.android.ui.base.BaseViewModel
+import io.sinzak.android.utils.FileUtil
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
@@ -16,7 +19,8 @@ import kotlin.coroutines.coroutineContext
 
 @HiltViewModel
 class WebmailViewModel @Inject constructor(
-    private val certifyModel: CertifyModel
+    private val certifyModel: CertifyModel,
+    val connect: CertifyConnect
 ) : BaseViewModel() {
 
     private val _currentPage = MutableStateFlow(0)
@@ -36,6 +40,8 @@ class WebmailViewModel @Inject constructor(
 
     private val _isUpload = MutableStateFlow(false)
     val isUpload : StateFlow<Boolean> get() = _isUpload
+
+    var imgFileName = MutableStateFlow("")
 
 
     //인증 방식 선택
@@ -126,20 +132,37 @@ class WebmailViewModel @Inject constructor(
     }
 
     //사진 업로드하기
-    fun changeUploadStatus(status : Boolean){
-        _isUpload.value = status
+    fun uploadImg(){
+        if (!_isUpload.value) {
+            loadImg()
+        }
+        else {
+            imgFileName.value = ""
+            _isUpload.value = false
+        }
+
+
+    }
+
+    fun loadImg()
+    {
+        connect.loadImage {
+            imgFileName.value = FileUtil.getRealPath(certifyModel.context,it).toString()
+            certifyModel.imgUri = it.toString()
+            _isUpload.value = true
+        }
     }
 
     //완료 버튼
     fun onSubmit(){
-        if(_currentPage.value==0){
-            //웹메일 인증에서 사용
-            navigation.removeHistory(Page.PROFILE_WEBMAIL)
-            navigation.removeHistory(Page.PROFILE_CERTIFICATION)
+        if (_currentPage.value == 1)
+        {
+            certifyModel.certifySchoolId()
         }
-        else {
-            //학생증 인증에서 사용
-        }
+
+        navigation.removeHistory(Page.PROFILE_WEBMAIL)
+        navigation.removeHistory(Page.PROFILE_CERTIFICATION)
+        navigation.revealHistory()
     }
 
     //상태 초기화
@@ -150,8 +173,5 @@ class WebmailViewModel @Inject constructor(
         _codeState.value = 0
     }
 
-    fun submitWithoutEmail(){
-        //signModel.join()
-    }
 
 }
