@@ -1,4 +1,4 @@
-package io.sinzak.android.remote.retrofit
+package io.sinzak.android.remote.remotesources
 
 import com.google.gson.JsonObject
 import io.sinzak.android.remote.dataclass.CResponse

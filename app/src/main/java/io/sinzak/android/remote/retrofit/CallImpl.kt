@@ -1,6 +1,5 @@
 package io.sinzak.android.remote.retrofit
 
-import com.google.gson.Gson
 import com.google.gson.JsonObject
 import io.sinzak.android.constants.*
 import io.sinzak.android.remote.dataclass.CRequest
@@ -15,6 +14,8 @@ import io.sinzak.android.remote.dataclass.request.market.ProductLikeRequest
 import io.sinzak.android.remote.dataclass.request.market.ProductSuggestRequest
 import io.sinzak.android.remote.dataclass.request.profile.FollowRequest
 import io.sinzak.android.remote.dataclass.request.profile.UpdateUserRequest
+import io.sinzak.android.remote.remotesources.RemoteInterface
+import io.sinzak.android.remote.remotesources.RemoteListener
 import io.sinzak.android.system.App.Companion.prefs
 import okhttp3.MultipartBody
 import retrofit2.Call
@@ -173,6 +174,9 @@ class CallImpl(
             API_POST_WISH_WORK -> remoteApi.postWorkWish(header, requestBody as ProductLikeRequest)
 
 
+
+
+            API_GET_CHATROOM_LIST -> remoteApi.getChatRooms(header)
 
             else -> throw NoSuchMethodException()
         } as Call<CResponse>

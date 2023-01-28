@@ -3,6 +3,7 @@ package io.sinzak.android.remote.retrofit
 import com.google.gson.Gson
 import io.sinzak.android.constants.API_REFRESH_TOKEN
 import io.sinzak.android.remote.dataclass.CResponse
+import io.sinzak.android.remote.remotesources.RemoteListener
 import io.sinzak.android.system.LogInfo
 import okhttp3.Request
 import okio.Timeout
@@ -11,7 +12,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 open class CallExtent<T: CResponse>(private val apiNum : Int, private val call : Call<T>,
-                                 private val remoteCallback : RemoteListener, val callImpl: CallImpl) : Call<Result<T>> {
+                                    private val remoteCallback : RemoteListener, val callImpl: CallImpl) : Call<Result<T>> {
     override fun clone(): Call<Result<T>>
             = CallExtent(apiNum, call, remoteCallback, callImpl)
 

@@ -4,6 +4,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import io.sinzak.android.remote.remotesources.RemoteInterface
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -35,7 +36,7 @@ object Module {
     }
 
     @Provides
-    fun provideApi(retrofit: Retrofit) : RemoteInterface{
+    fun provideApi(retrofit: Retrofit) : RemoteInterface {
         return retrofit.create(RemoteInterface::class.java)
     }
 

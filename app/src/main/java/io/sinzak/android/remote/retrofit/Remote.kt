@@ -7,6 +7,7 @@ import io.sinzak.android.di.NetStatus
 import io.sinzak.android.remote.dataclass.CResponse
 import io.sinzak.android.remote.dataclass.response.login.JoinResponse
 import io.sinzak.android.remote.dataclass.response.login.Token
+import io.sinzak.android.remote.remotesources.RemoteInterface
 import io.sinzak.android.system.App.Companion.prefs
 import io.sinzak.android.system.LogError
 import io.sinzak.android.system.LogInfo
