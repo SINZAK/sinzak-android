@@ -3,7 +3,7 @@
     <data>
         <variable
             name="viewmodel"
-            type="io.sinzak.android.ui.main.chat.ChatViewModel" />
+            type="io.sinzak.android.ui.main.chat.viewmodel.ChatViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"

@@ -79,4 +79,6 @@ const val API_GET_MARKET_WORKS = 260
 const val API_GET_HOME_BANNER = 270
 
 
+const val API_GET_CHATROOM_LIST = 400
+
 

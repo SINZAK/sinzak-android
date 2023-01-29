@@ -67,8 +67,8 @@ fun requestFocus(view: EditText, focus: Boolean, soft: SoftKeyModel) {
 @BindingAdapter("removeFocus", "soft_")
 fun removeFocus(view: EditText, focus: Boolean, soft: SoftKeyModel) {
     if (focus) {
-        view.windowToken?.let{
-            soft.imm.hideSoftInputFromWindow(it,0)
+        view.windowToken?.let {
+            soft.imm.hideSoftInputFromWindow(it, 0)
         }
         view.clearFocus()
 
@@ -76,9 +76,9 @@ fun removeFocus(view: EditText, focus: Boolean, soft: SoftKeyModel) {
 }
 
 @BindingAdapter("onFocused")
-fun onFocused(view : EditText, action : View.OnClickListener){
+fun onFocused(view: EditText, action: View.OnClickListener) {
     view.setOnFocusChangeListener { view, t ->
-        if(t)
+        if (t)
             action.onClick(view)
     }
 }
@@ -86,15 +86,20 @@ fun onFocused(view : EditText, action : View.OnClickListener){
 
 @BindingAdapter("remoteImgUrl", "cornerRadius")
 fun setImg(view: ImageView, url: String?, radius: Float) {
-    if(url.isNullOrEmpty())
-    {
-        view.setImageDrawable(AppCompatResources.getDrawable(view.context,R.drawable.ic_img_null_holder))
+    if (url.isNullOrEmpty()) {
+        view.setImageDrawable(
+            AppCompatResources.getDrawable(
+                view.context,
+                R.drawable.ic_img_null_holder
+            )
+        )
         return
     }
 
     view.findViewTreeLifecycleOwner()?.let { lifecycleOwner ->
         lifecycleOwner.lifecycleScope.launch {
-            Glide.with(view).asBitmap().load(GlideUrl(url)).transform(CenterCrop(), RoundedCorners(radius.dp.toInt())).apply {
+            Glide.with(view).asBitmap().load(GlideUrl(url))
+                .transform(CenterCrop(), RoundedCorners(radius.dp.toInt())).apply {
                 lifecycleOwner.lifecycleScope.launch {
                     into(view)
                 }
@@ -136,7 +141,10 @@ fun provideViewpager(
 fun onActionDone(view: EditText, listener: View.OnClickListener) {
     view.setOnEditorActionListener { view, i, keyEvent ->
         when (i) {
-            EditorInfo.IME_ACTION_DONE, EditorInfo.IME_ACTION_SEARCH, EditorInfo.IME_ACTION_NEXT -> {
+            EditorInfo.IME_ACTION_DONE,
+            EditorInfo.IME_ACTION_SEARCH,
+            EditorInfo.IME_ACTION_NEXT,
+            EditorInfo.IME_ACTION_SEND -> {
 
                 listener.onClick(view)
                 val im =

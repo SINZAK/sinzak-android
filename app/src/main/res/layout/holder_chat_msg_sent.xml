@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    >
+    <data>
+        <variable
+            name="msg"
+            type="io.sinzak.android.remote.dataclass.chat.ChatMsg" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:gravity="end"
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="120dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_primary_filled_enable"
+            style="@style/regular16"
+            android:textColor="@color/background0"
+            android:paddingVertical="12dp"
+            android:paddingHorizontal="18dp"
+            tools:text="어쩌구저쩌구거래내역 멋잇구나 맛있구나 그렇구나 그런일이 있었구나"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

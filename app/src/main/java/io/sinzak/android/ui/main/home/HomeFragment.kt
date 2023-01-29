@@ -70,6 +70,11 @@ class HomeFragment : BaseFragment() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.getProducts()
+    }
+
     fun gotoNotification(){
         navigator.changePage(Page.HOME_NOTIFICATION)
     }

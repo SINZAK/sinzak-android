@@ -11,7 +11,7 @@ import io.sinzak.android.remote.dataclass.chat.ChatRoom
 class ChatRoomAdapter : RecyclerView.Adapter<ChatRoomAdapter.ViewHolder>() {
 
 
-    val chatList = listOf(
+    var chatList = listOf(
         ChatRoom(userVerified = false),
         ChatRoom(unreadCount = 3),
         ChatRoom(),
