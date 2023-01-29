@@ -5,7 +5,7 @@ import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
 import io.sinzak.android.ui.base.BaseFragment
 import io.sinzak.android.databinding.FragmentChatBinding
-
+import io.sinzak.android.ui.main.chat.viewmodel.ChatViewModel
 
 
 @AndroidEntryPoint

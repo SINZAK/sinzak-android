@@ -1,10 +1,10 @@
-package io.sinzak.android.ui.main.chat
+package io.sinzak.android.ui.main.chat.viewmodel
 
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.sinzak.android.model.chat.ChatStorage
 import io.sinzak.android.ui.base.BaseViewModel
-import kotlinx.coroutines.cancel
+import io.sinzak.android.ui.main.chat.ChatRoomAdapter
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
