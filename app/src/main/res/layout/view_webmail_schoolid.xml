@@ -24,14 +24,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="17dp"
             android:layout_marginTop="16dp"
+            android:paddingHorizontal="25dp"
+            android:paddingVertical="11dp"
             android:background="@drawable/btn_secondary_stroke"
             android:gravity="center"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView8"
             android:visibility="@{vm.isUpload() ? 8 : 0}"
-            android:onClick="@{v->vm.changeUploadStatus(!vm.isUpload)}"
-            android:paddingHorizontal="25dp"
-            android:paddingVertical="11dp">
+            android:onClick="@{v->vm.uploadImg()}">
             <TextView
                 style="@style/bold16"
                 android:layout_width="wrap_content"
@@ -57,7 +57,7 @@
                 style="@style/bold16"
                 android:layout_width="154dp"
                 android:layout_height="wrap_content"
-                android:text="dkflsfF48A6CC-C877"
+                android:text="@{vm.imgFileName}"
                 android:textColor="@color/text0"
                 android:ellipsize="end"
                 android:maxLines="1"/>
@@ -65,7 +65,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_delete_red"
-                android:onClick="@{v->vm.changeUploadStatus(!vm.isUpload)}"/>
+                android:onClick="@{v->vm.uploadImg()}"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

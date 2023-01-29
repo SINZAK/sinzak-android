@@ -1,14 +1,12 @@
 package io.sinzak.android.ui.main.profile.certification
 
-import android.app.Activity.RESULT_OK
-import android.content.Intent
-import android.provider.MediaStore
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
 import io.sinzak.android.databinding.FragmentWebmailBinding
 import io.sinzak.android.databinding.ViewWebmailSchoolidBinding
 import io.sinzak.android.databinding.ViewWebmailSchoolmailBinding
+import io.sinzak.android.ui.base.BaseActivity
 import io.sinzak.android.ui.base.BaseFragment
 
 @AndroidEntryPoint
@@ -30,12 +28,14 @@ class WebmailFragment : BaseFragment() {
             fg = this@WebmailFragment
         }
 
+        viewModel.connect.registerActivity(requireActivity() as BaseActivity<*>)
+
         inflateSchoolMail()
         inflateSchoolId()
 
     }
 
-    fun inflateSchoolMail(){
+    private fun inflateSchoolMail(){
         ViewWebmailSchoolmailBinding.inflate(layoutInflater).apply {
             lifecycleOwner = viewLifecycleOwner
             bind.flWebMail.addView(root)
@@ -43,7 +43,7 @@ class WebmailFragment : BaseFragment() {
         }
     }
 
-    fun inflateSchoolId() {
+    private fun inflateSchoolId() {
         ViewWebmailSchoolidBinding.inflate(layoutInflater).apply {
             lifecycleOwner = viewLifecycleOwner
             bind.flStudentId.addView(root)
