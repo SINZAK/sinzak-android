@@ -4,6 +4,7 @@ import dagger.hilt.android.scopes.ActivityRetainedScoped
 import io.sinzak.android.constants.API_GET_CHATROOM_LIST
 import io.sinzak.android.model.BaseModel
 import io.sinzak.android.remote.dataclass.CResponse
+import io.sinzak.android.remote.dataclass.chat.ChatMsg
 import io.sinzak.android.remote.dataclass.chat.ChatRoom
 import io.sinzak.android.remote.dataclass.chat.ChatRoomListResponse
 import io.sinzak.android.remote.retrofit.CallImpl
@@ -17,6 +18,9 @@ class ChatStorage @Inject constructor() : BaseModel() {
 
     private val _chatRooms = MutableStateFlow(mutableListOf<ChatRoom>())
     val chatRooms : StateFlow<List<ChatRoom>> get() = _chatRooms
+
+    private val _chatMsg = MutableStateFlow(mutableListOf<ChatMsg>())
+    val chatMsg : StateFlow<MutableList<ChatMsg>> get() = _chatMsg
 
     fun getChatRoomList(){
         CallImpl(API_GET_CHATROOM_LIST,this).apply{

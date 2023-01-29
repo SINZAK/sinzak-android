@@ -5,6 +5,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <variable
+            name="vm"
+            type="io.sinzak.android.ui.main.chat.viewmodel.ChatroomViewModel" />
+        <variable
             name="formVm"
             type="io.sinzak.android.ui.main.chat.viewmodel.ChatroomFormViewModel" />
     </data>
