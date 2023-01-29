@@ -2,6 +2,8 @@ package io.sinzak.android.remote.retrofit
 
 import io.sinzak.android.remote.dataclass.CResponse
 import io.sinzak.android.remote.dataclass.request.profile.FollowRequest
+import io.sinzak.android.remote.dataclass.request.profile.HistoryRequest
+import io.sinzak.android.remote.dataclass.request.profile.ReportRequest
 import io.sinzak.android.remote.dataclass.request.profile.UpdateUserRequest
 import io.sinzak.android.remote.dataclass.response.profile.FollowResponse
 import io.sinzak.android.remote.dataclass.response.profile.UserProfileResponse
@@ -33,4 +35,16 @@ interface RemoteProfileInterface {
 
     @POST("api/users/unfollow")
     fun unfollowUser(@HeaderMap header: HashMap<String, String>, @Body body: FollowRequest) : Call<CResponse>
+
+    @POST("api/users/report")
+    fun reportUser(@HeaderMap header: HashMap<String, String>, @Body body : ReportRequest) : Call<CResponse>
+
+    @GET("api/users/history")
+    fun getSearchHistory(@HeaderMap header: HashMap<String, String>) : Call<CResponse>
+
+    @POST("api/users/history")
+    fun deleteSearchHistory(@HeaderMap header: HashMap<String, String>,@Body body : HistoryRequest) : Call<CResponse>
+
+    @POST("api/users/deletehistories")
+    fun deleteAllSearchHistory(@HeaderMap header: HashMap<String, String>) : Call<CResponse>
 }

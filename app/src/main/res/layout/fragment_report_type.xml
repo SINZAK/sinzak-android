@@ -14,16 +14,17 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
+            android:layout_marginStart="16dp"
             android:background="@drawable/ic_bg_button"
             android:onClick="@{v->fg.navigateOnBackPressed()}"
             android:src="@drawable/ic_back"
+            app:layout_constraintBottom_toBottomOf="@+id/textView"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="10dp"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView"
@@ -37,34 +38,37 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/linearLayoutCompat7"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
-            android:paddingTop="25.2dp"
             android:paddingStart="16dp"
-            android:paddingEnd="17.5dp">
+            android:paddingTop="25.2dp"
+            android:paddingEnd="17.5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView">
+
             <TextView
+                style="@style/bold16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{vm.isFromProfile ? @string/str_report_type_title(vm.profile.name) : @string/str_report_type_title(vm.art.author)}"
-                style="@style/bold16"
-                android:layout_marginHorizontal="17dp"/>
+                android:layout_marginHorizontal="17dp"
+                android:text="@{vm.isFromProfile ? @string/str_report_type_title(vm.profile.name) : @string/str_report_type_title(vm.art.author)}" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:background="@color/gray60"
-                android:layout_marginTop="28.7dp"/>
+                android:layout_marginTop="28.7dp"
+                android:background="@color/gray60" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/cl_profile_underline"
+                android:onClick="@{v->vm.goToReportSendPage(ReportType.REPORT_SELLER)}"
                 android:paddingVertical="23dp"
                 android:paddingStart="17dp"
-                android:paddingEnd="11dp"
-                android:onClick="@{v->fg.goToReportSendPage() &amp; vm.setReportType(ReportType.REPORT_SELLER)}">
+                android:paddingEnd="11dp">
 
                 <TextView
                     style="@style/medium16"
@@ -82,14 +86,15 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/cl_profile_underline"
+                android:onClick="@{v->vm.goToReportSendPage(ReportType.REPORT_NO_MANNER)}"
                 android:paddingVertical="23dp"
                 android:paddingStart="17dp"
-                android:paddingEnd="11dp"
-                android:onClick="@{v->fg.goToReportSendPage() &amp; vm.setReportType(ReportType.REPORT_NO_MANNER)}">
+                android:paddingEnd="11dp">
 
                 <TextView
                     style="@style/medium16"
@@ -107,14 +112,15 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/cl_profile_underline"
+                android:onClick="@{v->vm.goToReportSendPage(ReportType.REPORT_SEXUAL)}"
                 android:paddingVertical="23dp"
                 android:paddingStart="17dp"
-                android:paddingEnd="11dp"
-                android:onClick="@{v->fg.goToReportSendPage() &amp; vm.setReportType(ReportType.REPORT_SEXUAL)}">
+                android:paddingEnd="11dp">
 
                 <TextView
                     style="@style/medium16"
@@ -132,14 +138,15 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/cl_profile_underline"
+                android:onClick="@{v->vm.goToReportSendPage(ReportType.REPORT_DISPUTE)}"
                 android:paddingVertical="23dp"
                 android:paddingStart="17dp"
-                android:paddingEnd="11dp"
-                android:onClick="@{v->fg.goToReportSendPage() &amp; vm.setReportType(ReportType.REPORT_DISPUTE)}">
+                android:paddingEnd="11dp">
 
                 <TextView
                     style="@style/medium16"
@@ -157,14 +164,15 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/cl_profile_underline"
+                android:onClick="@{v->vm.goToReportSendPage(ReportType.REPORT_CHEAT)}"
                 android:paddingVertical="23dp"
                 android:paddingStart="17dp"
-                android:paddingEnd="11dp"
-                android:onClick="@{v->fg.goToReportSendPage() &amp; vm.setReportType(ReportType.REPORT_CHEAT)}">
+                android:paddingEnd="11dp">
 
                 <TextView
                     style="@style/medium16"
@@ -182,14 +190,15 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/cl_profile_underline"
+                android:onClick="@{v->vm.goToReportSendPage(ReportType.REPORT_OTHER)}"
                 android:paddingVertical="23dp"
                 android:paddingStart="17dp"
-                android:paddingEnd="11dp"
-                android:onClick="@{v->fg.goToReportSendPage() &amp; vm.setReportType(ReportType.REPORT_OTHER)}">
+                android:paddingEnd="11dp">
 
                 <TextView
                     style="@style/medium16"
@@ -207,7 +216,6 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
         </androidx.appcompat.widget.LinearLayoutCompat>

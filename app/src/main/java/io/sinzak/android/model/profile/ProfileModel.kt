@@ -34,6 +34,7 @@ class ProfileModel @Inject constructor() : BaseModel() {
      * 조회중인 유저 아이디 저장하는 공간
      */
     private val _currentUserId = MutableStateFlow("-1")
+    val currentUserId : StateFlow<String> get() = _currentUserId
 
     /**
      * 유저 파도타기를 위한 히스토리 공간
@@ -110,7 +111,6 @@ class ProfileModel @Inject constructor() : BaseModel() {
         }
 
     }
-
 
     fun followUser(isFollow: Boolean) {
         val request = FollowRequest(_currentUserId.value)

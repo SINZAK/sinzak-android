@@ -14,16 +14,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.main.profile.report.ReportSendFragment">
+
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
+            android:layout_marginStart="16dp"
             android:background="@drawable/ic_bg_button"
             android:onClick="@{v->fg.navigateOnBackPressed()}"
             android:src="@drawable/ic_back"
+            app:layout_constraintBottom_toBottomOf="@+id/textView"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="10dp"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView"
@@ -124,6 +125,8 @@
             android:textColor="@color/on_primary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+
+            android:onClick="@{v -> vm.onSubmit()}"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
