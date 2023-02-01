@@ -1,9 +1,14 @@
 package io.sinzak.android.ui.login
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.tasks.Task
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.user.UserApiClient
 import com.navercorp.nid.NaverIdLoginSDK
@@ -13,12 +18,10 @@ import io.sinzak.android.databinding.ActivityLoginBinding
 import io.sinzak.android.system.LogDebug
 import io.sinzak.android.system.social.NaverImpl
 import io.sinzak.android.ui.base.BaseActivity
-import io.sinzak.android.ui.main.MainActivity
 
 
 @AndroidEntryPoint
 class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login) {
-
 
     override fun onActivityCreate() {
         useBind {
@@ -76,4 +79,5 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
     {
         NaverIdLoginSDK.authenticate(this,naverCallback)
     }
+
 }

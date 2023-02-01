@@ -95,5 +95,9 @@ dependencies {
     //Lottie
     implementation "com.airbnb.android:lottie:5.2.0"
 
+    //Google Login
+    implementation 'com.google.android.gms:play-services-auth:20.4.1'
+
+
 
 }
