@@ -21,6 +21,7 @@ import io.sinzak.android.remote.dataclass.request.login.LoginEmailBody
 import io.sinzak.android.remote.dataclass.request.login.TokenRequest
 import io.sinzak.android.remote.dataclass.response.login.LoginEmailResponse
 import io.sinzak.android.remote.dataclass.response.login.NaverProfile
+import io.sinzak.android.remote.dataclass.response.login.OAuthGetResponse
 import io.sinzak.android.remote.dataclass.response.login.Token
 import io.sinzak.android.remote.retrofit.CallImpl
 import io.sinzak.android.system.App.Companion.NAVER_SDK_PREPARED
@@ -53,6 +54,7 @@ class SignModel @Inject constructor(
 
     val needSignUp = MutableStateFlow(false)
 
+    private var oAuthTokenTaken = ""
 
     private val _sdkSignSuccess = MutableStateFlow(false)
     val sdkSignSuccess : StateFlow<Boolean> get() = _sdkSignSuccess
@@ -247,7 +249,7 @@ class SignModel @Inject constructor(
     fun onSuccessNaverLogin()
     {
         NaverIdLoginSDK.getAccessToken()?.let{token->
-
+            oAuthTokenTaken = token
             CallImpl(API_EMAIL_GET_NAVER,
             this,
             paramStr0 = token).apply{
@@ -293,7 +295,7 @@ class SignModel @Inject constructor(
         }
         token?.let{
             _sdkSignSuccess.value = true
-
+            oAuthTokenTaken = token.accessToken
             LogInfo(javaClass.name,"카카오 로그인 성공 : $token")
             getKakaoEmail()
 
@@ -355,11 +357,18 @@ class SignModel @Inject constructor(
      * 백엔드에 로그인을 요청합니다.
      */
     private fun loginToServer(){
+        postOAuthToken(oAuthTokenTaken)
+
+        return
+
+    }
+
+    private fun loginToServerViaEmail(email: String){
         CallImpl(
             API_LOGIN_EMAIL,
             this,
             LoginEmailBody(
-                email = loginEmail
+                email = email
             )
         ).apply{
             remote.sendRequestApi(this)
@@ -414,6 +423,16 @@ class SignModel @Inject constructor(
     }
 
 
+    /**
+     * OAUTH TOKEN POST
+     */
+    private fun postOAuthToken(token: String){
+        CallImpl(API_POST_OAUTH_TOKEN, this, paramStr0 = token).apply{
+            remote.sendRequestApi(this)
+        }
+    }
+
+
     override fun onConnectionSuccess(api: Int, body: CResponse) {
         when(api)
         {
@@ -438,6 +457,16 @@ class SignModel @Inject constructor(
 
             API_JOIN_ACCOUNT ->{
                 onResponseJoin(body.success!!, body.message.toString())
+            }
+
+            API_POST_OAUTH_TOKEN ->{
+                body as OAuthGetResponse
+
+                if(body.success == true && body.data != null){
+                    loginToServerViaEmail(body.data.email.toString())
+                }else{
+                    needSignUp.value = true
+                }
             }
         }
     }
