@@ -30,8 +30,13 @@ class LoginViewModel @Inject constructor() : BaseViewModel() {
         }
     }
 
-    fun loginGoogle()
-     = signModel.loginViaGoogle()
+    fun loginGoogle() {
+        signModel.loginViaGoogle()
+        invokeStateFlow(signModel.sdkSignSuccess)
+        {
+
+        }
+    }
 
 
 
