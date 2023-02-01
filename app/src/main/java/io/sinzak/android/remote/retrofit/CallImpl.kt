@@ -107,8 +107,7 @@ class CallImpl(
 
             API_JOIN_ACCOUNT -> remoteApi.joinAccount(header,requestBody as JoinRequest)
 
-
-
+            API_POST_OAUTH_TOKEN -> remoteApi.postAccessToken(header, JsonObject().apply{addProperty("accessToken", paramStr0)})
 
 
 
