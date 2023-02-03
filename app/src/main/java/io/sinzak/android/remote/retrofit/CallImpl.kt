@@ -6,10 +6,7 @@ import io.sinzak.android.remote.dataclass.CRequest
 import io.sinzak.android.remote.dataclass.CResponse
 import io.sinzak.android.remote.dataclass.request.certify.MailRequest
 import io.sinzak.android.remote.dataclass.request.certify.UnivCertifyRequest
-import io.sinzak.android.remote.dataclass.request.login.JoinRequest
-import io.sinzak.android.remote.dataclass.request.login.LoginEmailBody
-import io.sinzak.android.remote.dataclass.request.login.OAuthRequest
-import io.sinzak.android.remote.dataclass.request.login.TokenRequest
+import io.sinzak.android.remote.dataclass.request.login.*
 import io.sinzak.android.remote.dataclass.request.market.ProductBuildRequest
 import io.sinzak.android.remote.dataclass.request.market.ProductLikeRequest
 import io.sinzak.android.remote.dataclass.request.market.ProductSuggestRequest
@@ -69,6 +66,8 @@ class CallImpl(
             API_LOGIN_EMAIL -> remoteApi.loginEmail(header,requestBody as LoginEmailBody)
 
             API_POST_GOOGLE_OAUTH_TOKEN -> remoteApi.postGoogleAccessToken(header, requestBody as OAuthRequest)
+
+            API_GET_GOOGLE_ACCESS_TOKEN -> remoteApi.getGoogleAccessToken(requestBody as GoogleRequest)
 
             API_EMAIL_GET_NAVER -> remoteApi.loginGetNaverEmail("Bearer $paramStr0")
 

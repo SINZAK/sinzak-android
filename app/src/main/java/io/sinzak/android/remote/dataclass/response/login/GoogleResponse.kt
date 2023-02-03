@@ -4,5 +4,5 @@ import com.google.gson.annotations.SerializedName
 import io.sinzak.android.remote.dataclass.CResponse
 
 data class GoogleResponse(
-    @SerializedName("access_token") var access_token : String
+    @SerializedName("access_token") val access_token : String
 ) : CResponse()

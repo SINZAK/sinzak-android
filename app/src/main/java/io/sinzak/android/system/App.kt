@@ -2,7 +2,6 @@ package io.sinzak.android.system
 
 import android.app.Application
 import android.content.Context
-import android.content.res.Resources
 import android.os.Build
 import androidx.core.content.edit
 import com.kakao.sdk.common.KakaoSdk
@@ -15,10 +14,6 @@ import io.sinzak.android.constants.NAVER_CLIENT_ID
 import io.sinzak.android.constants.NAVER_SECRET_ID
 import io.sinzak.android.constants.getHashKey
 import io.sinzak.android.model.GlobalValueModel
-import io.sinzak.android.model.context.SignModel
-import io.sinzak.android.remote.dataclass.local.SchoolData
-import java.lang.RuntimeException
-import javax.inject.Inject
 
 @HiltAndroidApp
 class App : Application() {
