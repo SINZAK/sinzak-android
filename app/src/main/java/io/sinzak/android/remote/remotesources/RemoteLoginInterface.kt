@@ -4,6 +4,7 @@ import com.google.gson.JsonObject
 import io.sinzak.android.remote.dataclass.CResponse
 import io.sinzak.android.remote.dataclass.request.login.JoinRequest
 import io.sinzak.android.remote.dataclass.request.login.LoginEmailBody
+import io.sinzak.android.remote.dataclass.request.login.OAuthRequest
 import io.sinzak.android.remote.dataclass.response.login.*
 import retrofit2.Call
 import retrofit2.http.*
@@ -22,4 +23,7 @@ interface RemoteLoginInterface {
 
     @POST("api/oauth/get")
     fun postAccessToken(@HeaderMap header : HashMap<String,String>, @Body body : JsonObject) : Call<OAuthGetResponse>
+
+    @POST("api/oauth/get/google")
+    fun postGoogleAccessToken(@HeaderMap header: HashMap<String, String>, @Body body : OAuthRequest) : Call<OAuthGetResponse>
 }

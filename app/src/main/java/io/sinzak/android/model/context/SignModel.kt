@@ -9,6 +9,7 @@ import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.user.UserApiClient
 import com.navercorp.nid.NaverIdLoginSDK
 import com.navercorp.nid.oauth.NidOAuthBehavior
+import io.sinzak.android.BuildConfig
 import io.sinzak.android.constants.*
 import io.sinzak.android.enums.SDK
 import io.sinzak.android.model.BaseModel
@@ -358,9 +359,7 @@ class SignModel @Inject constructor(
      */
     private fun loginToServer(){
         postOAuthToken(oAuthTokenTaken)
-
         return
-
     }
 
     private fun loginToServerViaEmail(email: String){

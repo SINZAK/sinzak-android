@@ -18,6 +18,7 @@ const val API_REFRESH_TOKEN = 1
 const val API_LOGIN_EMAIL = 100
 const val API_JOIN_ACCOUNT = 110
 const val API_POST_OAUTH_TOKEN = 111
+const val API_POST_GOOGLE_OAUTH_TOKEN = 112
 
 const val API_EMAIL_GET_NAVER = 150
 
