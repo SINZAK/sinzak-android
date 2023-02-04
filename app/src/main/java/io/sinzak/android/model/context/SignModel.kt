@@ -9,6 +9,7 @@ import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.user.UserApiClient
 import com.navercorp.nid.NaverIdLoginSDK
 import com.navercorp.nid.oauth.NidOAuthBehavior
+import io.sinzak.android.BuildConfig
 import io.sinzak.android.constants.*
 import io.sinzak.android.enums.SDK
 import io.sinzak.android.model.BaseModel
@@ -16,13 +17,8 @@ import io.sinzak.android.model.GlobalValueModel
 import io.sinzak.android.model.profile.ProfileModel
 import io.sinzak.android.remote.dataclass.CResponse
 import io.sinzak.android.remote.dataclass.local.SchoolData
-import io.sinzak.android.remote.dataclass.request.login.JoinRequest
-import io.sinzak.android.remote.dataclass.request.login.LoginEmailBody
-import io.sinzak.android.remote.dataclass.request.login.TokenRequest
-import io.sinzak.android.remote.dataclass.response.login.LoginEmailResponse
-import io.sinzak.android.remote.dataclass.response.login.NaverProfile
-import io.sinzak.android.remote.dataclass.response.login.OAuthGetResponse
-import io.sinzak.android.remote.dataclass.response.login.Token
+import io.sinzak.android.remote.dataclass.request.login.*
+import io.sinzak.android.remote.dataclass.response.login.*
 import io.sinzak.android.remote.retrofit.CallImpl
 import io.sinzak.android.system.App.Companion.NAVER_SDK_PREPARED
 import io.sinzak.android.system.App.Companion.prefs
@@ -30,6 +26,7 @@ import io.sinzak.android.system.LogError
 import io.sinzak.android.system.LogInfo
 import io.sinzak.android.system.social.NaverImpl
 import io.sinzak.android.ui.login.LoginActivity
+import io.sinzak.android.utils.LoginGoogle
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
@@ -332,10 +329,68 @@ class SignModel @Inject constructor(
      * GOOGLE
      *********************************************************************************************************************************/
 
+    private var googleIdToken : String = ""
 
     fun loginViaGoogle(){
         initSignStatus()
     }
+
+    /**
+     * 1. 로그인 후 계정에서 아이디 토큰 && 인증 코드를 뽑아옵니다
+     */
+    fun handleGoogleSignInResult(completedTask: Task<GoogleSignInAccount>) {
+        try {
+            val account : GoogleSignInAccount = completedTask.getResult(ApiException::class.java)
+            account.let {
+                googleIdToken = it.idToken.toString()
+                val authCode = it.serverAuthCode.toString()
+                getGoogleAccessToken(authCode)
+            }
+
+        } catch (e: ApiException) {
+            LogError(e)
+        }
+    }
+
+    /**
+     * 2. 받아온 인증코드로 구글에 엑세스토큰을 요청합니다
+     */
+    private fun getGoogleAccessToken(authCode : String)
+    {
+        val request = GoogleRequest(
+            grant_type = GOOGLE_GRANT_TYPE,
+            client_id = GOOGLE_CLIENT_ID,
+            client_secret = GOOGLE_SECRET_ID,
+            code = authCode
+        )
+        CallImpl(
+            API_GET_GOOGLE_ACCESS_TOKEN,
+            this,
+            requestBody = request
+        ).apply {
+            remote.sendRequestApi(this)
+        }
+    }
+
+    /**
+     * 3. 서버로 뽑아온 아이디 토큰과 엑세스 토큰을 보내줍니다
+     */
+    private fun postGoogleOAuthToken(accessToken : String)
+    {
+        val request = OAuthRequest(
+            accessToken = accessToken,
+            idToken = googleIdToken,
+            origin = SDK.google.toString()
+        )
+        CallImpl(
+            API_POST_GOOGLE_OAUTH_TOKEN,
+            this,
+            requestBody = request
+        ).apply {
+            remote.sendRequestApi(this)
+        }
+    }
+
 
 
 
@@ -358,9 +413,7 @@ class SignModel @Inject constructor(
      */
     private fun loginToServer(){
         postOAuthToken(oAuthTokenTaken)
-
         return
-
     }
 
     private fun loginToServerViaEmail(email: String){
@@ -468,6 +521,29 @@ class SignModel @Inject constructor(
                     needSignUp.value = true
                 }
             }
+
+            /**
+             * 구글에서 엑세스 토큰 발급을 성공하면 서버로 보내줍니다
+             */
+            API_GET_GOOGLE_ACCESS_TOKEN -> {
+                body as GoogleResponse
+                if (body.success == true)
+                {
+                    postGoogleOAuthToken(body.access_token)
+                }
+            }
+
+            API_POST_GOOGLE_OAUTH_TOKEN -> {
+                body as OAuthGetResponse
+
+                if (body.success == true && body.data != null)
+                {
+                    loginToServerViaEmail(body.data.email.toString())
+                }
+                else needSignUp.value = true
+            }
+
+
         }
     }
 
