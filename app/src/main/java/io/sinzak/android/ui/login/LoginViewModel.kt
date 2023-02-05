@@ -2,7 +2,6 @@ package io.sinzak.android.ui.login
 
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.sinzak.android.enums.SDK
-import io.sinzak.android.model.context.SignModel
 import io.sinzak.android.ui.base.BaseActivity
 import io.sinzak.android.ui.base.BaseViewModel
 import javax.inject.Inject
