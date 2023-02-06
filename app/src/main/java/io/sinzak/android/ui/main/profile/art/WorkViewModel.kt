@@ -12,19 +12,32 @@ import javax.inject.Inject
 
 @HiltViewModel
 class WorkViewModel @Inject constructor(
-    private val model : ProfileModel
+    val model : ProfileModel
 ) : BaseViewModel() {
 
+    /**
+     * 완료된 아이템을 보여줄건지?
+     */
     val isCompleteList = MutableStateFlow(false)
+
+    val adapter = SaleWorkAdapter().apply {
+        model.workList.onEach {
+            invokeBooleanFlow(
+                isCompleteList,
+                {
+                    setArts(it.filter { !it.complete })
+                },
+                {
+                    setArts(it.filter { it.complete })
+                }
+            )
+        }.launchIn(viewModelScope)
+    }
 
     fun setIsComplete(status : Boolean)
     {
         isCompleteList.value = status
     }
 
-    val adapter = SaleWorkAdapter().apply {
-        model.workList.onEach {
-            setArts(it)
-        }.launchIn(viewModelScope)
-    }
+
 }

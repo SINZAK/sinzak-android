@@ -97,7 +97,7 @@
                 style="@style/medium13"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="@{art.createdAt}"
+                android:text="@{art.timePassed}"
                 android:textColor="@color/gray60"
                 android:gravity="bottom"
                 android:paddingBottom="6dp"/>
