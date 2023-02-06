@@ -1,4 +1,4 @@
-package io.sinzak.android.ui.main.profile.sale_with_work.adapter
+package io.sinzak.android.ui.main.profile.art.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +8,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.model.GlideUrl
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import io.sinzak.android.databinding.HolderSaleArtLinearBinding
 import io.sinzak.android.databinding.HolderWorkArtLinearBinding
 import io.sinzak.android.system.dp
 

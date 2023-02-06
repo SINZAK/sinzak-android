@@ -35,12 +35,11 @@ import io.sinzak.android.ui.main.profile.edit.EditFragment
 import io.sinzak.android.ui.main.profile.follow.FollowFragment
 import io.sinzak.android.ui.main.profile.report.ReportSendFragment
 import io.sinzak.android.ui.main.profile.report.ReportTypeFragment
-import io.sinzak.android.ui.main.profile.sale_with_work.RequestFragment
-import io.sinzak.android.ui.main.profile.sale_with_work.SaleFragment
-import io.sinzak.android.ui.main.profile.sale_with_work.WorkFragment
+import io.sinzak.android.ui.main.profile.art.RequestFragment
+import io.sinzak.android.ui.main.profile.art.SaleFragment
+import io.sinzak.android.ui.main.profile.art.WorkFragment
 import io.sinzak.android.ui.main.profile.scrap.ScrapFragment
 import io.sinzak.android.ui.main.profile.setting.SettingFragment
-import io.sinzak.android.ui.main.profile.viewmodel.ProfileViewModel
 import io.sinzak.android.utils.RootViewDeferringInsetsCallback
 import kotlinx.coroutines.launch
 import javax.inject.Inject

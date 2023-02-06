@@ -5,15 +5,15 @@
     <data>
         <variable
             name="vm"
-            type="io.sinzak.android.ui.main.profile.sale_with_work.SaleViewModel" />
+            type="io.sinzak.android.ui.main.profile.art.SaleViewModel" />
         <variable
             name="fg"
-            type="io.sinzak.android.ui.main.profile.sale_with_work.SaleFragment" />
+            type="io.sinzak.android.ui.main.profile.art.SaleFragment" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.main.profile.sale_with_work.SaleFragment">
+        tools:context=".ui.main.profile.art.SaleFragment">
 
         <ImageView
             android:layout_width="24dp"

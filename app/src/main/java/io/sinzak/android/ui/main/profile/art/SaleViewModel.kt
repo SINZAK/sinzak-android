@@ -1,9 +1,8 @@
-package io.sinzak.android.ui.main.profile.sale_with_work
+package io.sinzak.android.ui.main.profile.art
 
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.sinzak.android.databinding.FragmentSaleBinding
 import io.sinzak.android.ui.base.BaseViewModel
-import io.sinzak.android.ui.main.profile.sale_with_work.adapter.SaleWorkAdapter
+import io.sinzak.android.ui.main.profile.art.adapter.SaleWorkAdapter
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
