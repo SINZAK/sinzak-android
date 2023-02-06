@@ -11,9 +11,8 @@ import io.sinzak.android.databinding.ViewProfileMyprofileBinding
 import io.sinzak.android.databinding.ViewProfileTopAppbarBinding
 import io.sinzak.android.system.LogDebug
 import io.sinzak.android.ui.base.BaseFragment
-import io.sinzak.android.ui.main.profile.viewmodel.ProfileSaleViewModel
+import io.sinzak.android.ui.main.profile.viewmodel.ProfileArtViewModel
 import io.sinzak.android.ui.main.profile.viewmodel.ProfileViewModel
-import io.sinzak.android.ui.main.profile.viewmodel.ProfileWorkViewModel
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -22,8 +21,7 @@ open class ProfileFragment : BaseFragment() {
     private lateinit var bind : FragmentProfileBinding
 
     protected val viewModel by activityViewModels<ProfileViewModel>()
-    private val profileSaleViewModel by activityViewModels<ProfileSaleViewModel>()
-    private val profileWorkViewModel by activityViewModels<ProfileWorkViewModel>()
+    private val artViewModel by activityViewModels<ProfileArtViewModel>()
 
     @Inject
     lateinit var connect: ProfileConnect
@@ -105,7 +103,7 @@ open class ProfileFragment : BaseFragment() {
     private fun inflateArtSale(){
         ViewProfileArtSaleBinding.inflate(layoutInflater).apply {
             lifecycleOwner = viewLifecycleOwner
-            vm = profileSaleViewModel
+            vm = artViewModel
             pVm = viewModel
             bind.llProfiles.addView(root)
         }
@@ -113,7 +111,7 @@ open class ProfileFragment : BaseFragment() {
     private fun inflateArtWork() {
         ViewProfileArtWorkBinding.inflate(layoutInflater).apply {
             lifecycleOwner = viewLifecycleOwner
-            vm = profileWorkViewModel
+            vm = artViewModel
             pVm = viewModel
             bind.llProfiles.addView(root)
         }
