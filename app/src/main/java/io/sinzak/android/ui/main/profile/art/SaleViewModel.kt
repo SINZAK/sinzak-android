@@ -23,7 +23,7 @@ class SaleViewModel @Inject constructor(
      */
     val isCompleteList = MutableStateFlow(false)
 
-    val adapter = SaleWorkAdapter{ a ->
+    val adapter = SaleWorkAdapter(productModel::endTrade){ a ->
         productModel.loadProduct(a.id.toInt())
         navigation.changePage(Page.ART_DETAIL)
     }.apply {

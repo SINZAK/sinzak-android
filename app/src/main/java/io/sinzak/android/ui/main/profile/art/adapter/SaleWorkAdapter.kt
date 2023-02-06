@@ -11,8 +11,8 @@ import io.sinzak.android.remote.dataclass.profile.UserArt
 import io.sinzak.android.system.LogDebug
 
 class SaleWorkAdapter(
-    val onItemClick : ((UserArt) -> Unit)? = null,
-/*    val completeTradeClick : ((String) -> Unit)? = null*/
+    val completeTradeClick : ((String,Boolean) -> Unit)? = null,
+    val onItemClick : ((UserArt) -> Unit)? = null
 ): RecyclerView.Adapter<SaleWorkAdapter.ViewHolder>() {
 
     private var artList : List<UserArt> = listOf()
@@ -63,9 +63,9 @@ class SaleWorkAdapter(
             bind.setItemClick {
                 onItemClick!!(art)
             }
-/*            bind.setCompleteTradeClick {
-                completeTradeClick!!(art.id)
-            }*/
+            bind.setCompleteTradeClick {
+                completeTradeClick!!(art.id,art.complete)
+            }
         }
     }
 
