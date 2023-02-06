@@ -150,7 +150,10 @@ class ProfileModel @Inject constructor() : BaseModel() {
     {
         response.data?.let { profileResponse ->
             profile.value = profileResponse.profile
-            myUserId.value = profileResponse.profile.userId
+            profileResponse.profile.userId.let {
+                myUserId.value = it
+                _currentUserId.value = it
+            }
             _workList.value = profileResponse.works!!.toMutableList()
             _productList.value = profileResponse.products!!.toMutableList()
         }
