@@ -10,7 +10,10 @@ import io.sinzak.android.databinding.HolderWorkArtLinearBinding
 import io.sinzak.android.remote.dataclass.profile.UserArt
 import io.sinzak.android.system.LogDebug
 
-class SaleWorkAdapter(): RecyclerView.Adapter<SaleWorkAdapter.ViewHolder>() {
+class SaleWorkAdapter(
+    val onItemClick : ((UserArt) -> Unit)? = null,
+/*    val completeTradeClick : ((String) -> Unit)? = null*/
+): RecyclerView.Adapter<SaleWorkAdapter.ViewHolder>() {
 
     private var artList : List<UserArt> = listOf()
 
@@ -57,6 +60,12 @@ class SaleWorkAdapter(): RecyclerView.Adapter<SaleWorkAdapter.ViewHolder>() {
 
             setMatchParentToRecyclerView(bind.root)
             bind.art = art
+            bind.setItemClick {
+                onItemClick!!(art)
+            }
+/*            bind.setCompleteTradeClick {
+                completeTradeClick!!(art.id)
+            }*/
         }
     }
 

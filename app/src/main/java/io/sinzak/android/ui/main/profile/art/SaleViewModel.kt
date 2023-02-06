@@ -2,6 +2,8 @@ package io.sinzak.android.ui.main.profile.art
 
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.sinzak.android.enums.Page
+import io.sinzak.android.model.market.ProductDetailModel
 import io.sinzak.android.model.profile.ProfileModel
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.ui.main.profile.art.adapter.SaleWorkAdapter
@@ -12,7 +14,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SaleViewModel @Inject constructor(
-    private val model : ProfileModel
+    private val model : ProfileModel,
+    private val productModel : ProductDetailModel
 ) : BaseViewModel() {
 
     /**
@@ -20,7 +23,10 @@ class SaleViewModel @Inject constructor(
      */
     val isCompleteList = MutableStateFlow(false)
 
-    val adapter = SaleWorkAdapter().apply {
+    val adapter = SaleWorkAdapter{ a ->
+        productModel.loadProduct(a.id.toInt())
+        navigation.changePage(Page.ART_DETAIL)
+    }.apply {
         model.productList.onEach {
             invokeBooleanFlow(
                 isCompleteList,

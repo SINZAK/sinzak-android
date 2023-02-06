@@ -7,13 +7,20 @@
         <variable
             name="art"
             type="io.sinzak.android.remote.dataclass.profile.UserArt" />
+        <variable
+            name="itemClick"
+            type="android.view.View.OnClickListener" />
+        <variable
+            name="completeTradeClick"
+            type="android.view.View.OnClickListener" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/cl_sale_work_holder_item"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:onClick="@{itemClick}">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_img_frame"
@@ -88,7 +95,8 @@
                 android:background="@drawable/tv_sale_work_holder_btn"
                 android:gravity="center"
                 android:text="@string/str_sale_work_holder_btn"
-                android:textColor="@color/secondary"/>
+                android:textColor="@color/secondary"
+                android:onClick="@{completeTradeClick}"/>
 
             <Space
                 android:layout_width="match_parent"
