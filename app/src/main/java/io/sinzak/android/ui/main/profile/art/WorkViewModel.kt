@@ -1,22 +1,30 @@
 package io.sinzak.android.ui.main.profile.art
 
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.sinzak.android.model.profile.ProfileModel
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.ui.main.profile.art.adapter.SaleWorkAdapter
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @HiltViewModel
-class WorkViewModel @Inject constructor() : BaseViewModel() {
+class WorkViewModel @Inject constructor(
+    private val model : ProfileModel
+) : BaseViewModel() {
 
-    private val _page = MutableStateFlow(0)
-    val page : StateFlow<Int> get() = _page
+    val isCompleteList = MutableStateFlow(false)
 
-    fun changeNotificationList(page : Int)
+    fun setIsComplete(status : Boolean)
     {
-        _page.value = page
+        isCompleteList.value = status
     }
 
-    val adapter = SaleWorkAdapter()
+    val adapter = SaleWorkAdapter().apply {
+        model.workList.onEach {
+            setArts(it)
+        }.launchIn(viewModelScope)
+    }
 }

@@ -6,7 +6,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import io.sinzak.android.constants.CODE_FOLLOW_PAGE
 import io.sinzak.android.enums.Page
 import io.sinzak.android.model.profile.ProfileModel
-import io.sinzak.android.remote.dataclass.profile.Follow
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.ui.main.profile.follow.adapter.FollowAdapter
 import kotlinx.coroutines.CoroutineScope
@@ -68,7 +67,7 @@ class FollowViewModel @Inject constructor(
     fun getFollowListRemote() {
         model.getFollowList(page = _page.value)
     }
-    fun getFollowListRemote(page: Int) {
+    private fun getFollowListRemote(page: Int) {
         model.getFollowList(page = page)
     }
 }

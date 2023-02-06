@@ -3,31 +3,46 @@ package io.sinzak.android.ui.main.profile.art.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.model.GlideUrl
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import io.sinzak.android.R
 import io.sinzak.android.databinding.HolderWorkArtLinearBinding
-import io.sinzak.android.system.dp
+import io.sinzak.android.remote.dataclass.profile.UserArt
+import io.sinzak.android.system.LogDebug
 
 class SaleWorkAdapter(): RecyclerView.Adapter<SaleWorkAdapter.ViewHolder>() {
 
+    private var artList : List<UserArt> = listOf()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            HolderWorkArtLinearBinding.inflate(LayoutInflater.from(parent.context))
+            DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.holder_work_art_linear,null,true)
         )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind()
+        holder.bind(art = artList[position])
     }
 
     override fun getItemCount(): Int {
-        return 3
+        return artList.size
     }
 
-    private fun setMatchParentToRecycelrView(view: View) {
+    fun setArts (arts : List<UserArt>)
+    {
+        if (this.artList != arts)
+        {
+            val oldSize = itemCount
+            this.artList = arts
+
+            if (oldSize >= itemCount) notifyDataSetChanged()
+            else notifyItemRangeInserted(oldSize,itemCount - oldSize)
+
+            LogDebug(javaClass.name,"[Art List] 새로운 데이터 수신 $itemCount 개")
+        }
+    }
+
+    private fun setMatchParentToRecyclerView(view: View) {
         val layoutParams = RecyclerView.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
@@ -38,18 +53,10 @@ class SaleWorkAdapter(): RecyclerView.Adapter<SaleWorkAdapter.ViewHolder>() {
 
     inner class ViewHolder(val bind : HolderWorkArtLinearBinding) : RecyclerView.ViewHolder(bind.root){
 
-        fun bind() {
+        fun bind(art: UserArt) {
 
-            setMatchParentToRecycelrView(bind.root)
-
-            bind.apply {
-                Glide.with(ivSaleImg).asBitmap()
-                    .load(
-                        GlideUrl(
-                            "https://wallpaperaccess.com/full/2339301.jpg")
-                    )
-                    .transform(CenterCrop(), RoundedCorners(12.dp.toInt())).into(ivSaleImg)
-            }
+            setMatchParentToRecyclerView(bind.root)
+            bind.art = art
         }
     }
 
