@@ -21,7 +21,7 @@ data class UserArt(
     }
 
     fun getTimePassed() : String {
-        return TimeUtil.getTimePassed(createdAt)
+        return TimeUtil.getTimePassedExceptDot(createdAt)
     }
 
 }

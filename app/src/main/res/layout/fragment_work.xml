@@ -40,10 +40,11 @@
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/ll_sale_filter"
             android:layout_width="match_parent"
-            android:layout_height="57dp"
+            android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingHorizontal="19dp"
+            android:paddingVertical="14dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView">
@@ -83,7 +84,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ll_sale_filter"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            marginVertical="@{20f}"
+            marginVertical="@{10f}"
             marginHorizon="@{0f}"
             adapter="@{vm.adapter}"
             />
