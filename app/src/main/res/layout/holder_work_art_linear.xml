@@ -1,17 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-
+        <variable
+            name="art"
+            type="io.sinzak.android.remote.dataclass.profile.UserArt" />
+        <variable
+            name="itemClick"
+            type="android.view.View.OnClickListener" />
+        <variable
+            name="completeTradeClick"
+            type="android.view.View.OnClickListener" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/cl_sale_work_holder_item"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:onClick="@{itemClick}">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_img_frame"
@@ -19,30 +28,33 @@
             android:layout_height="156dp"
             android:background="@drawable/cl_sale_work_holder_item">
 
-            <ImageView
-                android:id="@+id/iv_sale_img"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:background="@drawable/ll_work_image"
-                android:gravity="center">
+                android:gravity="center"
+                android:visibility="@{art.complete ? 0 : 8}">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_work_complete"
                     style="@style/bold16"
                     android:textColor="@color/on_primary"
-                    android:drawableTop="@drawable/ic_check_white"
-                    android:drawablePadding="1dp"/>
+                    android:drawablePadding="1dp"
+                    app:drawableTopCompat="@drawable/ic_check_white" />
             </LinearLayout>
+
+            <ImageView
+                android:id="@+id/iv_sale_img"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                cornerRadius="@{12f}"
+                remoteImgUrl="@{art.thumbnail}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
@@ -55,13 +67,14 @@
             android:layout_marginBottom="11.8dp">
             <TextView
                 style="@style/medium16"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingEnd="8dp"
+                android:paddingStart="0dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="일러스트 필요하신 분 이런 작업은 어떠신가요 제"/>
+                android:text="@{art.title}"/>
             <TextView
                 style="@style/bold16"
                 android:layout_width="wrap_content"
@@ -82,7 +95,9 @@
                 android:background="@drawable/tv_sale_work_holder_btn"
                 android:gravity="center"
                 android:text="@string/str_sale_work_holder_btn"
-                android:textColor="@color/secondary"/>
+                android:textColor="@{art.complete ? @color/gray60 : @color/secondary}"
+                isSelect="@{art.complete}"
+                android:onClick="@{completeTradeClick}"/>
 
             <Space
                 android:layout_width="match_parent"
@@ -93,7 +108,7 @@
                 style="@style/medium13"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="10개월 전"
+                android:text="@{art.timePassed}"
                 android:textColor="@color/gray60"
                 android:gravity="bottom"
                 android:paddingBottom="6dp"/>

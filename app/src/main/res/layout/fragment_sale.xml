@@ -5,26 +5,26 @@
     <data>
         <variable
             name="vm"
-            type="io.sinzak.android.ui.main.profile.sale_with_work.SaleViewModel" />
+            type="io.sinzak.android.ui.main.profile.art.SaleViewModel" />
         <variable
             name="fg"
-            type="io.sinzak.android.ui.main.profile.sale_with_work.SaleFragment" />
+            type="io.sinzak.android.ui.main.profile.art.SaleFragment" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.main.profile.sale_with_work.SaleFragment">
+        tools:context=".ui.main.profile.art.SaleFragment">
 
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
+            android:layout_marginStart="16dp"
             android:background="@drawable/ic_bg_button"
             android:onClick="@{v->fg.navigateOnBackPressed()}"
             android:src="@drawable/ic_back"
+            app:layout_constraintBottom_toBottomOf="@+id/textView"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="10dp"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView"
@@ -40,10 +40,11 @@
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/ll_sale_filter"
             android:layout_width="match_parent"
-            android:layout_height="57dp"
+            android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingHorizontal="19dp"
+            android:paddingVertical="14dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView">
@@ -56,9 +57,9 @@
                 android:gravity="center_vertical"
                 android:paddingHorizontal="12dp"
                 android:text="@string/str_sale_onsale_true"
-                isSelect="@{vm.page == 0}"
+                isSelect="@{!vm.isCompleteList}"
                 android:textColor="@color/color_profile_filter_select"
-                android:onClick="@{v-> vm.changeNotificationList(0)}"
+                android:onClick="@{v-> vm.setIsComplete(false)}"
                 android:background="@drawable/btn_profile_filter"/>
 
             <TextView
@@ -68,9 +69,9 @@
                 android:gravity="center_vertical"
                 android:paddingHorizontal="12dp"
                 android:text="@string/str_sale_onsale_false"
-                isSelect="@{vm.page == 1}"
+                isSelect="@{vm.isCompleteList}"
                 android:textColor="@color/color_profile_filter_select"
-                android:onClick="@{v-> vm.changeNotificationList(1)}"
+                android:onClick="@{v-> vm.setIsComplete(true)}"
                 android:background="@drawable/btn_profile_filter"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -83,7 +84,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ll_sale_filter"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            marginVertical="@{20f}"
+            marginVertical="@{10f}"
             marginHorizon="@{0f}"
             adapter="@{vm.adapter}"
             />

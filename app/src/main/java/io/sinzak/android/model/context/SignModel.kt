@@ -430,6 +430,21 @@ class SignModel @Inject constructor(
             remote.sendRequestApi(this)
         }
     }
+
+    /**
+     * [안승우] 로그인 통합될때까지 쓸 임시함수
+     */
+    fun loginEmailTemp(email: String){
+        CallImpl(
+            API_LOGIN_EMAIL,
+            this,
+            LoginEmailBody(
+                email = email
+            )
+        ).apply{
+            remote.sendRequestApi(this)
+        }
+    }
     /**************************************************************************************************************************
      * RESPONSE
      *********************************************************************************************************************************/

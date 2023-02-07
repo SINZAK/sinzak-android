@@ -107,9 +107,13 @@ class ProductDetailModel @Inject constructor() : BaseModel() {
         )
     }
 
+    /**
+     * [안승우] 거래 종료하기 임시함수
+     */
+    fun endTrade(id : String, status: Boolean)
+    {
 
-
-
+    }
 
 
     override fun handleError(api: Int, msg: String?, t: Throwable?) {

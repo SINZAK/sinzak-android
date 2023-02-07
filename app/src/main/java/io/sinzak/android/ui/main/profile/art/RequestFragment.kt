@@ -1,4 +1,4 @@
-package io.sinzak.android.ui.main.profile.sale_with_work
+package io.sinzak.android.ui.main.profile.art
 
 import android.view.View
 import io.sinzak.android.ui.base.BaseFragment
