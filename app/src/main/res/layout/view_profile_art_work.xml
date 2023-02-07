@@ -6,7 +6,7 @@
     <data>
         <variable
             name="vm"
-            type="io.sinzak.android.ui.main.profile.viewmodel.ProfileWorkViewModel" />
+            type="io.sinzak.android.ui.main.profile.viewmodel.ProfileArtViewModel" />
         <variable
             name="pVm"
             type="io.sinzak.android.ui.main.profile.viewmodel.ProfileViewModel"/>

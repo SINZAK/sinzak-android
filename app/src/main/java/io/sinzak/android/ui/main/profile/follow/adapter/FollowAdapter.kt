@@ -50,7 +50,7 @@ class FollowAdapter(
         }
     }
 
-    private fun setMatchParentToRecycelrView(view: View) {
+    private fun setMatchParentToRecyclerView(view: View) {
         val layoutParams = RecyclerView.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
@@ -63,7 +63,7 @@ class FollowAdapter(
 
         fun bind(follow: Follow)
         {
-            setMatchParentToRecycelrView(bind.root)
+            setMatchParentToRecyclerView(bind.root)
             bind.follow = follow
             bind.setOnItemClick {
                 onItemClick!!(follow.userId)

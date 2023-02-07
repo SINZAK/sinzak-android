@@ -1,20 +1,20 @@
-package io.sinzak.android.ui.main.profile.sale_with_work
+package io.sinzak.android.ui.main.profile.art
 
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
-import io.sinzak.android.databinding.FragmentWorkBinding
+import io.sinzak.android.databinding.FragmentSaleBinding
 import io.sinzak.android.ui.base.BaseFragment
 
 @AndroidEntryPoint
-class WorkFragment : BaseFragment() {
+class SaleFragment : BaseFragment() {
 
-    private lateinit var bind: FragmentWorkBinding
+    private lateinit var bind : FragmentSaleBinding
 
-    private val viewModel : WorkViewModel by activityViewModels()
+    private val viewModel : SaleViewModel by activityViewModels()
 
     override fun getFragmentRoot(): View {
-        bind = FragmentWorkBinding.inflate(layoutInflater)
+        bind = FragmentSaleBinding.inflate(layoutInflater)
         return bind.root
     }
 
@@ -22,15 +22,16 @@ class WorkFragment : BaseFragment() {
         bind.apply {
             bind.lifecycleOwner = viewLifecycleOwner
             vm = viewModel
-            fg = this@WorkFragment
+            fg = this@SaleFragment
         }
+    }
+
+    override fun navigateOnBackPressed() {
+        navigator.revealHistory()
     }
 
     override fun showBottomBar(): Boolean {
         return false
     }
 
-    override fun navigateOnBackPressed() {
-        navigator.revealHistory()
-    }
 }
