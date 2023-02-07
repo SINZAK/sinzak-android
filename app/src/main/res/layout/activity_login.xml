@@ -102,7 +102,7 @@
                 style="@style/medium13"
                 android:textColor="@color/black"
                 android:gravity="center"
-                android:onClick="@{v-> void}"
+                android:onClick="@{v-> vm.loginGoogle()}"
                 android:paddingHorizontal="20dp"
                 app:drawableStartCompat="@drawable/ic_login_google" />
         </androidx.appcompat.widget.LinearLayoutCompat>
