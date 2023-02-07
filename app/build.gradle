@@ -74,11 +74,11 @@ dependencies {
     //ktx
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.1"
-    implementation "androidx.fragment:fragment-ktx:1.5.3"
+    implementation "androidx.fragment:fragment-ktx:1.5.5"
 
 
     // Glide
-    implementation "com.github.bumptech.glide:glide:4.3.0"
+    implementation "com.github.bumptech.glide:glide:4.13.0"
     implementation 'jp.wasabeef:glide-transformations:4.3.0'
 
     //viewpager indicator

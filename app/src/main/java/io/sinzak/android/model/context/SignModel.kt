@@ -1,15 +1,12 @@
 package io.sinzak.android.model.context
 
-import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.user.UserApiClient
 import com.navercorp.nid.NaverIdLoginSDK
 import com.navercorp.nid.oauth.NidOAuthBehavior
-import io.sinzak.android.BuildConfig
 import io.sinzak.android.constants.*
 import io.sinzak.android.enums.SDK
 import io.sinzak.android.model.BaseModel
@@ -26,7 +23,6 @@ import io.sinzak.android.system.LogError
 import io.sinzak.android.system.LogInfo
 import io.sinzak.android.system.social.NaverImpl
 import io.sinzak.android.ui.login.LoginActivity
-import io.sinzak.android.utils.LoginGoogle
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
