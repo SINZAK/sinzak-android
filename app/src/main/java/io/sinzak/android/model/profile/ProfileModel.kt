@@ -56,6 +56,9 @@ class ProfileModel @Inject constructor() : BaseModel() {
     private val _productList = MutableStateFlow(mutableListOf<UserArt>())
     val productList: StateFlow<List<UserArt>> get() = _productList
 
+    /**
+     * 팔로우,언팔로우 플래그
+     */
     val followControlSuccessFlag = MutableStateFlow(false)
 
     /**
@@ -67,9 +70,7 @@ class ProfileModel @Inject constructor() : BaseModel() {
 
 
     fun getProfile() {
-        profile.value = null
-        _workList.value = mutableListOf()
-        _productList.value = mutableListOf()
+        clearProfileContent()
         CallImpl(
             API_GET_MY_PROFILE,
             this,
@@ -144,8 +145,8 @@ class ProfileModel @Inject constructor() : BaseModel() {
     {
         response.data?.let { profileResponse ->
             profile.value = profileResponse.profile
-            _workList.value = profileResponse.works!!.toMutableList()
-            _productList.value = profileResponse.products!!.toMutableList()
+            _workList.value = profileResponse.works!!.toMutableList().asReversed()
+            _productList.value = profileResponse.products!!.toMutableList().asReversed()
         }
     }
     private fun onMyProfileResponse(response: UserProfileResponse)
@@ -156,8 +157,8 @@ class ProfileModel @Inject constructor() : BaseModel() {
                 myUserId.value = it
                 _currentUserId.value = it
             }
-            _workList.value = profileResponse.works!!.toMutableList()
-            _productList.value = profileResponse.products!!.toMutableList()
+            _workList.value = profileResponse.works!!.toMutableList().asReversed()
+            _productList.value = profileResponse.products!!.toMutableList().asReversed()
         }
     }
 
@@ -168,10 +169,8 @@ class ProfileModel @Inject constructor() : BaseModel() {
             userHistory.add(_currentUserId.value)
             _currentUserId.value = newUserId
         }
+        clearProfileContent()
 
-        profile.value = null
-        _workList.value = mutableListOf()
-        _productList.value = mutableListOf()
     }
 
 
@@ -189,6 +188,14 @@ class ProfileModel @Inject constructor() : BaseModel() {
     fun clearUserHistory()
     {
         userHistory.clear()
+    }
+
+    private fun clearProfileContent()
+    {
+        profile.value = null
+        _workList.value = mutableListOf()
+        _productList.value = mutableListOf()
+
     }
 
 
