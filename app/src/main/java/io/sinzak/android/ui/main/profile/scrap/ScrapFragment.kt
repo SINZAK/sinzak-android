@@ -27,6 +27,6 @@ class ScrapFragment : BaseFragment() {
     }
 
     override fun navigateOnBackPressed() {
-        navigator.revealHistory()
+        viewModel.backPressed()
     }
 }

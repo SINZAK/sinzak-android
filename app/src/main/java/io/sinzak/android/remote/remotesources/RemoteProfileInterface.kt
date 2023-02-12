@@ -31,7 +31,7 @@ interface RemoteProfileInterface {
     @POST("api/users/edit")
     fun editMyProfile(@HeaderMap header: HashMap<String, String>, @Body body: UpdateUserRequest) : Call<CResponse>
 
-    @POST("api/users/wish")
+    @GET("api/users/wish")
     fun getWishList(@HeaderMap header: HashMap<String, String>) : Call<WishResponse>
 
     @POST("api/users/follow")
