@@ -66,6 +66,8 @@ class ProfileModel @Inject constructor() : BaseModel() {
 
     fun getProfile() {
         profile.value = null
+        _workList.value = mutableListOf()
+        _productList.value = mutableListOf()
         CallImpl(
             API_GET_MY_PROFILE,
             this,
@@ -75,7 +77,6 @@ class ProfileModel @Inject constructor() : BaseModel() {
     }
 
     fun getOtherProfile() {
-        profile.value = null
         CallImpl(
             API_GET_USER_PROFILE,
             this,
@@ -88,7 +89,6 @@ class ProfileModel @Inject constructor() : BaseModel() {
 
     fun getFollowList(page: Int) {
         _followList.value = mutableListOf()
-
         if (page == 0) {
             CallImpl(
                 API_GET_FOLLOWER_LIST,
@@ -166,6 +166,10 @@ class ProfileModel @Inject constructor() : BaseModel() {
             userHistory.add(_currentUserId.value)
             _currentUserId.value = newUserId
         }
+
+        profile.value = null
+        _workList.value = mutableListOf()
+        _productList.value = mutableListOf()
     }
 
 
