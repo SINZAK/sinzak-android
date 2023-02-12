@@ -132,6 +132,16 @@ class ProfileModel @Inject constructor() : BaseModel() {
 
     }
 
+    fun getWishList()
+    {
+        CallImpl(
+            API_GET_MY_WISH_LIST,
+            this
+        ).apply {
+            remote.sendRequestApi(this)
+        }
+    }
+
     fun followUser(isFollow: Boolean) {
 
         val request = FollowRequest(_currentUserId.value)
