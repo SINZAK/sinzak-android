@@ -17,6 +17,7 @@ import io.sinzak.android.system.LogInfo
 import io.sinzak.android.ui.base.BaseActivity
 import io.sinzak.android.ui.base.BaseFragment
 import io.sinzak.android.ui.login.agreement.AgreementFragment
+import io.sinzak.android.ui.login.cert.RegisterCertFragment
 import io.sinzak.android.ui.login.email.EmailFragment
 import io.sinzak.android.ui.login.interest.InterestFragment
 import io.sinzak.android.ui.login.name.NameFragment
@@ -75,7 +76,7 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>(R.layout.activity
             PAGE_INTEREST ->
                 InterestFragment()
             PAGE_UNIVERSITY ->
-                CertificationFragment()
+                RegisterCertFragment()
             Welcome ->
                 WelcomeFragment()
         }

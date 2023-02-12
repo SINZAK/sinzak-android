@@ -61,7 +61,7 @@ class CallImpl(
 
 
 
-
+            API_CHECK_EMAIL -> remoteApi.checkEmail(header, JsonObject().apply{addProperty("email", paramStr0)} )
 
             API_LOGIN_EMAIL -> remoteApi.loginEmail(header,requestBody as LoginEmailBody)
 
@@ -108,7 +108,10 @@ class CallImpl(
 
             API_JOIN_ACCOUNT -> remoteApi.joinAccount(header,requestBody as JoinRequest)
 
-            API_POST_OAUTH_TOKEN -> remoteApi.postAccessToken(header, JsonObject().apply{addProperty("accessToken", paramStr0)})
+            API_POST_OAUTH_TOKEN -> remoteApi.postAccessToken(header, JsonObject().apply{
+                addProperty("accessToken", paramStr0)
+                addProperty("origin", paramStr1)
+            })
 
 
 

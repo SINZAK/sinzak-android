@@ -40,7 +40,7 @@ class MainBottomViewModel @Inject constructor(): BaseViewModel() {
 
     fun setCurrentButton(button : Int){
 
-        if(button == PAGE_PROFILE){
+        if(button == PAGE_PROFILE || button == PAGE_CHATTING){
             if(!signModel.isUserLogin())
             {
                 uiModel.gotoLogin()

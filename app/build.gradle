@@ -98,6 +98,6 @@ dependencies {
     //Google Login
     implementation 'com.google.android.gms:play-services-auth:20.4.1'
 
-
-
+    //stomp
+    implementation 'com.github.NaikSoftware:StompProtocolAndroid:1.6.6'
 }
