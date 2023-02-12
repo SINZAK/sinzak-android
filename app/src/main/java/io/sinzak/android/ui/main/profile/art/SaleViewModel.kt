@@ -24,17 +24,17 @@ class SaleViewModel @Inject constructor(
     val isCompleteList = MutableStateFlow(false)
 
     val adapter = SaleWorkAdapter(productModel::endTrade){ a ->
-        productModel.loadProduct(a.id.toInt())
+        productModel.loadProduct(a.id!!.toInt())
         navigation.changePage(Page.ART_DETAIL)
     }.apply {
         model.productList.onEach {
             invokeBooleanFlow(
                 isCompleteList,
                 {
-                    setArts(it.filter { !it.complete })
+                    setArts(it.filter { !it.complete!! })
                 },
                 {
-                    setArts(it.filter { it.complete })
+                    setArts(it.filter { it.complete!! })
                 }
             )
         }.launchIn(viewModelScope)

@@ -41,33 +41,10 @@ class ProfileViewModel @Inject constructor(
     val profile get() = model.profile
 
     /**
-     * 유저 이름
-     */
-    val name = MutableStateFlow("")
-    /**
      * 내 프로필인가?
      */
     val isMyProfile = MutableStateFlow(false)
 
-    /**
-     * 프로필 이미지 url
-     */
-    val profileImg = MutableStateFlow("")
-
-    /**
-     * 학교 인증 받았는지?
-     */
-    val isCertify = MutableStateFlow(false)
-
-    /**
-     * 학교 이름
-     */
-    val university = MutableStateFlow("")
-
-    /**
-     * 인증 작가인지?
-     */
-    val isVerify = MutableStateFlow(false)
 
     /**
      * 팔로워 수
@@ -78,11 +55,6 @@ class ProfileViewModel @Inject constructor(
      * 팔로잉 수
      */
     val following = MutableStateFlow(0)
-
-    /**
-     * 소개 텍스트
-     */
-    val introduction = MutableStateFlow("")
 
     /**
      * 팔로잉 중인지?
@@ -106,14 +78,8 @@ class ProfileViewModel @Inject constructor(
         invokeStateFlow(profile) {profile ->
             profile?.let {
                 isMyProfile.value = it.myProfile
-                name.value = it.name
-                profileImg.value = it.imageUrl
-                isCertify.value = it.cert_uni
-                university.value = it.univ
-//                isVerify.value = it.isVerify
                 follower.value = it.followerNumber
                 following.value = it.followingNumber
-                introduction.value = it.introduction
                 isFollow.value = it.ifFollow
 
             }
@@ -142,8 +108,11 @@ class ProfileViewModel @Inject constructor(
     fun toggleFollow()
     {
         model.followUser(isFollow.value)
-        isFollow.value = !isFollow.value
-        follower.value = follower.value + if (isFollow.value) 1 else -1
+        useFlag(model.followControlSuccessFlag) {
+            isFollow.value = !isFollow.value
+            follower.value = follower.value + if (isFollow.value) 1 else -1
+        }
+
     }
 
     /**

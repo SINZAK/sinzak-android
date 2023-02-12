@@ -9,7 +9,6 @@ import javax.inject.Inject
 class ProfileArtViewModel @Inject constructor(
     private val model : ProfileModel
 ) : BaseViewModel() {
-
-    val productList get() = model.productList
-    val workList get() = model.workList
+    val productsList get() = model.productList
+    val worksList get() = model.workList
 }
