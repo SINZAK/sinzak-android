@@ -3,6 +3,7 @@ package io.sinzak.android.model.profile
 import io.sinzak.android.constants.*
 import io.sinzak.android.model.BaseModel
 import io.sinzak.android.remote.dataclass.CResponse
+import io.sinzak.android.remote.dataclass.product.Product
 import io.sinzak.android.remote.dataclass.profile.*
 import io.sinzak.android.remote.dataclass.request.profile.FollowRequest
 import io.sinzak.android.remote.dataclass.response.profile.FollowResponse
@@ -45,16 +46,22 @@ class ProfileModel @Inject constructor() : BaseModel() {
     val followList: StateFlow<List<Follow>> get() = _followList
 
     /**
-     * 조회중인 유저 의뢰해요 리스트를 저장하는 공간
+     * 조회중인 유저 작업해요 리스트를 저장하는 공간
      */
-    private val _workList = MutableStateFlow(mutableListOf<UserArt>())
-    val workList: StateFlow<List<UserArt>> get() = _workList
+    private val _workList = MutableStateFlow(mutableListOf<Product>())
+    val workList: StateFlow<List<Product>> get() = _workList
 
     /**
      * 조회중인 유저 판매 작품 리스트를 저장하는 공간
      */
-    private val _productList = MutableStateFlow(mutableListOf<UserArt>())
-    val productList: StateFlow<List<UserArt>> get() = _productList
+    private val _productList = MutableStateFlow(mutableListOf<Product>())
+    val productList: StateFlow<List<Product>> get() = _productList
+
+    /**
+     * 조회중인 유저 의뢰해요 리스트를 저장하는 공간
+     */
+    private val _workEmployList = MutableStateFlow(mutableListOf<Product>())
+    val workEmployList : StateFlow<List<Product>> get() = _workEmployList
 
     /**
      * 팔로우,언팔로우 플래그
@@ -147,6 +154,7 @@ class ProfileModel @Inject constructor() : BaseModel() {
             profile.value = profileResponse.profile
             _workList.value = profileResponse.works!!.toMutableList().asReversed()
             _productList.value = profileResponse.products!!.toMutableList().asReversed()
+//            _workEmployList.value = profileResponse.workEmploys!!.toMutableList().asReversed()
         }
     }
     private fun onMyProfileResponse(response: UserProfileResponse)
@@ -159,6 +167,7 @@ class ProfileModel @Inject constructor() : BaseModel() {
             }
             _workList.value = profileResponse.works!!.toMutableList().asReversed()
             _productList.value = profileResponse.products!!.toMutableList().asReversed()
+//            _workEmployList.value = profileResponse.workEmploys!!.toMutableList().asReversed()
         }
     }
 
@@ -195,6 +204,7 @@ class ProfileModel @Inject constructor() : BaseModel() {
         profile.value = null
         _workList.value = mutableListOf()
         _productList.value = mutableListOf()
+        _workEmployList.value = mutableListOf()
 
     }
 

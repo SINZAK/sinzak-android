@@ -34,7 +34,7 @@
         <ImageView
             android:id="@+id/imageView7"
             cornerRadius="@{12f}"
-            remoteImgUrl="@{vm.productList[0].thumbnail}"
+            remoteImgUrl="@{vm.productsList[0].thumbnail}"
             android:layout_width="165dp"
             android:layout_height="165dp"
             android:layout_marginTop="7dp"
@@ -45,7 +45,7 @@
         <ImageView
             android:id="@+id/imageView8"
             cornerRadius="@{12f}"
-            remoteImgUrl="@{vm.productList[1].thumbnail}"
+            remoteImgUrl="@{vm.productsList[1].thumbnail}"
             android:layout_width="165dp"
             android:layout_height="165dp"
             android:layout_marginStart="12.5dp"
