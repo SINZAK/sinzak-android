@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
             name="vm"
-            type="io.sinzak.android.ui.main.profile.viewmodel.ProfileSaleViewModel" />
+            type="io.sinzak.android.ui.main.profile.viewmodel.ProfileArtViewModel" />
         <variable
             name="pVm"
             type="io.sinzak.android.ui.main.profile.viewmodel.ProfileViewModel"/>
@@ -34,7 +34,7 @@
         <ImageView
             android:id="@+id/imageView7"
             cornerRadius="@{12f}"
-            remoteImgUrl="@{vm.productList[0].thumbnail}"
+            remoteImgUrl="@{vm.productsList[0].thumbnail}"
             android:layout_width="165dp"
             android:layout_height="165dp"
             android:layout_marginTop="7dp"
@@ -45,7 +45,7 @@
         <ImageView
             android:id="@+id/imageView8"
             cornerRadius="@{12f}"
-            remoteImgUrl="@{vm.productList[1].thumbnail}"
+            remoteImgUrl="@{vm.productsList[1].thumbnail}"
             android:layout_width="165dp"
             android:layout_height="165dp"
             android:layout_marginStart="12.5dp"

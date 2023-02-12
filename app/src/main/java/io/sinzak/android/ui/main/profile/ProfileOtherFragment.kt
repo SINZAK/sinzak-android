@@ -1,7 +1,6 @@
 package io.sinzak.android.ui.main.profile
 
 import dagger.hilt.android.AndroidEntryPoint
-import io.sinzak.android.system.LogDebug
 
 @AndroidEntryPoint
 class ProfileOtherFragment : ProfileFragment() {
@@ -10,6 +9,7 @@ class ProfileOtherFragment : ProfileFragment() {
         viewModel.getOtherProfileRemote()
         inflateOtherChild()
     }
+
 
     override fun navigateOnBackPressed() {
         navigator.revealHistory()

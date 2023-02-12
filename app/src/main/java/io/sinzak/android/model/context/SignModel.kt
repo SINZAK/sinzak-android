@@ -1,8 +1,6 @@
 package io.sinzak.android.model.context
 
-import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.kakao.sdk.auth.model.OAuthToken
@@ -23,11 +21,11 @@ import io.sinzak.android.remote.dataclass.response.login.*
 import io.sinzak.android.remote.retrofit.CallImpl
 import io.sinzak.android.system.App.Companion.NAVER_SDK_PREPARED
 import io.sinzak.android.system.App.Companion.prefs
+import io.sinzak.android.system.LogDebug
 import io.sinzak.android.system.LogError
 import io.sinzak.android.system.LogInfo
 import io.sinzak.android.system.social.NaverImpl
 import io.sinzak.android.ui.login.LoginActivity
-import io.sinzak.android.utils.LoginGoogle
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
@@ -184,12 +182,6 @@ class SignModel @Inject constructor(
 
 
 
-
-
-
-
-
-
     private lateinit var naverCallback : NaverImpl
 
     private lateinit var loginKaKao : UserApiClient
@@ -333,20 +325,26 @@ class SignModel @Inject constructor(
      * GOOGLE
      *********************************************************************************************************************************/
 
-    private var googleIdToken : String = ""
 
-    fun loginViaGoogle(){
+    /**
+     * 구글로 로그인합니다
+     * 1. 모델 변수 초기화
+     * 2. 연결된 계정으로 필요한 값 뽑아옴
+     */
+    fun loginViaGoogle(completedTask: Task<GoogleSignInAccount>){
         initSignStatus()
+        handleGoogleSignInResult(completedTask)
     }
 
     /**
      * 1. 로그인 후 계정에서 아이디 토큰 && 인증 코드를 뽑아옵니다
      */
-    fun handleGoogleSignInResult(completedTask: Task<GoogleSignInAccount>) {
+    private fun handleGoogleSignInResult(completedTask: Task<GoogleSignInAccount>) {
         try {
             val account : GoogleSignInAccount = completedTask.getResult(ApiException::class.java)
             account.let {
-                googleIdToken = it.idToken.toString()
+                _sdkSignSuccess.value = true
+                sdkType = SDK.google
                 val authCode = it.serverAuthCode.toString()
                 getGoogleAccessToken(authCode)
             }
@@ -379,12 +377,12 @@ class SignModel @Inject constructor(
     /**
      * 3. 서버로 뽑아온 아이디 토큰과 엑세스 토큰을 보내줍니다
      */
-    private fun postGoogleOAuthToken(accessToken : String)
+    private fun postGoogleOAuthToken(accessToken : String, idToken : String)
     {
         val request = OAuthRequest(
             accessToken = accessToken,
-            idToken = googleIdToken,
-            origin = SDK.google.toString()
+            idToken = idToken,
+            origin = sdkType!!.name
         )
         CallImpl(
             API_POST_GOOGLE_OAUTH_TOKEN,
@@ -421,6 +419,21 @@ class SignModel @Inject constructor(
     }
 
     private fun loginToServerViaEmail(email: String){
+        CallImpl(
+            API_LOGIN_EMAIL,
+            this,
+            LoginEmailBody(
+                email = email
+            )
+        ).apply{
+            remote.sendRequestApi(this)
+        }
+    }
+
+    /**
+     * [안승우] 로그인 통합될때까지 쓸 임시함수
+     */
+    fun loginEmailTemp(email: String){
         CallImpl(
             API_LOGIN_EMAIL,
             this,
@@ -534,11 +547,10 @@ class SignModel @Inject constructor(
              */
             API_GET_GOOGLE_ACCESS_TOKEN -> {
                 body as GoogleResponse
-                if (body.success == true)
-                {
-                    postGoogleOAuthToken(body.access_token)
-                }
+                _sdkSignSuccess.value = true
+                postGoogleOAuthToken(body.access_token,body.id_token)
             }
+
 
             API_POST_GOOGLE_OAUTH_TOKEN -> {
                 body as OAuthGetResponse
@@ -546,6 +558,7 @@ class SignModel @Inject constructor(
                 if (body.success == true && body.data != null)
                 {
                     loginToServerViaEmail(body.data.email.toString())
+                    _sdkSignSuccess.value = false
                 }
                 else {
                     checkEmail(loginEmail)
@@ -572,6 +585,10 @@ class SignModel @Inject constructor(
         {
             API_LOGIN_EMAIL ->{
 
+            }
+
+            API_GET_GOOGLE_ACCESS_TOKEN -> {
+                LogDebug(javaClass.name,"구글 엑세스토큰 발급실패")
             }
         }
     }

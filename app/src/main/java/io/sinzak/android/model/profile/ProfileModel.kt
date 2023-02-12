@@ -3,10 +3,8 @@ package io.sinzak.android.model.profile
 import io.sinzak.android.constants.*
 import io.sinzak.android.model.BaseModel
 import io.sinzak.android.remote.dataclass.CResponse
-import io.sinzak.android.remote.dataclass.profile.Follow
-import io.sinzak.android.remote.dataclass.profile.UserProduct
-import io.sinzak.android.remote.dataclass.profile.UserProfile
-import io.sinzak.android.remote.dataclass.profile.UserWork
+import io.sinzak.android.remote.dataclass.product.Product
+import io.sinzak.android.remote.dataclass.profile.*
 import io.sinzak.android.remote.dataclass.request.profile.FollowRequest
 import io.sinzak.android.remote.dataclass.response.profile.FollowResponse
 import io.sinzak.android.remote.dataclass.response.profile.UserProfileResponse
@@ -48,16 +46,27 @@ class ProfileModel @Inject constructor() : BaseModel() {
     val followList: StateFlow<List<Follow>> get() = _followList
 
     /**
-     * 조회중인 유저 의뢰해요 리스트를 저장하는 공간
+     * 조회중인 유저 작업해요 리스트를 저장하는 공간
      */
-    private val _workList = MutableStateFlow(mutableListOf<UserWork>())
-    val workList: StateFlow<List<UserWork>> get() = _workList
+    private val _workList = MutableStateFlow(mutableListOf<Product>())
+    val workList: StateFlow<List<Product>> get() = _workList
 
     /**
      * 조회중인 유저 판매 작품 리스트를 저장하는 공간
      */
-    private val _productList = MutableStateFlow(mutableListOf<UserProduct>())
-    val productList: StateFlow<List<UserProduct>> get() = _productList
+    private val _productList = MutableStateFlow(mutableListOf<Product>())
+    val productList: StateFlow<List<Product>> get() = _productList
+
+    /**
+     * 조회중인 유저 의뢰해요 리스트를 저장하는 공간
+     */
+    private val _workEmployList = MutableStateFlow(mutableListOf<Product>())
+    val workEmployList : StateFlow<List<Product>> get() = _workEmployList
+
+    /**
+     * 팔로우,언팔로우 플래그
+     */
+    val followControlSuccessFlag = MutableStateFlow(false)
 
     /**
      * 내 작품, 프로필인가?
@@ -68,7 +77,7 @@ class ProfileModel @Inject constructor() : BaseModel() {
 
 
     fun getProfile() {
-        profile.value = null
+        clearProfileContent()
         CallImpl(
             API_GET_MY_PROFILE,
             this,
@@ -78,7 +87,6 @@ class ProfileModel @Inject constructor() : BaseModel() {
     }
 
     fun getOtherProfile() {
-        profile.value = null
         CallImpl(
             API_GET_USER_PROFILE,
             this,
@@ -91,7 +99,6 @@ class ProfileModel @Inject constructor() : BaseModel() {
 
     fun getFollowList(page: Int) {
         _followList.value = mutableListOf()
-
         if (page == 0) {
             CallImpl(
                 API_GET_FOLLOWER_LIST,
@@ -113,8 +120,8 @@ class ProfileModel @Inject constructor() : BaseModel() {
     }
 
     fun followUser(isFollow: Boolean) {
-        val request = FollowRequest(_currentUserId.value)
 
+        val request = FollowRequest(_currentUserId.value)
         if (isFollow) {
             CallImpl(
                 API_UNFOLLOW_USER,
@@ -145,17 +152,22 @@ class ProfileModel @Inject constructor() : BaseModel() {
     {
         response.data?.let { profileResponse ->
             profile.value = profileResponse.profile
-            _workList.value = profileResponse.works!!.toMutableList()
-            _productList.value = profileResponse.products!!.toMutableList()
+            _workList.value = profileResponse.works!!.toMutableList().asReversed()
+            _productList.value = profileResponse.products!!.toMutableList().asReversed()
+//            _workEmployList.value = profileResponse.workEmploys!!.toMutableList().asReversed()
         }
     }
     private fun onMyProfileResponse(response: UserProfileResponse)
     {
         response.data?.let { profileResponse ->
             profile.value = profileResponse.profile
-            myUserId.value = profileResponse.profile.userId
-            _workList.value = profileResponse.works!!.toMutableList()
-            _productList.value = profileResponse.products!!.toMutableList()
+            profileResponse.profile.userId.let {
+                myUserId.value = it
+                _currentUserId.value = it
+            }
+            _workList.value = profileResponse.works!!.toMutableList().asReversed()
+            _productList.value = profileResponse.products!!.toMutableList().asReversed()
+//            _workEmployList.value = profileResponse.workEmploys!!.toMutableList().asReversed()
         }
     }
 
@@ -166,6 +178,8 @@ class ProfileModel @Inject constructor() : BaseModel() {
             userHistory.add(_currentUserId.value)
             _currentUserId.value = newUserId
         }
+        clearProfileContent()
+
     }
 
 
@@ -183,6 +197,15 @@ class ProfileModel @Inject constructor() : BaseModel() {
     fun clearUserHistory()
     {
         userHistory.clear()
+    }
+
+    private fun clearProfileContent()
+    {
+        profile.value = null
+        _workList.value = mutableListOf()
+        _productList.value = mutableListOf()
+        _workEmployList.value = mutableListOf()
+
     }
 
 
@@ -208,7 +231,11 @@ class ProfileModel @Inject constructor() : BaseModel() {
             {
                 if (body.success == true)
                 {
+                    followControlSuccessFlag.value = true
                     globalUi.showToast("팔로잉합니다")
+                }
+                else {
+                    globalUi.showToast(body.message.toString())
                 }
             }
 
@@ -216,7 +243,11 @@ class ProfileModel @Inject constructor() : BaseModel() {
             {
                 if (body.success == true)
                 {
+                    followControlSuccessFlag.value = true
                     globalUi.showToast("언팔로잉합니다")
+                }
+                else {
+                    globalUi.showToast(body.message.toString())
                 }
             }
         }
