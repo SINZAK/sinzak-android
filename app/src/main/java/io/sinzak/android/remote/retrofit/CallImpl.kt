@@ -189,6 +189,12 @@ class CallImpl(
 
             API_GET_CHATROOM_LIST -> remoteApi.getChatRooms(header)
 
+            API_CREATE_CHATROOM -> remoteApi.createChatRoom(header, JsonObject().apply{
+                addProperty("postId", paramInt0)
+                addProperty("postType", paramStr0)
+
+            })
+
             else -> throw NoSuchMethodException()
         } as Call<CResponse>
     }

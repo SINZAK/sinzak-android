@@ -85,5 +85,6 @@ const val API_GET_HOME_BANNER = 270
 
 
 const val API_GET_CHATROOM_LIST = 400
+const val API_CREATE_CHATROOM = 410
 
 
