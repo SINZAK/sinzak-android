@@ -56,6 +56,8 @@ class ProfileModel @Inject constructor() : BaseModel() {
     private val _productList = MutableStateFlow(mutableListOf<UserArt>())
     val productList: StateFlow<List<UserArt>> get() = _productList
 
+    val followControlSuccessFlag = MutableStateFlow(false)
+
     /**
      * 내 작품, 프로필인가?
      */
@@ -110,8 +112,8 @@ class ProfileModel @Inject constructor() : BaseModel() {
     }
 
     fun followUser(isFollow: Boolean) {
-        val request = FollowRequest(_currentUserId.value)
 
+        val request = FollowRequest(_currentUserId.value)
         if (isFollow) {
             CallImpl(
                 API_UNFOLLOW_USER,
@@ -212,7 +214,11 @@ class ProfileModel @Inject constructor() : BaseModel() {
             {
                 if (body.success == true)
                 {
+                    followControlSuccessFlag.value = true
                     globalUi.showToast("팔로잉합니다")
+                }
+                else {
+                    globalUi.showToast(body.message.toString())
                 }
             }
 
@@ -220,7 +226,11 @@ class ProfileModel @Inject constructor() : BaseModel() {
             {
                 if (body.success == true)
                 {
+                    followControlSuccessFlag.value = true
                     globalUi.showToast("언팔로잉합니다")
+                }
+                else {
+                    globalUi.showToast(body.message.toString())
                 }
             }
         }
