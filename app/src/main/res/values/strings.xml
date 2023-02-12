@@ -207,4 +207,5 @@
     <string name="str_welcome_done">작품 보러가기</string>
     <string name="str_write_work_content">의뢰 내용</string>
     <string name="str_title">제목</string>
+    <string name="str_checkemail_exist">가입한 다른 소셜 계정으로 로그인해주세요.</string>
 </resources>
