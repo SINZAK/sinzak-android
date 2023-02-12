@@ -24,7 +24,7 @@ class WorkViewModel @Inject constructor(
     val isCompleteList = MutableStateFlow(false)
 
     val adapter = SaleWorkAdapter(productModel::endTrade){ a->
-        productModel.loadWork(a.id!!.toInt())
+        productModel.loadWork(a.id!!)
         navigation.changePage(Page.ART_DETAIL)
     }.apply {
         model.workList.onEach {

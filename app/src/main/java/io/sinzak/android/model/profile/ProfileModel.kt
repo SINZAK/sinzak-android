@@ -43,25 +43,25 @@ class ProfileModel @Inject constructor() : BaseModel() {
      * 팔로워 & 팔로잉 리스트를 저장하는 공간
      */
     private val _followList = MutableStateFlow(mutableListOf<Follow>())
-    val followList: StateFlow<List<Follow>> get() = _followList
+    val followList: StateFlow<MutableList<Follow>> get() = _followList
 
     /**
      * 조회중인 유저 작업해요 리스트를 저장하는 공간
      */
     private val _workList = MutableStateFlow(mutableListOf<Product>())
-    val workList: StateFlow<List<Product>> get() = _workList
+    val workList: StateFlow<MutableList<Product>> get() = _workList
 
     /**
      * 조회중인 유저 판매 작품 리스트를 저장하는 공간
      */
     private val _productList = MutableStateFlow(mutableListOf<Product>())
-    val productList: StateFlow<List<Product>> get() = _productList
+    val productList: StateFlow<MutableList<Product>> get() = _productList
 
     /**
      * 조회중인 유저 의뢰해요 리스트를 저장하는 공간
      */
     private val _workEmployList = MutableStateFlow(mutableListOf<Product>())
-    val workEmployList : StateFlow<List<Product>> get() = _workEmployList
+    val workEmployList : StateFlow<MutableList<Product>> get() = _workEmployList
 
     /**
      * 팔로우,언팔로우 플래그
