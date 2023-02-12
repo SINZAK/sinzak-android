@@ -8,6 +8,7 @@ import io.sinzak.android.remote.dataclass.profile.*
 import io.sinzak.android.remote.dataclass.request.profile.FollowRequest
 import io.sinzak.android.remote.dataclass.response.profile.FollowResponse
 import io.sinzak.android.remote.dataclass.response.profile.UserProfileResponse
+import io.sinzak.android.remote.dataclass.response.profile.WishResponse
 import io.sinzak.android.remote.retrofit.CallImpl
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -62,6 +63,18 @@ class ProfileModel @Inject constructor() : BaseModel() {
      */
     private val _workEmployList = MutableStateFlow(mutableListOf<Product>())
     val workEmployList : StateFlow<MutableList<Product>> get() = _workEmployList
+
+    /**
+     * 내 작품 스크랩 리스트를 저장하는 공간
+     */
+    private val _productWishList = MutableStateFlow(mutableListOf<Product>())
+    val productWishList : StateFlow<MutableList<Product>> get() = _productWishList
+
+    /**
+     * 내 의뢰 스크랩 리스트를 저장하는 공간
+     */
+    private val _worktWishList = MutableStateFlow(mutableListOf<Product>())
+    val worktWishList : StateFlow<MutableList<Product>> get() = _worktWishList
 
     /**
      * 팔로우,언팔로우 플래그
@@ -171,6 +184,14 @@ class ProfileModel @Inject constructor() : BaseModel() {
         }
     }
 
+    private fun onWishListResponse(response: WishResponse)
+    {
+        response.data?.let { wishResponse ->
+            _productWishList.value = wishResponse.productWishes!!.toMutableList()
+            _worktWishList.value = wishResponse.workWishes!!.toMutableList()
+        }
+    }
+
     fun changeProfile(newUserId: String)
     {
         if (_currentUserId.value != newUserId)
@@ -225,6 +246,10 @@ class ProfileModel @Inject constructor() : BaseModel() {
             }
             API_GET_MY_PROFILE -> {
                 onMyProfileResponse(body as UserProfileResponse)
+            }
+
+            API_GET_MY_WISH_LIST -> {
+                onWishListResponse(body as WishResponse)
             }
 
             API_FOLLOW_USER ->

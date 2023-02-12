@@ -7,6 +7,7 @@ import io.sinzak.android.remote.dataclass.request.profile.ReportRequest
 import io.sinzak.android.remote.dataclass.request.profile.UpdateUserRequest
 import io.sinzak.android.remote.dataclass.response.profile.FollowResponse
 import io.sinzak.android.remote.dataclass.response.profile.UserProfileResponse
+import io.sinzak.android.remote.dataclass.response.profile.WishResponse
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -29,6 +30,9 @@ interface RemoteProfileInterface {
 
     @POST("api/users/edit")
     fun editMyProfile(@HeaderMap header: HashMap<String, String>, @Body body: UpdateUserRequest) : Call<CResponse>
+
+    @POST("api/users/wish")
+    fun getWishList(@HeaderMap header: HashMap<String, String>) : Call<WishResponse>
 
     @POST("api/users/follow")
     fun followUser(@HeaderMap header: HashMap<String, String>, @Body body: FollowRequest) : Call<CResponse>
