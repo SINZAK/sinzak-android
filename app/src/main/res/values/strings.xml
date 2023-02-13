@@ -48,7 +48,8 @@
     <string name="str_sale_onsale_false">판매완료</string>
     <string name="str_work_onwork_true">작업중</string>
     <string name="str_work_onwork_false">작업완료</string>
-    <string name="str_work_complete">의뢰완료</string>
+    <string name="str_request_complete_false">의뢰중</string>
+    <string name="str_request_complete_true">의뢰완료</string>
     <string name="str_sale_work_holder_btn">거래 완료하기</string>
 
     <string name="str_edit_profile_img">프로필 사진 바꾸기</string>
