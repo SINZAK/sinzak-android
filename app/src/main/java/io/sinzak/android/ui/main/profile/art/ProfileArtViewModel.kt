@@ -15,7 +15,7 @@ abstract class ProfileArtViewModel : BaseViewModel() {
     /**
      * 완료된 아이템 리스트인가?
      */
-    val isCompleteList = MutableStateFlow(false)
+    val completeList = MutableStateFlow(false)
 
     lateinit var adapter: SaleWorkAdapter
 
@@ -26,7 +26,7 @@ abstract class ProfileArtViewModel : BaseViewModel() {
 
     fun setIsComplete(status : Boolean)
     {
-        isCompleteList.value = status
+        completeList.value = status
     }
 
     /**
@@ -38,7 +38,7 @@ abstract class ProfileArtViewModel : BaseViewModel() {
     }
 
     init {
-        isCompleteList.value = false
+        completeList.value = false
     }
 
     fun settingAdapter(list : StateFlow<MutableList<Product>>)
@@ -46,7 +46,7 @@ abstract class ProfileArtViewModel : BaseViewModel() {
         adapter.apply {
             list.onEach {
                 invokeBooleanFlow(
-                    isCompleteList,
+                    completeList,
                     { setArts(it.filter { !it.complete!! }) },
                     { setArts(it.filter { it.complete!! }) }
                 )

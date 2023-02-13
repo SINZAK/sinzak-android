@@ -19,7 +19,7 @@ class WorkViewModel @Inject constructor(
         adapter = SaleWorkAdapter(
             productModel::endTrade,
             ::onItemClick,
-            isCompleteList.value,
+            completeList.value,
             viewType = 1
         )
 

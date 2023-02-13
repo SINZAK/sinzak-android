@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import io.sinzak.android.R
-import io.sinzak.android.databinding.HolderWorkArtLinearBinding
+import io.sinzak.android.databinding.HolderProfileArtLinearBinding
 import io.sinzak.android.remote.dataclass.product.Product
 import io.sinzak.android.system.LogDebug
 
@@ -21,7 +21,7 @@ class SaleWorkAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.holder_work_art_linear,null,true)
+            DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.holder_profile_art_linear,null,true)
         )
     }
 
@@ -56,7 +56,7 @@ class SaleWorkAdapter(
     }
 
 
-    inner class ViewHolder(val bind : HolderWorkArtLinearBinding) : RecyclerView.ViewHolder(bind.root){
+    inner class ViewHolder(val bind : HolderProfileArtLinearBinding) : RecyclerView.ViewHolder(bind.root){
 
         fun bind(product: Product) {
 

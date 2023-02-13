@@ -54,7 +54,7 @@
                 android:gravity="center_vertical"
                 android:paddingHorizontal="12dp"
                 android:text="@string/str_sale_onsale_true"
-                isSelect="@{!vm.isCompleteList}"
+                isSelect="@{!vm.completeList}"
                 android:textColor="@color/color_profile_filter_select"
                 android:onClick="@{v-> vm.setIsComplete(false)}"
                 android:background="@drawable/btn_profile_filter"/>
@@ -66,7 +66,7 @@
                 android:gravity="center_vertical"
                 android:paddingHorizontal="12dp"
                 android:text="@string/str_sale_onsale_false"
-                isSelect="@{vm.isCompleteList}"
+                isSelect="@{vm.completeList}"
                 android:textColor="@color/color_profile_filter_select"
                 android:onClick="@{v-> vm.setIsComplete(true)}"
                 android:background="@drawable/btn_profile_filter"/>
