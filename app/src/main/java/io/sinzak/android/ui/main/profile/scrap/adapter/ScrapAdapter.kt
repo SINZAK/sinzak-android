@@ -12,13 +12,12 @@ import com.bumptech.glide.request.target.Target
 import io.sinzak.android.R
 import io.sinzak.android.databinding.HolderProfileScrapGridBinding
 import io.sinzak.android.remote.dataclass.product.Product
-import io.sinzak.android.system.LogDebug
 
 class ScrapAdapter(
+    val scrapList : MutableList<Product> = mutableListOf(),
     val onItemClick : ((Product)->Unit)? = null
 ) : RecyclerView.Adapter<ScrapAdapter.ViewHolder>() {
 
-    private var scrapList : List<Product> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -26,19 +25,14 @@ class ScrapAdapter(
         )
     }
 
-    fun setScraps(products : List<Product>)
+/*    fun setScraps(products : List<Product>)
     {
-        if(this.scrapList != products)
-        {
-            val oldSize = itemCount
-            this.scrapList = products
-            if(oldSize >= itemCount)
-                notifyDataSetChanged()
-            else
-                notifyItemRangeInserted(oldSize,itemCount - oldSize)
-            LogDebug(javaClass.name,"[SCRAP] 새로운 데이터 수신 $itemCount 개")
-        }
-    }
+        scrapList = listOf()
+        this.scrapList = products
+        notifyDataSetChanged()
+        LogDebug(javaClass.name,"[SCRAP] 새로운 데이터 수신 $itemCount 개")
+
+    }*/
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(scrapList[position])
