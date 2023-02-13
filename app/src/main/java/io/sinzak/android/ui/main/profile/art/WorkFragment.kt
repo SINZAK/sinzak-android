@@ -22,7 +22,6 @@ class WorkFragment : BaseFragment() {
         bind.apply {
             bind.lifecycleOwner = viewLifecycleOwner
             vm = viewModel
-            fg = this@WorkFragment
         }
     }
 
@@ -31,6 +30,6 @@ class WorkFragment : BaseFragment() {
     }
 
     override fun navigateOnBackPressed() {
-        navigator.revealHistory()
+        viewModel.onBackPressed()
     }
 }

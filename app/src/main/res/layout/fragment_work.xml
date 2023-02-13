@@ -6,9 +6,6 @@
         <variable
             name="vm"
             type="io.sinzak.android.ui.main.profile.art.WorkViewModel" />
-        <variable
-            name="fg"
-            type="io.sinzak.android.ui.main.profile.art.WorkFragment" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -20,7 +17,7 @@
             android:layout_height="24dp"
             android:layout_marginStart="16dp"
             android:background="@drawable/ic_bg_button"
-            android:onClick="@{v->fg.navigateOnBackPressed()}"
+            android:onClick="@{v->vm.onBackPressed()}"
             android:src="@drawable/ic_back"
             app:layout_constraintBottom_toBottomOf="@+id/textView"
             app:layout_constraintStart_toStartOf="parent"

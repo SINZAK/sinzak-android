@@ -15,7 +15,7 @@
             android:layout_height="24dp"
             android:layout_marginStart="16dp"
             android:background="@drawable/ic_bg_button"
-            android:onClick="@{v->vm.backPressed()}"
+            android:onClick="@{v->vm.onBackPressed()}"
             android:src="@drawable/ic_back"
             app:layout_constraintBottom_toBottomOf="@+id/textView"
             app:layout_constraintStart_toStartOf="parent"
@@ -81,7 +81,7 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             marginVertical="@{10f}"
             marginHorizon="@{0f}"
-            adapter="@{}"
+            adapter="@{vm.adapter}"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

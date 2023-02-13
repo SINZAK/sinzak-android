@@ -27,6 +27,6 @@ class RequestFragment : BaseFragment() {
     }
 
     override fun navigateOnBackPressed() {
-        viewModel.backPressed()
+        viewModel.onBackPressed()
     }
 }
