@@ -12,7 +12,8 @@ import io.sinzak.android.system.LogDebug
 
 class SaleWorkAdapter(
     val completeTradeClick : ((String,Boolean) -> Unit)? = null,
-    val onItemClick : ((Product) -> Unit)? = null
+    val onItemClick : ((Product) -> Unit)? = null,
+    val isComplete : Boolean = false,
 ): RecyclerView.Adapter<SaleWorkAdapter.ViewHolder>() {
 
     private var productList : List<Product> = listOf()
@@ -66,6 +67,7 @@ class SaleWorkAdapter(
             bind.setCompleteTradeClick {
                 completeTradeClick!!(product.id.toString(), product.complete!!)
             }
+            bind.isComplete = isComplete
         }
     }
 

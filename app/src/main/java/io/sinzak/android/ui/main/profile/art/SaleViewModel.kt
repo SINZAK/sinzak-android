@@ -24,10 +24,11 @@ class SaleViewModel @Inject constructor(
      */
     val isCompleteList = MutableStateFlow(false)
 
-    val adapter = SaleWorkAdapter(productModel::endTrade){ a->
-        productModel.loadProduct(a.id!!)
-        navigation.changePage(Page.ART_DETAIL)
-    }.apply {
+    val adapter = SaleWorkAdapter(
+        productModel::endTrade,
+        (::linkToProduct),
+        isCompleteList.value)
+        .apply {
         model.productList.onEach {
             invokeBooleanFlow(
                 isCompleteList,
@@ -39,6 +40,12 @@ class SaleViewModel @Inject constructor(
                 }
             )
         }.launchIn(viewModelScope)
+    }
+
+    private fun linkToProduct(product: Product)
+    {
+        productModel.loadProduct(product.id!!)
+        navigation.changePage(Page.ART_DETAIL)
     }
 
 

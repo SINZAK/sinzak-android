@@ -3,8 +3,11 @@ package io.sinzak.android.model.market
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
+import io.sinzak.android.constants.API_DELETE_ALL_SEARCH_HISTORY
+import io.sinzak.android.constants.API_GET_SEARCH_HISTORY
 import io.sinzak.android.model.BaseModel
 import io.sinzak.android.remote.dataclass.CResponse
+import io.sinzak.android.remote.retrofit.CallImpl
 import io.sinzak.android.ui.main.search.HistoryAdapter
 import io.sinzak.android.ui.main.search.HistoryViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,7 +20,8 @@ class MarketHistoryModel @Inject constructor(
     override val adapter : HistoryAdapter
     ) : BaseModel(), HistoryViewModel.History {
 
-    private val _historyList = MutableStateFlow(listOf<String>("신작","게임아트"))
+    private val _historyList = MutableStateFlow(listOf<String>("신작","아트"))
+
     override fun getHistoryList(): StateFlow<List<String>> {
         return _historyList
     }
@@ -33,7 +37,6 @@ class MarketHistoryModel @Inject constructor(
 
 
     override fun onConnectionSuccess(api: Int, body: CResponse) {
-
     }
 
     override fun handleError(api: Int, msg: String?, t: Throwable?) {
