@@ -1,7 +1,6 @@
 package io.sinzak.android.ui.main.profile.art
 
 import androidx.lifecycle.viewModelScope
-import androidx.recyclerview.widget.RecyclerView
 import io.sinzak.android.remote.dataclass.product.Product
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.ui.main.profile.art.adapter.SaleWorkAdapter
@@ -9,6 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import javax.inject.Inject
 
 abstract class ProfileArtViewModel : BaseViewModel() {
 

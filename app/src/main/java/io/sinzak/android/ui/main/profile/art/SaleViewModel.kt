@@ -19,7 +19,8 @@ class SaleViewModel @Inject constructor(
         adapter = SaleWorkAdapter(
             productModel::endTrade,
             ::onItemClick,
-            isCompleteList.value
+            isCompleteList.value,
+            viewType = 0
         )
 
         settingAdapter(model.productList)
