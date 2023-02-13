@@ -124,6 +124,16 @@ class ProfileViewModel @Inject constructor(
             navigation.changePage(this)
         }
     }
+
+    /**
+     * 스크랩 목록으로 이동
+     */
+    fun goToScrapList()
+    {
+        model.getWishList()
+        navigation.changePage(Page.PROFILE_SCRAP)
+    }
+
     /**
      * 팔로우/팔로워 페이지 이동
      */

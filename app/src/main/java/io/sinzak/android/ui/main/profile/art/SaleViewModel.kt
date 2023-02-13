@@ -5,6 +5,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import io.sinzak.android.enums.Page
 import io.sinzak.android.model.market.ProductDetailModel
 import io.sinzak.android.model.profile.ProfileModel
+import io.sinzak.android.remote.dataclass.product.Product
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.ui.main.profile.art.adapter.SaleWorkAdapter
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,10 +24,11 @@ class SaleViewModel @Inject constructor(
      */
     val isCompleteList = MutableStateFlow(false)
 
-    val adapter = SaleWorkAdapter(productModel::endTrade){ a ->
-        productModel.loadProduct(a.id!!.toInt())
-        navigation.changePage(Page.ART_DETAIL)
-    }.apply {
+    val adapter = SaleWorkAdapter(
+        productModel::endTrade,
+        (::linkToProduct),
+        isCompleteList.value)
+        .apply {
         model.productList.onEach {
             invokeBooleanFlow(
                 isCompleteList,
@@ -40,8 +42,18 @@ class SaleViewModel @Inject constructor(
         }.launchIn(viewModelScope)
     }
 
+    private fun linkToProduct(product: Product)
+    {
+        productModel.loadProduct(product.id!!)
+        navigation.changePage(Page.ART_DETAIL)
+    }
+
+
     fun setIsComplete(status : Boolean)
     {
         isCompleteList.value = status
     }
+
+
+
 }

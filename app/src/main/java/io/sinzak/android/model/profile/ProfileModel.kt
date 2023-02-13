@@ -8,6 +8,7 @@ import io.sinzak.android.remote.dataclass.profile.*
 import io.sinzak.android.remote.dataclass.request.profile.FollowRequest
 import io.sinzak.android.remote.dataclass.response.profile.FollowResponse
 import io.sinzak.android.remote.dataclass.response.profile.UserProfileResponse
+import io.sinzak.android.remote.dataclass.response.profile.WishResponse
 import io.sinzak.android.remote.retrofit.CallImpl
 import io.sinzak.android.system.App.Companion.prefs
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -44,25 +45,37 @@ class ProfileModel @Inject constructor() : BaseModel() {
      * 팔로워 & 팔로잉 리스트를 저장하는 공간
      */
     private val _followList = MutableStateFlow(mutableListOf<Follow>())
-    val followList: StateFlow<List<Follow>> get() = _followList
+    val followList: StateFlow<MutableList<Follow>> get() = _followList
 
     /**
      * 조회중인 유저 작업해요 리스트를 저장하는 공간
      */
     private val _workList = MutableStateFlow(mutableListOf<Product>())
-    val workList: StateFlow<List<Product>> get() = _workList
+    val workList: StateFlow<MutableList<Product>> get() = _workList
 
     /**
      * 조회중인 유저 판매 작품 리스트를 저장하는 공간
      */
     private val _productList = MutableStateFlow(mutableListOf<Product>())
-    val productList: StateFlow<List<Product>> get() = _productList
+    val productList: StateFlow<MutableList<Product>> get() = _productList
 
     /**
      * 조회중인 유저 의뢰해요 리스트를 저장하는 공간
      */
     private val _workEmployList = MutableStateFlow(mutableListOf<Product>())
-    val workEmployList : StateFlow<List<Product>> get() = _workEmployList
+    val workEmployList : StateFlow<MutableList<Product>> get() = _workEmployList
+
+    /**
+     * 내 작품 스크랩 리스트를 저장하는 공간
+     */
+    private val _productWishList = MutableStateFlow(mutableListOf<Product>())
+    val productWishList : StateFlow<MutableList<Product>> get() = _productWishList
+
+    /**
+     * 내 의뢰 스크랩 리스트를 저장하는 공간
+     */
+    private val _worktWishList = MutableStateFlow(mutableListOf<Product>())
+    val worktWishList : StateFlow<MutableList<Product>> get() = _worktWishList
 
     /**
      * 팔로우,언팔로우 플래그
@@ -120,6 +133,16 @@ class ProfileModel @Inject constructor() : BaseModel() {
 
     }
 
+    fun getWishList()
+    {
+        CallImpl(
+            API_GET_MY_WISH_LIST,
+            this
+        ).apply {
+            remote.sendRequestApi(this)
+        }
+    }
+
     fun followUser(isFollow: Boolean) {
 
         val request = FollowRequest(_currentUserId.value)
@@ -171,6 +194,14 @@ class ProfileModel @Inject constructor() : BaseModel() {
             _workList.value = profileResponse.works!!.toMutableList().asReversed()
             _productList.value = profileResponse.products!!.toMutableList().asReversed()
 //            _workEmployList.value = profileResponse.workEmploys!!.toMutableList().asReversed()
+        }
+    }
+
+    private fun onWishListResponse(response: WishResponse)
+    {
+        response.data?.let { wishResponse ->
+            _productWishList.value = wishResponse.productWishes!!.toMutableList()
+            _worktWishList.value = wishResponse.workWishes!!.toMutableList()
         }
     }
 
@@ -228,6 +259,10 @@ class ProfileModel @Inject constructor() : BaseModel() {
             }
             API_GET_MY_PROFILE -> {
                 onMyProfileResponse(body as UserProfileResponse)
+            }
+
+            API_GET_MY_WISH_LIST -> {
+                onWishListResponse(body as WishResponse)
             }
 
             API_FOLLOW_USER ->

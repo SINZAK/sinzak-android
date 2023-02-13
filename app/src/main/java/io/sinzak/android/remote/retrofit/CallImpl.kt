@@ -97,6 +97,8 @@ class CallImpl(
 
             API_DELETE_ALL_SEARCH_HISTORY -> remoteApi.deleteAllSearchHistory(header)
 
+            API_GET_MY_WISH_LIST -> remoteApi.getWishList(header)
+
             API_CERTIFY_UPLOAD_IMG -> remoteApi.uploadUnivImg(header.apply {
                 this.remove(CONTENT_TYPE) }, paramStr0!!, multipart!!)
 
