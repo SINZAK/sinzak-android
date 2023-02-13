@@ -16,10 +16,12 @@ package io.sinzak.android.constants
 const val API_REFRESH_TOKEN = 1
 
 const val API_LOGIN_EMAIL = 100
+
 const val API_JOIN_ACCOUNT = 110
 const val API_POST_OAUTH_TOKEN = 111
 const val API_POST_GOOGLE_OAUTH_TOKEN = 112  // 나중에 합쳐질 API
 const val API_GET_GOOGLE_ACCESS_TOKEN = 113
+const val API_CHECK_EMAIL = 114
 
 const val API_EMAIL_GET_NAVER = 150
 
@@ -84,5 +86,6 @@ const val API_GET_HOME_BANNER = 270
 
 
 const val API_GET_CHATROOM_LIST = 400
+const val API_CREATE_CHATROOM = 410
 
 

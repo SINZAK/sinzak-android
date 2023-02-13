@@ -10,6 +10,7 @@ import io.sinzak.android.remote.dataclass.response.profile.FollowResponse
 import io.sinzak.android.remote.dataclass.response.profile.UserProfileResponse
 import io.sinzak.android.remote.dataclass.response.profile.WishResponse
 import io.sinzak.android.remote.retrofit.CallImpl
+import io.sinzak.android.system.App.Companion.prefs
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
@@ -187,7 +188,9 @@ class ProfileModel @Inject constructor() : BaseModel() {
             profileResponse.profile.userId.let {
                 myUserId.value = it
                 _currentUserId.value = it
+                prefs.setString(CODE_USER_ID, it)
             }
+            prefs.setString(CODE_USER_NAME, profileResponse.profile.name)
             _workList.value = profileResponse.works!!.toMutableList().asReversed()
             _productList.value = profileResponse.products!!.toMutableList().asReversed()
 //            _workEmployList.value = profileResponse.workEmploys!!.toMutableList().asReversed()

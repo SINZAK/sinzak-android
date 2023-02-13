@@ -115,7 +115,7 @@
                     android:textColor="@color/primary"
                     style="@style/medium13"/>
                 <TextView
-                    android:visibility="@{vm.emailAddressAvailable == vm.EMAIL_AVAILABLE ? 0 : 8}"
+                    android:visibility="@{(vm.emailAddressAvailable == vm.EMAIL_AVAILABLE) &amp;&amp; vm.certRequested ? 0 : 8}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="인증메일이 전송되었습니다."

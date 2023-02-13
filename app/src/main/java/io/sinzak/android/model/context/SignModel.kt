@@ -7,6 +7,8 @@ import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.user.UserApiClient
 import com.navercorp.nid.NaverIdLoginSDK
 import com.navercorp.nid.oauth.NidOAuthBehavior
+import io.sinzak.android.BuildConfig
+import io.sinzak.android.R
 import io.sinzak.android.constants.*
 import io.sinzak.android.enums.SDK
 import io.sinzak.android.model.BaseModel
@@ -49,6 +51,7 @@ class SignModel @Inject constructor(
     val needSignUp = MutableStateFlow(false)
 
     private var oAuthTokenTaken = ""
+    private var socialOrigin = ""
 
     private val _sdkSignSuccess = MutableStateFlow(false)
     val sdkSignSuccess : StateFlow<Boolean> get() = _sdkSignSuccess
@@ -179,12 +182,6 @@ class SignModel @Inject constructor(
 
 
 
-
-
-
-
-
-
     private lateinit var naverCallback : NaverImpl
 
     private lateinit var loginKaKao : UserApiClient
@@ -244,6 +241,7 @@ class SignModel @Inject constructor(
     {
         NaverIdLoginSDK.getAccessToken()?.let{token->
             oAuthTokenTaken = token
+            socialOrigin = "naver"
             CallImpl(API_EMAIL_GET_NAVER,
             this,
             paramStr0 = token).apply{
@@ -290,6 +288,7 @@ class SignModel @Inject constructor(
         token?.let{
             _sdkSignSuccess.value = true
             oAuthTokenTaken = token.accessToken
+            socialOrigin = "kakao"
             LogInfo(javaClass.name,"카카오 로그인 성공 : $token")
             getKakaoEmail()
 
@@ -415,7 +414,7 @@ class SignModel @Inject constructor(
      * 백엔드에 로그인을 요청합니다.
      */
     private fun loginToServer(){
-        postOAuthToken(oAuthTokenTaken)
+        postOAuthToken(oAuthTokenTaken, socialOrigin)
         return
     }
 
@@ -469,9 +468,7 @@ class SignModel @Inject constructor(
      */
     private fun onResponseLogin(response : LoginEmailResponse){
         if(response.success == false){
-            if(response.message == "가입되지 않은 ID입니다."){
-                needSignUp.value = true
-            }
+            checkEmail(loginEmail)
         }else{
             // login
             setIsLogin(true)
@@ -497,12 +494,17 @@ class SignModel @Inject constructor(
     /**
      * OAUTH TOKEN POST
      */
-    private fun postOAuthToken(token: String){
-        CallImpl(API_POST_OAUTH_TOKEN, this, paramStr0 = token).apply{
+    private fun postOAuthToken(token: String, origin: String){
+        CallImpl(API_POST_OAUTH_TOKEN, this, paramStr0 = token, paramStr1 = origin).apply{
             remote.sendRequestApi(this)
         }
     }
 
+    private fun checkEmail(email: String){
+        CallImpl(API_CHECK_EMAIL, this, paramStr0 = email).apply{
+            remote.sendRequestApi(this)
+        }
+    }
 
     override fun onConnectionSuccess(api: Int, body: CResponse) {
         when(api)
@@ -536,7 +538,7 @@ class SignModel @Inject constructor(
                 if(body.success == true && body.data != null){
                     loginToServerViaEmail(body.data.email.toString())
                 }else{
-                    needSignUp.value = true
+                    checkEmail(loginEmail)
                 }
             }
 
@@ -558,9 +560,19 @@ class SignModel @Inject constructor(
                     loginToServerViaEmail(body.data.email.toString())
                     _sdkSignSuccess.value = false
                 }
-                else needSignUp.value = true
+                else {
+                    checkEmail(loginEmail)
+                }
             }
 
+            API_CHECK_EMAIL ->{
+                if(body.success == true){
+                    needSignUp.value = true
+                }else{
+
+                    globalUi.showToast(body.message?:valueModel.getString(R.string.str_checkemail_exist))
+                }
+            }
 
         }
     }
