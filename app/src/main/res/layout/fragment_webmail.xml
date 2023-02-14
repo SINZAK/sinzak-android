@@ -148,31 +148,29 @@
             android:paddingHorizontal="16dp"
             app:layout_constraintBottom_toBottomOf="parent">
             <TextView
+                style="@style/bold16"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="@string/str_next_time"
-                style="@style/bold16"
                 android:textColor="@color/white"
                 android:background="@drawable/btn_gray_filled"
                 android:gravity="center"
-
+                android:text="@string/str_next_time"
                 android:onClick="@{v->vm.onCancel()}"/>
             <Space
                 android:layout_width="11dp"
                 android:layout_height="match_parent"/>
             <TextView
+                style="@style/bold16"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="@string/str_complete"
-                style="@style/bold16"
                 android:textColor="@color/white"
                 android:background="@drawable/btn_red_filled"
                 android:gravity="center"
-
+                android:text="@string/str_complete"
                 android:enabled="@{vm.currentPage == vm.WEB_MAIL_PAGE ? vm.codeState == vm.DONE : vm.isUpload}"
-                android:onClick="@{v->vm.onSubmit()}"/>
+                android:onClick="@{v-> vm.currentPage == vm.WEB_MAIL_PAGE ? vm.onSubmit() : vm.onSubmitStudentId()}"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
         
     </androidx.constraintlayout.widget.ConstraintLayout>

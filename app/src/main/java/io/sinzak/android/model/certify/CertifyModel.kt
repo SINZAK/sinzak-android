@@ -29,11 +29,12 @@ class CertifyModel @Inject constructor(@ApplicationContext val context : Context
     val flagSendSuccess = MutableStateFlow(false)
     val flagCodeSuccess = MutableStateFlow(false)
     val flagCodeFailed = MutableStateFlow(false)
+    val flagUploadSuccess = MutableStateFlow(false)
 
     private var univ : SchoolData? = null
     private var address : String = ""
     private var code : String = ""
-    var imgUri = ""
+    private var imgUri : String = ""
     private var imgBitmap : Bitmap? = null
 
 
@@ -66,6 +67,14 @@ class CertifyModel @Inject constructor(@ApplicationContext val context : Context
     fun setCode(c : String)
     {
         code = c
+    }
+
+    /**
+     * 이미지 uri를 저장합니다
+     */
+    fun setImgUri(i : String)
+    {
+        imgUri = i
     }
 
     /**
@@ -162,6 +171,8 @@ class CertifyModel @Inject constructor(@ApplicationContext val context : Context
     private fun uploadImg(id : String)
     {
         loadBitmaps()
+
+        // TODO: nullPointException 발생 해결해야함
         val requestBody = FileUtil.getMultipart(context,"multipartFile",imgBitmap!!)
 
         CallImpl(
@@ -180,6 +191,7 @@ class CertifyModel @Inject constructor(@ApplicationContext val context : Context
         {
             API_SEND_MAIL_CODE -> {
                 flagSendSuccess.value = body.success == true
+                if (body.success == false) globalUi.showToast(body.message.toString())
             }
 
             API_CHECK_MAIL_CODE -> {
@@ -189,6 +201,11 @@ class CertifyModel @Inject constructor(@ApplicationContext val context : Context
             API_CERTIFY_UNIVERSITY -> {
                 body as UnivCertifyResponse
                 uploadImg(body.id)
+            }
+
+            API_CERTIFY_UPLOAD_IMG -> {
+                flagUploadSuccess.value = body.success == true
+                if (body.success == false) globalUi.showToast(body.message.toString())
             }
         }
     }
@@ -200,9 +217,15 @@ class CertifyModel @Inject constructor(@ApplicationContext val context : Context
 
             API_SEND_MAIL_CODE -> {
                 flagSendSuccess.value = false
+                globalUi.showToast(msg.toString())
             }
             API_CHECK_MAIL_CODE -> {
                 flagCodeSuccess.value = false
+                globalUi.showToast(msg.toString())
+            }
+            API_CERTIFY_UPLOAD_IMG -> {
+                flagUploadSuccess.value = false
+                globalUi.showToast(msg.toString())
             }
         }
     }

@@ -103,22 +103,32 @@ class WebmailViewModel @Inject constructor(
     fun deleteMailInput() {
         webMailInput.value = ""
         webMailState.value = INIT
+        certifyModel.flagSendSuccess.value = false
     }
 
     /**
      * 학교 웹메일 키보드 보내기 버튼을 누릅니다
+     * 1. 이메일 정규식에 맞는지 확인합니다
+     * 2. 서버에 해당 이메일로 인증 메일을 보내달라 요청합니다
+     * 3. 인증 메일 전송에 성공했다면 웹메일 상태를 완료로 바꿔줍니다
      */
     fun onSendMailClick()
     {
-        if (emailValidation(webMailInput.value)) {
-/*            invokeBooleanFlow(
+        if (emailValidation(webMailInput.value))
+        {
+
+            requestSendMail()
+
+            invokeBooleanFlow(
                 certifyModel.flagSendSuccess,
                 {
-                    showToast("메일 전송에 실패했습니다.")
+                    webMailState.value = INIT
                 },
-                {webMailState.value = DONE}
-            )*/
-            webMailState.value = DONE
+                {
+                    webMailState.value = DONE
+                }
+            )
+
         }
         else webMailState.value = ERROR
     }
@@ -133,11 +143,14 @@ class WebmailViewModel @Inject constructor(
 
     /**
      * 인증 코드 키보드 완료 버튼을 누릅니다
+     * 1. 서버에 인증 코드가 맞는지 확인 요청합니다
+     * 2. 맞다면 인증 코드 상태를 완료로 변경합니다
+     * 3. 틀리다면 인증 코드 상태를 에러로 변경합니다
      */
     fun onCheckCodeClick()
     {
-//        certifyModel.setCode(codeInput.value)
-//        certifyModel.checkMailCode()
+        requestCheckCode()
+
         invokeBooleanFlow(
             certifyModel.flagCodeSuccess,
             {codeState.value = ERROR},
@@ -150,9 +163,9 @@ class WebmailViewModel @Inject constructor(
      */
     fun onUploadImageClick(){
 
-        connect.loadImage { uri ->
-            imgFileName.value = FileUtil.getRealPath(certifyModel.context,uri).toString()
-            certifyModel.imgUri = uri.toString()
+        connect.loadImage {
+            imgFileName.value = FileUtil.getRealPath(certifyModel.context,it).toString()
+            certifyModel.setImgUri(imgFileName.value)
             isUpload.value = true
         }
     }
@@ -167,19 +180,30 @@ class WebmailViewModel @Inject constructor(
     }
 
     /**
-     * 완료 버튼을 누릅니다
+     * 완료 버튼을 누릅니다 - 웹메일
      */
     fun onSubmit()
     {
-/*        if (currentPage.value = WEB_MAIL_PAGE){
 
-        }
-        else {
-
-        }*/
         navigation.removeHistory(Page.PROFILE_WEBMAIL)
         navigation.removeHistory(Page.PROFILE_CERTIFICATION)
         navigation.revealHistory()
+    }
+
+    /**
+     * 완료 버튼을 누릅니다 - 학생증 인증
+     * 1. 학생증 인증을 요청합니다
+     * 2. 사진 업로드가 성공하면 편집 화면으로 돌아갑니다
+     */
+    fun onSubmitStudentId()
+    {
+        requestCertifyStudentId()
+
+        invokeBooleanFlow(
+            certifyModel.flagUploadSuccess,
+            {},
+            (::onSubmit)
+        )
     }
 
     /**
@@ -188,6 +212,39 @@ class WebmailViewModel @Inject constructor(
     fun onCancel()
     {
         navigation.revealHistory()
+    }
+
+    /************************************************
+     * API를 요청합니다
+     ***************************************/
+
+    /**
+     * 메일 인증을 요청합니다
+     */
+    private fun requestSendMail()
+    {
+        certifyModel.setAddress(webMailInput.value)
+        certifyModel.sendMailCode()
+    }
+
+    /**
+     * 인증 코드 확인을 요청합니다
+     */
+    private fun requestCheckCode()
+    {
+        certifyModel.setCode(codeInput.value)
+        certifyModel.checkMailCode()
+    }
+
+    /**
+     * 학생증 인증을 요청합니다
+     */
+    private fun requestCertifyStudentId()
+    {
+        if (isUpload.value)
+        {
+            certifyModel.certifySchoolId()
+        }
     }
 
 
