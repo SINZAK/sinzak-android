@@ -7,6 +7,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.sinzak.android.R
 import io.sinzak.android.databinding.*
 import io.sinzak.android.model.market.ProductDetailModel
+import io.sinzak.android.remote.dataclass.history.HistoryData
 import io.sinzak.android.system.LogDebug
 import io.sinzak.android.ui.base.BaseFragment
 import io.sinzak.android.ui.main.market.viewmodel.ArtsViewModel
@@ -113,10 +114,7 @@ class MarketFragment : BaseFragment() {
         ViewSearchHistoryBinding.inflate(layoutInflater).apply{
             lifecycleOwner = viewLifecycleOwner
             vm = historyViewModel
-            search = object : HistoryAdapter.OnClick{
-                override fun onClick(history: String)
-                = viewModel.search(history)
-            }
+            search = HistoryAdapter.OnClick { history -> viewModel.search(history[1]) }
             bind.flHistory.addView(root)
         }
     }
