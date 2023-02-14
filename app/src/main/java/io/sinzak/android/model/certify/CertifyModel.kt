@@ -29,28 +29,20 @@ class CertifyModel @Inject constructor(@ApplicationContext val context : Context
     val flagCodeSuccess = MutableStateFlow(false)
     val flagCodeFailed = MutableStateFlow(false)
 
-    /**
-     * 이메일
-     */
-    private var address : String = ""
-    fun setAddress(a : String)
-    {
-        address = a
-    }
-
-    /**
-     * 코드
-     */
-    private var code : String = ""
-    fun setCode(c : String)
-    {
-        code = c
-    }
-
-    /**
-     * 학교
-     */
     private var univ : SchoolData? = null
+    private var address : String = ""
+    private var code : String = ""
+    var imgUri = ""
+    private var imgBitmap : Bitmap? = null
+
+
+    /************************************************
+     * 입력을 받습니다
+     ***************************************/
+
+    /**
+     * 학교를 저장합니다
+     */
     fun setUniv(u : SchoolData)
     {
         univ = u
@@ -59,15 +51,21 @@ class CertifyModel @Inject constructor(@ApplicationContext val context : Context
         return univ!!.schoolDomain
     }
 
-    /************************************************
-     * Image
-     ***************************************/
+    /**
+     * 이메일을 저장합니다
+     */
+    fun setAddress(a : String)
+    {
+        address = a
+    }
 
     /**
-     * 학생증 이미지
+     * 인증 코드를 저장합니다
      */
-    var imgUri = ""
-    private var imgBitmap : Bitmap? = null
+    fun setCode(c : String)
+    {
+        code = c
+    }
 
     /**
      * 불러온 local uri 을 bitmap 으로 불러옵니다.
@@ -79,10 +77,26 @@ class CertifyModel @Inject constructor(@ApplicationContext val context : Context
         }
     }
 
+    /************************************************
+     * 저장값을 초기화합니다
+     ***************************************/
+
+    /**
+     * 학교를 초기화합니다
+     */
+    fun clearUniv()
+    {
+        univ = null
+    }
+
 
     /**********************************************************************************************************************
-     * REQUEST
+     * API 요청
      ***********************************************************************************************************************/
+
+    /**
+     * 인증 메일을 보냅니다
+     */
     fun sendMailCode()
     {
         val request = MailRequest(
@@ -100,6 +114,9 @@ class CertifyModel @Inject constructor(@ApplicationContext val context : Context
         }
     }
 
+    /**
+     * 인증 코드를 확인합니다
+     */
     fun checkMailCode()
     {
         flagCodeFailed.value = false
@@ -121,6 +138,9 @@ class CertifyModel @Inject constructor(@ApplicationContext val context : Context
         }
     }
 
+    /**
+     * 학생증 사진을 인증합니다
+     */
     fun certifySchoolId()
     {
         val request = UnivCertifyRequest(
@@ -136,7 +156,10 @@ class CertifyModel @Inject constructor(@ApplicationContext val context : Context
         }
     }
 
-    fun uploadImg(id : String)
+    /**
+     * 학생증 이미지를 업로드합니다
+     */
+    private fun uploadImg(id : String)
     {
         loadBitmaps()
         val requestBody = FileUtil.getMultipart(context,"multipartFile",imgBitmap!!)

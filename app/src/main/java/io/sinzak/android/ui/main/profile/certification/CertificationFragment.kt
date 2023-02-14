@@ -25,8 +25,8 @@ open class CertificationFragment : BaseFragment() {
         bind.apply {
             bind.lifecycleOwner = viewLifecycleOwner
             vm = viewModel
-            fg = this@CertificationFragment
         }
+        viewModel.clearAllState()
     }
 
     override fun showBottomBar(): Boolean {
@@ -34,7 +34,7 @@ open class CertificationFragment : BaseFragment() {
     }
 
     override fun navigateOnBackPressed() {
-        navigator.revealHistory()
+        viewModel.onCancel()
     }
 
 

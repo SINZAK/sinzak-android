@@ -4,6 +4,7 @@ import android.content.Context
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.sinzak.android.model.certify.CertifyModel
+import io.sinzak.android.model.insets.SoftKeyModel
 import io.sinzak.android.ui.login.RegisterConnect
 import io.sinzak.android.ui.main.profile.certification.CertificationViewModel
 import javax.inject.Inject
@@ -11,9 +12,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RegisterCertViewModel @Inject constructor(
-    val connect: RegisterConnect
+    val connect: RegisterConnect,
+    val softKeyModel : SoftKeyModel
 ) : CertificationViewModel(
-    certifyModel = CertifyModel(connect.context)
+    certifyModel = CertifyModel(connect.context),
+    soft = softKeyModel
 ) {
 
     override val isPartOfSignup: Boolean = true
