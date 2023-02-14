@@ -2,16 +2,12 @@ package io.sinzak.android.ui.main.profile.certification
 
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.sinzak.android.enums.Page
-import io.sinzak.android.enums.RegisterPage
 import io.sinzak.android.model.certify.CertifyModel
-import io.sinzak.android.model.context.SignModel
 import io.sinzak.android.model.insets.SoftKeyModel
-import io.sinzak.android.model.navigate.RegisterNavigation
 import io.sinzak.android.remote.dataclass.local.SchoolData
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.ui.main.profile.certification.adapter.CertificationAdapter
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
 @HiltViewModel
@@ -128,12 +124,12 @@ open class CertificationViewModel @Inject constructor(
     /************************************************
      * 초기화 합니다
      ***************************************/
-    fun clearAllState()
+/*    fun clearAllState()
     {
         schoolInput.value = ""
         showSchoolList.value = false
         schoolInserted.value = false
         school = null
         certifyModel.clearUniv()
-    }
+    }*/
 }

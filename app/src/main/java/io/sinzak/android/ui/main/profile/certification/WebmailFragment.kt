@@ -25,7 +25,6 @@ class WebmailFragment : BaseFragment() {
         bind.apply {
             bind.lifecycleOwner = viewLifecycleOwner
             vm = viewModel
-            fg = this@WebmailFragment
         }
 
         viewModel.connect.registerActivity(requireActivity() as BaseActivity<*>)
@@ -56,8 +55,7 @@ class WebmailFragment : BaseFragment() {
     }
 
     override fun navigateOnBackPressed() {
-        navigator.revealHistory()
-        viewModel.clearAllState()
+        viewModel.onCancel()
     }
 
 }

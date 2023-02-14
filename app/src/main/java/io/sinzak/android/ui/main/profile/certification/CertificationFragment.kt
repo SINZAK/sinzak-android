@@ -26,7 +26,6 @@ open class CertificationFragment : BaseFragment() {
             bind.lifecycleOwner = viewLifecycleOwner
             vm = viewModel
         }
-        viewModel.clearAllState()
     }
 
     override fun showBottomBar(): Boolean {

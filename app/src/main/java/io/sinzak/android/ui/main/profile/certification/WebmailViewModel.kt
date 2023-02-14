@@ -1,21 +1,13 @@
 package io.sinzak.android.ui.main.profile.certification
 
-import android.content.Intent
-import android.provider.MediaStore
 import android.text.TextUtils
-import android.util.Patterns
-import com.bumptech.glide.Glide
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.sinzak.android.R
 import io.sinzak.android.enums.Page
 import io.sinzak.android.model.certify.CertifyModel
-import io.sinzak.android.model.context.SignModel
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.utils.FileUtil
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
-import kotlin.coroutines.coroutineContext
 
 @HiltViewModel
 class WebmailViewModel @Inject constructor(
@@ -23,154 +15,205 @@ class WebmailViewModel @Inject constructor(
     val connect: CertifyConnect
 ) : BaseViewModel() {
 
-    private val _currentPage = MutableStateFlow(0)
-    val currentPage : StateFlow<Int> get() = _currentPage
+    /**
+     * 현재 페이지, 웹메일 인증: false 학생증 인증 : true
+     */
+    val currentPage = MutableStateFlow(WEB_MAIL_PAGE)
 
-    private val _webMailInput = MutableStateFlow("")
-    val  webMailInput : StateFlow<String> get() = _webMailInput
+    /**
+     * 입력된 학교 메일을 저장
+     */
+    val webMailInput = MutableStateFlow("")
 
-    private val _webMailState = MutableStateFlow(0)
-    val webMailState : StateFlow<Int> get() = _webMailState
+    /**
+     * 학교메일 인증 상태
+     */
+    val webMailState = MutableStateFlow(INIT)
 
-    private val _codeInput = MutableStateFlow("")
-    val codeInput : StateFlow<String> get() = _codeInput
+    /**
+     * 입력된 코드를 저장
+     */
+    val codeInput = MutableStateFlow("")
 
-    private val _codeState = MutableStateFlow(0)
-    val codeState : StateFlow<Int> get() = _codeState
+    /**
+     * 인증 코드 인증 상태
+     */
+    val codeState = MutableStateFlow(INIT)
 
-    private val _isUpload = MutableStateFlow(false)
-    val isUpload : StateFlow<Boolean> get() = _isUpload
+    /**
+     * 학생증 사진이 앱에 올라갔는지
+     */
+    val isUpload = MutableStateFlow(false)
 
+    /**
+     * 학생증 이미지 이름
+     */
     var imgFileName = MutableStateFlow("")
 
 
-    //인증 방식 선택
-    fun changePage(page: Int){
-        _currentPage.value = page
-    }
+    /************************************************
+     * 입력을 받습니다
+     ***************************************/
 
-
-    //학교 웹메일 입력란
+    /**
+     * 학교 웹메일을 입력받습니다
+     */
     fun mailInputText(cs : CharSequence) {
         cs.toString().let { text ->
-            if(_webMailInput.value != text){
-                _webMailInput.value = text
-            }
-            if (emailValidation(text)){
-               _webMailState.value = 0
-            }
+            if(webMailInput.value != text) webMailInput.value = text
+            if (emailValidation(text)) webMailState.value = INIT
         }
     }
 
-    //학교 웹메일 텍스트 삭제
-    fun deleteMailInput() {
-        _webMailInput.value = ""
+    /**
+     * 인증 코드를 입력받습니다
+     */
+    fun codeInputText(cs : CharSequence) {
+        cs.toString().let {
+            if(codeInput.value != it) codeInput.value = it
+        }
     }
 
-    //이메일 형식
+    /************************************************
+     * 입력을 검사합니다
+     ***************************************/
+
+    /**
+     * 이메일 형식을 검사합니다
+     */
     private fun emailValidation(input : String) : Boolean {
         return !TextUtils.isEmpty(input) && input.contains("@") && input.contains(certifyModel.getUnivAddress())
     }
 
-    //이메일 인증 상태
-    fun changeWebMailState() {
-        if(emailValidation(_webMailInput.value)) {
-            sendWebMail()
-        }
-        else onWebMailError()
+
+    /************************************************
+     * 클릭 시 실행
+     ***************************************/
+
+    /**
+     * 인증 방식을 누릅니다
+     */
+    fun changePage(){
+        currentPage.value = !currentPage.value
     }
 
     /**
-     * 이메일 보내기
+     * 학교 웹메일 X 버튼을 누릅니다
      */
-    private fun sendWebMail()
-    {
-        certifyModel.sendMailCode()
-        _webMailState.value = 2
+    fun deleteMailInput() {
+        webMailInput.value = ""
+        webMailState.value = INIT
     }
 
     /**
-     * 이메일 에러
+     * 학교 웹메일 키보드 보내기 버튼을 누릅니다
      */
-    private fun onWebMailError()
+    fun onSendMailClick()
     {
-        _webMailState.value = 1
-    }
-
-    //코드 입력란
-    fun codeInputText(cs : CharSequence) {
-        cs.toString().let {
-            if(_codeInput.value != it){
-                _codeInput.value = it
-            }
+        if (emailValidation(webMailInput.value)) {
+/*            invokeBooleanFlow(
+                certifyModel.flagSendSuccess,
+                {
+                    showToast("메일 전송에 실패했습니다.")
+                },
+                {webMailState.value = DONE}
+            )*/
+            webMailState.value = DONE
         }
-    }
-
-    //코드 인증 상태
-    fun changeCodeState(){
-
-        checkCode()
-
-        if(certifyModel.flagCodeSuccess.value){
-            _codeState.value = 2
-        }
-        else _codeState.value = 1
+        else webMailState.value = ERROR
     }
 
     /**
-     * 코드 확인
+     * 인증 코드 X 버튼을 누릅니다
      */
-    private fun checkCode()
-    {
-        certifyModel.setCode(_codeInput.value)
-        certifyModel.checkMailCode()
-    }
-
-    //코드 텍스트 삭제
     fun deleteCodeInput() {
-        _codeInput.value = ""
+        codeInput.value = ""
+        codeState.value = INIT
     }
 
-    //사진 업로드하기
-    fun uploadImg(){
-        if (!_isUpload.value) {
-            loadImg()
+    /**
+     * 인증 코드 키보드 완료 버튼을 누릅니다
+     */
+    fun onCheckCodeClick()
+    {
+//        certifyModel.setCode(codeInput.value)
+//        certifyModel.checkMailCode()
+        invokeBooleanFlow(
+            certifyModel.flagCodeSuccess,
+            {codeState.value = ERROR},
+            {codeState.value = DONE}
+        )
+    }
+
+    /**
+     * 사진 업로드하기 버튼을 누릅니다
+     */
+    fun onUploadImageClick(){
+
+        connect.loadImage { uri ->
+            imgFileName.value = FileUtil.getRealPath(certifyModel.context,uri).toString()
+            certifyModel.imgUri = uri.toString()
+            isUpload.value = true
+        }
+    }
+
+    /**
+     * 업로드된 학생증 사진을 지웁니다
+     */
+    fun onDeleteImageClick()
+    {
+        imgFileName.value = ""
+        isUpload.value = false
+    }
+
+    /**
+     * 완료 버튼을 누릅니다
+     */
+    fun onSubmit()
+    {
+/*        if (currentPage.value = WEB_MAIL_PAGE){
+
         }
         else {
-            imgFileName.value = ""
-            _isUpload.value = false
-        }
 
-
-    }
-
-    fun loadImg()
-    {
-        connect.loadImage {
-            imgFileName.value = FileUtil.getRealPath(certifyModel.context,it).toString()
-            certifyModel.imgUri = it.toString()
-            _isUpload.value = true
-        }
-    }
-
-    //완료 버튼
-    fun onSubmit(){
-        if (_currentPage.value == 1)
-        {
-            certifyModel.certifySchoolId()
-        }
-
+        }*/
         navigation.removeHistory(Page.PROFILE_WEBMAIL)
         navigation.removeHistory(Page.PROFILE_CERTIFICATION)
         navigation.revealHistory()
     }
 
-    //상태 초기화
-    fun clearAllState(){
-        _webMailInput.value = ""
-        _codeInput.value = ""
-        _webMailState.value = 0
-        _codeState.value = 0
+    /**
+     * 다음에 하기 버튼을 누릅니다
+     */
+    fun onCancel()
+    {
+        navigation.revealHistory()
+    }
+
+
+    /************************************************
+     * 초기화 합니다
+     ***************************************/
+
+    /**
+     * 상태를 초기화합니다
+     */
+/*    fun clearAllState(){
+        webMailInput.value = ""
+        codeInput.value = ""
+        webMailState.value = INIT
+        codeState.value = INIT
+        isUpload.value = false
+    }*/
+
+
+    companion object {
+        const val WEB_MAIL_PAGE = false
+        const val SCHOOL_ID_PAGE = true
+
+        const val INIT = 0
+        const val ERROR = 1
+        const val DONE = 2
     }
 
 

@@ -26,6 +26,7 @@ import javax.inject.Singleton
 @Singleton
 class CertifyModel @Inject constructor(@ApplicationContext val context : Context) : BaseModel() {
 
+    val flagSendSuccess = MutableStateFlow(false)
     val flagCodeSuccess = MutableStateFlow(false)
     val flagCodeFailed = MutableStateFlow(false)
 
@@ -119,7 +120,6 @@ class CertifyModel @Inject constructor(@ApplicationContext val context : Context
      */
     fun checkMailCode()
     {
-        flagCodeFailed.value = false
         flagCodeSuccess.value = false
 
 
@@ -179,16 +179,11 @@ class CertifyModel @Inject constructor(@ApplicationContext val context : Context
         when(api)
         {
             API_SEND_MAIL_CODE -> {
-                if (body.success == true){
-                    globalUi.showToast("메일을 전송했습니다.")
-                }
+                flagSendSuccess.value = body.success == true
             }
 
             API_CHECK_MAIL_CODE -> {
-                if (body.success == true){
-                    flagCodeSuccess.value = true
-                }else
-                    flagCodeFailed.value = true
+                flagCodeSuccess.value = body.success == true
             }
 
             API_CERTIFY_UNIVERSITY -> {
@@ -200,5 +195,15 @@ class CertifyModel @Inject constructor(@ApplicationContext val context : Context
 
     override fun handleError(api: Int, msg: String?, t: Throwable?) {
 
+        when(api)
+        {
+
+            API_SEND_MAIL_CODE -> {
+                flagSendSuccess.value = false
+            }
+            API_CHECK_MAIL_CODE -> {
+                flagCodeSuccess.value = false
+            }
+        }
     }
 }
