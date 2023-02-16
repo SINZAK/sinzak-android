@@ -82,13 +82,15 @@ class ProfileViewModel @Inject constructor(
         invokeStateFlow(profile) {profile ->
             profile?.let {
                 isMyProfile.value = it.myProfile
-                styledIntro.value = it.getHighLightIntro()
+                styledIntro.value = it.introduction
                 follower.value = it.followerNumber
                 following.value = it.followingNumber
                 isFollow.value = it.ifFollow
 
             }
         }
+
+
     }
 
     /********************************

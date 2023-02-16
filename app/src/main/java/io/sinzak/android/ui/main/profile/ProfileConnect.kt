@@ -14,6 +14,7 @@ class ProfileConnect @Inject constructor(@ActivityContext val context: Context) 
 
     private var dialog: Dialog? = null
 
+
     private fun isDialogOn() : Boolean{
         dialog?.let{
             if(it.isShowing) return true

@@ -58,7 +58,6 @@
                     android:layout_width="73dp"
                     android:layout_height="73dp"
                     android:layout_marginBottom="19dp"
-                    android:background="@drawable/ic_user_temp"
                     remoteImgUrl="@{vm.profile.imageUrl}"
                     imgRadius="@{20f}"/>
 

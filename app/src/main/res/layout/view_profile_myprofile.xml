@@ -21,7 +21,8 @@
         <ImageView
             android:layout_width="73dp"
             android:layout_height="73dp"
-            android:src="@drawable/ic_user_temp"
+            remoteImgUrl="@{vm.profile.imageUrl}"
+            imgRadius="@{20f}"
             android:layout_marginBottom="12dp"/>
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -117,10 +118,11 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <TextView
+            android:id="@+id/tv_intro"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             style="@style/regular13"
-            android:text="@{vm.profile.introduction}"
+            highLightText="@{vm.styledIntro}"
             android:textAlignment="center"
             android:layout_marginBottom="20dp"
             android:visibility="@{ (vm.profile.introduction.isEmpty || vm.profile.introduction == null) ? 8 : 0}"/>
