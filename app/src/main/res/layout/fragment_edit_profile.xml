@@ -5,9 +5,6 @@
     tools:context=".ui.main.profile.edit.EditFragment">
     <data>
         <variable
-            name="fg"
-            type="io.sinzak.android.ui.main.profile.edit.EditFragment" />
-        <variable
             name="vm"
             type="io.sinzak.android.ui.main.profile.edit.EditViewModel" />
     </data>
@@ -22,7 +19,7 @@
             android:layout_height="24dp"
             android:layout_marginStart="16dp"
             android:background="@drawable/ic_bg_button"
-            android:onClick="@{v->fg.navigateOnBackPressed()}"
+            android:onClick="@{v->vm.onBackPressed()}"
             android:src="@drawable/ic_back"
             app:layout_constraintBottom_toTopOf="@+id/nestedScrollView"
             app:layout_constraintStart_toStartOf="parent"
@@ -57,11 +54,13 @@
                 android:paddingTop="23dp">
 
                 <ImageView
+                    android:id="@+id/img_profile"
                     android:layout_width="73dp"
                     android:layout_height="73dp"
                     android:layout_marginBottom="19dp"
-                    android:background="@drawable/iv_profile_avatar"
-                    android:src="@{vm.profile.imageUrl}" />
+                    android:background="@drawable/ic_user_temp"
+                    remoteImgUrl="@{vm.profile.imageUrl}"
+                    imgRadius="@{20f}"/>
 
                 <TextView
                     style="@style/medium13"
@@ -69,7 +68,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="14.5dp"
                     android:text="@string/str_edit_profile_img"
-                    android:textColor="@color/secondary" />
+                    android:textColor="@color/secondary"
+                    android:onClick="@{v-> vm.onClickChangeImg()}"/>
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
@@ -90,11 +90,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@null"
-                        android:hint="@string/str_edit_nickname"
+                        android:textColorHint="@color/gray60"
                         android:inputType="text"
+                        android:maxLength="12"
+                        android:hint="@string/str_edit_nickname"
                         android:onTextChanged="@{(cs,a,b,c)-> vm.inputName(cs)}"
-                        android:text="@{vm.profile.name}"
-                        android:textColorHint="@color/gray60" />
+                        android:text="@{vm.profile.name}"/>
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -115,6 +116,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <EditText
+                        android:id="@+id/et_intro"
                         style="@style/regular16"
                         android:layout_width="match_parent"
                         android:layout_height="80dp"
@@ -123,8 +125,8 @@
                         android:background="@null"
                         android:gravity="start"
                         android:hint="@string/str_edit_introduction"
-                        android:inputType="textMultiLine"
                         android:maxLength="100"
+                        android:lines="4"
                         android:onTextChanged="@{(cs,a,b,c) -> vm.typeInputText(cs)}"
                         android:text="@{vm.profile.introduction}"
                         android:textColorHint="@color/gray60"

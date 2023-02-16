@@ -149,6 +149,8 @@
     <string name="str_canvas_size">캔버스 사이즈</string>
     <string name="str_centimeter">cm</string>
     <string name="str_meter">m</string>
+    <string name="str_register_name_title">신작에서 사용할\n이름을 입력해주세요.</string>
+    <string name="str_register_name_description">이름은 공백없이 12자 이하,\n기호는 - _ . 만 사용 가능합니다.</string>
     <string name="str_register_agree_service">서비스 이용 동의</string>
     <string name="str_register_agree_all">약관 전체 동의</string>
     <string name="str_register_agree_age">만 14세 이상입니다.</string>
