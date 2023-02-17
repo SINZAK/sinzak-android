@@ -8,6 +8,7 @@ import io.sinzak.android.constants.CODE_USER_ID
 import io.sinzak.android.constants.CODE_USER_NAME
 import io.sinzak.android.remote.dataclass.chat.ChatMsg
 import io.sinzak.android.remote.retrofit.BASE_URL
+import io.sinzak.android.remote.retrofit.STOMP_BASE
 import io.sinzak.android.system.App.Companion.prefs
 import io.sinzak.android.system.LogInfo
 import okhttp3.OkHttpClient
@@ -23,7 +24,7 @@ class ChatUtil(
 
 
     val client = StompClient(OkHttpClient(), 1000L).apply{
-        url = "${BASE_URL}/stomp/chat"
+        url = "${STOMP_BASE}/stomp/chat"
 
     }
 
