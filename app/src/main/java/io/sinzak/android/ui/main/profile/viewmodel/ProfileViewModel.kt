@@ -114,7 +114,7 @@ class ProfileViewModel @Inject constructor(
      */
     fun toggleFollow()
     {
-        model.followUser(isFollow.value)
+        model.followUser(isFollow.value,model.currentUserId.value)
         useFlag(model.followControlSuccessFlag) {
             isFollow.value = !isFollow.value
             follower.value = follower.value + if (isFollow.value) 1 else -1
@@ -157,6 +157,7 @@ class ProfileViewModel @Inject constructor(
      * 더보기 버튼을 눌렀을때 동작
      */
     fun showMoreDialog(){
+        if (!signModel.isUserLogin()) return
         showReportDialog()
     }
 
@@ -178,6 +179,7 @@ class ProfileViewModel @Inject constructor(
                 showBlockDialog()
             }
         )
+
 
     }
 

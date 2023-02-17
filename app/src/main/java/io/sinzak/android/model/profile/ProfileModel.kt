@@ -146,9 +146,9 @@ class ProfileModel @Inject constructor() : BaseModel() {
         }
     }
 
-    fun followUser(isFollow: Boolean) {
+    fun followUser(isFollow: Boolean, userId: String) {
 
-        val request = FollowRequest(_currentUserId.value)
+        val request = FollowRequest(userId)
         if (isFollow) {
             CallImpl(
                 API_UNFOLLOW_USER,

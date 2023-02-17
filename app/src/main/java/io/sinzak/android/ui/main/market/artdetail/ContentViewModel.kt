@@ -120,10 +120,13 @@ class ContentViewModel @Inject constructor(
      * 더보기 버튼을 눌렀을때 동작
      */
     fun showMoreDialog(){
+        if (!signModel.isUserLogin()) return
+
         if(isMyProduct.value){
             showEditDialog()
             return
         }
+
         showReportDialog()
     }
 
@@ -145,9 +148,11 @@ class ContentViewModel @Inject constructor(
      * 팔로우 버튼
      */
     fun onClickFollow(){
-        profileModel.followUser(isFollowing.value)
-        isFollowing.value = !isFollowing.value
-        follower.value = follower.value + if (isFollowing.value) 1 else -1
+        profileModel.followUser(isFollowing.value,authorId)
+        useFlag(profileModel.followControlSuccessFlag){
+            isFollowing.value = !isFollowing.value
+            follower.value = follower.value + if (isFollowing.value) 1 else -1
+        }
     }
 
     /**
