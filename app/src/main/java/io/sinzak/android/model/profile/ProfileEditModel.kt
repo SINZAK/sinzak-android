@@ -16,6 +16,8 @@ class ProfileEditModel @Inject constructor() : BaseModel() {
     private var name = ""
     private var picture = ""
 
+    private var link = ""
+
     private var nameErrorMsg = ""
 
     /**
@@ -40,6 +42,13 @@ class ProfileEditModel @Inject constructor() : BaseModel() {
         picture = p
     }
 
+    /**
+     * 포트폴리오 링크를 저장합니다 (앞뒤 공백없이)
+     */
+    fun setLink(l : String)
+    {
+        link = l.trim()
+    }
 
     /**
      * 프로필을 업데이트합니다
@@ -93,6 +102,14 @@ class ProfileEditModel @Inject constructor() : BaseModel() {
         ).apply {
             remote.sendRequestApi(this)
         }
+    }
+
+    /**
+     * 인증작가 신청을 요청합니다
+     */
+    fun requestVerify()
+    {
+
     }
 
 
