@@ -430,6 +430,14 @@ class SignModel @Inject constructor(
         }
     }
 
+
+    fun logout(){
+        prefs.accessToken = ""
+        prefs.refreshToken = ""
+        setIsLogin(false)
+
+    }
+
     /**
      * [안승우] 로그인 통합될때까지 쓸 임시함수
      */
