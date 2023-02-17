@@ -4,6 +4,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
+            name="viewmodel"
+            type="io.sinzak.android.ui.main.profile.setting.SettingViewModel" />
+
+        <variable
             name="fg"
             type="io.sinzak.android.ui.main.profile.setting.SettingFragment" />
     </data>
@@ -181,6 +185,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="로그아웃"
+                        android:onClick="@{v->viewmodel.logout()}"
                         style="@style/regular16"/>
 
 

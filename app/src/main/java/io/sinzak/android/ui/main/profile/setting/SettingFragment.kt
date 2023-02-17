@@ -1,6 +1,7 @@
 package io.sinzak.android.ui.main.profile.setting
 
 import android.view.View
+import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import io.sinzak.android.databinding.FragmentSettingProfileBinding
 import io.sinzak.android.ui.base.BaseFragment
@@ -9,6 +10,8 @@ import io.sinzak.android.ui.base.BaseFragment
 class SettingFragment : BaseFragment() {
 
     private lateinit var bind : FragmentSettingProfileBinding
+
+    private val viewModel by viewModels<SettingViewModel>()
 
     override fun getFragmentRoot(): View {
         bind = FragmentSettingProfileBinding.inflate(layoutInflater)
@@ -19,6 +22,7 @@ class SettingFragment : BaseFragment() {
         bind.apply {
             bind.lifecycleOwner = viewLifecycleOwner
             fg = this@SettingFragment
+            viewmodel = viewModel
         }
     }
 

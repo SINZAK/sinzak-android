@@ -74,6 +74,12 @@ class PreferenceUtil(context: Context) {
 
 
 
-    val accessToken : String get() = getString(ACCESS_TOKEN,"").toString()
-    val refreshToken : String get() = getString(REFRESH_TOKEN,"").toString()
+    var accessToken : String get() = getString(ACCESS_TOKEN,"").toString()
+    set(value) {
+        setString(ACCESS_TOKEN, value)
+    }
+    var refreshToken : String get() = getString(REFRESH_TOKEN,"").toString()
+        set(value) {
+            setString(REFRESH_TOKEN, value)
+        }
 }
