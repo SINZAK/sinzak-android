@@ -536,7 +536,9 @@ class SignModel @Inject constructor(
                 body as OAuthGetResponse
 
                 if(body.success == true && body.data != null){
-                    loginToServerViaEmail(body.data.email.toString())
+                    setIsLogin(true)
+                    _sdkSignSuccess.value = false
+                    //loginToServerViaEmail(body.data.email.toString())
                 }else{
                     checkEmail(loginEmail)
                 }
@@ -557,7 +559,7 @@ class SignModel @Inject constructor(
 
                 if (body.success == true && body.data != null)
                 {
-                    loginToServerViaEmail(body.data.email.toString())
+                    setIsLogin(true)
                     _sdkSignSuccess.value = false
                 }
                 else {
