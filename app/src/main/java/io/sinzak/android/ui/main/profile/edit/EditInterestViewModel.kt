@@ -1,13 +1,15 @@
 package io.sinzak.android.ui.main.profile.edit
 
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.sinzak.android.model.profile.ProfileModel
 import io.sinzak.android.ui.login.RegisterConnect
 import io.sinzak.android.ui.login.interest.InterestViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class EditInterestViewModel @Inject constructor(
-    val registerConnect: RegisterConnect
+    val registerConnect: RegisterConnect,
+    val model : ProfileModel
 ) : InterestViewModel(
     connect = registerConnect
 ) {

@@ -48,7 +48,7 @@ class ScrapViewModel @Inject constructor(
     {
         scraps.clear()
         if (showOnSale.value){
-            scraps.addAll(scrapList.filter { it.complete == true })
+            scraps.addAll(scrapList.filter { it.complete == false })
         }
         else scraps.addAll(scrapList)
 

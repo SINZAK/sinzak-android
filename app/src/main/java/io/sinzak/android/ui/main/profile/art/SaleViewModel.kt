@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SaleViewModel @Inject constructor(
-    private val model : ProfileModel,
+    val model : ProfileModel,
     private val productModel : ProductDetailModel
 ) : ProfileArtViewModel() {
 
@@ -20,7 +20,8 @@ class SaleViewModel @Inject constructor(
             productModel::endTrade,
             ::onItemClick,
             completeList.value,
-            viewType = 0
+            viewType = 0,
+            isMine = model.isMine()
         )
 
         settingAdapter(model.productList)

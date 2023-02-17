@@ -19,6 +19,9 @@
         <variable
             name="completeText"
             type="String" />
+        <variable
+            name="isMine"
+            type="Boolean" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -103,7 +106,8 @@
                 android:text="@string/str_sale_work_holder_btn"
                 android:textColor="@{isComplete ? @color/gray60 : @color/secondary}"
                 isSelect="@{isComplete}"
-                android:onClick="@{completeTradeClick}"/>
+                android:onClick="@{completeTradeClick}"
+                android:visibility="@{isMine ? 0 : 8}"/>
 
             <Space
                 android:layout_width="match_parent"

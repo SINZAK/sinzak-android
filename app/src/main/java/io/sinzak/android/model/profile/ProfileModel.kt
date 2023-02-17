@@ -33,7 +33,7 @@ class ProfileModel @Inject constructor() : BaseModel() {
     /**
      * 조회중인 유저 아이디 저장하는 공간
      */
-    private val _currentUserId = MutableStateFlow("-1")
+    private val _currentUserId = MutableStateFlow("-9")
     val currentUserId : StateFlow<String> get() = _currentUserId
 
     /**
@@ -87,6 +87,9 @@ class ProfileModel @Inject constructor() : BaseModel() {
      */
     fun isMine(): Boolean {
         return myUserId.value == _currentUserId.value
+    }
+    fun isMine(userId : String): Boolean {
+        return myUserId.value == userId
     }
 
 

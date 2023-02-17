@@ -189,9 +189,11 @@ class ContentViewModel @Inject constructor(
                 product = it.productId
                 isFollowing.value = it.isFollowing
                 follower.value = it.authorFollowerCnt
-                authorId = it.authorId
 
-                isMyProduct.value = pModel.isMine()
+                it.authorId.apply {
+                    authorId = this
+                    isMyProduct.value = pModel.isMine(this)
+                }
 
             }
 
