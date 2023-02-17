@@ -158,4 +158,7 @@ class ProductDetailModel @Inject constructor() : BaseModel() {
             }
         }
     }
+
+
+
 }

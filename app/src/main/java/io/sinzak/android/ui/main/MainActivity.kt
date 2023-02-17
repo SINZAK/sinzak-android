@@ -18,6 +18,7 @@ import io.sinzak.android.system.LogDebug
 import io.sinzak.android.ui.base.BaseActivity
 import io.sinzak.android.ui.base.BaseFragment
 import io.sinzak.android.ui.main.chat.ChatFragment
+import io.sinzak.android.ui.main.chat.ChatRoomFragment
 import io.sinzak.android.ui.main.home.HomeFragment
 import io.sinzak.android.ui.main.home.more.HomeMoreFragment
 import io.sinzak.android.ui.main.home.notification.NotificationFragment
@@ -188,6 +189,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
                 ART_DETAIL_SUGGEST ->
                     SuggestFragment()
+
+                CHAT_ROOM ->
+                    ChatRoomFragment()
             }
 
         fragment?.let {

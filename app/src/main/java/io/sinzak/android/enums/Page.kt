@@ -7,6 +7,7 @@ enum class Page {
     MARKET,
     OUTSOURCING,
     CHAT,
+    CHAT_ROOM,
     PROFILE,
     PROFILE_OTHER,
     PROFILE_SALE,

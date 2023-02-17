@@ -277,5 +277,20 @@ class ContentViewModel @Inject constructor(
     }
 
 
+    fun openChatPage(){
+        if(!signModel.isUserLogin()){
+            uiModel.gotoLogin()
+            return
+        }
+
+        if(isMyProduct.value){
+            navigation.changePage(Page.CHAT_ROOM)
+            return
+        }
+
+        navigation.changePage(Page.CHAT)
+
+
+    }
 
 }
