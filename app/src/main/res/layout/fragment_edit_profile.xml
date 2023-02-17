@@ -10,8 +10,7 @@
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/imageView"
@@ -99,7 +98,7 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="166dp"
+                    android:layout_height="190dp"
                     android:background="@drawable/cl_profile_underline"
                     android:orientation="vertical"
                     android:paddingTop="18.5dp"
@@ -118,14 +117,13 @@
                         android:id="@+id/et_intro"
                         style="@style/regular16"
                         android:layout_width="match_parent"
-                        android:layout_height="80dp"
+                        android:layout_height="110dp"
                         android:layout_marginHorizontal="20.5dp"
                         android:layout_marginTop="8.7dp"
                         android:background="@null"
                         android:gravity="start"
                         android:hint="@string/str_edit_introduction"
                         android:maxLength="100"
-                        android:lines="4"
                         android:onTextChanged="@{(cs,a,b,c) -> vm.typeInputText(cs)}"
                         android:text="@{vm.profile.introduction}"
                         android:textColorHint="@color/gray60"

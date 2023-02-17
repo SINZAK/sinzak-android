@@ -55,6 +55,12 @@ class ProfileEditModel @Inject constructor() : BaseModel() {
      */
     private fun isNameValidate() : Boolean
     {
+
+        if(name.isEmpty()){
+            nameErrorMsg = "닉네임은 한 글자 이상 설정해주세요"
+            return false
+        }
+
         if (name.contains(' ')){
             nameErrorMsg = "닉네임은 공백없이 설정해주세요"
             return false

@@ -39,17 +39,8 @@ class EditViewModel @Inject constructor(
 
     fun typeInputText(cs : CharSequence) {
 
-        if(connect.bind.etIntro.lineCount > 4){
-            connect.bind.etIntro.setText(_introduction.value)
-            connect.bind.etIntro.setSelection(_introduction.value.length)
-        }
-        else {
-            cs.toString().let {
-                if (_introduction.value != it) {
-                    _introduction.value = it
-                    model.setIntroduction(it)
-                }
-            }
+        if (!isMaxLines()) {
+            updateValue(cs.toString())
         }
     }
 
@@ -124,5 +115,32 @@ class EditViewModel @Inject constructor(
         }
     }
 
+    /********************************
+     * 입력창을 제어합니다
+     ********************************/
 
+    /**
+     * 입력창 최대라인을 제한합니다
+     */
+    private fun isMaxLines() : Boolean
+    {
+        if(connect.bind.etIntro.lineCount > 5){
+            connect.bind.etIntro.setText(_introduction.value)
+            connect.bind.etIntro.setSelection(_introduction.value.length)
+            return true
+        }
+
+        return false
+    }
+
+    /**
+     * 입력 글자를 갱신합니다
+     */
+    private fun updateValue(input : String)
+    {
+        if (_introduction.value != input) {
+            _introduction.value = input
+            model.setIntroduction(input)
+        }
+    }
 }
