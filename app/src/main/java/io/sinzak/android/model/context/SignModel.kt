@@ -544,7 +544,7 @@ class SignModel @Inject constructor(
             API_POST_OAUTH_TOKEN ->{
                 body as OAuthGetResponse
 
-                if(body.data != null && body.data!!.accessToken!!.isNotEmpty()){
+                if(body.success == true){
                     setIsLogin(true)
                     _sdkSignSuccess.value = false
                     //loginToServerViaEmail(body.data.email.toString())
