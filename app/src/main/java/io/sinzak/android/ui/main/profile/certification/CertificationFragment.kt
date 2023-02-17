@@ -25,7 +25,6 @@ open class CertificationFragment : BaseFragment() {
         bind.apply {
             bind.lifecycleOwner = viewLifecycleOwner
             vm = viewModel
-            fg = this@CertificationFragment
         }
     }
 
@@ -34,7 +33,7 @@ open class CertificationFragment : BaseFragment() {
     }
 
     override fun navigateOnBackPressed() {
-        navigator.revealHistory()
+        viewModel.onCancel()
     }
 
 
