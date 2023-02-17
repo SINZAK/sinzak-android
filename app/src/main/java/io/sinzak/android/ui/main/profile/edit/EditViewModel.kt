@@ -31,9 +31,15 @@ class EditViewModel @Inject constructor(
      */
     val profile get() = pModel.profile
 
-    /********************************
+    /**
+     * 이름을 저장하는 공간
+     */
+    private val _name = MutableStateFlow(profile.value!!.name)
+    val name : StateFlow<String> get() = _name
+
+    /**
      * 소개를 저장하는 공간
-     ********************************/
+     */
     private val _introduction = MutableStateFlow(profile.value!!.introduction)
     val introduction : StateFlow<String> get() = _introduction
 
@@ -46,7 +52,7 @@ class EditViewModel @Inject constructor(
 
     fun inputName(cs: CharSequence)
     {
-        model.setName(cs.toString())
+        updateValue(cs.toString())
     }
 
     /********************************
@@ -58,6 +64,8 @@ class EditViewModel @Inject constructor(
      */
     fun onSubmit()
     {
+        model.setName(_name.value)
+        model.setIntroduction(_introduction.value)
         model.updateProfile()
     }
 
@@ -148,7 +156,6 @@ class EditViewModel @Inject constructor(
     {
         if (_introduction.value != input) {
             _introduction.value = input
-            model.setIntroduction(input)
         }
     }
 }

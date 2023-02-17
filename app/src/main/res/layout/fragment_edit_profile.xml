@@ -93,7 +93,7 @@
                         android:maxLength="12"
                         android:hint="@string/str_edit_nickname"
                         android:onTextChanged="@{(cs,a,b,c)-> vm.inputName(cs)}"
-                        android:text="@{vm.profile.name}"/>
+                        android:text="@{vm.name}"/>
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
