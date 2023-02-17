@@ -12,9 +12,11 @@ import kotlin.math.sign
 
 
 @HiltViewModel
-class InterestViewModel @Inject constructor(
+open class InterestViewModel @Inject constructor(
     val connect: RegisterConnect
 ) : BaseViewModel() {
+
+    open val isPartOfRegister = true
 
     val genrePure = listOf("회화일반", "동양화", "조소", "판화", "공예", "초상화", "기타")
     val genreDesign = listOf("일러스트", "패키지/라벨", "인쇄물", "포스터/배너/간판", "로고/브랜딩", "앱/웹 디자인")
@@ -44,7 +46,7 @@ class InterestViewModel @Inject constructor(
         return true
     }
 
-    fun onSubmit() {
+    open fun onSubmit() {
         signModel.setInterests(
             chosenDesignChip.value + chosenPureChip.value
         )
@@ -52,7 +54,7 @@ class InterestViewModel @Inject constructor(
     }
 
 
-    fun onBackPressed(){
+    open fun onBackPressed(){
         connect.navigation.revealHistory()
     }
 

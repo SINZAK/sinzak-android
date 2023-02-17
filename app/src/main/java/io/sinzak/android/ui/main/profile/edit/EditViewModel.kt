@@ -77,7 +77,15 @@ class EditViewModel @Inject constructor(
      */
     fun gotoCertificationPage(hasCert : Boolean){
         if(!hasCert) navigation.changePage(Page.PROFILE_CERTIFICATION)
-        else return
+        else navigation.changePage(Page.PROFILE_CERTIFICATION)
+    }
+
+    /**
+     * 관심장르 변경하기 버튼을 누릅니다
+     */
+    fun gotoEditInterestPage()
+    {
+        navigation.changePage(Page.PROFILE_EDIT_INTEREST)
     }
 
     /**
