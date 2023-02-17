@@ -196,7 +196,7 @@ class ContentViewModel @Inject constructor(
                 follower.value = it.authorFollowerCnt
                 authorId = it.authorId
 
-                isMyProduct.value = pModel.isMine()
+                isMyProduct.value = pModel.isMine(art.authorId)
 
             }
 

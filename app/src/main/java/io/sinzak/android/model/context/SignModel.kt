@@ -512,6 +512,7 @@ class SignModel @Inject constructor(
     }
 
     private fun checkEmail(email: String){
+        LogInfo(javaClass.name,"Email Check : {$email}")
         if(email.isEmpty()){
             LogError(javaClass.name,"이메일을 불러오는데 실패했습니다.")
             return

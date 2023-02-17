@@ -13,7 +13,11 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:gravity="end"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
+        <Space
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="1dp"/>
         <TextView
             android:layout_marginEnd="16dp"
             android:layout_marginStart="120dp"
@@ -23,8 +27,9 @@
             style="@style/regular16"
             android:textColor="@color/background0"
             android:paddingVertical="12dp"
+            android:text="@{msg.msg}"
             android:paddingHorizontal="18dp"
-            tools:text="어쩌구저쩌구거래내역 멋잇구나 맛있구나 그렇구나 그런일이 있었구나"/>
+            tools:text="어쩌구저쩌구 맛있나"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>
