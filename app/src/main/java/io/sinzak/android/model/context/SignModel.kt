@@ -346,7 +346,8 @@ class SignModel @Inject constructor(
                 _sdkSignSuccess.value = true
                 sdkType = SDK.google
                 val authCode = it.serverAuthCode.toString()
-                getGoogleAccessToken(authCode)
+                postOAuthToken(authCode,"google", idToken = it.idToken.toString())
+                //getGoogleAccessToken(authCode)
             }
 
         } catch (e: ApiException) {
@@ -502,8 +503,8 @@ class SignModel @Inject constructor(
     /**
      * OAUTH TOKEN POST
      */
-    private fun postOAuthToken(token: String, origin: String){
-        CallImpl(API_POST_OAUTH_TOKEN, this, paramStr0 = token, paramStr1 = origin).apply{
+    private fun postOAuthToken(token: String, origin: String, idToken: String? = null){
+        CallImpl(API_POST_OAUTH_TOKEN, this, paramStr0 = token, paramStr1 = origin, paramStr2 = idToken).apply{
             remote.sendRequestApi(this)
         }
     }
@@ -543,7 +544,7 @@ class SignModel @Inject constructor(
             API_POST_OAUTH_TOKEN ->{
                 body as OAuthGetResponse
 
-                if(body.success == true && body.data != null){
+                if(body.data != null && body.data!!.accessToken!!.isNotEmpty()){
                     setIsLogin(true)
                     _sdkSignSuccess.value = false
                     //loginToServerViaEmail(body.data.email.toString())

@@ -85,7 +85,7 @@ abstract class BaseActivity<T : ViewDataBinding>(private val layoutId : Int) : A
     private lateinit var launcherResponse : (Intent?)->Unit
 
     private val resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-        LogInfo(javaClass.name,"[RESULT LAUNCHER] resultCode : ${it.resultCode}")
+        LogInfo(javaClass.name,"[RESULT LAUNCHER] resultCode : ${it.resultCode} Data ${it.data}")
         if(it.resultCode == Activity.RESULT_OK){
             launcherResponse(it.data)
         }
