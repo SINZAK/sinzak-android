@@ -20,7 +20,8 @@ class WorkViewModel @Inject constructor(
             productModel::endTrade,
             ::onItemClick,
             completeList.value,
-            viewType = 1
+            viewType = 1,
+            isMine = model.isMine()
         )
 
         settingAdapter(model.workList)

@@ -73,7 +73,7 @@
             android:id="@+id/editText"
             style="@style/regular16"
             android:layout_width="match_parent"
-            android:layout_height="326.7dp"
+            android:layout_height="300dp"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="11dp"
             android:background="@drawable/et_gray_filled"

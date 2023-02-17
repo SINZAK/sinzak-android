@@ -14,7 +14,8 @@ class SaleWorkAdapter(
     val completeTradeClick : ((String,Boolean) -> Unit)? = null,
     val onItemClick : ((Product) -> Unit)? = null,
     val isComplete : Boolean = false,
-    val viewType: Int
+    val viewType: Int,
+    val isMine : Boolean = false
 ): RecyclerView.Adapter<SaleWorkAdapter.ViewHolder>() {
 
     private var productList : List<Product> = listOf()
@@ -70,6 +71,7 @@ class SaleWorkAdapter(
             }
             bind.isComplete = isComplete
             bind.completeText = setCompleteText(viewType)
+            bind.isMine = isMine
         }
     }
 

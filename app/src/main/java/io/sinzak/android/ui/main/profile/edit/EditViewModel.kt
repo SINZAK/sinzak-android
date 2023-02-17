@@ -31,31 +31,28 @@ class EditViewModel @Inject constructor(
      */
     val profile get() = pModel.profile
 
-    /********************************
+    /**
+     * 이름을 저장하는 공간
+     */
+    private val _name = MutableStateFlow(profile.value!!.name)
+    val name : StateFlow<String> get() = _name
+
+    /**
      * 소개를 저장하는 공간
-     ********************************/
+     */
     private val _introduction = MutableStateFlow(profile.value!!.introduction)
     val introduction : StateFlow<String> get() = _introduction
 
     fun typeInputText(cs : CharSequence) {
 
-        if(connect.bind.etIntro.lineCount > 4){
-            connect.bind.etIntro.setText(_introduction.value)
-            connect.bind.etIntro.setSelection(_introduction.value.length)
-        }
-        else {
-            cs.toString().let {
-                if (_introduction.value != it) {
-                    _introduction.value = it
-                    model.setIntroduction(it)
-                }
-            }
+        if (!isMaxLines()) {
+            updateValue(cs.toString())
         }
     }
 
     fun inputName(cs: CharSequence)
     {
-        model.setName(cs.toString())
+        updateValue(cs.toString())
     }
 
     /********************************
@@ -67,6 +64,8 @@ class EditViewModel @Inject constructor(
      */
     fun onSubmit()
     {
+        model.setName(_name.value)
+        model.setIntroduction(_introduction.value)
         model.updateProfile()
     }
 
@@ -86,7 +85,15 @@ class EditViewModel @Inject constructor(
      */
     fun gotoCertificationPage(hasCert : Boolean){
         if(!hasCert) navigation.changePage(Page.PROFILE_CERTIFICATION)
-        else return
+        else navigation.changePage(Page.PROFILE_CERTIFICATION)
+    }
+
+    /**
+     * 관심장르 변경하기 버튼을 누릅니다
+     */
+    fun gotoEditInterestPage()
+    {
+        navigation.changePage(Page.PROFILE_EDIT_INTEREST)
     }
 
     /**
@@ -124,5 +131,31 @@ class EditViewModel @Inject constructor(
         }
     }
 
+    /********************************
+     * 입력창을 제어합니다
+     ********************************/
 
+    /**
+     * 입력창 최대라인을 제한합니다
+     */
+    private fun isMaxLines() : Boolean
+    {
+        if(connect.bind.etIntro.lineCount > 5){
+            connect.bind.etIntro.setText(_introduction.value)
+            connect.bind.etIntro.setSelection(_introduction.value.length)
+            return true
+        }
+
+        return false
+    }
+
+    /**
+     * 입력 글자를 갱신합니다
+     */
+    private fun updateValue(input : String)
+    {
+        if (_introduction.value != input) {
+            _introduction.value = input
+        }
+    }
 }

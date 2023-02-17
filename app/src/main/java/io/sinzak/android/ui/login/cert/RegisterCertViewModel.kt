@@ -3,7 +3,6 @@ package io.sinzak.android.ui.login.cert
 import android.content.Context
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import io.sinzak.android.model.certify.CertifyModel
 import io.sinzak.android.model.insets.SoftKeyModel
 import io.sinzak.android.ui.login.RegisterConnect

@@ -11,7 +11,4 @@ class RegisterCertFragment : CertificationFragment() {
     override val viewModel: CertificationViewModel
         by viewModels<RegisterCertViewModel>()
 
-
-
-
 }

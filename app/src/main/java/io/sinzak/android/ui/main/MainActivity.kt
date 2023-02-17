@@ -39,6 +39,7 @@ import io.sinzak.android.ui.main.profile.report.ReportTypeFragment
 import io.sinzak.android.ui.main.profile.art.RequestFragment
 import io.sinzak.android.ui.main.profile.art.SaleFragment
 import io.sinzak.android.ui.main.profile.art.WorkFragment
+import io.sinzak.android.ui.main.profile.edit.EditInterestFragment
 import io.sinzak.android.ui.main.profile.scrap.ScrapFragment
 import io.sinzak.android.ui.main.profile.setting.SettingFragment
 import io.sinzak.android.utils.RootViewDeferringInsetsCallback
@@ -167,8 +168,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 PROFILE_SALE,
                 PROFILE_WORK,
                 PROFILE_EDIT,
+                PROFILE_EDIT_INTEREST,
                 PROFILE_SETTING,
                 PROFILE_CERTIFICATION,
+                PROFILE_WEBMAIL,
+                PROFILE_VERIFY,
                 PROFILE_REPORT_TYPE,
                 PROFILE_REPORT_SEND,
                 PROFILE_SCRAP,
@@ -180,10 +184,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 NEW_POST, NEW_POST_IMAGE, NEW_POST_INFO, NEW_POST_SPEC, NEW_POST_WORKINFO ->
                     inflateWriteFragments(page)
 
-                PROFILE_WEBMAIL ->
-                    WebmailFragment()
-                PROFILE_VERIFY ->
-                    VerifyFragment()
                 ART_DETAIL ->
                     ArtDetailFragment()
 
@@ -226,10 +226,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 WorkFragment()
             PROFILE_EDIT ->
                 EditFragment()
+            PROFILE_EDIT_INTEREST ->
+                EditInterestFragment()
             PROFILE_SETTING ->
                 SettingFragment()
             PROFILE_CERTIFICATION ->
                 CertificationFragment()
+            PROFILE_WEBMAIL ->
+                WebmailFragment()
+            PROFILE_VERIFY ->
+                VerifyFragment()
             PROFILE_REPORT_TYPE ->
                 ReportTypeFragment()
             PROFILE_SCRAP ->

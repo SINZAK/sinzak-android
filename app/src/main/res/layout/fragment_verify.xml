@@ -4,9 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
-            name="fg"
-            type="io.sinzak.android.ui.main.profile.certification.VerifyFragment" />
-        <variable
             name="vm"
             type="io.sinzak.android.ui.main.profile.certification.VerifyViewModel" />
     </data>
@@ -21,7 +18,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/ic_bg_button"
-            android:onClick="@{v->fg.navigateOnBackPressed()}"
+            android:onClick="@{v->vm.onBackPressed()}"
             android:src="@drawable/ic_back"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -99,7 +96,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="홍익대학교"
+                    android:text="@{vm.profile.univ}"
                     style="@style/regular16"
                     android:background="@color/white"/>
                 <TextView
@@ -139,7 +136,10 @@
                     android:background="@null"
                     android:hint="@string/str_verify_link_hint"
                     android:textColorHint="@color/gray60"
-                    android:inputType="text"/>
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:text="@{vm.linkInput}"
+                    android:onTextChanged="@{(cs,a,b,c) -> vm.linkInputText(cs)}"/>
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -155,15 +155,15 @@
             android:layout_height="@dimen/btn_height"
             android:layout_marginHorizontal="8dp"
             android:layout_marginBottom="25.5dp"
-            android:background="@drawable/btn_primary_color"
+            android:background="@drawable/btn_red_filled"
             android:gravity="center"
             android:text="@string/str_apply"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-
-            android:onClick="@{v-> void}"/>
+            android:enabled="@{vm.buttonEnabled &amp; vm.profile.cert_uni}"
+            android:onClick="@{v-> vm.onSubmit()}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -23,7 +23,6 @@ class VerifyFragment : BaseFragment(){
         bind.apply {
             bind.lifecycleOwner = viewLifecycleOwner
             vm = viewModel
-            fg = this@VerifyFragment
         }
     }
 
@@ -32,7 +31,7 @@ class VerifyFragment : BaseFragment(){
     }
 
     override fun navigateOnBackPressed() {
-        navigator.revealHistory()
+        viewModel.onBackPressed()
     }
 
 }

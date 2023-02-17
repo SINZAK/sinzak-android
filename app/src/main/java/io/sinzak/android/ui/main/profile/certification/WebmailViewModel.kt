@@ -184,7 +184,6 @@ class WebmailViewModel @Inject constructor(
      */
     fun onSubmit()
     {
-
         navigation.removeHistory(Page.PROFILE_WEBMAIL)
         navigation.removeHistory(Page.PROFILE_CERTIFICATION)
         navigation.revealHistory()
