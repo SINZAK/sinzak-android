@@ -58,7 +58,11 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
+                android:id="@+id/rv_chat"
+                marginHorizon="@{0f}"
+                marginVertical="@{4f}"
                 android:orientation="vertical"
+                adapter="@{vm.invokeAdapter(rvChat)}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:layout_height="match_parent"
                 android:layout_weight="1" />

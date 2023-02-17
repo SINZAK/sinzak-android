@@ -13,7 +13,7 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:gravity="start"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
         <TextView
             android:layout_marginEnd="120dp"
             android:layout_marginStart="16dp"
@@ -24,6 +24,7 @@
             android:textColor="@color/text0"
             android:paddingVertical="12dp"
             android:paddingHorizontal="18dp"
+            android:text="@{msg.msg}"
             tools:text="어쩌구저쩌구거래내역 멋잇구나 맛있구나 그렇구나 그런일이 있었구나"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>

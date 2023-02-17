@@ -1,10 +1,13 @@
 package io.sinzak.android.ui.login.email
 
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.sinzak.android.model.certify.CertifyModel
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.ui.login.RegisterConnect
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @HiltViewModel
@@ -14,6 +17,11 @@ class EmailViewModel @Inject constructor(
 
 ) : BaseViewModel() {
 
+
+
+    private val loginObserver = signModel.isLogin.onEach {
+        connect.gotoWelcome()
+    }.launchIn(viewModelScope)
 
     fun onBackPressed(){
         connect.navigation.revealHistory()

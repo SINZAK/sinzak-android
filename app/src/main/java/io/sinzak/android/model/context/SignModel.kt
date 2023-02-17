@@ -42,7 +42,7 @@ class SignModel @Inject constructor(
     private val _isLogin = MutableStateFlow(false)
 
 
-
+    private var loginEmail : String = ""
     /**
      * 현재 로그인되어있는지 확인
      */
@@ -139,7 +139,7 @@ class SignModel @Inject constructor(
 
     var sdkType : SDK? = null
 
-    private var loginEmail : String = ""
+
 
 
     fun getUserDisplayName() : String{
@@ -171,7 +171,7 @@ class SignModel @Inject constructor(
             nickname = userDisplayName,
             SDKOrigin = sdkType!!.name,
             term = true, // todo 거절시 false
-            university = univ!!.schoolName,
+            university = univ?.schoolName.toString(),
             univEmail = univEmail
         ).apply{
             CallImpl(API_JOIN_ACCOUNT,this@SignModel,this).apply{
@@ -346,7 +346,10 @@ class SignModel @Inject constructor(
                 _sdkSignSuccess.value = true
                 sdkType = SDK.google
                 val authCode = it.serverAuthCode.toString()
-                getGoogleAccessToken(authCode)
+                loginEmail = account.email.toString()
+                username = account.displayName.toString()
+                postOAuthToken(authCode,"google", idToken = it.idToken.toString())
+                //getGoogleAccessToken(authCode)
             }
 
         } catch (e: ApiException) {
@@ -502,13 +505,19 @@ class SignModel @Inject constructor(
     /**
      * OAUTH TOKEN POST
      */
-    private fun postOAuthToken(token: String, origin: String){
-        CallImpl(API_POST_OAUTH_TOKEN, this, paramStr0 = token, paramStr1 = origin).apply{
+    private fun postOAuthToken(token: String, origin: String, idToken: String? = null){
+        CallImpl(API_POST_OAUTH_TOKEN, this, paramStr0 = token, paramStr1 = origin, paramStr2 = idToken).apply{
             remote.sendRequestApi(this)
         }
     }
 
     private fun checkEmail(email: String){
+        LogInfo(javaClass.name,"Email Check : {$email}")
+        if(email.isEmpty()){
+            LogError(javaClass.name,"이메일을 불러오는데 실패했습니다.")
+            return
+        }
+
         CallImpl(API_CHECK_EMAIL, this, paramStr0 = email).apply{
             remote.sendRequestApi(this)
         }
@@ -543,7 +552,7 @@ class SignModel @Inject constructor(
             API_POST_OAUTH_TOKEN ->{
                 body as OAuthGetResponse
 
-                if(body.success == true && body.data != null){
+                if(body.success == true){
                     setIsLogin(true)
                     _sdkSignSuccess.value = false
                     //loginToServerViaEmail(body.data.email.toString())

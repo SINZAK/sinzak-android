@@ -3,11 +3,14 @@ package io.sinzak.android.utils
 import com.gmail.bishoybasily.stomp.lib.StompClient
 import com.google.gson.Gson
 import com.google.gson.JsonObject
+import io.reactivex.schedulers.Schedulers
 import io.sinzak.android.constants.CODE_USER_ID
 import io.sinzak.android.constants.CODE_USER_NAME
 import io.sinzak.android.remote.dataclass.chat.ChatMsg
 import io.sinzak.android.remote.retrofit.BASE_URL
+import io.sinzak.android.remote.retrofit.STOMP_BASE
 import io.sinzak.android.system.App.Companion.prefs
+import io.sinzak.android.system.LogInfo
 import okhttp3.OkHttpClient
 
 
@@ -21,17 +24,26 @@ class ChatUtil(
 
 
     val client = StompClient(OkHttpClient(), 1000L).apply{
-        url = "${BASE_URL}/stomp/chat"
+        url = "${STOMP_BASE}/stomp/chat"
+
     }
 
-    val messageSubscriber = client.join("/sub/chat/rooms/${roomId}").subscribe {
+    val connect = client.connect()
+
+    private val eventLogger = connect.observeOn(Schedulers.io()).subscribe {
+        LogInfo(javaClass.name,it.toString())
+    }
+
+    val messageSubscriber = client.join("/sub/chat/rooms/${roomId}").subscribe ({
         try{
             val chatMsg = Gson().fromJson(it.toString(), ChatMsg::class.java)
             onReceiveMsg(chatMsg)
         }catch(e:Exception){
 
         }
-    }
+    },{
+        it.printStackTrace()
+    })
 
     fun destroySession(){
         messageSubscriber.dispose()
@@ -49,6 +61,7 @@ class ChatUtil(
             addProperty(MESSAGE_TYPE, TYPE_TEXT)
         }
 
+        LogInfo(javaClass.name,"STOMP : SEND CHAT $jsonObject")
 
         client.send("/pub/chat/message", jsonObject.toString()).subscribe {
             onSuccessSendMsg(it)

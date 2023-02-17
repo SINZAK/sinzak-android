@@ -173,10 +173,15 @@ fun onActionDone(view: EditText, listener: View.OnClickListener) {
             EditorInfo.IME_ACTION_SEND -> {
 
                 listener.onClick(view)
-                val im =
-                    view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                im.hideSoftInputFromWindow(view.windowToken, 0)
-                view.clearFocus()
+
+                if(i != EditorInfo.IME_ACTION_SEND) {
+                    val im =
+                        view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    im.hideSoftInputFromWindow(view.windowToken, 0)
+                    view.clearFocus()
+                }else{
+                    view.text = ""
+                }
 
                 return@setOnEditorActionListener true
             }
