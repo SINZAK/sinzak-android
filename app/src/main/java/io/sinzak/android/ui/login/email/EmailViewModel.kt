@@ -20,7 +20,7 @@ class EmailViewModel @Inject constructor(
 
 
     private val loginObserver = signModel.isLogin.onEach {
-        connect.finishPage()
+        connect.gotoWelcome()
     }.launchIn(viewModelScope)
 
     fun onBackPressed(){

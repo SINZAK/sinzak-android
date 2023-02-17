@@ -8,6 +8,7 @@ import io.sinzak.android.remote.dataclass.CResponse
 import io.sinzak.android.remote.dataclass.chat.ChatMsg
 import io.sinzak.android.remote.dataclass.chat.ChatRoom
 import io.sinzak.android.remote.dataclass.chat.ChatRoomListResponse
+import io.sinzak.android.remote.dataclass.response.market.MarketDetailResponse
 import io.sinzak.android.remote.retrofit.CallImpl
 import io.sinzak.android.utils.ChatUtil
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -32,6 +33,7 @@ class ChatStorage @Inject constructor() : BaseModel() {
     }
 
 
+    lateinit var product: MarketDetailResponse.Detail
 
 
 

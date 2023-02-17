@@ -42,7 +42,7 @@ class SignModel @Inject constructor(
     private val _isLogin = MutableStateFlow(false)
 
 
-
+    private var loginEmail : String = ""
     /**
      * 현재 로그인되어있는지 확인
      */
@@ -139,7 +139,7 @@ class SignModel @Inject constructor(
 
     var sdkType : SDK? = null
 
-    private var loginEmail : String = ""
+
 
 
     fun getUserDisplayName() : String{
@@ -171,7 +171,7 @@ class SignModel @Inject constructor(
             nickname = userDisplayName,
             SDKOrigin = sdkType!!.name,
             term = true, // todo 거절시 false
-            university = univ!!.schoolName,
+            university = univ?.schoolName.toString(),
             univEmail = univEmail
         ).apply{
             CallImpl(API_JOIN_ACCOUNT,this@SignModel,this).apply{
@@ -346,6 +346,8 @@ class SignModel @Inject constructor(
                 _sdkSignSuccess.value = true
                 sdkType = SDK.google
                 val authCode = it.serverAuthCode.toString()
+                loginEmail = account.email.toString()
+                username = account.displayName.toString()
                 postOAuthToken(authCode,"google", idToken = it.idToken.toString())
                 //getGoogleAccessToken(authCode)
             }
@@ -510,6 +512,11 @@ class SignModel @Inject constructor(
     }
 
     private fun checkEmail(email: String){
+        if(email.isEmpty()){
+            LogError(javaClass.name,"이메일을 불러오는데 실패했습니다.")
+            return
+        }
+
         CallImpl(API_CHECK_EMAIL, this, paramStr0 = email).apply{
             remote.sendRequestApi(this)
         }
