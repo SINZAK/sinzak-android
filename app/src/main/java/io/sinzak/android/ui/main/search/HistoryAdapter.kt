@@ -6,16 +6,21 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import io.sinzak.android.R
 import io.sinzak.android.databinding.HolderSearchHistoryBinding
+import io.sinzak.android.remote.dataclass.history.HistoryData
+import io.sinzak.android.system.LogDebug
+import org.w3c.dom.ls.LSInput
 import javax.inject.Inject
 
 class HistoryAdapter @Inject constructor() : RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
 
-    private var data = listOf<String>()
+    private var data = listOf<List<String>>()
 
     private var onClick : OnClick? = null
     private var onDelete : OnClick? = null
 
-    fun reduce(onClick: OnClick, onDelete : OnClick, data : List<String>) : HistoryAdapter{
+    fun reduce(onClick: OnClick, onDelete : OnClick, data : List<List<String>>) : HistoryAdapter{
+
+        LogDebug(javaClass.name, "어뎁터 reduce 메서드 콜")
         if(data != this.data) {
             this.data = data
             notifyDataSetChanged()
@@ -37,8 +42,6 @@ class HistoryAdapter @Inject constructor() : RecyclerView.Adapter<HistoryAdapter
     }
 
 
-
-
     override fun getItemCount(): Int {
         return data.size
     }
@@ -49,10 +52,11 @@ class HistoryAdapter @Inject constructor() : RecyclerView.Adapter<HistoryAdapter
 
 
 
+
     inner class ViewHolder(val bind : HolderSearchHistoryBinding) : RecyclerView.ViewHolder(bind.root){
-        fun bind(tag : String)
+        fun bind(tag : List<String>)
         {
-            bind.text = tag
+            bind.text = tag[1]
             bind.setDeleteItem {
                 onDelete?.onClick(tag)
             }
@@ -64,6 +68,6 @@ class HistoryAdapter @Inject constructor() : RecyclerView.Adapter<HistoryAdapter
     }
 
     fun interface OnClick{
-        fun onClick(history : String)
+        fun onClick(history : List<String>)
     }
 }

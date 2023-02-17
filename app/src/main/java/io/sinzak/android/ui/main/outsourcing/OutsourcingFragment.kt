@@ -80,7 +80,7 @@ class OutsourcingFragment : BaseFragment(){
         ViewSearchHistoryBinding.inflate(layoutInflater).apply{
             vm = hModel
             setSearch {
-                viewModel.typeSearchFieldText(it)
+                viewModel.typeSearchFieldText(it[1])
                 viewModel.searchText()
 
             }

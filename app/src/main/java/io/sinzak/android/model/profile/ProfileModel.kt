@@ -207,12 +207,12 @@ class ProfileModel @Inject constructor() : BaseModel() {
 
     fun changeProfile(newUserId: String)
     {
+        clearProfileContent()
         if (_currentUserId.value != newUserId)
         {
             userHistory.add(_currentUserId.value)
             _currentUserId.value = newUserId
         }
-        clearProfileContent()
 
     }
 

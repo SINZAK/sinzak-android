@@ -16,6 +16,9 @@
         <variable
             name="isComplete"
             type="Boolean" />
+        <variable
+            name="completeText"
+            type="String" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -41,7 +44,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_work_complete"
+                    android:text="@{completeText}"
                     style="@style/bold16"
                     android:textColor="@color/on_primary"
                     android:drawablePadding="1dp"
@@ -98,8 +101,8 @@
                 android:background="@drawable/tv_sale_work_holder_btn"
                 android:gravity="center"
                 android:text="@string/str_sale_work_holder_btn"
-                android:textColor="@{product.complete ? @color/gray60 : @color/secondary}"
-                isSelect="@{product.complete}"
+                android:textColor="@{isComplete ? @color/gray60 : @color/secondary}"
+                isSelect="@{isComplete}"
                 android:onClick="@{completeTradeClick}"/>
 
             <Space

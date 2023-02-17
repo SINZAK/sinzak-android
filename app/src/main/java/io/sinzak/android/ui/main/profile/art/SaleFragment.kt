@@ -22,16 +22,15 @@ class SaleFragment : BaseFragment() {
         bind.apply {
             bind.lifecycleOwner = viewLifecycleOwner
             vm = viewModel
-            fg = this@SaleFragment
         }
-    }
-
-    override fun navigateOnBackPressed() {
-        navigator.revealHistory()
     }
 
     override fun showBottomBar(): Boolean {
         return false
+    }
+
+    override fun navigateOnBackPressed() {
+        viewModel.onBackPressed()
     }
 
 }

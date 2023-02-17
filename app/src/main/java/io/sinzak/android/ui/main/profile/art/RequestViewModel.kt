@@ -9,7 +9,7 @@ import io.sinzak.android.ui.main.profile.art.adapter.SaleWorkAdapter
 import javax.inject.Inject
 
 @HiltViewModel
-class SaleViewModel @Inject constructor(
+class RequestViewModel @Inject constructor(
     private val model : ProfileModel,
     private val productModel : ProductDetailModel
 ) : ProfileArtViewModel() {
@@ -20,14 +20,14 @@ class SaleViewModel @Inject constructor(
             productModel::endTrade,
             ::onItemClick,
             completeList.value,
-            viewType = 0
+            viewType = 2
         )
 
-        settingAdapter(model.productList)
+        settingAdapter(model.workEmployList)
     }
 
     override fun onItemClick(product: Product) {
-        productModel.loadProduct(product.id!!)
+        productModel.loadWork(product.id!!)
         navigation.changePage(Page.ART_DETAIL)
     }
 
