@@ -2,6 +2,7 @@ package io.sinzak.android.utils
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -18,7 +19,7 @@ object GoogleAccountUtil {
     ){
         val signInIntent : Intent = signInClient.signInIntent
         activity.gotoActivityForResult(signInIntent){ result ->
-
+            Log.i(javaClass.name,"Google Login Status: $result")
             if (result != null)
             {
                 val completeTask = GoogleSignIn.getSignedInAccountFromIntent(result)

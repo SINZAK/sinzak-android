@@ -92,6 +92,10 @@ class ProfileModel @Inject constructor() : BaseModel() {
         return myUserId.value == userId
     }
 
+    fun isMine(compareId: String):Boolean{
+        return myUserId.value == compareId
+    }
+
 
     fun getProfile() {
         clearProfileContent()

@@ -48,7 +48,12 @@ open class CallExtent<T: CResponse>(private val apiNum : Int, private val call :
                         }
                     400, 500 -> {
                         response.errorBody()?.let { ebody ->
-                            val body = Gson().fromJson(ebody.string(),CResponse::class.java)
+
+                            val body = try {
+                                Gson().fromJson(ebody.string(), CResponse::class.java)
+                            }catch(e:Exception){
+                                CResponse(message = ebody.string())
+                            }
                             callback.onResponse(
                                 this@CallExtent,
                                 Response.success(

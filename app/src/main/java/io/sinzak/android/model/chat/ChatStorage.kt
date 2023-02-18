@@ -5,10 +5,14 @@ import io.sinzak.android.constants.API_CREATE_CHATROOM
 import io.sinzak.android.constants.API_GET_CHATROOM_LIST
 import io.sinzak.android.model.BaseModel
 import io.sinzak.android.remote.dataclass.CResponse
+import io.sinzak.android.remote.dataclass.chat.ChatCreateResponse
 import io.sinzak.android.remote.dataclass.chat.ChatMsg
 import io.sinzak.android.remote.dataclass.chat.ChatRoom
 import io.sinzak.android.remote.dataclass.chat.ChatRoomListResponse
+import io.sinzak.android.remote.dataclass.response.market.MarketDetailResponse
 import io.sinzak.android.remote.retrofit.CallImpl
+import io.sinzak.android.system.LogDebug
+import io.sinzak.android.system.LogInfo
 import io.sinzak.android.utils.ChatUtil
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -25,6 +29,8 @@ class ChatStorage @Inject constructor() : BaseModel() {
     private val _chatMsg = MutableStateFlow(mutableListOf<ChatMsg>())
     val chatMsg : StateFlow<MutableList<ChatMsg>> get() = _chatMsg
 
+    val chatMsgFlow = MutableStateFlow<ChatMsg?>(null)
+
     fun getChatRoomList(){
         CallImpl(API_GET_CHATROOM_LIST,this).apply{
             remote.sendRequestApi(this)
@@ -32,6 +38,7 @@ class ChatStorage @Inject constructor() : BaseModel() {
     }
 
 
+    lateinit var product: MarketDetailResponse.Detail
 
 
 
@@ -59,7 +66,9 @@ class ChatStorage @Inject constructor() : BaseModel() {
             this,
             paramInt0 = postId,
             paramStr0 = postType
-        )
+        ).apply{
+            remote.sendRequestApi(this)
+        }
     }
 
 
@@ -74,8 +83,11 @@ class ChatStorage @Inject constructor() : BaseModel() {
 
 
     fun sendMsg(msg: String){
+        if(msg.isEmpty())
+            return
         currentChatRoom?.let{
-            sendMsg(msg)
+
+            it.sendMsg(msg)
             addChatMsgOnTail(
                 ChatMsg(
                     msgId = msg.hashCode(),
@@ -84,6 +96,8 @@ class ChatStorage @Inject constructor() : BaseModel() {
                 )
             )
         }?:run{
+            LogInfo(javaClass.name,"CHATROOM EMPTY, TRY MAKE CHATROOM")
+            pendingMsg = msg
             makeChatroom()
         }
 
@@ -97,9 +111,9 @@ class ChatStorage @Inject constructor() : BaseModel() {
     }
 
     private fun addChatMsgOnTail(msg: ChatMsg){
-        _chatMsg.value = chatMsg.value.apply{
-            add(msg)
-        }
+        chatMsgFlow.value = msg
+
+
     }
 
     private fun onFinishSend(success:Boolean){
@@ -124,7 +138,8 @@ class ChatStorage @Inject constructor() : BaseModel() {
 
             API_CREATE_CHATROOM ->{
                 if(body.success == true){
-                    makeChatRoom("ROOM_ID")
+                    body as ChatCreateResponse
+                    makeChatRoom(body.data?.roomUuid!!)
                 }
             }
         }

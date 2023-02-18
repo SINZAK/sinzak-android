@@ -5,7 +5,7 @@ import io.sinzak.android.remote.dataclass.CResponse
 import io.sinzak.android.remote.dataclass.product.Product
 
 class MarketHomeResponse(
-    @SerializedName("data") val data : Data
+    @SerializedName("data") val data : Data? = null
 ) : CResponse(){
 
     data class Data(

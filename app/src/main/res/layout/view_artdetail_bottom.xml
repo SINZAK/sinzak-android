@@ -99,10 +99,9 @@
                 app:drawableTint="@color/white" />
 
             <TextView
-
+                android:onClick="@{v->vm.onClickChat()}"
                 android:visibility="@{vm.isMyProduct ? 0 : 8}"
 
-                android:onClick="@{v->void}"
 
                 android:paddingVertical="11dp"
                 android:layout_width="match_parent"

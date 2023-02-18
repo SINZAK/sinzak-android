@@ -24,7 +24,10 @@
             android:layout_height="match_parent"
             style="@style/regular16"
             android:imeOptions="actionSend"
-            onActionDone="@{v->vm.sendTypedMsg(etChat.getText().toString())}"
+            android:paddingHorizontal="16dp"
+            android:inputType="text"
+
+            onActionDone="@{v->vm.sendTypedMsg(etChat.getText())}"
             android:layout_weight="1"
             android:background="@drawable/et_gray_filled"
             android:layout_marginEnd="16dp"/>
