@@ -55,13 +55,13 @@ class ChatStorage @Inject constructor() : BaseModel() {
         this.postType = postType
     }
 
-    fun loadExistChatroom(uuid: Int){
-        makeChatRoom(uuid.toString())
+    fun loadExistChatroom(uuid: String){
+        makeChatRoom(uuid)
         remote.sendRequestApi(
             CallImpl(
                 API_GET_CHATROOM_MSG,
                 this,
-                paramInt0 = uuid
+                paramStr0 = uuid
             )
         )
     }

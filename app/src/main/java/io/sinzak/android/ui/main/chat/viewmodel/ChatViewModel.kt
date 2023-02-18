@@ -2,6 +2,7 @@ package io.sinzak.android.ui.main.chat.viewmodel
 
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.sinzak.android.enums.Page
 import io.sinzak.android.model.chat.ChatStorage
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.ui.main.chat.ChatRoomAdapter
@@ -20,7 +21,9 @@ class ChatViewModel @Inject constructor(
         storage.getChatRoomList()
     }
 
-    val chatRoomAdapter = ChatRoomAdapter()
+    val chatRoomAdapter = ChatRoomAdapter{
+        openChatRoom(it)
+    }
 
     private val chatRoomRequest = viewModelScope.launch {
         while(true){
@@ -31,6 +34,11 @@ class ChatViewModel @Inject constructor(
 
     }
 
+
+    fun openChatRoom(uuid: String){
+        storage.loadExistChatroom(uuid)
+        navigation.changePage(Page.CHAT_ROOM)
+    }
 
 
     private val chatRoomCollector =
