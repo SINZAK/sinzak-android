@@ -14,17 +14,16 @@ class WorkViewModel @Inject constructor(
     private val productModel: ProductDetailModel
 ) : ProfileArtViewModel() {
 
+    val adapter = SaleWorkAdapter(
+        productModel::endTrade,
+        ::onItemClick,
+        completeList.value,
+        viewType = 1,
+        model
+    )
+
     init {
-
-        adapter = SaleWorkAdapter(
-            productModel::endTrade,
-            ::onItemClick,
-            completeList.value,
-            viewType = 1,
-            isMine = model.isMine()
-        )
-
-        settingAdapter(model.workList)
+        settingAdapter(adapter,model.workList)
     }
 
     override fun onItemClick(product: Product) {

@@ -4,10 +4,7 @@ import androidx.lifecycle.viewModelScope
 import io.sinzak.android.remote.dataclass.product.Product
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.ui.main.profile.art.adapter.SaleWorkAdapter
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 abstract class ProfileArtViewModel : BaseViewModel() {
@@ -17,8 +14,10 @@ abstract class ProfileArtViewModel : BaseViewModel() {
      */
     val completeList = MutableStateFlow(false)
 
-    lateinit var adapter: SaleWorkAdapter
-
+    /**
+     * 없어요 이미지를 보여줄것인가?
+     */
+    val showNothing = MutableStateFlow(false)
     /**
      * 아이템 클릭
      */
@@ -41,19 +40,26 @@ abstract class ProfileArtViewModel : BaseViewModel() {
         completeList.value = false
     }
 
-    fun settingAdapter(list : StateFlow<MutableList<Product>>)
+    fun settingAdapter(adapter : SaleWorkAdapter ,list : StateFlow<MutableList<Product>>)
     {
         adapter.apply {
             list.onEach {
                 invokeBooleanFlow(
                     completeList,
-                    { setArts(it.filter { !it.complete!! }) },
-                    { setArts(it.filter { it.complete!! }) }
+                    {
+                        val filterList = it.filter { !it.complete!! }
+                        setArts(filterList)
+                        showNothing.value = filterList.isEmpty()
+                    },
+                    {
+                        val filterList = it.filter { it.complete!! }
+                        setArts(filterList)
+                        showNothing.value = filterList.isEmpty()
+                    }
                 )
             }.launchIn(viewModelScope)
         }
     }
-
 
 
 }

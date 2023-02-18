@@ -75,7 +75,7 @@ class ProfileModel @Inject constructor() : BaseModel() {
      * 내 의뢰 스크랩 리스트를 저장하는 공간
      */
     private val _worktWishList = MutableStateFlow(mutableListOf<Product>())
-    val worktWishList : StateFlow<MutableList<Product>> get() = _worktWishList
+    val workWishList : StateFlow<MutableList<Product>> get() = _worktWishList
 
     /**
      * 팔로우,언팔로우 플래그
@@ -181,7 +181,6 @@ class ProfileModel @Inject constructor() : BaseModel() {
             profile.value = profileResponse.profile
             _workList.value = profileResponse.works!!.toMutableList().asReversed()
             _productList.value = profileResponse.products!!.toMutableList().asReversed()
-//            _workEmployList.value = profileResponse.workEmploys!!.toMutableList().asReversed()
         }
     }
     private fun onMyProfileResponse(response: UserProfileResponse)
@@ -196,7 +195,7 @@ class ProfileModel @Inject constructor() : BaseModel() {
             prefs.setString(CODE_USER_NAME, profileResponse.profile.name)
             _workList.value = profileResponse.works!!.toMutableList().asReversed()
             _productList.value = profileResponse.products!!.toMutableList().asReversed()
-//            _workEmployList.value = profileResponse.workEmploys!!.toMutableList().asReversed()
+            _workEmployList.value = profileResponse.workEmploys!!.toMutableList().asReversed()
         }
     }
 
@@ -231,7 +230,7 @@ class ProfileModel @Inject constructor() : BaseModel() {
         return false
     }
 
-    fun clearUserHistory()
+    private fun clearUserHistory()
     {
         userHistory.clear()
     }
@@ -242,7 +241,6 @@ class ProfileModel @Inject constructor() : BaseModel() {
         _workList.value = mutableListOf()
         _productList.value = mutableListOf()
         _workEmployList.value = mutableListOf()
-
     }
 
 
