@@ -85,17 +85,9 @@ class ProfileModel @Inject constructor() : BaseModel() {
     /**
      * 내 작품, 프로필인가?
      */
-    fun isMine(): Boolean {
-        return myUserId.value == _currentUserId.value
-    }
     fun isMine(userId : String): Boolean {
         return myUserId.value == userId
     }
-
-    fun isMine(compareId: String):Boolean{
-        return myUserId.value == compareId
-    }
-
 
     fun getProfile() {
         clearProfileContent()
