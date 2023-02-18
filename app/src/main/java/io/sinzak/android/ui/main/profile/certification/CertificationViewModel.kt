@@ -111,6 +111,7 @@ open class CertificationViewModel @Inject constructor(
      */
     open fun onSubmit() {
         certifyModel.setUniv(school!!)
+
         navigation.changePage(Page.PROFILE_WEBMAIL)
     }
 

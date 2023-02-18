@@ -28,7 +28,17 @@ class RegisterCertViewModel @Inject constructor(
     override fun onSubmit(){
 
         signModel.setUniv(school!!)
-        connect.gotoCertPage()
+        signModel.join()
+        loginJob = signModel.isLogin.onEach {
+            if(it){
+                connect.navigation.clearHistory()
+                connect.gotoCertPage()
+
+            }
+
+        }.launchIn(viewModelScope)
+
+
 
     }
     lateinit private var loginJob: Job
