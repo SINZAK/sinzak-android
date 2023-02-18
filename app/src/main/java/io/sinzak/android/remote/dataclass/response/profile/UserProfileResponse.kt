@@ -13,6 +13,6 @@ data class UserProfileResponse (
         @SerializedName("works") val works : List<Product>? = null,
         @SerializedName("profile") val profile: UserProfile,
         @SerializedName("products") val products : List<Product>? = null,
-        @SerializedName("workemploys") val workEmploys : List<Product>? = null
+        @SerializedName("workEmploys") val workEmploys : List<Product>? = null
     )
 }

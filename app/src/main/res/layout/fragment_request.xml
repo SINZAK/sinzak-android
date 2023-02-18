@@ -83,5 +83,18 @@
             marginHorizon="@{0f}"
             adapter="@{vm.adapter}"
             />
+
+        <TextView
+            style="@style/bold16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/str_request_content_null"
+            android:textAlignment="center"
+            android:textColor="@color/gray60"
+            android:visibility="@{vm.showNothing ? 0 : 8}"
+            app:drawableTopCompat="@drawable/ic_nothing"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

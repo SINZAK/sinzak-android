@@ -26,9 +26,14 @@ class ScrapViewModel @Inject constructor(
     val showOnSale = MutableStateFlow(false)
 
     /**
+     * 없어요 이미지를 보여줄것인가?
+     */
+    val showNothing = MutableStateFlow(false)
+
+    /**
      * 상태에 따른 스크랩 목록을 저장하는 공간
      */
-    private val scraps = mutableListOf<Product>()
+    val scraps = mutableListOf<Product>()
 
     /**
      * 스크랩 목록 어뎁터
@@ -47,10 +52,17 @@ class ScrapViewModel @Inject constructor(
     private fun updateScraps(scrapList : MutableList<Product>)
     {
         scraps.clear()
-        if (showOnSale.value){
-            scraps.addAll(scrapList.filter { it.complete == false })
+        if (showOnSale.value)
+        {
+            val filterList = scrapList.filter { it.complete == false }
+            scraps.addAll(filterList)
+            showNothing.value = filterList.isEmpty()
         }
-        else scraps.addAll(scrapList)
+        else
+        {
+            scraps.addAll(scrapList)
+            showNothing.value = scrapList.isEmpty()
+        }
 
         adapter.notifyDataSetChanged()
     }

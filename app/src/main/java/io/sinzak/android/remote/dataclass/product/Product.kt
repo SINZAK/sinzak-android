@@ -22,12 +22,6 @@ data class Product(
     @SerializedName("suggest") val suggest: Boolean? = null,
     @SerializedName("title") val title: String? = null,
     @SerializedName("authorUniv") val authorUniv : String? = null,
-
-
-    /**
-     * 임시 파라미터
-     */
-    @SerializedName("createdAt") val createdAt : String? = null
 ){
 
     fun getLickCntFit() : String{
@@ -56,7 +50,7 @@ data class Product(
     }
 
     fun getTimePassedExceptDot() : String {
-        return TimeUtil.getTimePassedExceptDot(createdAt.toString())
+        return TimeUtil.getTimePassedExceptDot(date.toString())
     }
 
     fun getFormattedDate() : String{
