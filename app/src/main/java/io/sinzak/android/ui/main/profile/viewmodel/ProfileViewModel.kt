@@ -108,13 +108,14 @@ class ProfileViewModel @Inject constructor(
     /**
      * 뒤로 가기 클릭시 프로필 히스토리 관리
      */
-    fun revealProfileHistory() = model.revealProfileHistory()
+    private fun revealProfileHistory() = model.revealProfileHistory()
     /**
      * 팔로우 버튼 클릭시 동작
      */
     fun toggleFollow()
     {
         model.followUser(isFollow.value,model.currentUserId.value)
+
         useFlag(model.followControlSuccessFlag) {
             isFollow.value = !isFollow.value
             follower.value = follower.value + if (isFollow.value) 1 else -1
@@ -144,12 +145,8 @@ class ProfileViewModel @Inject constructor(
     /**
      * 팔로우/팔로워 페이지 이동
      */
-    fun goToFollowList(page : Int)
+    fun goToFollowList(showFollower : Boolean)
     {
-        Bundle().apply {
-            putInt(CODE_FOLLOW_PAGE,page)
-            navigation.putBundleData(FollowViewModel::class,this)
-        }
         navigation.changePage(Page.PROFILE_FOLLOW)
     }
 
@@ -161,6 +158,15 @@ class ProfileViewModel @Inject constructor(
         showReportDialog()
     }
 
+    /**
+     * 뒤로가기를 누릅니다
+     */
+    fun onBackPressed()
+    {
+        navigation.revealHistory()
+        revealProfileHistory()
+
+    }
     /***********************************************************************
      * Dialog Show
      **********************************************************************/

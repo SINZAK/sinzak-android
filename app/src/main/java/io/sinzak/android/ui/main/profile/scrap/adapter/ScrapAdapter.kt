@@ -25,15 +25,6 @@ class ScrapAdapter(
         )
     }
 
-/*    fun setScraps(products : List<Product>)
-    {
-        scrapList = listOf()
-        this.scrapList = products
-        notifyDataSetChanged()
-        LogDebug(javaClass.name,"[SCRAP] 새로운 데이터 수신 $itemCount 개")
-
-    }*/
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(scrapList[position])
     }

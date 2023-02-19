@@ -10,6 +10,7 @@ import io.sinzak.android.databinding.ViewProfileLinkListBinding
 import io.sinzak.android.databinding.ViewProfileMyprofileBinding
 import io.sinzak.android.databinding.ViewProfileTopAppbarBinding
 import io.sinzak.android.ui.base.BaseFragment
+import io.sinzak.android.ui.main.profile.follow.FollowViewModel
 import io.sinzak.android.ui.main.profile.viewmodel.ProfileArtViewModel
 import io.sinzak.android.ui.main.profile.viewmodel.ProfileViewModel
 import javax.inject.Inject
@@ -21,6 +22,7 @@ open class ProfileFragment : BaseFragment() {
 
     protected val viewModel by activityViewModels<ProfileViewModel>()
     private val artViewModel by activityViewModels<ProfileArtViewModel>()
+    private val followViewModel by activityViewModels<FollowViewModel>()
 
     @Inject
     lateinit var connect: ProfileConnect
@@ -79,7 +81,6 @@ open class ProfileFragment : BaseFragment() {
         ViewProfileTopAppbarBinding.inflate(layoutInflater).apply {
             lifecycleOwner = viewLifecycleOwner
             vm = viewModel
-            fg = this@ProfileFragment
             showBack = showBackIc
             isMyProfile = myProfile
             bind.flAppbar.addView(root)
@@ -89,6 +90,7 @@ open class ProfileFragment : BaseFragment() {
         ViewProfileMyprofileBinding.inflate(layoutInflater).apply {
             lifecycleOwner = viewLifecycleOwner
             vm = viewModel
+            fVm = followViewModel
             isMyProfile = myProfile
             bind.llProfiles.addView(root)
         }

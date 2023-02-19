@@ -154,10 +154,9 @@ class ContentViewModel @Inject constructor(
      */
     fun onClickFollow(){
         profileModel.followUser(isFollowing.value,authorId)
-        useFlag(profileModel.followControlSuccessFlag){
-            isFollowing.value = !isFollowing.value
-            follower.value = follower.value + if (isFollowing.value) 1 else -1
-        }
+        isFollowing.value = !isFollowing.value
+        follower.value = follower.value + if (isFollowing.value) 1 else -1
+
     }
 
     /**
@@ -204,7 +203,6 @@ class ContentViewModel @Inject constructor(
                     authorId = this
                     isMyProduct.value = pModel.isMine(this)
                 }
-                //isMyProduct.value = pModel.isMine(art.authorId)
 
             }
 

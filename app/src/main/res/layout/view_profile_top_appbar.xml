@@ -4,9 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
-            name="fg"
-            type="io.sinzak.android.ui.main.profile.ProfileFragment" />
-        <variable
             name="vm"
             type="io.sinzak.android.ui.main.profile.viewmodel.ProfileViewModel" />
         <variable
@@ -26,7 +23,7 @@
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:onClick="@{v->fg.navigateOnBackPressed()}"
+            android:onClick="@{v->vm.onBackPressed()}"
             android:src="@drawable/ic_back"
             android:visibility="@{showBack ? 0 : 8}"
             app:layout_constraintBottom_toBottomOf="parent"

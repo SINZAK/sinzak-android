@@ -33,7 +33,7 @@ class ScrapViewModel @Inject constructor(
     /**
      * 상태에 따른 스크랩 목록을 저장하는 공간
      */
-    val scraps = mutableListOf<Product>()
+    private val scraps = mutableListOf<Product>()
 
     /**
      * 스크랩 목록 어뎁터
