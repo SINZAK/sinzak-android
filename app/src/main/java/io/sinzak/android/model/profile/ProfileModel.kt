@@ -293,8 +293,8 @@ class ProfileModel @Inject constructor() : BaseModel() {
     private fun onWishListResponse(response: WishResponse)
     {
         response.data?.let { wishResponse ->
-            _productWishList.value = wishResponse.productWishes!!.toMutableList()
-            _worktWishList.value = wishResponse.workWishes!!.toMutableList()
+            _productWishList.value = wishResponse.productWishes!!.toMutableList().asReversed()
+            _worktWishList.value = wishResponse.workWishes!!.toMutableList().asReversed()
         }
     }
 
