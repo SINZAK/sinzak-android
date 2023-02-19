@@ -3,7 +3,7 @@ package io.sinzak.android.ui.main.profile.follow
 import android.os.Bundle
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.sinzak.android.constants.CODE_FOLLOW_PAGE
+import io.sinzak.android.constants.CODE_FOLLOW
 import io.sinzak.android.enums.Page
 import io.sinzak.android.model.profile.ProfileModel
 import io.sinzak.android.ui.base.BaseViewModel
@@ -31,13 +31,14 @@ class FollowViewModel @Inject constructor(
 
 
     init {
-        setAdaptData()
+
+        setAdapter()
     }
 
     /*
-     * 어뎁터에 데이터를 세팅합니다
+     * 어뎁터를 세팅합니다
      */
-    private fun setAdaptData()
+    private fun setAdapter()
     {
         adapter.apply {
             model.followList.onEach {
