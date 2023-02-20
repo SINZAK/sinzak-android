@@ -182,6 +182,7 @@ class ProfileViewModel @Inject constructor(
             //block artist
         }
     }
+
     /**
      * 사용자 신고 페이지 가기
      */

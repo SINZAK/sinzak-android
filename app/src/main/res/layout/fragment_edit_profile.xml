@@ -216,7 +216,8 @@
                     android:layout_marginTop="23.8dp"
                     android:onClick="@{v-> vm.gotoVerifyPage()}"
                     android:text="@string/str_edit_apply_verify"
-                    android:textColor="@color/secondary" />
+                    android:textColor="@color/secondary"
+                    android:visibility="gone"/>
 
 
             </androidx.appcompat.widget.LinearLayoutCompat>
