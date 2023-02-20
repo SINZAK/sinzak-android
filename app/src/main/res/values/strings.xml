@@ -67,6 +67,19 @@
     <string name="str_edit_apply_verify">인증 작가 신청하기</string>
 
     <string name="str_setting">설정</string>
+    <string name="str_setting_group_personal">개인 설정</string>
+    <string name="str_setting_account">연결된 계정 관리</string>
+
+    <string name="str_setting_group_app">이용 안내</string>
+    <string name="str_setting_app_version">앱 버전</string>
+    <string name="str_setting_app_service">서비스 이용약관</string>
+    <string name="str_setting_info_use">개인정보 처리방침</string>
+    <string name="str_setting_license">오픈소스 라이선스</string>
+
+    <string name="str_setting_group_etc">기타</string>
+    <string name="str_setting_withdrawal">회원 탈퇴</string>
+    <string name="str_setting_logout">로그아웃</string>
+
 
     <string name="str_certification">학교 인증</string>
     <string name="str_certification_school">학교 이름</string>

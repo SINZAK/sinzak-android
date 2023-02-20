@@ -21,8 +21,7 @@ class SettingFragment : BaseFragment() {
     override fun onFragmentCreated() {
         bind.apply {
             bind.lifecycleOwner = viewLifecycleOwner
-            fg = this@SettingFragment
-            viewmodel = viewModel
+            vm = viewModel
         }
     }
 
@@ -31,6 +30,6 @@ class SettingFragment : BaseFragment() {
     }
 
     override fun navigateOnBackPressed() {
-        navigator.revealHistory()
+        viewModel.onBackPressed()
     }
 }

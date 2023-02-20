@@ -4,12 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
-            name="viewmodel"
+            name="vm"
             type="io.sinzak.android.ui.main.profile.setting.SettingViewModel" />
-
-        <variable
-            name="fg"
-            type="io.sinzak.android.ui.main.profile.setting.SettingFragment" />
+        <import type="io.sinzak.android.enums.Page"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -21,10 +18,10 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="10dp"
             android:background="@drawable/ic_bg_button"
-            android:onClick="@{v->fg.navigateOnBackPressed()}"
+            android:onClick="@{v->vm.onBackPressed()}"
             android:src="@drawable/ic_back"
+            app:layout_constraintBottom_toBottomOf="@+id/textView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -61,7 +58,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="개인 설정"
+                        android:text="@string/str_setting_group_personal"
                         style="@style/bold16"
                         android:layout_marginBottom="19.2dp"/>
                     <androidx.appcompat.widget.LinearLayoutCompat
@@ -73,7 +70,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="연결된 계정 관리"
+                            android:text="@string/str_setting_account"
                             style="@style/regular16"/>
                         <Space
                             android:layout_width="0dp"
@@ -82,7 +79,6 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="카카오"
                             style="@style/regular16"
                             android:textColor="@color/gray60"/>
                     </androidx.appcompat.widget.LinearLayoutCompat>
@@ -105,7 +101,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="이용 안내"
+                        android:text="@string/str_setting_group_app"
                         style="@style/bold16"
                         android:layout_marginBottom="19.2dp"/>
                     <androidx.appcompat.widget.LinearLayoutCompat
@@ -117,7 +113,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="앱 버전"
+                            android:text="@string/str_setting_app_version"
                             style="@style/regular16"/>
                         <Space
                             android:layout_width="0dp"
@@ -126,7 +122,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="6.4.1"
+                            android:text="@{vm.version}"
                             style="@style/regular16"
                             android:textColor="@color/gray60"/>
                     </androidx.appcompat.widget.LinearLayoutCompat>
@@ -145,19 +141,19 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="서비스 이용약관"
+                        android:text="@string/str_register_agree_service"
                         style="@style/regular16"
                         android:layout_marginBottom="20dp"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="개인정보 처리방침"
+                        android:text="@string/str_setting_info_use"
                         style="@style/regular16"
                         android:layout_marginBottom="20dp"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="오픈소스 라이선스"
+                        android:text="@string/str_setting_license"
                         style="@style/regular16"/>
 
 
@@ -172,20 +168,20 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="기타"
+                        android:text="@string/str_setting_group_etc"
                         style="@style/bold16"
                         android:layout_marginBottom="19.2dp"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="회원 탈퇴"
+                        android:text="@string/str_setting_withdrawal"
                         style="@style/regular16"
                         android:layout_marginBottom="20dp"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="로그아웃"
-                        android:onClick="@{v->viewmodel.logout()}"
+                        android:text="@string/str_setting_logout"
+                        android:onClick="@{v->vm.logout()}"
                         style="@style/regular16"/>
 
 
