@@ -24,7 +24,7 @@ class ChatUtil(
 
 
     val client = StompClient(OkHttpClient(), 1000L).apply{
-        url = "${STOMP_BASE}/stomp/chat"
+        url = "$STOMP_BASE/stomp/chat"
 
     }
 
