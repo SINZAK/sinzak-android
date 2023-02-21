@@ -7,6 +7,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import io.sinzak.android.R
 import io.sinzak.android.databinding.HolderProfileArtLinearBinding
+import io.sinzak.android.model.profile.ProfileModel
 import io.sinzak.android.remote.dataclass.product.Product
 import io.sinzak.android.system.LogDebug
 
@@ -15,7 +16,7 @@ class SaleWorkAdapter(
     val onItemClick : ((Product) -> Unit)? = null,
     val isComplete : Boolean = false,
     val viewType: Int,
-    val isMine : Boolean = false
+    val model : ProfileModel
 ): RecyclerView.Adapter<SaleWorkAdapter.ViewHolder>() {
 
     private var productList : List<Product> = listOf()
@@ -71,7 +72,7 @@ class SaleWorkAdapter(
             }
             bind.isComplete = isComplete
             bind.completeText = setCompleteText(viewType)
-            bind.isMine = isMine
+            bind.isMine = model.profile.value!!.myProfile
         }
     }
 

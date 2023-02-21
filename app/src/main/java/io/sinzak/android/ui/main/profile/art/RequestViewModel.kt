@@ -6,6 +6,7 @@ import io.sinzak.android.model.market.ProductDetailModel
 import io.sinzak.android.model.profile.ProfileModel
 import io.sinzak.android.remote.dataclass.product.Product
 import io.sinzak.android.ui.main.profile.art.adapter.SaleWorkAdapter
+import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 
 @HiltViewModel
@@ -14,17 +15,16 @@ class RequestViewModel @Inject constructor(
     private val productModel : ProductDetailModel
 ) : ProfileArtViewModel() {
 
+    val adapter = SaleWorkAdapter(
+        productModel::endTrade,
+        ::onItemClick,
+        completeList.value,
+        viewType = 2,
+        model
+    )
+
     init {
-
-        adapter = SaleWorkAdapter(
-            productModel::endTrade,
-            ::onItemClick,
-            completeList.value,
-            viewType = 2,
-            isMine = model.isMine()
-        )
-
-        settingAdapter(model.workEmployList)
+        settingAdapter(adapter,model.workEmployList)
     }
 
     override fun onItemClick(product: Product) {
