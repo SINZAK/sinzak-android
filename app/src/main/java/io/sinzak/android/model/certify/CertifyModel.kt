@@ -2,6 +2,7 @@ package io.sinzak.android.model.certify
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.net.Uri
 import androidx.core.net.toUri
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.sinzak.android.constants.API_CERTIFY_UNIVERSITY
@@ -15,11 +16,13 @@ import io.sinzak.android.remote.dataclass.request.certify.MailRequest
 import io.sinzak.android.remote.dataclass.request.certify.UnivCertifyRequest
 import io.sinzak.android.remote.dataclass.response.certify.UnivCertifyResponse
 import io.sinzak.android.remote.retrofit.CallImpl
+import io.sinzak.android.system.LogDebug
 import io.sinzak.android.utils.FileUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -34,8 +37,9 @@ class CertifyModel @Inject constructor(@ApplicationContext val context : Context
     private var univ : SchoolData? = null
     private var address : String = ""
     private var code : String = ""
-    private var imgUri : String = ""
-    private var imgBitmap : Bitmap? = null
+    private var multiPart : MultipartBody.Part? = null
+
+    val convertUriFlag = MutableStateFlow(false)
 
     val codeCheckCnt = MutableStateFlow(0)
 
@@ -71,22 +75,26 @@ class CertifyModel @Inject constructor(@ApplicationContext val context : Context
     }
 
     /**
-     * 이미지 uri를 저장합니다
+     * 이미지를 MultiPart로 변환
      */
-    fun setImgUri(i : String)
-    {
-        imgUri = i
-    }
-
-    /**
-     * 불러온 local uri 을 bitmap 으로 불러옵니다.
-     */
-    private fun loadBitmaps()
+    fun convertUriToMultiPart(uri: Uri)
     {
         CoroutineScope(Dispatchers.IO).launch {
-            if (!imgUri.contains("http")) imgBitmap = FileUtil.getBitmapFile(context, imgUri.toUri())
+            if (!uri.toString().contains("http"))
+            {
+                val imgBitmap : Bitmap = FileUtil.getBitmapFile(context, uri)
+
+                multiPart = FileUtil.getMultipart(context,"multipartFile",imgBitmap)
+
+                convertUriFlag.value = true
+            }
+
+            else {
+                convertUriFlag.value = false
+            }
         }
     }
+
 
     /************************************************
      * 저장값을 초기화합니다
@@ -171,10 +179,13 @@ class CertifyModel @Inject constructor(@ApplicationContext val context : Context
      */
     private fun uploadImg(id : String)
     {
-        loadBitmaps()
+        if (multiPart == null) {
+            LogDebug(javaClass.name, "변환 실패")
+            globalUi.showToast("다른 이미지를 사용해주세요")
+            return
+        }
 
-        // TODO: nullPointException 발생 해결해야함
-        val requestBody = FileUtil.getMultipart(context,"multipartFile",imgBitmap!!)
+        val requestBody = multiPart
 
         CallImpl(
             API_CERTIFY_UPLOAD_IMG,
@@ -213,6 +224,7 @@ class CertifyModel @Inject constructor(@ApplicationContext val context : Context
             API_CERTIFY_UNIVERSITY -> {
                 body as UnivCertifyResponse
                 uploadImg(body.id)
+                LogDebug(javaClass.name, body.id)
             }
 
             API_CERTIFY_UPLOAD_IMG -> {

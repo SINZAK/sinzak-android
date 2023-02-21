@@ -1,5 +1,6 @@
 package io.sinzak.android.ui.main.profile.certification
 
+import android.graphics.Bitmap
 import android.text.TextUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.sinzak.android.enums.Page
@@ -8,6 +9,7 @@ import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.utils.FileUtil
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
@@ -164,9 +166,13 @@ class WebmailViewModel @Inject constructor(
     fun onUploadImageClick(){
 
         connect.loadImage {
-            imgFileName.value = FileUtil.getRealPath(certifyModel.context,it).toString()
-            certifyModel.setImgUri(imgFileName.value)
-            isUpload.value = true
+            val realPath = FileUtil.getRealPath(certifyModel.context,it).toString()
+            imgFileName.value = File(realPath).name
+            certifyModel.convertUriToMultiPart(it)
+
+            useFlag(certifyModel.convertUriFlag){
+                isUpload.value = true
+            }
         }
     }
 
@@ -184,9 +190,10 @@ class WebmailViewModel @Inject constructor(
      */
     fun onSubmit()
     {
+        navigation.removeHistory(Page.PROFILE_EDIT)
         navigation.removeHistory(Page.PROFILE_WEBMAIL)
         navigation.removeHistory(Page.PROFILE_CERTIFICATION)
-        navigation.revealHistory()
+        navigation.changePage(Page.PROFILE_EDIT)
     }
 
     /**
@@ -198,11 +205,7 @@ class WebmailViewModel @Inject constructor(
     {
         requestCertifyStudentId()
 
-        invokeBooleanFlow(
-            certifyModel.flagUploadSuccess,
-            {},
-            (::onSubmit)
-        )
+        useFlag(certifyModel.flagUploadSuccess, ::onSubmit)
     }
 
     /**
