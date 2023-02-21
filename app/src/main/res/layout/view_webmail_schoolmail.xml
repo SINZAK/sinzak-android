@@ -45,7 +45,7 @@
                 android:text="@{vm.webMailInput}"
                 android:onTextChanged="@{(cs,a,b,c) -> vm.mailInputText(cs)}"
                 onActionSend="@{v->vm.onSendMailClick()}"
-                android:enabled="@{vm.webMailState != vm.DONE &amp; vm.checkCodeCnt&lt;2}"/>
+                android:enabled="@{vm.webMailState != vm.DONE &amp; vm.checkCodeCnt&lt;3}"/>
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -123,7 +123,7 @@
                    android:onTextChanged="@{(cs,a,b,c) -> vm.codeInputText(cs)}"
                    android:text="@{vm.codeInput}"
                    onActionDone="@{v->vm.onCheckCodeClick()}"
-                   android:enabled="@{vm.codeState != vm.DONE &amp; vm.checkCodeCnt&lt;2}"/>
+                   android:enabled="@{vm.codeState != vm.DONE &amp; vm.checkCodeCnt&lt;3}"/>
 
                <ImageView
                    android:layout_width="wrap_content"
