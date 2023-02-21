@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Rect
 import android.view.View
+import android.view.View.OnClickListener
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
@@ -185,6 +186,30 @@ fun onActionDone(view: EditText, listener: View.OnClickListener) {
 
                 return@setOnEditorActionListener true
             }
+        }
+
+        false
+    }
+}
+
+@BindingAdapter("onActionSend")
+fun onActionSend(view: EditText, listener: OnClickListener)
+{
+    view.setOnEditorActionListener { v, actionId, event ->
+
+        when(actionId){
+
+            EditorInfo.IME_ACTION_SEND -> {
+
+                listener.onClick(v)
+
+                val im =
+                    view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                im.hideSoftInputFromWindow(view.windowToken, 0)
+                view.clearFocus()
+
+                return@setOnEditorActionListener true
+                }
         }
 
         false

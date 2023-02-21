@@ -37,6 +37,7 @@ class CertifyModel @Inject constructor(@ApplicationContext val context : Context
     private var imgUri : String = ""
     private var imgBitmap : Bitmap? = null
 
+    val codeCheckCnt = MutableStateFlow(0)
 
     /************************************************
      * 입력을 받습니다
@@ -58,7 +59,7 @@ class CertifyModel @Inject constructor(@ApplicationContext val context : Context
      */
     fun setAddress(a : String)
     {
-        address = a
+        address = a.trim()
     }
 
     /**
@@ -110,9 +111,9 @@ class CertifyModel @Inject constructor(@ApplicationContext val context : Context
     fun sendMailCode()
     {
         val request = MailRequest(
-            address = address,
-            code = "",
-            univ = univ!!.schoolName
+            univ_email = address,
+            univName = univ!!.schoolName,
+            code = null
         )
 
         CallImpl(
@@ -133,9 +134,9 @@ class CertifyModel @Inject constructor(@ApplicationContext val context : Context
 
 
         val request = MailRequest(
-            address = address,
-            code = code,
-            univ = univ!!.schoolName
+            univ_email = address,
+            univName = univ!!.schoolName,
+            code = code
         )
 
         CallImpl(
@@ -196,6 +197,17 @@ class CertifyModel @Inject constructor(@ApplicationContext val context : Context
 
             API_CHECK_MAIL_CODE -> {
                 flagCodeSuccess.value = body.success == true
+
+                if (body.success == false) {
+                    codeCheckCnt.value += 1
+
+                    if(codeCheckCnt.value >= 3)
+                    {
+                        globalUi.showToast("학생증 인증을 이용해주세요")
+                        return
+                    }
+                    else globalUi.showToast("인증번호 ${codeCheckCnt.value}회 오류입니다")
+                }
             }
 
             API_CERTIFY_UNIVERSITY -> {

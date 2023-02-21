@@ -44,8 +44,8 @@
                 android:hint="@string/str_webMail_hint"
                 android:text="@{vm.webMailInput}"
                 android:onTextChanged="@{(cs,a,b,c) -> vm.mailInputText(cs)}"
-                onActionDone="@{v->vm.onSendMailClick()}"
-                android:enabled="@{vm.webMailState != vm.DONE}"/>
+                onActionSend="@{v->vm.onSendMailClick()}"
+                android:enabled="@{vm.webMailState != vm.DONE &amp; vm.checkCodeCnt&lt;2}"/>
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -114,7 +114,7 @@
                    android:layout_height="match_parent"
                    android:layout_weight="1"
                    android:background="@null"
-                   android:inputType="textEmailAddress"
+                   android:inputType="number"
                    android:maxLength="4"
                    android:textColorHint="@color/gray60"
 
@@ -123,7 +123,7 @@
                    android:onTextChanged="@{(cs,a,b,c) -> vm.codeInputText(cs)}"
                    android:text="@{vm.codeInput}"
                    onActionDone="@{v->vm.onCheckCodeClick()}"
-                   android:enabled="@{vm.codeState != vm.DONE}"/>
+                   android:enabled="@{vm.codeState != vm.DONE &amp; vm.checkCodeCnt&lt;2}"/>
 
                <ImageView
                    android:layout_width="wrap_content"

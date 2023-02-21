@@ -7,6 +7,7 @@ import io.sinzak.android.model.certify.CertifyModel
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.utils.FileUtil
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
 @HiltViewModel
@@ -49,6 +50,11 @@ class WebmailViewModel @Inject constructor(
      * 학생증 이미지 이름
      */
     var imgFileName = MutableStateFlow("")
+
+    /**
+     * 인증코드 확인 횟수
+     */
+    val checkCodeCnt get() = certifyModel.codeCheckCnt
 
 
     /************************************************
@@ -93,8 +99,8 @@ class WebmailViewModel @Inject constructor(
     /**
      * 인증 방식을 누릅니다
      */
-    fun changePage(){
-        currentPage.value = !currentPage.value
+    fun changePage(page : Boolean){
+        currentPage.value = page
     }
 
     /**
@@ -119,15 +125,9 @@ class WebmailViewModel @Inject constructor(
 
             requestSendMail()
 
-            invokeBooleanFlow(
-                certifyModel.flagSendSuccess,
-                {
-                    webMailState.value = INIT
-                },
-                {
-                    webMailState.value = DONE
-                }
-            )
+            useFlag(certifyModel.flagSendSuccess){
+                webMailState.value = DONE
+            }
 
         }
         else webMailState.value = ERROR
