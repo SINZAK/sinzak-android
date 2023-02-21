@@ -72,11 +72,11 @@ object FileUtil {
             }
         }
 
-
     }
 
 
-    fun getBitmapFile(context : Context, uri : Uri) : Bitmap{
+    fun getBitmapFile(context : Context, uri : Uri) : Bitmap
+    {
         val path = getRealPath(context,uri)
         val bitmap = BitmapFactory.decodeFile(path)
         return Bitmap.createScaledBitmap(bitmap,512,512,true).apply{
@@ -84,7 +84,12 @@ object FileUtil {
         }
     }
 
-    fun getRealPath(context : Context, uri : Uri) : String?{
+    fun getRealName(context: Context,uri: Uri) : String {
+        val path = getRealPath(context,uri).toString()
+        return File(path).name
+    }
+
+    private fun getRealPath(context : Context, uri : Uri) : String?{
 
 
         getRealPathAPI19(context, uri).apply{

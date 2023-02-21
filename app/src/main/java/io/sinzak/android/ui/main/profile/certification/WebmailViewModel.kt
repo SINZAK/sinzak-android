@@ -164,8 +164,7 @@ class WebmailViewModel @Inject constructor(
     fun onUploadImageClick(){
 
         connect.loadImage {
-            val realPath = FileUtil.getRealPath(certifyModel.context,it).toString()
-            imgFileName.value = File(realPath).name
+            imgFileName.value = FileUtil.getRealName(certifyModel.context,it)
             certifyModel.convertUriToMultiPart(it)
 
             useFlag(certifyModel.convertUriFlag){
