@@ -114,23 +114,15 @@ fun setImg(view: ImageView, url: String?, radius: Float) {
 fun setEditImg(view: ImageView, url: String?, radius: Float) {
 
     if (url.isNullOrEmpty()){
-        view.setImageDrawable(
-            AppCompatResources.getDrawable(
-                view.context,
-                R.drawable.ic_user_temp
-            )
-        )
         return
     }
 
-    view.findViewTreeLifecycleOwner()?.let { lifecycleOwner ->
-        lifecycleOwner.lifecycleScope.launch {
-            Glide.with(view).asBitmap().load(GlideUrl(url))
-                .transform(CenterCrop(), RoundedCorners(radius.dp.toInt())).apply {
-                    lifecycleOwner.lifecycleScope.launch {
-                        into(view)
-                    }
-                }
+    CoroutineScope(Dispatchers.IO).launch {
+        Glide.with(view).asBitmap().load(GlideUrl(url))
+            .transform(CenterCrop(), RoundedCorners(radius.dp.toInt())).apply {
+            CoroutineScope(Dispatchers.Main).launch {
+                into(view)
+            }
         }
     }
 

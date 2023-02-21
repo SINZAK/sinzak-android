@@ -1,16 +1,28 @@
 package io.sinzak.android.model.profile
 
+import android.content.Context
+import android.graphics.Bitmap
+import android.net.Uri
+import dagger.hilt.android.qualifiers.ApplicationContext
 import io.sinzak.android.R
+import io.sinzak.android.constants.API_EDIT_MY_IMAGE
 import io.sinzak.android.constants.API_EDIT_MY_PROFILE
 import io.sinzak.android.model.BaseModel
 import io.sinzak.android.remote.dataclass.CResponse
 import io.sinzak.android.remote.dataclass.request.profile.UpdateUserRequest
 import io.sinzak.android.remote.retrofit.CallImpl
+import io.sinzak.android.system.LogDebug
+import io.sinzak.android.utils.FileUtil
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class ProfileEditModel @Inject constructor() : BaseModel() {
+class ProfileEditModel @Inject constructor(@ApplicationContext val context : Context) : BaseModel() {
 
     private var introduction = ""
     private var name = ""
@@ -19,6 +31,10 @@ class ProfileEditModel @Inject constructor() : BaseModel() {
     private var link = ""
 
     private var nameErrorMsg = ""
+
+    private var multiPart : MultipartBody.Part? = null
+    private val convertUriFlag = MutableStateFlow(false)
+    val isEditDone = MutableStateFlow(false)
 
     /**
      * 소개를 저장합니다
@@ -33,13 +49,6 @@ class ProfileEditModel @Inject constructor() : BaseModel() {
     fun setName(n : String)
     {
         name = n.trim()
-    }
-
-    /**
-     * 프로필 이미지를 저장합니다
-     */
-    fun setPicture(p: String){
-        picture = p
     }
 
     /**
@@ -86,6 +95,49 @@ class ProfileEditModel @Inject constructor() : BaseModel() {
     }
 
     /**
+     * 이미지를 MultiPart로 변환
+     */
+    fun convertUriToMultiPart(uri: Uri)
+    {
+        CoroutineScope(Dispatchers.IO).launch {
+            if (!uri.toString().contains("http"))
+            {
+                val imgBitmap : Bitmap = FileUtil.getBitmapFile(context, uri)
+
+                multiPart = FileUtil.getMultipart(context,"multipartFile",imgBitmap)
+
+                convertUriFlag.value = true
+            }
+
+            else {
+                convertUriFlag.value = false
+            }
+        }
+    }
+
+    /**
+     * 프로필 이미지 변경을 요청합니다
+     */
+    private fun requestChangeImage()
+    {
+        if (multiPart == null) {
+            LogDebug(javaClass.name, "변환 실패")
+            globalUi.showToast("다른 이미지를 사용해주세요")
+            return
+        }
+
+        val requestBody = multiPart
+
+        CallImpl(
+            API_EDIT_MY_IMAGE,
+            this,
+            multipart = requestBody
+        ).apply {
+            remote.sendRequestApi(this)
+        }
+    }
+
+    /**
      * 프로필 편집을 요청합니다
      */
     private fun requestUpdate()
@@ -120,8 +172,20 @@ class ProfileEditModel @Inject constructor() : BaseModel() {
             {
                 if (body.success == true)
                 {
-                    globalUi.showToast("프로필이 변경되었습니다")
+                    if (convertUriFlag.value) requestChangeImage()
+
+                    else isEditDone.value = true
+
+
                 }
+
+            }
+
+            API_EDIT_MY_IMAGE ->
+            {
+                if (body.success == true) isEditDone.value = true
+
+                else globalUi.showToast("프로필 사진변경을 실패했어요")
             }
         }
     }

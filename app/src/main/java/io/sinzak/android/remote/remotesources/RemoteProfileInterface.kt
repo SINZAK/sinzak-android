@@ -11,6 +11,7 @@ import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.HeaderMap
+import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
 import retrofit2.http.Path
@@ -34,6 +35,7 @@ interface RemoteProfileInterface {
     @POST("api/users/edit/category")
     fun editInterest(@HeaderMap header: HashMap<String, String>, @Body body: UpdateInterestRequest):Call<CResponse>
 
+    @Multipart
     @POST("api/users/edit/image")
     fun editImage(@HeaderMap header: HashMap<String, String>, @Part part: MultipartBody.Part) : Call<CResponse>
 

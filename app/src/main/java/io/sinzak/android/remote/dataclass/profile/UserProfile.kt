@@ -10,7 +10,7 @@ data class UserProfile(
     @SerializedName("cert_uni") val cert_uni : Boolean = false,
     @SerializedName("followerNumber") val followerNumber : Int = 0,
     @SerializedName("followingNumber") val followingNumber : Int = 0,
-    @SerializedName("imageUrl") val imageUrl : String = "",
+    @SerializedName("imageUrl") val imageUrl : String? = "",
     @SerializedName("univ") val univ : String = "",
     @SerializedName("ifFollow") val ifFollow : Boolean = false
 )
