@@ -3,7 +3,6 @@ package io.sinzak.android.model.certify
 import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
-import androidx.core.net.toUri
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.sinzak.android.constants.API_CERTIFY_UNIVERSITY
 import io.sinzak.android.constants.API_CERTIFY_UPLOAD_IMG
@@ -103,10 +102,10 @@ class CertifyModel @Inject constructor(@ApplicationContext val context : Context
     /**
      * 학교를 초기화합니다
      */
-    fun clearUniv()
+/*    fun clearUniv()
     {
         univ = null
-    }
+    }*/
 
 
     /**********************************************************************************************************************

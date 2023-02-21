@@ -1,6 +1,5 @@
 package io.sinzak.android.ui.main.profile.certification
 
-import android.graphics.Bitmap
 import android.text.TextUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.sinzak.android.enums.Page
@@ -8,7 +7,6 @@ import io.sinzak.android.model.certify.CertifyModel
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.utils.FileUtil
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import java.io.File
 import javax.inject.Inject
 

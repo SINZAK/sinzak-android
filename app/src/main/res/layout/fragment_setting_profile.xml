@@ -60,13 +60,13 @@
                         android:layout_height="wrap_content"
                         android:text="@string/str_setting_group_personal"
                         style="@style/bold16"
-                        android:layout_marginBottom="19.2dp"/>
+                        android:layout_marginBottom="9.2dp"/>
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
-                        android:layout_marginBottom="20dp">
+                        android:paddingVertical="10dp">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -86,7 +86,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="차단 사용자 관리"
-                        style="@style/regular16"/>
+                        style="@style/regular16"
+                        android:paddingVertical="10dp"/>
 
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -103,13 +104,13 @@
                         android:layout_height="wrap_content"
                         android:text="@string/str_setting_group_app"
                         style="@style/bold16"
-                        android:layout_marginBottom="19.2dp"/>
+                        android:layout_marginBottom="9.2dp"/>
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
-                        android:layout_marginBottom="20dp">
+                        android:paddingVertical="10dp">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -131,30 +132,32 @@
                         android:layout_height="wrap_content"
                         android:text="문의하기"
                         style="@style/regular16"
-                        android:layout_marginBottom="20dp"/>
+                        android:paddingVertical="10dp"
+                        android:onClick="@{v->vm.onContactUs()}"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="공지사항"
                         style="@style/regular16"
-                        android:layout_marginBottom="20dp"/>
+                        android:paddingVertical="10dp"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/str_register_agree_service"
                         style="@style/regular16"
-                        android:layout_marginBottom="20dp"/>
+                        android:paddingVertical="10dp"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/str_setting_info_use"
                         style="@style/regular16"
-                        android:layout_marginBottom="20dp"/>
+                        android:paddingVertical="10dp"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/str_setting_license"
-                        style="@style/regular16"/>
+                        style="@style/regular16"
+                        android:paddingVertical="10dp"/>
 
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -163,26 +166,27 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:background="@drawable/ll_setting_item"
-                    android:layout_marginBottom="9dp">
+                    android:background="@drawable/ll_setting_item">
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/str_setting_group_etc"
                         style="@style/bold16"
-                        android:layout_marginBottom="19.2dp"/>
+                        android:layout_marginBottom="9.2dp"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/str_setting_withdrawal"
                         style="@style/regular16"
-                        android:layout_marginBottom="20dp"/>
+                        android:paddingVertical="10dp"
+                        android:onClick="@{v->vm.onWithdrawal()}"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/str_setting_logout"
                         android:onClick="@{v->vm.logout()}"
-                        style="@style/regular16"/>
+                        style="@style/regular16"
+                        android:paddingVertical="10dp"/>
 
 
                 </androidx.appcompat.widget.LinearLayoutCompat>

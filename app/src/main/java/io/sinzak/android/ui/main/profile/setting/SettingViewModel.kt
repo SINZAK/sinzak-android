@@ -7,7 +7,9 @@ import io.sinzak.android.ui.base.BaseViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class SettingViewModel @Inject constructor(): BaseViewModel() {
+class SettingViewModel @Inject constructor(
+    val connect: SettingConnect
+): BaseViewModel() {
 
 /*    val currentSDK get() = signModel.sdkType*/
 
@@ -23,9 +25,17 @@ class SettingViewModel @Inject constructor(): BaseViewModel() {
     }
 
     /**
+     * 문의하기를 누릅니다
+     */
+    fun onContactUs()
+    {
+        connect.goToWriteMail()
+    }
+
+    /**
      * 회원 탈퇴를 누릅니다
      */
-    fun withdrawal()
+    fun onWithdrawal()
     {
 
     }
