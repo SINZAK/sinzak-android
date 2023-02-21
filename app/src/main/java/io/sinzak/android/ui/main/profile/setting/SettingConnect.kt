@@ -1,6 +1,7 @@
 package io.sinzak.android.ui.main.profile.setting
 
 import dagger.hilt.android.scopes.ActivityRetainedScoped
+import io.sinzak.android.model.GlobalUiModel
 import io.sinzak.android.ui.base.BaseActivity
 import io.sinzak.android.utils.EmailUtil
 import javax.inject.Inject
@@ -15,8 +16,8 @@ class SettingConnect @Inject constructor() {
         activity = a
     }
 
-    fun goToWriteMail()
+    fun goToWriteMail(globalUiModel: GlobalUiModel)
     {
-        EmailUtil.goToWriteMail(activity)
+        EmailUtil.goToWriteMail(activity, globalUiModel)
     }
 }

@@ -130,14 +130,14 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="문의하기"
+                        android:text="@string/str_setting_contact_us"
                         style="@style/regular16"
                         android:paddingVertical="10dp"
                         android:onClick="@{v->vm.onContactUs()}"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="공지사항"
+                        android:text="@string/str_setting_announce"
                         style="@style/regular16"
                         android:paddingVertical="10dp"/>
                     <TextView

@@ -29,7 +29,7 @@ class SettingViewModel @Inject constructor(
      */
     fun onContactUs()
     {
-        connect.goToWriteMail()
+        connect.goToWriteMail(uiModel)
     }
 
     /**
