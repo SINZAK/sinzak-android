@@ -4,9 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
-            name="fg"
-            type="io.sinzak.android.ui.main.profile.report.ReportSendFragment"/>
-        <variable
             name="vm"
             type="io.sinzak.android.ui.main.profile.report.ReportSendViewModel" />
     </data>
@@ -20,7 +17,7 @@
             android:layout_height="24dp"
             android:layout_marginStart="16dp"
             android:background="@drawable/ic_bg_button"
-            android:onClick="@{v->fg.navigateOnBackPressed()}"
+            android:onClick="@{v->vm.onBackPressed()}"
             android:src="@drawable/ic_back"
             app:layout_constraintBottom_toBottomOf="@+id/textView"
             app:layout_constraintStart_toStartOf="parent"
@@ -54,12 +51,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="33dp"
-            android:text="@string/str_report_dot"
+            android:text="@{@string/str_report_type(vm.reportType)}"
             android:textColor="@color/gray80"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
-        <TextView
+<!--        <TextView
             android:id="@+id/textView3"
             style="@style/bold16"
             android:layout_width="wrap_content"
@@ -67,7 +64,7 @@
             reportType="@{vm.reportType}"
             android:textColor="@color/gray80"
             app:layout_constraintStart_toEndOf="@+id/textView4"
-            app:layout_constraintTop_toBottomOf="@+id/textView9" />
+            app:layout_constraintTop_toBottomOf="@+id/textView9" />-->
 
         <EditText
             android:id="@+id/editText"
@@ -84,7 +81,7 @@
             android:paddingHorizontal="32dp"
             android:paddingVertical="24dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3"
+            app:layout_constraintTop_toBottomOf="@+id/textView4"
             android:hint="@string/str_report_input_hint"
             android:onTextChanged="@{(cs,a,b,c) -> vm.reportInputText(cs)}"
             />

@@ -3,7 +3,7 @@ package io.sinzak.android.ui.main.profile.follow
 import android.os.Bundle
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.sinzak.android.constants.CODE_FOLLOW_PAGE
+import io.sinzak.android.constants.CODE_FOLLOW
 import io.sinzak.android.enums.Page
 import io.sinzak.android.model.profile.ProfileModel
 import io.sinzak.android.ui.base.BaseViewModel
@@ -21,53 +21,64 @@ import javax.inject.Inject
 class FollowViewModel @Inject constructor(
     val model: ProfileModel
 ) : BaseViewModel() {
-    private val _page = MutableStateFlow(0)
-    val page : StateFlow<Int> get() = _page
 
     val profile get() = model.profile
 
-    val adapter = FollowAdapter {
-        model.changeProfile(it)
-        navigation.changePage(Page.PROFILE_OTHER)
-    }.apply {
-        model.followList.onEach {
-            setFollows(it)
-        }.launchIn(viewModelScope)
-    }
+    private val _tap = MutableStateFlow(FOLLOWER)
+    val tap : StateFlow<Boolean> get() = _tap
+
+    val adapter = FollowAdapter(::onClickItem)
 
 
     init {
-        CoroutineScope(Dispatchers.Main).launch {
-            subscribe()
+
+        setAdapter()
+    }
+
+    /*
+     * 어뎁터를 세팅합니다
+     */
+    private fun setAdapter()
+    {
+        adapter.apply {
+            model.followList.onEach {
+                setFollows(it)
+            }.launchIn(viewModelScope)
         }
     }
 
-    private fun subscribe()
+    /************************************************
+     * 클릭 시 실행
+     ***************************************/
+
+    /**
+     * 상단 탭을 누릅니다
+     */
+    fun changeTap(t : Boolean)
     {
-        invokeStateFlow(navigation.bundleInserted){
-            navigation.getBundleData(this::class)?.apply {
-                getPageType(this)
-            }
-        }
+        _tap.value = t
+        model.getFollowList(t)
     }
 
-    private fun getPageType(bundle: Bundle)
+    /**
+     * 뒤로가기를 누릅니다
+     */
+    fun onBackPressed()
     {
-        bundle.getInt(CODE_FOLLOW_PAGE).let {
-            _page.value = it
-        }
+        navigation.revealHistory()
     }
 
-    fun changePage(page : Int)
+    /**
+     * 리스트 중 하나를 누릅니다
+     */
+    private fun onClickItem(userId : String)
     {
-        _page.value = page
-        getFollowListRemote(page)
+        model.changeProfile(userId)
+        navigation.changePage(Page.PROFILE_OTHER)
     }
 
-    fun getFollowListRemote() {
-        model.getFollowList(page = _page.value)
-    }
-    private fun getFollowListRemote(page: Int) {
-        model.getFollowList(page = page)
+    companion object {
+        const val FOLLOWER = true
+        const val FOLLOWING = false
     }
 }

@@ -10,10 +10,7 @@ import io.sinzak.android.remote.dataclass.request.login.*
 import io.sinzak.android.remote.dataclass.request.market.ProductBuildRequest
 import io.sinzak.android.remote.dataclass.request.market.ProductLikeRequest
 import io.sinzak.android.remote.dataclass.request.market.ProductSuggestRequest
-import io.sinzak.android.remote.dataclass.request.profile.FollowRequest
-import io.sinzak.android.remote.dataclass.request.profile.HistoryRequest
-import io.sinzak.android.remote.dataclass.request.profile.ReportRequest
-import io.sinzak.android.remote.dataclass.request.profile.UpdateUserRequest
+import io.sinzak.android.remote.dataclass.request.profile.*
 import io.sinzak.android.remote.remotesources.RemoteInterface
 import io.sinzak.android.remote.remotesources.RemoteListener
 import io.sinzak.android.system.App.Companion.prefs
@@ -90,6 +87,12 @@ class CallImpl(
             API_GET_MY_PROFILE -> remoteApi.getMyProfile(header)
 
             API_EDIT_MY_PROFILE -> remoteApi.editMyProfile(header,requestBody as UpdateUserRequest)
+
+            API_EDIT_MY_IMAGE -> remoteApi.editImage(header.apply {
+                this.remove(CONTENT_TYPE)
+            }, multipart!!)
+
+            API_EDIT_MY_INTEREST -> remoteApi.editInterest(header, requestBody as UpdateInterestRequest)
 
             API_GET_SEARCH_HISTORY -> remoteApi.getSearchHistory(header)
 

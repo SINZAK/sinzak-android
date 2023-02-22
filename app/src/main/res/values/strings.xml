@@ -67,6 +67,21 @@
     <string name="str_edit_apply_verify">인증 작가 신청하기</string>
 
     <string name="str_setting">설정</string>
+    <string name="str_setting_group_personal">개인 설정</string>
+    <string name="str_setting_account">연결된 계정 관리</string>
+
+    <string name="str_setting_group_app">이용 안내</string>
+    <string name="str_setting_app_version">앱 버전</string>
+    <string name="str_setting_contact_us">문의하기</string>
+    <string name="str_setting_announce">공지하기</string>
+    <string name="str_setting_app_service">서비스 이용약관</string>
+    <string name="str_setting_info_use">개인정보 처리방침</string>
+    <string name="str_setting_license">오픈소스 라이선스</string>
+
+    <string name="str_setting_group_etc">기타</string>
+    <string name="str_setting_withdrawal">회원 탈퇴</string>
+    <string name="str_setting_logout">로그아웃</string>
+
 
     <string name="str_certification">학교 인증</string>
     <string name="str_certification_school">학교 이름</string>
@@ -177,7 +192,7 @@
     <string name="str_report_type_cheat">사기 당했어요</string>
     <string name="str_report_type_other">다른 문제가 있어요</string>
     <string name="str_report_content">신고 내용을 작성해주세요.</string>
-    <string name="str_report_dot">: </string>
+    <string name="str_report_type">: %s</string>
     <string name="str_report_input_hint">신작이 조치를 취해드릴 수 있게 문제 상황을 최대한 구체적으로 설명해주세요.</string>
     <string name="str_report_input_length">글자 수 제한 %d/300</string>
     <string name="str_report_send_explain">신고하면 더 이상 채팅을 보낼 수 없어요.</string>

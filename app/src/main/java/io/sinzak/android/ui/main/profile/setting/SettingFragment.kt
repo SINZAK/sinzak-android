@@ -4,6 +4,7 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import io.sinzak.android.databinding.FragmentSettingProfileBinding
+import io.sinzak.android.ui.base.BaseActivity
 import io.sinzak.android.ui.base.BaseFragment
 
 @AndroidEntryPoint
@@ -21,9 +22,10 @@ class SettingFragment : BaseFragment() {
     override fun onFragmentCreated() {
         bind.apply {
             bind.lifecycleOwner = viewLifecycleOwner
-            fg = this@SettingFragment
-            viewmodel = viewModel
+            vm = viewModel
         }
+
+        viewModel.connect.registerActivity(requireActivity() as BaseActivity<*>)
     }
 
     override fun showBottomBar(): Boolean {
@@ -31,6 +33,6 @@ class SettingFragment : BaseFragment() {
     }
 
     override fun navigateOnBackPressed() {
-        navigator.revealHistory()
+        viewModel.onBackPressed()
     }
 }

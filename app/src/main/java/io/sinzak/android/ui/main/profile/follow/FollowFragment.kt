@@ -18,20 +18,20 @@ class FollowFragment : BaseFragment() {
         bind.apply {
             lifecycleOwner = viewLifecycleOwner
             vm = viewModel
-            fg = this@FollowFragment
         }
         return bind.root
     }
 
     override fun onFragmentCreated() {
-        viewModel.getFollowListRemote()
+        viewModel.changeTap(viewModel.tap.value)
     }
+
 
     override fun showBottomBar(): Boolean {
         return false
     }
 
     override fun navigateOnBackPressed() {
-        navigator.revealHistory()
+        viewModel.onBackPressed()
     }
 }

@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <import type="io.sinzak.android.enums.ReportType"/>
-        <variable
-            name="fg"
-            type="io.sinzak.android.ui.main.profile.report.ReportTypeFragment" />
         <variable
             name="vm"
             type="io.sinzak.android.ui.main.profile.report.ReportSendViewModel" />
@@ -20,7 +16,7 @@
             android:layout_height="24dp"
             android:layout_marginStart="16dp"
             android:background="@drawable/ic_bg_button"
-            android:onClick="@{v->fg.navigateOnBackPressed()}"
+            android:onClick="@{v->vm.onBackPressed()}"
             android:src="@drawable/ic_back"
             app:layout_constraintBottom_toBottomOf="@+id/textView"
             app:layout_constraintStart_toStartOf="parent"
@@ -53,7 +49,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="17dp"
-                android:text="@{vm.isFromProfile ? @string/str_report_type_title(vm.profile.name) : @string/str_report_type_title(vm.art.author)}" />
+                android:text="@{@string/str_report_type_title(vm.userName)}" />
 
             <View
                 android:layout_width="match_parent"
@@ -65,12 +61,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/cl_profile_underline"
-                android:onClick="@{v->vm.goToReportSendPage(ReportType.REPORT_SELLER)}"
+                android:onClick="@{v->vm.selectType(tvTypeOne)}"
                 android:paddingVertical="23dp"
                 android:paddingStart="17dp"
                 android:paddingEnd="11dp">
 
                 <TextView
+                    android:id="@+id/tv_type_one"
                     style="@style/medium16"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -91,12 +88,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/cl_profile_underline"
-                android:onClick="@{v->vm.goToReportSendPage(ReportType.REPORT_NO_MANNER)}"
+                android:onClick="@{v->vm.selectType(tvTypeTwo)}"
                 android:paddingVertical="23dp"
                 android:paddingStart="17dp"
                 android:paddingEnd="11dp">
 
                 <TextView
+                    android:id="@+id/tv_type_two"
                     style="@style/medium16"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -117,12 +115,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/cl_profile_underline"
-                android:onClick="@{v->vm.goToReportSendPage(ReportType.REPORT_SEXUAL)}"
+                android:onClick="@{v->vm.selectType(tvTypeThree)}"
                 android:paddingVertical="23dp"
                 android:paddingStart="17dp"
                 android:paddingEnd="11dp">
 
                 <TextView
+                    android:id="@+id/tv_type_three"
                     style="@style/medium16"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -143,12 +142,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/cl_profile_underline"
-                android:onClick="@{v->vm.goToReportSendPage(ReportType.REPORT_DISPUTE)}"
+                android:onClick="@{v->vm.selectType(tvTypeFour)}"
                 android:paddingVertical="23dp"
                 android:paddingStart="17dp"
                 android:paddingEnd="11dp">
 
                 <TextView
+                    android:id="@+id/tv_type_four"
                     style="@style/medium16"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -169,12 +169,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/cl_profile_underline"
-                android:onClick="@{v->vm.goToReportSendPage(ReportType.REPORT_CHEAT)}"
+                android:onClick="@{v->vm.selectType(tvTypeFive)}"
                 android:paddingVertical="23dp"
                 android:paddingStart="17dp"
                 android:paddingEnd="11dp">
 
                 <TextView
+                    android:id="@+id/tv_type_five"
                     style="@style/medium16"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -195,12 +196,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/cl_profile_underline"
-                android:onClick="@{v->vm.goToReportSendPage(ReportType.REPORT_OTHER)}"
+                android:onClick="@{v->vm.selectType(tvTypeSix)}"
                 android:paddingVertical="23dp"
                 android:paddingStart="17dp"
                 android:paddingEnd="11dp">
 
                 <TextView
+                    android:id="@+id/tv_type_six"
                     style="@style/medium16"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

@@ -23,7 +23,6 @@ class ReportTypeFragment : BaseFragment() {
         bind.apply {
             bind.lifecycleOwner = viewLifecycleOwner
             vm = viewModel
-            fg = this@ReportTypeFragment
         }
     }
 
@@ -32,7 +31,7 @@ class ReportTypeFragment : BaseFragment() {
     }
 
     override fun navigateOnBackPressed() {
-        navigator.revealHistory()
+        viewModel.onBackPressed()
     }
 
 

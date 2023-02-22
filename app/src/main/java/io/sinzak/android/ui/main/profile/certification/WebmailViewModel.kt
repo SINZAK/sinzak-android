@@ -7,6 +7,7 @@ import io.sinzak.android.model.certify.CertifyModel
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.utils.FileUtil
 import kotlinx.coroutines.flow.MutableStateFlow
+import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
@@ -49,6 +50,11 @@ class WebmailViewModel @Inject constructor(
      * 학생증 이미지 이름
      */
     var imgFileName = MutableStateFlow("")
+
+    /**
+     * 인증코드 확인 횟수
+     */
+    val checkCodeCnt get() = certifyModel.codeCheckCnt
 
 
     /************************************************
@@ -93,8 +99,8 @@ class WebmailViewModel @Inject constructor(
     /**
      * 인증 방식을 누릅니다
      */
-    fun changePage(){
-        currentPage.value = !currentPage.value
+    fun changePage(page : Boolean){
+        currentPage.value = page
     }
 
     /**
@@ -119,15 +125,9 @@ class WebmailViewModel @Inject constructor(
 
             requestSendMail()
 
-            invokeBooleanFlow(
-                certifyModel.flagSendSuccess,
-                {
-                    webMailState.value = INIT
-                },
-                {
-                    webMailState.value = DONE
-                }
-            )
+            useFlag(certifyModel.flagSendSuccess){
+                webMailState.value = DONE
+            }
 
         }
         else webMailState.value = ERROR
@@ -164,9 +164,12 @@ class WebmailViewModel @Inject constructor(
     fun onUploadImageClick(){
 
         connect.loadImage {
-            imgFileName.value = FileUtil.getRealPath(certifyModel.context,it).toString()
-            certifyModel.setImgUri(imgFileName.value)
-            isUpload.value = true
+            imgFileName.value = FileUtil.getRealName(certifyModel.context,it)
+            certifyModel.convertUriToMultiPart(it)
+
+            useFlag(certifyModel.convertUriFlag){
+                isUpload.value = true
+            }
         }
     }
 
@@ -184,9 +187,10 @@ class WebmailViewModel @Inject constructor(
      */
     fun onSubmit()
     {
+        navigation.removeHistory(Page.PROFILE_EDIT)
         navigation.removeHistory(Page.PROFILE_WEBMAIL)
         navigation.removeHistory(Page.PROFILE_CERTIFICATION)
-        navigation.revealHistory()
+        navigation.changePage(Page.PROFILE_EDIT)
     }
 
     /**
@@ -198,11 +202,7 @@ class WebmailViewModel @Inject constructor(
     {
         requestCertifyStudentId()
 
-        invokeBooleanFlow(
-            certifyModel.flagUploadSuccess,
-            {},
-            (::onSubmit)
-        )
+        useFlag(certifyModel.flagUploadSuccess, ::onSubmit)
     }
 
     /**

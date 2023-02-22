@@ -1,19 +1,19 @@
 package io.sinzak.android.remote.remotesources
 
 import io.sinzak.android.remote.dataclass.CResponse
-import io.sinzak.android.remote.dataclass.request.profile.FollowRequest
-import io.sinzak.android.remote.dataclass.request.profile.HistoryRequest
-import io.sinzak.android.remote.dataclass.request.profile.ReportRequest
-import io.sinzak.android.remote.dataclass.request.profile.UpdateUserRequest
+import io.sinzak.android.remote.dataclass.request.profile.*
 import io.sinzak.android.remote.dataclass.response.history.HistoryResponse
 import io.sinzak.android.remote.dataclass.response.profile.FollowResponse
 import io.sinzak.android.remote.dataclass.response.profile.UserProfileResponse
 import io.sinzak.android.remote.dataclass.response.profile.WishResponse
+import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.HeaderMap
+import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.Part
 import retrofit2.http.Path
 
 interface RemoteProfileInterface {
@@ -31,6 +31,13 @@ interface RemoteProfileInterface {
 
     @POST("api/users/edit")
     fun editMyProfile(@HeaderMap header: HashMap<String, String>, @Body body: UpdateUserRequest) : Call<CResponse>
+
+    @POST("api/users/edit/category")
+    fun editInterest(@HeaderMap header: HashMap<String, String>, @Body body: UpdateInterestRequest):Call<CResponse>
+
+    @Multipart
+    @POST("api/users/edit/image")
+    fun editImage(@HeaderMap header: HashMap<String, String>, @Part part: MultipartBody.Part) : Call<CResponse>
 
     @GET("api/users/wish")
     fun getWishList(@HeaderMap header: HashMap<String, String>) : Call<WishResponse>

@@ -72,7 +72,7 @@
                     android:paddingStart="8dp"
                     android:paddingEnd="15dp"
                     isSelect="@{vm.currentPage == vm.WEB_MAIL_PAGE}"
-                    android:onClick="@{v -> vm.changePage()}">
+                    android:onClick="@{v -> vm.changePage(vm.WEB_MAIL_PAGE)}">
 
                     <TextView
                         style="@style/bold13"
@@ -101,7 +101,7 @@
                     android:paddingStart="8dp"
                     android:paddingEnd="15dp"
                     isSelect="@{vm.currentPage == vm.SCHOOL_ID_PAGE}"
-                    android:onClick="@{v -> vm.changePage()}">
+                    android:onClick="@{v -> vm.changePage(vm.SCHOOL_ID_PAGE)}">
 
                     <TextView
                         style="@style/bold13"
@@ -159,7 +159,8 @@
                 android:onClick="@{v->vm.onCancel()}"/>
             <Space
                 android:layout_width="11dp"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:visibility="@{vm.currentPage == vm.SCHOOL_ID_PAGE ? 0 : (vm.checkCodeCnt&lt;3 ? 0 : 8)}"/>
             <TextView
                 style="@style/bold16"
                 android:layout_width="0dp"
@@ -169,6 +170,7 @@
                 android:background="@drawable/btn_red_filled"
                 android:gravity="center"
                 android:text="@string/str_complete"
+                android:visibility="@{vm.currentPage == vm.SCHOOL_ID_PAGE ? 0 : (vm.checkCodeCnt&lt;3 ? 0 : 8)}"
                 android:enabled="@{vm.currentPage == vm.WEB_MAIL_PAGE ? vm.codeState == vm.DONE : vm.isUpload}"
                 android:onClick="@{v-> vm.currentPage == vm.WEB_MAIL_PAGE ? vm.onSubmit() : vm.onSubmitStudentId()}"/>
         </androidx.appcompat.widget.LinearLayoutCompat>

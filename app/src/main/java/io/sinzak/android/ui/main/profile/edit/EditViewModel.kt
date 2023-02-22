@@ -35,24 +35,21 @@ class EditViewModel @Inject constructor(
      * 이름을 저장하는 공간
      */
     private val _name = MutableStateFlow(profile.value!!.name)
-    val name : StateFlow<String> get() = _name
-
     /**
      * 소개를 저장하는 공간
      */
     private val _introduction = MutableStateFlow(profile.value!!.introduction)
-    val introduction : StateFlow<String> get() = _introduction
 
     fun typeInputText(cs : CharSequence) {
 
         if (!isMaxLines()) {
-            updateValue(cs.toString())
+            updateValue(_introduction,cs.toString())
         }
     }
 
     fun inputName(cs: CharSequence)
     {
-        updateValue(cs.toString())
+        updateValue(_name,cs.toString())
     }
 
     /********************************
@@ -67,6 +64,10 @@ class EditViewModel @Inject constructor(
         model.setName(_name.value)
         model.setIntroduction(_introduction.value)
         model.updateProfile()
+
+        useFlag(model.isEditDone){
+            showToast("프로필이 업데이트 됐어요")
+        }
     }
 
     /**
@@ -75,7 +76,7 @@ class EditViewModel @Inject constructor(
     fun onClickChangeImg()
     {
         connect.loadImage {
-            /*model.setPicture(it.toString())*/
+            model.convertUriToMultiPart(it)
             insertImgOnScreen(connect.bind.imgProfile,it.toString())
         }
     }
@@ -85,7 +86,7 @@ class EditViewModel @Inject constructor(
      */
     fun gotoCertificationPage(hasCert : Boolean){
         if(!hasCert) navigation.changePage(Page.PROFILE_CERTIFICATION)
-        else navigation.changePage(Page.PROFILE_CERTIFICATION)
+        else navigation.changePage(Page.PROFILE_CERTIFICATION) //테스트 - 배포때는 return으로
     }
 
     /**
@@ -117,10 +118,11 @@ class EditViewModel @Inject constructor(
     /**
      * 화면에 이미지 삽입
      */
-    private fun insertImgOnScreen(imageView : ImageView, uri : String )
+    private fun insertImgOnScreen(imageView : ImageView, uri : String)
     {
 
         CoroutineScope(Dispatchers.Main).launch {
+
             Glide.with(imageView).asBitmap().load(uri)
                 .transform(
                     CenterCrop(),
@@ -152,10 +154,10 @@ class EditViewModel @Inject constructor(
     /**
      * 입력 글자를 갱신합니다
      */
-    private fun updateValue(input : String)
+    private fun updateValue(value : MutableStateFlow<String>,input : String)
     {
-        if (_introduction.value != input) {
-            _introduction.value = input
+        if (value.value != input) {
+            value.value = input
         }
     }
 }
