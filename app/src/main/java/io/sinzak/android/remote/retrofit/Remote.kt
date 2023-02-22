@@ -64,7 +64,7 @@ class Remote @Inject constructor(val remoteApi : RemoteInterface) : Callback<Res
             }
         }
 
-        if(body is OAuthGetResponse && body.success != false){
+        if(body is OAuthGetResponse){
             body.data?.let { token->
                 prefs.setString(ACCESS_TOKEN,token.accessToken)
                 prefs.setString(REFRESH_TOKEN,token.refreshToken)

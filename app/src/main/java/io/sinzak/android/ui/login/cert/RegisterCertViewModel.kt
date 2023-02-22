@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.sinzak.android.model.certify.CertifyModel
 import io.sinzak.android.model.insets.SoftKeyModel
+import io.sinzak.android.system.LogInfo
 import io.sinzak.android.ui.login.RegisterConnect
 import io.sinzak.android.ui.main.profile.certification.CertificationViewModel
 import kotlinx.coroutines.Job
@@ -31,7 +32,8 @@ class RegisterCertViewModel @Inject constructor(
         signModel.join()
         loginJob = signModel.isLogin.onEach {
             if(it){
-                connect.navigation.clearHistory()
+
+                LogInfo(javaClass.name,"Join Success! Go Cert")
                 connect.gotoCertPage()
 
             }
@@ -46,7 +48,10 @@ class RegisterCertViewModel @Inject constructor(
 
     override fun onCancel() {
         loginJob = signModel.isLogin.onEach {
-            if(it) connect.gotoWelcome()
+            if(!it)
+                return@onEach
+            LogInfo(javaClass.name,"Join Success! Go Welcome")
+             connect.gotoWelcome()
         }.launchIn(viewModelScope)
         signModel.join()
     }

@@ -11,7 +11,7 @@ data class JoinRequest(
     @SerializedName("nickName") val nickname : String,
     @SerializedName("origin") val SDKOrigin : String,
     @SerializedName("term") val term : Boolean = false,
-    @SerializedName("univ") val university : String = "",
+    @SerializedName("univName") val university : String = "",
     @SerializedName("univ_email") val univEmail : String = ""
 
  ) : CRequest()
