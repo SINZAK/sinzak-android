@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
 import dagger.hilt.android.qualifiers.ApplicationContext
-import io.sinzak.android.R
 import io.sinzak.android.constants.API_EDIT_MY_IMAGE
 import io.sinzak.android.constants.API_EDIT_MY_PROFILE
 import io.sinzak.android.model.BaseModel
@@ -26,7 +25,6 @@ class ProfileEditModel @Inject constructor(@ApplicationContext val context : Con
 
     private var introduction = ""
     private var name = ""
-    private var picture = ""
 
     private var link = ""
 
@@ -95,7 +93,7 @@ class ProfileEditModel @Inject constructor(@ApplicationContext val context : Con
     }
 
     /**
-     * 이미지를 MultiPart로 변환
+     * 이미지를 MultiPart 로 변환
      */
     fun convertUriToMultiPart(uri: Uri)
     {
@@ -145,7 +143,6 @@ class ProfileEditModel @Inject constructor(@ApplicationContext val context : Con
         val request = UpdateUserRequest(
             introduction,
             name,
-            picture
         )
         CallImpl(
             API_EDIT_MY_PROFILE,
