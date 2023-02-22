@@ -52,6 +52,7 @@ class SignModel @Inject constructor(
 
     private var oAuthTokenTaken = ""
     private var socialOrigin = ""
+    private var oAuthIdToken = ""
 
     private val _sdkSignSuccess = MutableStateFlow(false)
     val sdkSignSuccess : StateFlow<Boolean> get() = _sdkSignSuccess
@@ -348,6 +349,10 @@ class SignModel @Inject constructor(
                 val authCode = it.serverAuthCode.toString()
                 loginEmail = account.email.toString()
                 username = account.displayName.toString()
+
+                oAuthTokenTaken = authCode
+                oAuthIdToken = it.idToken.toString()
+                socialOrigin = "google"
                 postOAuthToken(authCode,"google", idToken = it.idToken.toString())
                 //getGoogleAccessToken(authCode)
             }
@@ -397,7 +402,27 @@ class SignModel @Inject constructor(
     }
 
 
+    /**
+     * 로그인, 회원가입 성공시 가지고 있는 소셜 정보를 prefs 에 저장합니다.
+     */
+    private fun saveTokenToPrefs(){
+        prefs.setString(CODE_OAUTH_ORIGIN, socialOrigin)
+        prefs.setString(CODE_OAUTH_IDTOKEN, oAuthIdToken)
+        prefs.setString(CODE_OAUTH_AUTHTOKEN, oAuthTokenTaken)
+    }
 
+    /**
+     * 최초 refresh 실패 시, 가지고 있는 소셜 정보를 통해 재 로그인을 시도합니다.
+     */
+    private fun restoreTokenFromPrefs(){
+        socialOrigin = prefs.getString(CODE_OAUTH_ORIGIN,"").toString()
+        oAuthIdToken = prefs.getString(CODE_OAUTH_IDTOKEN,"").toString()
+        oAuthTokenTaken = prefs.getString(CODE_OAUTH_AUTHTOKEN,"").toString()
+        if(oAuthTokenTaken.isNotEmpty())
+            loginToServer()
+        else
+            LogInfo(javaClass.name,"NO STORED LOGIN INFORMATION")
+    }
 
 
     /**************************************************************************************************************************
@@ -417,8 +442,7 @@ class SignModel @Inject constructor(
      * 백엔드에 로그인을 요청합니다.
      */
     private fun loginToServer(){
-        postOAuthToken(oAuthTokenTaken, socialOrigin)
-        return
+        postOAuthToken(oAuthTokenTaken, socialOrigin, oAuthIdToken)
     }
 
     private fun loginToServerViaEmail(email: String){
@@ -464,8 +488,11 @@ class SignModel @Inject constructor(
      */
     private fun onRefreshToken(response : Token)
     {
-        if(response.accessToken.isNullOrEmpty())
+        if(response.accessToken.isNullOrEmpty()){
+            restoreTokenFromPrefs()
             return
+
+        }
 
         setIsLogin(true)
         prefs.setString(ACCESS_TOKEN,response.accessToken)
@@ -481,6 +508,7 @@ class SignModel @Inject constructor(
             checkEmail(loginEmail)
         }else{
             // login
+            saveTokenToPrefs()
             setIsLogin(true)
         }
     }
@@ -493,6 +521,7 @@ class SignModel @Inject constructor(
     {
         if(success){
             needSignUp.value = false
+            saveTokenToPrefs()
             setIsLogin(true)
         }else{
             //todo 회원가입 실패
@@ -505,6 +534,7 @@ class SignModel @Inject constructor(
      * OAUTH TOKEN POST
      */
     private fun postOAuthToken(token: String, origin: String, idToken: String? = null){
+
         CallImpl(API_POST_OAUTH_TOKEN, this, paramStr0 = token, paramStr1 = origin, paramStr2 = idToken).apply{
             remote.sendRequestApi(this)
         }
@@ -521,6 +551,8 @@ class SignModel @Inject constructor(
             remote.sendRequestApi(this)
         }
     }
+
+
 
     override fun onConnectionSuccess(api: Int, body: CResponse) {
         when(api)

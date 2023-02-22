@@ -50,6 +50,7 @@ class RegisterConnect @Inject constructor(val navigation : RegisterNavigation) {
 
     fun gotoCertPage(){
         navigation.changePage(RegisterPage.PAGE_UNIVERSITY_CERT)
+        navigation.clearHistory()
     }
 
 
@@ -58,6 +59,7 @@ class RegisterConnect @Inject constructor(val navigation : RegisterNavigation) {
      */
     fun gotoWelcome(){
         navigation.changePage(RegisterPage.Welcome)
+        navigation.clearHistory()
     }
 
 

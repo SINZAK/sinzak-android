@@ -3,12 +3,10 @@ package io.sinzak.android.model.chat
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import io.sinzak.android.constants.API_CREATE_CHATROOM
 import io.sinzak.android.constants.API_GET_CHATROOM_LIST
+import io.sinzak.android.constants.API_GET_CHATROOM_MSG
 import io.sinzak.android.model.BaseModel
 import io.sinzak.android.remote.dataclass.CResponse
-import io.sinzak.android.remote.dataclass.chat.ChatCreateResponse
-import io.sinzak.android.remote.dataclass.chat.ChatMsg
-import io.sinzak.android.remote.dataclass.chat.ChatRoom
-import io.sinzak.android.remote.dataclass.chat.ChatRoomListResponse
+import io.sinzak.android.remote.dataclass.chat.*
 import io.sinzak.android.remote.dataclass.response.market.MarketDetailResponse
 import io.sinzak.android.remote.retrofit.CallImpl
 import io.sinzak.android.system.LogDebug
@@ -56,6 +54,18 @@ class ChatStorage @Inject constructor() : BaseModel() {
         this.postId = postId
         this.postType = postType
     }
+
+    fun loadExistChatroom(uuid: String){
+        makeChatRoom(uuid)
+        remote.sendRequestApi(
+            CallImpl(
+                API_GET_CHATROOM_MSG,
+                this,
+                paramStr0 = uuid
+            )
+        )
+    }
+
 
     /**
      * Request New Chatroom
@@ -140,6 +150,13 @@ class ChatStorage @Inject constructor() : BaseModel() {
                 if(body.success == true){
                     body as ChatCreateResponse
                     makeChatRoom(body.data?.roomUuid!!)
+                }
+            }
+
+            API_GET_CHATROOM_MSG ->{
+                body as ChatRoomMsgResponse
+                body.msgContent?.let{
+                    _chatMsg.value = it.toMutableList()
                 }
             }
         }

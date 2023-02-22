@@ -252,7 +252,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/btn_red_filled"
                 android:gravity="center"
-                android:onClick="@{v->vm.checkCode()}"
+                android:onClick="@{v->vm.onFinishRegister()}"
                 android:text="완료"
                 android:textColor="@color/on_primary"
                 app:layout_constraintBottom_toBottomOf="parent" />

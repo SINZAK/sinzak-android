@@ -118,9 +118,9 @@ class CertifyModel @Inject constructor(@ApplicationContext val context : Context
     fun sendMailCode()
     {
         val request = MailRequest(
-            univ_email = address,
+            univEmail = address,
             univName = univ!!.schoolName,
-            code = null
+            code = ""
         )
 
         CallImpl(
@@ -141,7 +141,7 @@ class CertifyModel @Inject constructor(@ApplicationContext val context : Context
 
 
         val request = MailRequest(
-            univ_email = address,
+            univEmail = address,
             univName = univ!!.schoolName,
             code = code
         )

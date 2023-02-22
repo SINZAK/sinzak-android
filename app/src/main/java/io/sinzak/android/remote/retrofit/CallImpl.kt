@@ -191,7 +191,7 @@ class CallImpl(
             API_POST_WISH_WORK -> remoteApi.postWorkWish(header, requestBody as ProductLikeRequest)
 
 
-
+            API_GET_CHATROOM_MSG -> remoteApi.getChatroomMsg(header, paramStr0!!)
 
             API_GET_CHATROOM_LIST -> remoteApi.getChatRooms(header)
 
