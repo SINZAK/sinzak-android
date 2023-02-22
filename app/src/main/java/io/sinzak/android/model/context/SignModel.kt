@@ -438,7 +438,6 @@ class SignModel @Inject constructor(
         prefs.accessToken = ""
         prefs.refreshToken = ""
         setIsLogin(false)
-
     }
 
     /**

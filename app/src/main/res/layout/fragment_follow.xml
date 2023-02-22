@@ -3,9 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
-            name="fg"
-            type="io.sinzak.android.ui.main.profile.follow.FollowFragment" />
-        <variable
             name="vm"
             type="io.sinzak.android.ui.main.profile.follow.FollowViewModel" />
     </data>
@@ -18,7 +15,7 @@
             android:layout_height="24dp"
             android:layout_marginStart="16dp"
             android:background="@drawable/ic_bg_button"
-            android:onClick="@{v->fg.navigateOnBackPressed()}"
+            android:onClick="@{v->vm.onBackPressed()}"
             android:src="@drawable/ic_back"
             app:layout_constraintBottom_toBottomOf="@+id/textView"
             app:layout_constraintStart_toStartOf="parent"
@@ -46,27 +43,28 @@
 
             <TextView
                 style="@style/bold16"
-                isSelect="@{vm.page == 0}"
+                isSelect="@{vm.tap == vm.FOLLOWER}"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/btn_noti_list_select"
                 android:gravity="center"
-                android:onClick="@{v->vm.changePage(0)}"
-                android:text="@string/str_profile_following"
-                android:textColor="@{vm.page == 0 ? @color/text0 : @color/text1}"/>
+                android:onClick="@{v-> vm.changeTap(vm.FOLLOWER)}"
+                android:text="@string/str_profile_follower"
+                android:textColor="@{vm.tap == vm.FOLLOWER ? @color/text0 : @color/text1}" />
 
             <TextView
                 style="@style/bold16"
-                isSelect="@{vm.page == 1}"
+                isSelect="@{vm.tap == vm.FOLLOWING}"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/btn_noti_list_select"
                 android:gravity="center"
-                android:onClick="@{v->vm.changePage(1)}"
-                android:text="@string/str_profile_follower"
-                android:textColor="@{vm.page == 1 ? @color/text0 : @color/text1}" />
+                android:onClick="@{v-> vm.changeTap(vm.FOLLOWING)}"
+                android:text="@string/str_profile_following"
+                android:textColor="@{vm.tap == vm.FOLLOWING ? @color/text0 : @color/text1}"/>
+
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 

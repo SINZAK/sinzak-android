@@ -22,7 +22,6 @@ class ReportSendFragment : BaseFragment() {
         bind.apply {
             bind.lifecycleOwner = viewLifecycleOwner
             vm = viewModel
-            fg = this@ReportSendFragment
         }
     }
 
@@ -31,6 +30,6 @@ class ReportSendFragment : BaseFragment() {
     }
 
     override fun navigateOnBackPressed() {
-        navigator.revealHistory()
+        viewModel.onBackPressed()
     }
 }

@@ -9,23 +9,21 @@ import io.sinzak.android.remote.dataclass.CResponse
 import io.sinzak.android.remote.dataclass.request.profile.HistoryRequest
 import io.sinzak.android.remote.dataclass.request.profile.ReportRequest
 import io.sinzak.android.remote.retrofit.CallImpl
+import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class UserCommandModel @Inject constructor() : BaseModel(){
 
-    private var reportReason = ""
     private var historyId = ""
 
+    val reportSuccessFlag = MutableStateFlow(false)
 
     /************************************************
      * Local Data Insert
      ***************************************/
-    fun setReason(r : String)
-    {
-        reportReason = r
-    }
+
     fun setHistoryId (h : String)
     {
         historyId = h
@@ -35,10 +33,10 @@ class UserCommandModel @Inject constructor() : BaseModel(){
      * REQUEST
      ***********************************************************************************************************************/
 
-    fun reportUser(userId : String)
+    fun reportUser(reason : String ,userId : String)
     {
         val request = ReportRequest(
-            reason = reportReason,
+            reason = reason.trim(),
             userId = userId
         )
         CallImpl(
@@ -86,9 +84,13 @@ class UserCommandModel @Inject constructor() : BaseModel(){
         when(api)
         {
             API_REPORT_USER -> {
-                if (body.success == true)
-                {
+                if (body.success == true) {
+                    reportSuccessFlag.value = true
                     globalUi.showToast("신고되었습니다")
+                }
+                else {
+                    reportSuccessFlag.value = false
+                    globalUi.showToast(body.message.toString())
                 }
             }
 
@@ -109,5 +111,12 @@ class UserCommandModel @Inject constructor() : BaseModel(){
     }
 
     override fun handleError(api: Int, msg: String?, t: Throwable?) {
+
+        when(api)
+        {
+            API_REPORT_USER -> {
+                globalUi.showToast(msg.toString())
+            }
+        }
     }
 }

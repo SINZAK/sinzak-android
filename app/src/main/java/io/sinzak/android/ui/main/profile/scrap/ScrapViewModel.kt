@@ -10,6 +10,7 @@ import io.sinzak.android.remote.dataclass.product.Product
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.ui.main.profile.scrap.adapter.ScrapAdapter
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
@@ -21,6 +22,11 @@ class ScrapViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     /**
+     * 스크랩 타입 : 판매작품:false , 의뢰해요:true
+     */
+    val scrapType = MutableStateFlow(PRODUCT)
+
+    /**
      * 판매중인 작품인가?
      */
     val showOnSale = MutableStateFlow(false)
@@ -30,61 +36,64 @@ class ScrapViewModel @Inject constructor(
      */
     val showNothing = MutableStateFlow(false)
 
-    /**
-     * 상태에 따른 스크랩 목록을 저장하는 공간
-     */
-    val scraps = mutableListOf<Product>()
 
     /**
      * 스크랩 목록 어뎁터
      */
-    val adapter = ScrapAdapter(scraps,::onItemClick)
+    val adapter = ScrapAdapter(::onItemClick)
+        .apply {typeFlow(this)}
 
-
-    init {
-        setScrapData()
-    }
-
-    /**
-     * 상태에 따라 스크랩 목록을 업데이트합니다
-     */
-    @SuppressLint("NotifyDataSetChanged")
-    private fun updateScraps(scrapList : MutableList<Product>)
+    private fun typeFlow(adapter: ScrapAdapter)
     {
-        scraps.clear()
-        if (showOnSale.value)
-        {
-            val filterList = scrapList.filter { it.complete == false }
-            scraps.addAll(filterList)
-            showNothing.value = filterList.isEmpty()
-        }
-        else
-        {
-            scraps.addAll(scrapList)
-            showNothing.value = scrapList.isEmpty()
-        }
-
-        adapter.notifyDataSetChanged()
+        invokeBooleanFlow(
+            scrapType,
+            {onSaleFlow(adapter,model.productWishList)},
+            {onSaleFlow(adapter,model.workWishList)}
+        )
     }
 
-    /**
-     * 모델에서 스크랩목록을 가져옵니다
-     */
-    private fun setScrapData()
+    private fun onSaleFlow(adapter: ScrapAdapter, scrapList : StateFlow<MutableList<Product>>)
     {
-        model.productWishList.onEach(::updateScraps).launchIn(viewModelScope)
+        invokeBooleanFlow(
+            showOnSale,
+            {setScrapData(adapter, scrapList)},
+            {setScrapFilterData(adapter, scrapList)}
+        )
     }
+
+    private fun setScrapData(adapter: ScrapAdapter, scrapList : StateFlow<MutableList<Product>>)
+    {
+        scrapList.onEach { adapter.setScraps(it) }.launchIn(viewModelScope)
+        showNothing.value = adapter.itemCount != 0
+    }
+
+    private fun setScrapFilterData(adapter: ScrapAdapter, scrapList : StateFlow<MutableList<Product>>)
+    {
+        scrapList.onEach { list-> adapter.setScraps(list.filter { it.complete == false }) }.launchIn(viewModelScope)
+        showNothing.value = adapter.itemCount != 0
+    }
+
 
     /*********************************************************************
      * Click Event
      **********************************************************************/
 
     /**
+     * 스크랩 타입을 클릭
+     */
+    fun changeType(type : Boolean)
+    {
+        scrapType.value = type
+    }
+
+    /**
      * 개별 아이템을 클릭
      */
     private fun onItemClick(product : Product)
     {
-        productModel.loadProduct(product.id!!)
+        if (scrapType.value == PRODUCT) productModel.loadProduct(product.id!!)
+        else productModel.loadWork(product.id!!)
+
         navigation.changePage(Page.ART_DETAIL)
     }
 
@@ -94,7 +103,6 @@ class ScrapViewModel @Inject constructor(
     fun toggleShowOnSale()
     {
         showOnSale.value = !showOnSale.value
-        setScrapData()
     }
 
     /**
@@ -103,5 +111,10 @@ class ScrapViewModel @Inject constructor(
     fun backPressed()
     {
         navigation.revealHistory()
+    }
+
+    companion object {
+        const val PRODUCT = false
+        const val WORK = true
     }
 }

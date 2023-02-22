@@ -12,27 +12,19 @@ import com.bumptech.glide.request.target.Target
 import io.sinzak.android.R
 import io.sinzak.android.databinding.HolderProfileScrapGridBinding
 import io.sinzak.android.remote.dataclass.product.Product
+import io.sinzak.android.system.LogDebug
 
 class ScrapAdapter(
-    val scrapList : MutableList<Product> = mutableListOf(),
     val onItemClick : ((Product)->Unit)? = null
 ) : RecyclerView.Adapter<ScrapAdapter.ViewHolder>() {
 
+    private var scrapList : List<Product> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
             DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.holder_profile_scrap_grid,null,true)
         )
     }
-
-/*    fun setScraps(products : List<Product>)
-    {
-        scrapList = listOf()
-        this.scrapList = products
-        notifyDataSetChanged()
-        LogDebug(javaClass.name,"[SCRAP] 새로운 데이터 수신 $itemCount 개")
-
-    }*/
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(scrapList[position])
@@ -41,6 +33,20 @@ class ScrapAdapter(
     override fun getItemCount(): Int {
         return scrapList.size
     }
+
+    fun setScraps(scraps : List<Product>)
+    {
+        if(this.scrapList != scraps)
+        {
+            val oldSize = itemCount
+            this.scrapList = scraps
+            if(oldSize >= itemCount)
+                notifyDataSetChanged()
+            else
+                notifyItemRangeInserted(oldSize,itemCount - oldSize)
+        }
+    }
+
 
     inner class ViewHolder(val bind : HolderProfileScrapGridBinding)
         :RecyclerView.ViewHolder(bind.root), RequestListener<Bitmap> {

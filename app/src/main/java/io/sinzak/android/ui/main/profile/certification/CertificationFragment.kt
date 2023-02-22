@@ -4,9 +4,7 @@ import android.view.View
 import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
 import io.sinzak.android.databinding.FragmentCertificationBinding
-import io.sinzak.android.enums.Page
 import io.sinzak.android.ui.base.BaseFragment
-import javax.inject.Inject
 
 @AndroidEntryPoint
 open class CertificationFragment : BaseFragment() {

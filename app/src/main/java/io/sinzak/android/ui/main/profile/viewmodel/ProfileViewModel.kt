@@ -2,22 +2,14 @@ package io.sinzak.android.ui.main.profile.viewmodel
 
 import android.os.Bundle
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.sinzak.android.constants.CODE_FOLLOW_PAGE
-import io.sinzak.android.constants.CODE_USER_ID
 import io.sinzak.android.constants.CODE_USER_REPORT_ID
 import io.sinzak.android.constants.CODE_USER_REPORT_NAME
 import io.sinzak.android.enums.Page
 import io.sinzak.android.model.profile.ProfileModel
-import io.sinzak.android.remote.dataclass.response.profile.UserProfileResponse
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.ui.main.profile.ProfileConnect
-import io.sinzak.android.ui.main.profile.follow.FollowViewModel
 import io.sinzak.android.ui.main.profile.report.ReportSendViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -108,13 +100,14 @@ class ProfileViewModel @Inject constructor(
     /**
      * 뒤로 가기 클릭시 프로필 히스토리 관리
      */
-    fun revealProfileHistory() = model.revealProfileHistory()
+    private fun revealProfileHistory() = model.revealProfileHistory()
     /**
      * 팔로우 버튼 클릭시 동작
      */
     fun toggleFollow()
     {
         model.followUser(isFollow.value,model.currentUserId.value)
+
         useFlag(model.followControlSuccessFlag) {
             isFollow.value = !isFollow.value
             follower.value = follower.value + if (isFollow.value) 1 else -1
@@ -141,17 +134,6 @@ class ProfileViewModel @Inject constructor(
         navigation.changePage(Page.PROFILE_SCRAP)
     }
 
-    /**
-     * 팔로우/팔로워 페이지 이동
-     */
-    fun goToFollowList(page : Int)
-    {
-        Bundle().apply {
-            putInt(CODE_FOLLOW_PAGE,page)
-            navigation.putBundleData(FollowViewModel::class,this)
-        }
-        navigation.changePage(Page.PROFILE_FOLLOW)
-    }
 
     /**
      * 더보기 버튼을 눌렀을때 동작
@@ -161,6 +143,15 @@ class ProfileViewModel @Inject constructor(
         showReportDialog()
     }
 
+    /**
+     * 뒤로가기를 누릅니다
+     */
+    fun onBackPressed()
+    {
+        navigation.revealHistory()
+        revealProfileHistory()
+
+    }
     /***********************************************************************
      * Dialog Show
      **********************************************************************/
@@ -191,6 +182,7 @@ class ProfileViewModel @Inject constructor(
             //block artist
         }
     }
+
     /**
      * 사용자 신고 페이지 가기
      */
