@@ -240,7 +240,7 @@ class CertifyModel @Inject constructor(@ApplicationContext val context : Context
 
             API_SEND_MAIL_CODE -> {
                 flagSendSuccess.value = false
-                globalUi.showToast(msg.toString())
+                globalUi.showToast("다른 계정에서 사용하고 있는 이메일입니다.")
             }
             API_CHECK_MAIL_CODE -> {
                 flagCodeSuccess.value = false

@@ -50,6 +50,10 @@ class EmailViewModel @Inject constructor(
     }
 
     fun checkCode(){
+        if(codeAvailable.value == CERT_OK){
+            onFinishRegister()
+            return
+        }
         certifyModel.setCode(code)
         certifyModel.checkMailCode()
     }

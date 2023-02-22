@@ -245,14 +245,12 @@
                 android:layout_height="65dp"
                 android:visibility="@{vm.certRequested ? 0 : 8}"
 
-                android:enabled="@{vm.codeAvailable == vm.CERT_OK}"
-
                 android:layout_marginHorizontal="12dp"
                 android:layout_marginBottom="24dp"
                 android:layout_weight="1"
                 android:background="@drawable/btn_red_filled"
                 android:gravity="center"
-                android:onClick="@{v->vm.onFinishRegister()}"
+                android:onClick="@{v->vm.checkCode()}"
                 android:text="완료"
                 android:textColor="@color/on_primary"
                 app:layout_constraintBottom_toBottomOf="parent" />
