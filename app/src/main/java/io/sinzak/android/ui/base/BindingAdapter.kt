@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Rect
 import android.view.View
+import android.view.View.OnClickListener
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
@@ -109,6 +110,24 @@ fun setImg(view: ImageView, url: String?, radius: Float) {
 
 }
 
+@BindingAdapter("remoteImgUrl", "imgRadius")
+fun setEditImg(view: ImageView, url: String?, radius: Float) {
+
+    if (url.isNullOrEmpty()){
+        return
+    }
+
+    CoroutineScope(Dispatchers.IO).launch {
+        Glide.with(view).asBitmap().load(GlideUrl(url))
+            .transform(CenterCrop(), RoundedCorners(radius.dp.toInt())).apply {
+            CoroutineScope(Dispatchers.Main).launch {
+                into(view)
+            }
+        }
+    }
+
+}
+
 @BindingAdapter("remoteImgUrl")
 fun setImg(view: ImageView, url: String?) {
     url ?: run {
@@ -147,13 +166,42 @@ fun onActionDone(view: EditText, listener: View.OnClickListener) {
             EditorInfo.IME_ACTION_SEND -> {
 
                 listener.onClick(view)
+
+                if(i != EditorInfo.IME_ACTION_SEND) {
+                    val im =
+                        view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    im.hideSoftInputFromWindow(view.windowToken, 0)
+                    view.clearFocus()
+                }else{
+                    view.text = ""
+                }
+
+                return@setOnEditorActionListener true
+            }
+        }
+
+        false
+    }
+}
+
+@BindingAdapter("onActionSend")
+fun onActionSend(view: EditText, listener: OnClickListener)
+{
+    view.setOnEditorActionListener { v, actionId, event ->
+
+        when(actionId){
+
+            EditorInfo.IME_ACTION_SEND -> {
+
+                listener.onClick(v)
+
                 val im =
                     view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 im.hideSoftInputFromWindow(view.windowToken, 0)
                 view.clearFocus()
 
                 return@setOnEditorActionListener true
-            }
+                }
         }
 
         false

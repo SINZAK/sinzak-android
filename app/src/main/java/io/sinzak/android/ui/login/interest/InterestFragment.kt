@@ -4,17 +4,16 @@ import android.view.View
 import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
 import io.sinzak.android.databinding.FragmentRegisterInterestBinding
-import io.sinzak.android.databinding.HolderMarketFilterBinding
 import io.sinzak.android.databinding.HolderWriteCategoryBinding
 import io.sinzak.android.ui.base.BaseFragment
 
 
 @AndroidEntryPoint
-class InterestFragment : BaseFragment() {
+open class InterestFragment : BaseFragment() {
 
     lateinit var bind : FragmentRegisterInterestBinding
 
-    val viewModel by activityViewModels<InterestViewModel>()
+    open val viewModel by activityViewModels<InterestViewModel>()
 
 
     override fun getFragmentRoot(): View {

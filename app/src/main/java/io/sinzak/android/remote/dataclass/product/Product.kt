@@ -21,7 +21,7 @@ data class Product(
     @SerializedName("price") val price: Int? = null,
     @SerializedName("suggest") val suggest: Boolean? = null,
     @SerializedName("title") val title: String? = null,
-    @SerializedName("authorUniv") val authorUniv : String? = null
+    @SerializedName("authorUniv") val authorUniv : String? = null,
 ){
 
     fun getLickCntFit() : String{
@@ -47,6 +47,10 @@ data class Product(
 
     fun getTimePassed() : String {
         return TimeUtil.getTimePassed(date.toString())
+    }
+
+    fun getTimePassedExceptDot() : String {
+        return TimeUtil.getTimePassedExceptDot(date.toString())
     }
 
     fun getFormattedDate() : String{

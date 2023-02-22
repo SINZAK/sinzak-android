@@ -31,7 +31,7 @@ class EmailFragment : BaseFragment() {
     }
     override fun onFragmentCreated() {
         bind.apply{
-            vm = viewModel
+            vm = viewModel()
             lifecycleOwner = viewLifecycleOwner
         }
     }

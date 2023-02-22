@@ -2,7 +2,7 @@ package io.sinzak.android.model.certify
 
 import android.content.Context
 import android.graphics.Bitmap
-import androidx.core.net.toUri
+import android.net.Uri
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.sinzak.android.constants.API_CERTIFY_UNIVERSITY
 import io.sinzak.android.constants.API_CERTIFY_UPLOAD_IMG
@@ -15,42 +15,40 @@ import io.sinzak.android.remote.dataclass.request.certify.MailRequest
 import io.sinzak.android.remote.dataclass.request.certify.UnivCertifyRequest
 import io.sinzak.android.remote.dataclass.response.certify.UnivCertifyResponse
 import io.sinzak.android.remote.retrofit.CallImpl
+import io.sinzak.android.system.LogDebug
 import io.sinzak.android.utils.FileUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class CertifyModel @Inject constructor(@ApplicationContext val context : Context) : BaseModel() {
 
+    val flagSendSuccess = MutableStateFlow(false)
     val flagCodeSuccess = MutableStateFlow(false)
     val flagCodeFailed = MutableStateFlow(false)
+    val flagUploadSuccess = MutableStateFlow(false)
 
-    /**
-     * 이메일
-     */
-    private var address : String = ""
-    fun setAddress(a : String)
-    {
-        address = a
-    }
-
-    /**
-     * 코드
-     */
-    private var code : String = ""
-    fun setCode(c : String)
-    {
-        code = c
-    }
-
-    /**
-     * 학교
-     */
     private var univ : SchoolData? = null
+    private var address : String = ""
+    private var code : String = ""
+    private var multiPart : MultipartBody.Part? = null
+
+    val convertUriFlag = MutableStateFlow(false)
+
+    val codeCheckCnt = MutableStateFlow(0)
+
+    /************************************************
+     * 입력을 받습니다
+     ***************************************/
+
+    /**
+     * 학교를 저장합니다
+     */
     fun setUniv(u : SchoolData)
     {
         univ = u
@@ -59,36 +57,70 @@ class CertifyModel @Inject constructor(@ApplicationContext val context : Context
         return univ!!.schoolDomain
     }
 
-    /************************************************
-     * Image
-     ***************************************/
+    /**
+     * 이메일을 저장합니다
+     */
+    fun setAddress(a : String)
+    {
+        address = a.trim()
+    }
 
     /**
-     * 학생증 이미지
+     * 인증 코드를 저장합니다
      */
-    var imgUri = ""
-    private var imgBitmap : Bitmap? = null
+    fun setCode(c : String)
+    {
+        code = c
+    }
 
     /**
-     * 불러온 local uri 을 bitmap 으로 불러옵니다.
+     * 이미지를 MultiPart로 변환
      */
-    private fun loadBitmaps()
+    fun convertUriToMultiPart(uri: Uri)
     {
         CoroutineScope(Dispatchers.IO).launch {
-            if (!imgUri.contains("http")) imgBitmap = FileUtil.getBitmapFile(context, imgUri.toUri())
+            if (!uri.toString().contains("http"))
+            {
+                val imgBitmap : Bitmap = FileUtil.getBitmapFile(context, uri)
+
+                multiPart = FileUtil.getMultipart(context,"multipartFile",imgBitmap)
+
+                convertUriFlag.value = true
+            }
+
+            else {
+                convertUriFlag.value = false
+            }
         }
     }
 
 
+    /************************************************
+     * 저장값을 초기화합니다
+     ***************************************/
+
+    /**
+     * 학교를 초기화합니다
+     */
+/*    fun clearUniv()
+    {
+        univ = null
+    }*/
+
+
     /**********************************************************************************************************************
-     * REQUEST
+     * API 요청
      ***********************************************************************************************************************/
+
+    /**
+     * 인증 메일을 보냅니다
+     */
     fun sendMailCode()
     {
         val request = MailRequest(
-            address = address,
-            code = "",
-            univ = univ!!.schoolName
+            univEmail = address,
+            univName = univ!!.schoolName,
+            code = ""
         )
 
         CallImpl(
@@ -100,16 +132,18 @@ class CertifyModel @Inject constructor(@ApplicationContext val context : Context
         }
     }
 
+    /**
+     * 인증 코드를 확인합니다
+     */
     fun checkMailCode()
     {
-        flagCodeFailed.value = false
         flagCodeSuccess.value = false
 
 
         val request = MailRequest(
-            address = address,
-            code = code,
-            univ = univ!!.schoolName
+            univEmail = address,
+            univName = univ!!.schoolName,
+            code = code
         )
 
         CallImpl(
@@ -121,6 +155,9 @@ class CertifyModel @Inject constructor(@ApplicationContext val context : Context
         }
     }
 
+    /**
+     * 학생증 사진을 인증합니다
+     */
     fun certifySchoolId()
     {
         val request = UnivCertifyRequest(
@@ -136,10 +173,18 @@ class CertifyModel @Inject constructor(@ApplicationContext val context : Context
         }
     }
 
-    fun uploadImg(id : String)
+    /**
+     * 학생증 이미지를 업로드합니다
+     */
+    private fun uploadImg(id : String)
     {
-        loadBitmaps()
-        val requestBody = FileUtil.getMultipart(context,"multipartFile",imgBitmap!!)
+        if (multiPart == null) {
+            LogDebug(javaClass.name, "변환 실패")
+            globalUi.showToast("다른 이미지를 사용해주세요")
+            return
+        }
+
+        val requestBody = multiPart
 
         CallImpl(
             API_CERTIFY_UPLOAD_IMG,
@@ -156,26 +201,55 @@ class CertifyModel @Inject constructor(@ApplicationContext val context : Context
         when(api)
         {
             API_SEND_MAIL_CODE -> {
-                if (body.success == true){
-                    globalUi.showToast("메일을 전송했습니다.")
-                }
+                flagSendSuccess.value = body.success == true
+                if (body.success == false) globalUi.showToast(body.message.toString())
             }
 
             API_CHECK_MAIL_CODE -> {
-                if (body.success == true){
-                    flagCodeSuccess.value = true
-                }else
-                    flagCodeFailed.value = true
+                flagCodeSuccess.value = body.success == true
+
+                if (body.success == false) {
+                    codeCheckCnt.value += 1
+
+                    if(codeCheckCnt.value >= 3)
+                    {
+                        globalUi.showToast("학생증 인증을 이용해주세요")
+                        return
+                    }
+                    else globalUi.showToast("인증번호 ${codeCheckCnt.value}회 오류입니다")
+                }
             }
 
             API_CERTIFY_UNIVERSITY -> {
                 body as UnivCertifyResponse
                 uploadImg(body.id)
+                LogDebug(javaClass.name, body.id)
+            }
+
+            API_CERTIFY_UPLOAD_IMG -> {
+                flagUploadSuccess.value = body.success == true
+                if (body.success == false) globalUi.showToast(body.message.toString())
             }
         }
     }
 
     override fun handleError(api: Int, msg: String?, t: Throwable?) {
 
+        when(api)
+        {
+
+            API_SEND_MAIL_CODE -> {
+                flagSendSuccess.value = false
+                globalUi.showToast("다른 계정에서 사용하고 있는 이메일입니다.")
+            }
+            API_CHECK_MAIL_CODE -> {
+                flagCodeSuccess.value = false
+                globalUi.showToast(msg.toString())
+            }
+            API_CERTIFY_UPLOAD_IMG -> {
+                flagUploadSuccess.value = false
+                globalUi.showToast(msg.toString())
+            }
+        }
     }
 }

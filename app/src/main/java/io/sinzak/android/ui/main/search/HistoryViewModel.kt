@@ -5,6 +5,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.FragmentComponent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.sinzak.android.model.market.MarketHistoryModel
+import io.sinzak.android.remote.dataclass.history.HistoryData
 import io.sinzak.android.ui.base.BaseViewModel
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
@@ -18,11 +19,11 @@ class HistoryViewModel @Inject constructor(
 
 
     interface History{
-        fun getHistoryList() : StateFlow<List<String>>
+        fun getHistoryList() : StateFlow<List<List<String>>>
 
         fun clearHistory()
 
-        fun deleteHistory(tag : String)
+        fun deleteHistory(tag : List<String>)
 
         val adapter : HistoryAdapter
     }

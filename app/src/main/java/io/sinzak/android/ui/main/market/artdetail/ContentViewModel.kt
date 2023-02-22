@@ -6,9 +6,11 @@ import io.sinzak.android.constants.CODE_USER_ID
 import io.sinzak.android.constants.CODE_USER_REPORT_ID
 import io.sinzak.android.constants.CODE_USER_REPORT_NAME
 import io.sinzak.android.enums.Page
+import io.sinzak.android.model.chat.ChatStorage
 import io.sinzak.android.model.market.ProductDetailModel
 import io.sinzak.android.model.market.MarketWriteModel
 import io.sinzak.android.model.profile.ProfileModel
+import io.sinzak.android.remote.dataclass.response.market.MarketProductResponse
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.ui.main.profile.report.ReportSendViewModel
 import io.sinzak.android.ui.main.profile.viewmodel.ProfileViewModel
@@ -19,8 +21,11 @@ import javax.inject.Inject
 class ContentViewModel @Inject constructor(
     val model : ProductDetailModel,
     val writeModel: MarketWriteModel,
-    val pModel: ProfileModel
+    val pModel: ProfileModel,
+    val chatStorage: ChatStorage
 ): BaseViewModel(){
+
+
 
     private var _connect : ArtDetailConnect? = null
     private val connect : ArtDetailConnect
@@ -120,10 +125,13 @@ class ContentViewModel @Inject constructor(
      * 더보기 버튼을 눌렀을때 동작
      */
     fun showMoreDialog(){
+        if (!signModel.isUserLogin()) return
+
         if(isMyProduct.value){
             showEditDialog()
             return
         }
+
         showReportDialog()
     }
 
@@ -131,7 +139,7 @@ class ContentViewModel @Inject constructor(
      * 채팅방 버튼을 눌렀을때 동작
      */
     fun onClickChat(){
-
+        openChatPage()
     }
 
     /**
@@ -145,9 +153,10 @@ class ContentViewModel @Inject constructor(
      * 팔로우 버튼
      */
     fun onClickFollow(){
-        profileModel.followUser(isFollowing.value)
+        profileModel.followUser(isFollowing.value,authorId)
         isFollowing.value = !isFollowing.value
         follower.value = follower.value + if (isFollowing.value) 1 else -1
+
     }
 
     /**
@@ -190,12 +199,10 @@ class ContentViewModel @Inject constructor(
                 isFollowing.value = it.isFollowing
                 follower.value = it.authorFollowerCnt
 
-                it.authorId.let {
-                    authorId = it
-                    pModel.changeProfile(it)
+                it.authorId.apply {
+                    authorId = this
+                    isMyProduct.value = pModel.isMine(this)
                 }
-
-                isMyProduct.value = pModel.isMine()
 
             }
 
@@ -277,5 +284,28 @@ class ContentViewModel @Inject constructor(
     }
 
 
+    fun openChatPage(){
+        art.value?:run{
+            return
+        }
+        val product = art.value!!
+        if(!signModel.isUserLogin()){
+            uiModel.gotoLogin()
+            return
+        }
+
+
+        if(isMyProduct.value){
+            navigation.changePage(Page.CHAT)
+
+
+            return
+        }
+        chatStorage.makeChatroom(product.productId, if(itemType.value == 0) "product" else "work")
+        navigation.changePage(Page.CHAT_ROOM)
+
+
+
+    }
 
 }

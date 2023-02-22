@@ -4,16 +4,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
-            name="fg"
-            type="io.sinzak.android.ui.main.profile.certification.CertificationFragment" />
-        <variable
             name="vm"
             type="io.sinzak.android.ui.main.profile.certification.CertificationViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.main.profile.certification.CertificationFragment">
+        tools:context=".ui.main.profile.certification.CertificationFragment"
+        android:paddingBottom="25.5dp">
 
         <ImageView
             android:layout_width="24dp"
@@ -21,7 +19,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/ic_bg_button"
-            android:onClick="@{v->fg.navigateOnBackPressed()}"
+            android:onClick="@{v->vm.onCancel()}"
             android:src="@drawable/ic_back"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -66,15 +64,22 @@
                 android:background="@drawable/ll_certi_input"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView6">
+                app:layout_constraintTop_toBottomOf="@+id/textView6"
+                android:onClick="@{v-> vm.soft.showKeyboard(etSchool)}">
 
                 <EditText
+                    android:id="@+id/et_school"
                     style="@style/bold13"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@null"
                     android:hint="@string/str_certification_school_hint"
                     android:inputType="text"
+                    android:imeOptions="actionDone"
+
+                    soft="@{vm.soft}"
+                    requestFocus="@{vm.showSchoolList}"
+                    onFocused="@{v->vm.openSchoolList()}"
                     android:onTextChanged="@{(cs,a,b,c) -> vm.schoolInputText(cs)}"
                     android:text="@{vm.schoolInput}"
                     android:textColorHint="@color/gray60" />
@@ -84,13 +89,13 @@
             <androidx.recyclerview.widget.RecyclerView
                 adapter="@{vm.certificationAdapter}"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginTop="11dp"
                 android:background="@drawable/ll_certi_search"
                 android:orientation="vertical"
                 android:visibility="@{vm.showSchoolList ? 0 : 8}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ll_univ_name" />
 
 
@@ -100,34 +105,33 @@
             android:id="@+id/linearLayoutCompat3"
             android:layout_width="match_parent"
             android:layout_height="@dimen/btn_height"
-            android:layout_marginBottom="25.5dp"
             android:orientation="horizontal"
             android:paddingHorizontal="16dp"
             app:layout_constraintBottom_toBottomOf="parent">
             <TextView
+                style="@style/bold16"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="@{vm.isPartOfSignup ? @string/str_graduate : @string/str_next_time}"
-                style="@style/bold16"
                 android:textColor="@color/white"
                 android:background="@drawable/btn_gray_filled"
                 android:gravity="center"
 
+                android:text="@{vm.isPartOfSignup ? @string/str_graduate : @string/str_next_time}"
                 android:onClick="@{v->vm.onCancel()}"/>
             <Space
                 android:layout_width="11dp"
                 android:layout_height="match_parent"/>
             <TextView
+                style="@style/bold16"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="@string/str_next"
-                style="@style/bold16"
                 android:textColor="@color/white"
                 android:background="@drawable/btn_red_filled"
                 android:gravity="center"
 
+                android:text="@string/str_next"
                 android:enabled="@{vm.schoolInserted}"
                 android:onClick="@{v->vm.onSubmit()}"/>
         </androidx.appcompat.widget.LinearLayoutCompat>

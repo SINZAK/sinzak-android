@@ -87,6 +87,10 @@ class HomeProductModel @Inject constructor() : BaseModel() {
 
                 noti.value = noti.value + 1
 
+                body.data?:run{
+                    return
+                }
+
 
                 _hotProducts.value = listOf()
                 _tradingProducts.value = listOf()

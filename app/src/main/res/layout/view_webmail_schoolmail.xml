@@ -33,24 +33,25 @@
             <EditText
                 style="@style/bold13"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@null"
-                android:hint="@string/str_webMail_hint"
                 android:inputType="textEmailAddress"
-                android:onTextChanged="@{(cs,a,b,c) -> vm.mailInputText(cs)}"
-                android:text="@{vm.webMailInput}"
-                android:textColor="@color/black"
+                android:textColor="@{vm.webMailState == vm.DONE ? @color/gray60 : @color/black }"
                 android:textColorHint="@color/gray60"
-                onActionDone="@{v->vm.changeWebMailState()}"
-                android:enabled="@{vm.webMailState != 2}"/>
+                android:imeOptions="actionSend"
+
+                android:hint="@string/str_webMail_hint"
+                android:text="@{vm.webMailInput}"
+                android:onTextChanged="@{(cs,a,b,c) -> vm.mailInputText(cs)}"
+                onActionSend="@{v->vm.onSendMailClick()}"
+                android:enabled="@{vm.webMailState != vm.DONE &amp; vm.checkCodeCnt&lt;3}"/>
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{v-> vm.deleteMailInput()}"
                 android:src="@drawable/ic_btn_clear"
-                android:enabled="@{vm.webMailState != 2}"/>
+                android:onClick="@{v-> vm.deleteMailInput()}"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <TextView
@@ -63,7 +64,7 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat2"
             android:layout_marginStart="12dp"
             android:layout_marginTop="2.5dp"
-            android:visibility="@{vm.webMailState == 1 ? 0 : 8}"/>
+            android:visibility="@{vm.webMailState == vm.ERROR ? 0 : 8}"/>
         <TextView
             style="@style/medium13"
             android:layout_width="wrap_content"
@@ -74,7 +75,7 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat2"
             android:layout_marginStart="12dp"
             android:layout_marginTop="2.5dp"
-            android:visibility="@{vm.webMailState == 2 ? 0 : 8}"/>
+            android:visibility="@{vm.webMailState == vm.DONE ? 0 : 8}"/>
 
        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -83,7 +84,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat2"
             android:layout_marginTop="43dp"
-            android:visibility="@{vm.webMailState == 2 ? 0 : 8}">
+            android:visibility="@{vm.webMailState == vm.DONE ? 0 : 8}">
 
            <TextView
                android:id="@+id/textView12"
@@ -110,25 +111,27 @@
                <EditText
                    style="@style/bold13"
                    android:layout_width="0dp"
-                   android:layout_height="wrap_content"
+                   android:layout_height="match_parent"
                    android:layout_weight="1"
                    android:background="@null"
-                   android:hint="@string/str_webMail_code_hint"
-                   android:inputType="textEmailAddress"
+                   android:inputType="number"
                    android:maxLength="4"
+                   android:textColorHint="@color/gray60"
+
+                   android:textColor="@{vm.codeState == vm.DONE ? @color/gray60 : @color/black }"
+                   android:hint="@string/str_webMail_code_hint"
                    android:onTextChanged="@{(cs,a,b,c) -> vm.codeInputText(cs)}"
                    android:text="@{vm.codeInput}"
-                   android:textColor="@color/black"
-                   android:textColorHint="@color/gray60"
-                   onActionDone="@{v->vm.changeCodeState()}"
-                   android:enabled="@{vm.codeState != 2}"/>
+                   onActionDone="@{v->vm.onCheckCodeClick()}"
+                   android:enabled="@{vm.codeState != vm.DONE &amp; vm.checkCodeCnt&lt;3}"/>
 
                <ImageView
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:onClick="@{v-> vm.deleteCodeInput()}"
                    android:src="@drawable/ic_btn_clear"
-                   android:enabled="@{vm.codeState != 2}"/>
+                   android:onClick="@{v-> vm.deleteCodeInput()}"
+                   android:enabled="@{vm.codeState != vm.DONE}"/>
+
            </androidx.appcompat.widget.LinearLayoutCompat>
 
            <TextView
@@ -141,7 +144,7 @@
                app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat6"
                android:layout_marginStart="12dp"
                android:layout_marginTop="2.5dp"
-               android:visibility="@{vm.codeState == 1 ? 0 : 8}"/>
+               android:visibility="@{vm.codeState == vm.ERROR ? 0 : 8}"/>
 
            <TextView
                style="@style/medium13"
@@ -153,7 +156,8 @@
                app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat6"
                android:layout_marginStart="12dp"
                android:layout_marginTop="2.5dp"
-               android:visibility="@{vm.codeState == 2 ? 0 : 8}"/>
+               android:visibility="@{vm.codeState == vm.DONE ? 0 : 8}"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

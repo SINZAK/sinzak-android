@@ -6,37 +6,41 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import io.sinzak.android.R
-import io.sinzak.android.databinding.HolderWorkArtLinearBinding
-import io.sinzak.android.remote.dataclass.profile.UserArt
+import io.sinzak.android.databinding.HolderProfileArtLinearBinding
+import io.sinzak.android.model.profile.ProfileModel
+import io.sinzak.android.remote.dataclass.product.Product
 import io.sinzak.android.system.LogDebug
 
 class SaleWorkAdapter(
     val completeTradeClick : ((String,Boolean) -> Unit)? = null,
-    val onItemClick : ((UserArt) -> Unit)? = null
+    val onItemClick : ((Product) -> Unit)? = null,
+    val isComplete : Boolean = false,
+    val viewType: Int,
+    val model : ProfileModel
 ): RecyclerView.Adapter<SaleWorkAdapter.ViewHolder>() {
 
-    private var artList : List<UserArt> = listOf()
+    private var productList : List<Product> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.holder_work_art_linear,null,true)
+            DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.holder_profile_art_linear,null,true)
         )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(art = artList[position])
+        holder.bind(product = productList[position])
     }
 
     override fun getItemCount(): Int {
-        return artList.size
+        return productList.size
     }
 
-    fun setArts (arts : List<UserArt>)
+    fun setArts (arts : List<Product>)
     {
-        if (this.artList != arts)
+        if (this.productList != arts)
         {
             val oldSize = itemCount
-            this.artList = arts
+            this.productList = arts
 
             if (oldSize >= itemCount) notifyDataSetChanged()
             else notifyItemRangeInserted(oldSize,itemCount - oldSize)
@@ -54,19 +58,41 @@ class SaleWorkAdapter(
     }
 
 
-    inner class ViewHolder(val bind : HolderWorkArtLinearBinding) : RecyclerView.ViewHolder(bind.root){
+    inner class ViewHolder(val bind : HolderProfileArtLinearBinding) : RecyclerView.ViewHolder(bind.root){
 
-        fun bind(art: UserArt) {
+        fun bind(product: Product) {
 
             setMatchParentToRecyclerView(bind.root)
-            bind.art = art
+            bind.product = product
             bind.setItemClick {
-                onItemClick!!(art)
+                onItemClick!!(product)
             }
             bind.setCompleteTradeClick {
-                completeTradeClick!!(art.id,art.complete)
+                completeTradeClick!!(product.id.toString(), product.complete!!)
             }
+            bind.isComplete = isComplete
+            bind.completeText = setCompleteText(viewType)
+            bind.isMine = model.profile.value!!.myProfile
         }
+    }
+
+    private fun setCompleteText(viewType: Int) : String
+    {
+        var completeText = ""
+        when(viewType)
+        {
+            0 -> completeText = PRODUCT.toString()
+            1 -> completeText = WORK.toString()
+            2 -> completeText = REQUEST.toString()
+        }
+
+        return completeText
+    }
+
+    companion object {
+        const val PRODUCT = R.string.str_sale_onsale_false
+        const val WORK = R.string.str_work_onwork_false
+        const val REQUEST = R.string.str_request_complete_true
     }
 
 

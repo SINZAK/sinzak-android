@@ -2,22 +2,14 @@ package io.sinzak.android.ui.main.profile.viewmodel
 
 import android.os.Bundle
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.sinzak.android.constants.CODE_FOLLOW_PAGE
-import io.sinzak.android.constants.CODE_USER_ID
 import io.sinzak.android.constants.CODE_USER_REPORT_ID
 import io.sinzak.android.constants.CODE_USER_REPORT_NAME
 import io.sinzak.android.enums.Page
 import io.sinzak.android.model.profile.ProfileModel
-import io.sinzak.android.remote.dataclass.response.profile.UserProfileResponse
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.ui.main.profile.ProfileConnect
-import io.sinzak.android.ui.main.profile.follow.FollowViewModel
 import io.sinzak.android.ui.main.profile.report.ReportSendViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -41,33 +33,14 @@ class ProfileViewModel @Inject constructor(
     val profile get() = model.profile
 
     /**
-     * 유저 이름
-     */
-    val name = MutableStateFlow("")
-    /**
      * 내 프로필인가?
      */
     val isMyProfile = MutableStateFlow(false)
 
     /**
-     * 프로필 이미지 url
+     * 소개
      */
-    val profileImg = MutableStateFlow("")
-
-    /**
-     * 학교 인증 받았는지?
-     */
-    val isCertify = MutableStateFlow(false)
-
-    /**
-     * 학교 이름
-     */
-    val university = MutableStateFlow("")
-
-    /**
-     * 인증 작가인지?
-     */
-    val isVerify = MutableStateFlow(false)
+    val styledIntro = MutableStateFlow("")
 
     /**
      * 팔로워 수
@@ -78,11 +51,6 @@ class ProfileViewModel @Inject constructor(
      * 팔로잉 수
      */
     val following = MutableStateFlow(0)
-
-    /**
-     * 소개 텍스트
-     */
-    val introduction = MutableStateFlow("")
 
     /**
      * 팔로잉 중인지?
@@ -106,18 +74,15 @@ class ProfileViewModel @Inject constructor(
         invokeStateFlow(profile) {profile ->
             profile?.let {
                 isMyProfile.value = it.myProfile
-                name.value = it.name
-                profileImg.value = it.imageUrl
-                isCertify.value = it.cert_uni
-                university.value = it.univ
-//                isVerify.value = it.isVerify
+                styledIntro.value = it.introduction
                 follower.value = it.followerNumber
                 following.value = it.followingNumber
-                introduction.value = it.introduction
                 isFollow.value = it.ifFollow
 
             }
         }
+
+
     }
 
     /********************************
@@ -135,15 +100,19 @@ class ProfileViewModel @Inject constructor(
     /**
      * 뒤로 가기 클릭시 프로필 히스토리 관리
      */
-    fun revealProfileHistory() = model.revealProfileHistory()
+    private fun revealProfileHistory() = model.revealProfileHistory()
     /**
      * 팔로우 버튼 클릭시 동작
      */
     fun toggleFollow()
     {
-        model.followUser(isFollow.value)
-        isFollow.value = !isFollow.value
-        follower.value = follower.value + if (isFollow.value) 1 else -1
+        model.followUser(isFollow.value,model.currentUserId.value)
+
+        useFlag(model.followControlSuccessFlag) {
+            isFollow.value = !isFollow.value
+            follower.value = follower.value + if (isFollow.value) 1 else -1
+        }
+
     }
 
     /**
@@ -155,25 +124,34 @@ class ProfileViewModel @Inject constructor(
             navigation.changePage(this)
         }
     }
+
     /**
-     * 팔로우/팔로워 페이지 이동
+     * 스크랩 목록으로 이동
      */
-    fun goToFollowList(page : Int)
+    fun goToScrapList()
     {
-        Bundle().apply {
-            putInt(CODE_FOLLOW_PAGE,page)
-            navigation.putBundleData(FollowViewModel::class,this)
-        }
-        navigation.changePage(Page.PROFILE_FOLLOW)
+        model.getWishList()
+        navigation.changePage(Page.PROFILE_SCRAP)
     }
+
 
     /**
      * 더보기 버튼을 눌렀을때 동작
      */
     fun showMoreDialog(){
+        if (!signModel.isUserLogin()) return
         showReportDialog()
     }
 
+    /**
+     * 뒤로가기를 누릅니다
+     */
+    fun onBackPressed()
+    {
+        navigation.revealHistory()
+        revealProfileHistory()
+
+    }
     /***********************************************************************
      * Dialog Show
      **********************************************************************/
@@ -193,6 +171,7 @@ class ProfileViewModel @Inject constructor(
             }
         )
 
+
     }
 
     /**
@@ -203,6 +182,7 @@ class ProfileViewModel @Inject constructor(
             //block artist
         }
     }
+
     /**
      * 사용자 신고 페이지 가기
      */

@@ -6,9 +6,6 @@
         <variable
             name="vm"
             type="io.sinzak.android.ui.main.profile.art.WorkViewModel" />
-        <variable
-            name="fg"
-            type="io.sinzak.android.ui.main.profile.art.WorkFragment" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -20,7 +17,7 @@
             android:layout_height="24dp"
             android:layout_marginStart="16dp"
             android:background="@drawable/ic_bg_button"
-            android:onClick="@{v->fg.navigateOnBackPressed()}"
+            android:onClick="@{v->vm.onBackPressed()}"
             android:src="@drawable/ic_back"
             app:layout_constraintBottom_toBottomOf="@+id/textView"
             app:layout_constraintStart_toStartOf="parent"
@@ -57,7 +54,7 @@
                 android:gravity="center_vertical"
                 android:paddingHorizontal="12dp"
                 android:text="@string/str_work_onwork_true"
-                isSelect="@{!vm.isCompleteList}"
+                isSelect="@{!vm.completeList}"
                 android:textColor="@color/color_profile_filter_select"
                 android:onClick="@{v-> vm.setIsComplete(false)}"
                 android:background="@drawable/btn_profile_filter"/>
@@ -69,7 +66,7 @@
                 android:gravity="center_vertical"
                 android:paddingHorizontal="12dp"
                 android:text="@string/str_work_onwork_false"
-                isSelect="@{vm.isCompleteList}"
+                isSelect="@{vm.completeList}"
                 android:textColor="@color/color_profile_filter_select"
                 android:onClick="@{v-> vm.setIsComplete(true)}"
                 android:background="@drawable/btn_profile_filter"/>
@@ -88,6 +85,18 @@
             marginHorizon="@{0f}"
             adapter="@{vm.adapter}"
             />
+
+        <TextView
+            style="@style/bold16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/str_work_content_null"
+            android:textAlignment="center"
+            android:textColor="@color/gray60"
+            android:visibility="@{vm.showNothing ? 0 : 8}"
+            app:drawableTopCompat="@drawable/ic_nothing"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

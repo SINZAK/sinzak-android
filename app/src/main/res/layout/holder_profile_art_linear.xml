@@ -5,14 +5,23 @@
 
     <data>
         <variable
-            name="art"
-            type="io.sinzak.android.remote.dataclass.profile.UserArt" />
+            name="product"
+            type="io.sinzak.android.remote.dataclass.product.Product" />
         <variable
             name="itemClick"
             type="android.view.View.OnClickListener" />
         <variable
             name="completeTradeClick"
             type="android.view.View.OnClickListener" />
+        <variable
+            name="isComplete"
+            type="Boolean" />
+        <variable
+            name="completeText"
+            type="String" />
+        <variable
+            name="isMine"
+            type="Boolean" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -34,11 +43,11 @@
                 android:orientation="vertical"
                 android:background="@drawable/ll_work_image"
                 android:gravity="center"
-                android:visibility="@{art.complete ? 0 : 8}">
+                android:visibility="@{isComplete ? 0 : 8}">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_work_complete"
+                    android:text="@{completeText}"
                     style="@style/bold16"
                     android:textColor="@color/on_primary"
                     android:drawablePadding="1dp"
@@ -50,44 +59,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 cornerRadius="@{12f}"
-                remoteImgUrl="@{art.thumbnail}"
+                remoteImgUrl="@{product.thumbnail}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <LinearLayout
+        <TextView
+            style="@style/medium16"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:paddingEnd="17dp"
             android:paddingStart="11dp"
-            android:paddingEnd="9dp"
             android:layout_marginTop="23dp"
-            android:layout_marginBottom="11.8dp">
-            <TextView
-                style="@style/medium16"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingEnd="8dp"
-                android:paddingStart="0dp"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="@{art.title}"/>
-            <TextView
-                style="@style/bold16"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="50,000원"/>
-        </LinearLayout>
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{product.title}"/>
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingStart="11dp"
-            android:paddingEnd="9.75dp">
+            android:paddingEnd="9.75dp"
+            android:layout_marginTop="11.8dp">
             <TextView
                 style="@style/medium13"
                 android:layout_width="101dp"
@@ -95,9 +92,10 @@
                 android:background="@drawable/tv_sale_work_holder_btn"
                 android:gravity="center"
                 android:text="@string/str_sale_work_holder_btn"
-                android:textColor="@{art.complete ? @color/gray60 : @color/secondary}"
-                isSelect="@{art.complete}"
-                android:onClick="@{completeTradeClick}"/>
+                android:textColor="@{isComplete ? @color/gray60 : @color/secondary}"
+                isSelect="@{isComplete}"
+                android:onClick="@{completeTradeClick}"
+                android:visibility="@{isMine ? 0 : 8}"/>
 
             <Space
                 android:layout_width="match_parent"
@@ -107,8 +105,8 @@
             <TextView
                 style="@style/medium13"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="@{art.timePassed}"
+                android:layout_height="32dp"
+                android:text="@{product.timePassedExceptDot}"
                 android:textColor="@color/gray60"
                 android:gravity="bottom"
                 android:paddingBottom="6dp"/>

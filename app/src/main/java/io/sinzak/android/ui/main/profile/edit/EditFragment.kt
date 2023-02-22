@@ -1,10 +1,12 @@
 package io.sinzak.android.ui.main.profile.edit
 
+import android.text.InputFilter
 import android.view.View
+import android.widget.EditText
 import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
 import io.sinzak.android.databinding.FragmentEditProfileBinding
-import io.sinzak.android.enums.Page
+import io.sinzak.android.ui.base.BaseActivity
 import io.sinzak.android.ui.base.BaseFragment
 
 @AndroidEntryPoint
@@ -23,7 +25,12 @@ class EditFragment : BaseFragment() {
         bind.apply {
             bind.lifecycleOwner = viewLifecycleOwner
             vm = viewModel
-            fg = this@EditFragment
+
+            viewModel.connect.registerActivity(
+                requireActivity() as BaseActivity<*>,
+                this
+            )
+
         }
     }
 
@@ -32,7 +39,8 @@ class EditFragment : BaseFragment() {
     }
 
     override fun navigateOnBackPressed() {
-        navigator.revealHistory()
+        viewModel.onBackPressed()
     }
+
 
 }

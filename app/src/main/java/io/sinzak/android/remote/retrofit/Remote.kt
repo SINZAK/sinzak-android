@@ -6,6 +6,7 @@ import io.sinzak.android.constants.TAG_REMOTE
 import io.sinzak.android.di.NetStatus
 import io.sinzak.android.remote.dataclass.CResponse
 import io.sinzak.android.remote.dataclass.response.login.JoinResponse
+import io.sinzak.android.remote.dataclass.response.login.OAuthGetResponse
 import io.sinzak.android.remote.dataclass.response.login.Token
 import io.sinzak.android.remote.remotesources.RemoteInterface
 import io.sinzak.android.system.App.Companion.prefs
@@ -58,6 +59,15 @@ class Remote @Inject constructor(val remoteApi : RemoteInterface) : Callback<Res
             body.token?.let{body->
                 prefs.setString(ACCESS_TOKEN,body.accessToken)
                 prefs.setString(REFRESH_TOKEN,body.refreshToken)
+                LogInfo(TAG_REMOTE,"[TOKEN] ACCESS  TOKEN : ${prefs.accessToken}")
+                LogInfo(TAG_REMOTE,"[TOKEN] REFRESH TOKEN : ${prefs.refreshToken}")
+            }
+        }
+
+        if(body is OAuthGetResponse){
+            body.data?.let { token->
+                prefs.setString(ACCESS_TOKEN,token.accessToken)
+                prefs.setString(REFRESH_TOKEN,token.refreshToken)
                 LogInfo(TAG_REMOTE,"[TOKEN] ACCESS  TOKEN : ${prefs.accessToken}")
                 LogInfo(TAG_REMOTE,"[TOKEN] REFRESH TOKEN : ${prefs.refreshToken}")
             }

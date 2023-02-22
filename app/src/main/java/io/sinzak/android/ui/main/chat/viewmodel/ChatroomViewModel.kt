@@ -1,9 +1,11 @@
 package io.sinzak.android.ui.main.chat.viewmodel
 
 import androidx.lifecycle.viewModelScope
+import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.sinzak.android.model.chat.ChatStorage
 import io.sinzak.android.remote.dataclass.chat.ChatMsg
+import io.sinzak.android.system.LogInfo
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.ui.main.chat.ChatMsgAdapter
 import kotlinx.coroutines.flow.launchIn
@@ -18,8 +20,21 @@ class ChatroomViewModel @Inject constructor(
 
     val chatAdapter = ChatMsgAdapter(chatMsgList)
 
+    fun invokeAdapter(rv: RecyclerView): ChatMsgAdapter{
+        chatAdapter.rv = rv
+        return chatAdapter
+    }
+
     private val chatCollectJob = storage.chatMsg.onEach{
         chatUpdater(it)
+    }.launchIn(viewModelScope)
+
+    private val singleChatCollect = storage.chatMsgFlow.onEach {
+        it?.let{
+            LogInfo(javaClass.name,"CHAT COLLECT: $it")
+            chatMsgList.add(it)
+            chatAdapter.notifyMsgAdded(1)
+        }
     }.launchIn(viewModelScope)
 
     private fun chatUpdater(chat: MutableList<ChatMsg>){
@@ -37,6 +52,13 @@ class ChatroomViewModel @Inject constructor(
             chatAdapter.notifyNewChatRoom()
             return
         }
+        val newMsg = chat.filter { it !in chatMsgList }
+
+        chatMsgList.addAll(newMsg)
+        chatAdapter.notifyMsgAdded(newMsg.size)
+
+
+
 
     }
 

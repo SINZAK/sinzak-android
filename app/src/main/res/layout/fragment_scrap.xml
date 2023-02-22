@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="vm"
+            type="io.sinzak.android.ui.main.profile.scrap.ScrapViewModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/ic_bg_button"
+            android:onClick="@{v->vm.backPressed()}"
+            android:src="@drawable/ic_back"
+            app:layout_constraintBottom_toBottomOf="@+id/textView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView"
+            style="@style/bold16"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/appbar_height"
+            android:gravity="center"
+            android:text="@string/str_profile_scrap"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/ll_sale_filter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="19dp"
+            android:paddingVertical="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView">
+
+            <TextView
+                style="@style/bold13"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginEnd="10dp"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="12dp"
+                android:text="@string/str_profile_sale_title"
+                isSelect="@{vm.scrapType == vm.PRODUCT}"
+                android:textColor="@color/color_profile_filter_select"
+                android:onClick="@{v-> vm.changeType(vm.PRODUCT)}"
+                android:background="@drawable/btn_profile_filter"/>
+
+            <TextView
+                style="@style/bold13"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="12dp"
+                android:text="@string/str_profile_work_title"
+                isSelect="@{vm.scrapType == vm.WORK}"
+                android:textColor="@color/color_profile_filter_select"
+                android:onClick="@{v-> vm.changeType(vm.WORK)}"
+                android:background="@drawable/btn_profile_filter"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/btn_show_on_sale"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="@{v->vm.toggleShowOnSale()}"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="6dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ll_sale_filter">
+
+            <CheckBox
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:background="@drawable/ic_checkbox_r"
+                android:button="@null"
+                android:checked="@{vm.showOnSale}"
+                android:clickable="false" />
+
+            <TextView
+                style="@style/regular13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/str_market_btn_onsale" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            marginHorizon="@{6}"
+            marginVertical="@{10}"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="6dp"
+            android:adapter="@{vm.adapter}"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_show_on_sale"
+            app:spanCount="2"
+            tools:layout_editor_absoluteX="6dp" />
+
+        <TextView
+            style="@style/bold16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/str_scrap_content_null"
+            android:textAlignment="center"
+            android:textColor="@color/gray60"
+            android:visibility="@{vm.showNothing ? 0 : 8 }"
+            app:drawableTopCompat="@drawable/ic_nothing"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

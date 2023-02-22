@@ -101,7 +101,7 @@
             android:layout_marginHorizontal="12dp"
             android:gravity="center"
             android:onClick="@{v->vm.onSubmit()}"
-            android:text="@string/str_next"
+            android:text="@{vm.isPartOfRegister ? @string/str_next : @string/str_complete}"
             android:textColor="@color/on_primary"
             app:layout_constraintBottom_toBottomOf="parent" />
 

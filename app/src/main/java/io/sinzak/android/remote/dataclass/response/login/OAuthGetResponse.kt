@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 import io.sinzak.android.remote.dataclass.CResponse
 
 data class OAuthGetResponse(
-    @SerializedName("data") val data: Data? = null
+    @SerializedName("data") val data: Token? = null
 ) : CResponse(){
 
 

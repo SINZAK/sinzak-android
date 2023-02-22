@@ -30,8 +30,8 @@
             android:gravity="center"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView8"
-            android:visibility="@{vm.isUpload() ? 8 : 0}"
-            android:onClick="@{v->vm.uploadImg()}">
+            android:visibility="@{vm.isUpload ? 8 : 0}"
+            android:onClick="@{v->vm.onUploadImageClick()}">
             <TextView
                 style="@style/bold16"
                 android:layout_width="wrap_content"
@@ -52,7 +52,7 @@
             android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView8"
-            android:visibility="@{vm.isUpload() ? 0 : 8}">
+            android:visibility="@{vm.isUpload ? 0 : 8}">
             <TextView
                 style="@style/bold16"
                 android:layout_width="154dp"
@@ -65,7 +65,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_delete_red"
-                android:onClick="@{v->vm.uploadImg()}"/>
+                android:onClick="@{v->vm.onDeleteImageClick()}"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

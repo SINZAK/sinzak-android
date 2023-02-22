@@ -4,9 +4,6 @@
     xmlns:tool="http://schemas.android.com/tools">
     <data>
         <variable
-            name="fg"
-            type="io.sinzak.android.ui.main.profile.certification.WebmailFragment"/>
-        <variable
             name="vm"
             type="io.sinzak.android.ui.main.profile.certification.WebmailViewModel"/>
     </data>
@@ -20,7 +17,7 @@
             android:layout_height="24dp"
             android:layout_marginStart="16dp"
             android:background="@drawable/ic_bg_button"
-            android:onClick="@{v->fg.navigateOnBackPressed()}"
+            android:onClick="@{v->vm.onCancel()}"
             android:src="@drawable/ic_back"
             app:layout_constraintBottom_toBottomOf="@+id/textView"
             app:layout_constraintStart_toStartOf="parent"
@@ -74,8 +71,8 @@
                     android:paddingVertical="10dp"
                     android:paddingStart="8dp"
                     android:paddingEnd="15dp"
-                    isSelect="@{vm.currentPage == 0}"
-                    android:onClick="@{v -> vm.changePage(0)}">
+                    isSelect="@{vm.currentPage == vm.WEB_MAIL_PAGE}"
+                    android:onClick="@{v -> vm.changePage(vm.WEB_MAIL_PAGE)}">
 
                     <TextView
                         style="@style/bold13"
@@ -83,9 +80,9 @@
                         android:layout_height="wrap_content"
                         android:drawablePadding="2dp"
                         android:text="@string/str_webMail_type_mail"
-                        android:textColor="@{vm.currentPage == 0 ? @color/on_primary : @color/text0}"
+                        android:textColor="@{vm.currentPage == vm.WEB_MAIL_PAGE ? @color/on_primary : @color/text0}"
                         app:drawableStartCompat="@drawable/ic_filter_check"
-                        app:drawableTint="@{vm.currentPage == 0 ? @color/on_primary : @color/text0}"
+                        app:drawableTint="@{vm.currentPage == vm.WEB_MAIL_PAGE ? @color/on_primary : @color/text0}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -103,8 +100,8 @@
                     android:paddingVertical="10dp"
                     android:paddingStart="8dp"
                     android:paddingEnd="15dp"
-                    isSelect="@{vm.currentPage == 1}"
-                    android:onClick="@{v -> vm.changePage(1)}">
+                    isSelect="@{vm.currentPage == vm.SCHOOL_ID_PAGE}"
+                    android:onClick="@{v -> vm.changePage(vm.SCHOOL_ID_PAGE)}">
 
                     <TextView
                         style="@style/bold13"
@@ -112,9 +109,9 @@
                         android:layout_height="wrap_content"
                         android:drawablePadding="2dp"
                         android:text="@string/str_webMail_type_school_id"
-                        android:textColor="@{vm.currentPage == 1 ? @color/on_primary : @color/text0}"
+                        android:textColor="@{vm.currentPage == vm.SCHOOL_ID_PAGE ? @color/on_primary : @color/text0}"
                         app:drawableStartCompat="@drawable/ic_filter_check"
-                        app:drawableTint="@{vm.currentPage == 1 ? @color/on_primary : @color/text0}"
+                        app:drawableTint="@{vm.currentPage == vm.SCHOOL_ID_PAGE ? @color/on_primary : @color/text0}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -128,7 +125,7 @@
                 android:layout_marginTop="37.7dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat5"
-                android:visibility="@{vm.currentPage==0 ? 0 : 8}"/>
+                android:visibility="@{vm.currentPage== vm.WEB_MAIL_PAGE ? 0 : 8}"/>
 
             <FrameLayout
                 android:id="@+id/fl_studentId"
@@ -137,7 +134,7 @@
                 android:layout_marginTop="37.7dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat5"
-                android:visibility="@{vm.currentPage==1 ? 0 : 8}"/>
+                android:visibility="@{vm.currentPage== vm.SCHOOL_ID_PAGE ? 0 : 8}"/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -151,31 +148,31 @@
             android:paddingHorizontal="16dp"
             app:layout_constraintBottom_toBottomOf="parent">
             <TextView
+                style="@style/bold16"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="@string/str_next_time"
-                style="@style/bold16"
                 android:textColor="@color/white"
                 android:background="@drawable/btn_gray_filled"
                 android:gravity="center"
-
-                android:onClick="@{v->fg.navigateOnBackPressed()}"/>
+                android:text="@string/str_next_time"
+                android:onClick="@{v->vm.onCancel()}"/>
             <Space
                 android:layout_width="11dp"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:visibility="@{vm.currentPage == vm.SCHOOL_ID_PAGE ? 0 : (vm.checkCodeCnt&lt;3 ? 0 : 8)}"/>
             <TextView
+                style="@style/bold16"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="@string/str_complete"
-                style="@style/bold16"
                 android:textColor="@color/white"
                 android:background="@drawable/btn_red_filled"
                 android:gravity="center"
-
-                android:enabled="@{(vm.webMailState==2 &amp; vm.codeState==2) || vm.isUpload()}"
-                android:onClick="@{v->vm.onSubmit()}"/>
+                android:text="@string/str_complete"
+                android:visibility="@{vm.currentPage == vm.SCHOOL_ID_PAGE ? 0 : (vm.checkCodeCnt&lt;3 ? 0 : 8)}"
+                android:enabled="@{vm.currentPage == vm.WEB_MAIL_PAGE ? vm.codeState == vm.DONE : vm.isUpload}"
+                android:onClick="@{v-> vm.currentPage == vm.WEB_MAIL_PAGE ? vm.onSubmit() : vm.onSubmitStudentId()}"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
         
     </androidx.constraintlayout.widget.ConstraintLayout>

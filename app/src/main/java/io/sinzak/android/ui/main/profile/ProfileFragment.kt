@@ -9,8 +9,8 @@ import io.sinzak.android.databinding.ViewProfileArtWorkBinding
 import io.sinzak.android.databinding.ViewProfileLinkListBinding
 import io.sinzak.android.databinding.ViewProfileMyprofileBinding
 import io.sinzak.android.databinding.ViewProfileTopAppbarBinding
-import io.sinzak.android.system.LogDebug
 import io.sinzak.android.ui.base.BaseFragment
+import io.sinzak.android.ui.main.profile.follow.FollowViewModel
 import io.sinzak.android.ui.main.profile.viewmodel.ProfileArtViewModel
 import io.sinzak.android.ui.main.profile.viewmodel.ProfileViewModel
 import javax.inject.Inject
@@ -22,6 +22,7 @@ open class ProfileFragment : BaseFragment() {
 
     protected val viewModel by activityViewModels<ProfileViewModel>()
     private val artViewModel by activityViewModels<ProfileArtViewModel>()
+    private val followViewModel by activityViewModels<FollowViewModel>()
 
     @Inject
     lateinit var connect: ProfileConnect
@@ -39,7 +40,6 @@ open class ProfileFragment : BaseFragment() {
 
     override fun onFragmentCreated() {
         viewModel.getMyProfileRemote()
-        LogDebug(javaClass.name,"내 프로필 실행")
         inflateChild()
     }
 
@@ -60,8 +60,8 @@ open class ProfileFragment : BaseFragment() {
      * 내 프로필 뷰 인플레이팅
      */
     private fun inflateChild() {
-        inflateAppbar(false)
-        inflateMyProfile()
+        inflateAppbar(showBackIc = false, myProfile = true)
+        inflateMyProfile(myProfile = true)
         inflateLinkList()
         inflateArtSale()
         inflateArtWork()
@@ -71,25 +71,27 @@ open class ProfileFragment : BaseFragment() {
      * 타인 프로필의 뷰 인플레이팅
      */
     protected fun inflateOtherChild(){
-        inflateAppbar(true)
-        inflateMyProfile()
+        inflateAppbar(showBackIc = true, myProfile = false)
+        inflateMyProfile(myProfile = false)
         inflateArtSale()
         inflateArtWork()
     }
 
-    private fun inflateAppbar(showBackIc : Boolean){
+    private fun inflateAppbar(showBackIc : Boolean, myProfile : Boolean){
         ViewProfileTopAppbarBinding.inflate(layoutInflater).apply {
             lifecycleOwner = viewLifecycleOwner
             vm = viewModel
-            fg = this@ProfileFragment
             showBack = showBackIc
+            isMyProfile = myProfile
             bind.flAppbar.addView(root)
         }
     }
-    private fun inflateMyProfile(){
+    private fun inflateMyProfile(myProfile : Boolean){
         ViewProfileMyprofileBinding.inflate(layoutInflater).apply {
             lifecycleOwner = viewLifecycleOwner
             vm = viewModel
+            fVm = followViewModel
+            isMyProfile = myProfile
             bind.llProfiles.addView(root)
         }
     }

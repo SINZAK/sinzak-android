@@ -7,6 +7,8 @@ import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.user.UserApiClient
 import com.navercorp.nid.NaverIdLoginSDK
 import com.navercorp.nid.oauth.NidOAuthBehavior
+import io.sinzak.android.BuildConfig
+import io.sinzak.android.R
 import io.sinzak.android.constants.*
 import io.sinzak.android.enums.SDK
 import io.sinzak.android.model.BaseModel
@@ -40,7 +42,7 @@ class SignModel @Inject constructor(
     private val _isLogin = MutableStateFlow(false)
 
 
-
+    private var loginEmail : String = ""
     /**
      * 현재 로그인되어있는지 확인
      */
@@ -49,6 +51,8 @@ class SignModel @Inject constructor(
     val needSignUp = MutableStateFlow(false)
 
     private var oAuthTokenTaken = ""
+    private var socialOrigin = ""
+    private var oAuthIdToken = ""
 
     private val _sdkSignSuccess = MutableStateFlow(false)
     val sdkSignSuccess : StateFlow<Boolean> get() = _sdkSignSuccess
@@ -136,7 +140,7 @@ class SignModel @Inject constructor(
 
     var sdkType : SDK? = null
 
-    private var loginEmail : String = ""
+
 
 
     fun getUserDisplayName() : String{
@@ -168,7 +172,7 @@ class SignModel @Inject constructor(
             nickname = userDisplayName,
             SDKOrigin = sdkType!!.name,
             term = true, // todo 거절시 false
-            university = univ!!.schoolName,
+            university = univ?.schoolName.toString(),
             univEmail = univEmail
         ).apply{
             CallImpl(API_JOIN_ACCOUNT,this@SignModel,this).apply{
@@ -176,12 +180,6 @@ class SignModel @Inject constructor(
             }
         }
     }
-
-
-
-
-
-
 
 
 
@@ -244,6 +242,7 @@ class SignModel @Inject constructor(
     {
         NaverIdLoginSDK.getAccessToken()?.let{token->
             oAuthTokenTaken = token
+            socialOrigin = "naver"
             CallImpl(API_EMAIL_GET_NAVER,
             this,
             paramStr0 = token).apply{
@@ -290,6 +289,7 @@ class SignModel @Inject constructor(
         token?.let{
             _sdkSignSuccess.value = true
             oAuthTokenTaken = token.accessToken
+            socialOrigin = "kakao"
             LogInfo(javaClass.name,"카카오 로그인 성공 : $token")
             getKakaoEmail()
 
@@ -347,7 +347,14 @@ class SignModel @Inject constructor(
                 _sdkSignSuccess.value = true
                 sdkType = SDK.google
                 val authCode = it.serverAuthCode.toString()
-                getGoogleAccessToken(authCode)
+                loginEmail = account.email.toString()
+                username = account.displayName.toString()
+
+                oAuthTokenTaken = authCode
+                oAuthIdToken = it.idToken.toString()
+                socialOrigin = "google"
+                postOAuthToken(authCode,"google", idToken = it.idToken.toString())
+                //getGoogleAccessToken(authCode)
             }
 
         } catch (e: ApiException) {
@@ -395,7 +402,27 @@ class SignModel @Inject constructor(
     }
 
 
+    /**
+     * 로그인, 회원가입 성공시 가지고 있는 소셜 정보를 prefs 에 저장합니다.
+     */
+    private fun saveTokenToPrefs(){
+        prefs.setString(CODE_OAUTH_ORIGIN, socialOrigin)
+        prefs.setString(CODE_OAUTH_IDTOKEN, oAuthIdToken)
+        prefs.setString(CODE_OAUTH_AUTHTOKEN, oAuthTokenTaken)
+    }
 
+    /**
+     * 최초 refresh 실패 시, 가지고 있는 소셜 정보를 통해 재 로그인을 시도합니다.
+     */
+    private fun restoreTokenFromPrefs(){
+        socialOrigin = prefs.getString(CODE_OAUTH_ORIGIN,"").toString()
+        oAuthIdToken = prefs.getString(CODE_OAUTH_IDTOKEN,"").toString()
+        oAuthTokenTaken = prefs.getString(CODE_OAUTH_AUTHTOKEN,"").toString()
+        if(oAuthTokenTaken.isNotEmpty())
+            loginToServer()
+        else
+            LogInfo(javaClass.name,"NO STORED LOGIN INFORMATION")
+    }
 
 
     /**************************************************************************************************************************
@@ -415,8 +442,7 @@ class SignModel @Inject constructor(
      * 백엔드에 로그인을 요청합니다.
      */
     private fun loginToServer(){
-        postOAuthToken(oAuthTokenTaken)
-        return
+        postOAuthToken(oAuthTokenTaken, socialOrigin, oAuthIdToken)
     }
 
     private fun loginToServerViaEmail(email: String){
@@ -429,6 +455,13 @@ class SignModel @Inject constructor(
         ).apply{
             remote.sendRequestApi(this)
         }
+    }
+
+
+    fun logout(){
+        prefs.accessToken = ""
+        prefs.refreshToken = ""
+        setIsLogin(false)
     }
 
     /**
@@ -455,8 +488,11 @@ class SignModel @Inject constructor(
      */
     private fun onRefreshToken(response : Token)
     {
-        if(response.accessToken.isNullOrEmpty())
+        if(response.accessToken.isNullOrEmpty()){
+            restoreTokenFromPrefs()
             return
+
+        }
 
         setIsLogin(true)
         prefs.setString(ACCESS_TOKEN,response.accessToken)
@@ -469,11 +505,10 @@ class SignModel @Inject constructor(
      */
     private fun onResponseLogin(response : LoginEmailResponse){
         if(response.success == false){
-            if(response.message == "가입되지 않은 ID입니다."){
-                needSignUp.value = true
-            }
+            checkEmail(loginEmail)
         }else{
             // login
+            saveTokenToPrefs()
             setIsLogin(true)
         }
     }
@@ -486,6 +521,7 @@ class SignModel @Inject constructor(
     {
         if(success){
             needSignUp.value = false
+            saveTokenToPrefs()
             setIsLogin(true)
         }else{
             //todo 회원가입 실패
@@ -497,11 +533,25 @@ class SignModel @Inject constructor(
     /**
      * OAUTH TOKEN POST
      */
-    private fun postOAuthToken(token: String){
-        CallImpl(API_POST_OAUTH_TOKEN, this, paramStr0 = token).apply{
+    private fun postOAuthToken(token: String, origin: String, idToken: String? = null){
+
+        CallImpl(API_POST_OAUTH_TOKEN, this, paramStr0 = token, paramStr1 = origin, paramStr2 = idToken).apply{
             remote.sendRequestApi(this)
         }
     }
+
+    private fun checkEmail(email: String){
+        LogInfo(javaClass.name,"Email Check : {$email}")
+        if(email.isEmpty()){
+            LogError(javaClass.name,"이메일을 불러오는데 실패했습니다.")
+            return
+        }
+
+        CallImpl(API_CHECK_EMAIL, this, paramStr0 = email).apply{
+            remote.sendRequestApi(this)
+        }
+    }
+
 
 
     override fun onConnectionSuccess(api: Int, body: CResponse) {
@@ -533,10 +583,12 @@ class SignModel @Inject constructor(
             API_POST_OAUTH_TOKEN ->{
                 body as OAuthGetResponse
 
-                if(body.success == true && body.data != null){
-                    loginToServerViaEmail(body.data.email.toString())
+                if(body.success == true){
+                    setIsLogin(true)
+                    _sdkSignSuccess.value = false
+                    //loginToServerViaEmail(body.data.email.toString())
                 }else{
-                    needSignUp.value = true
+                    checkEmail(loginEmail)
                 }
             }
 
@@ -555,12 +607,22 @@ class SignModel @Inject constructor(
 
                 if (body.success == true && body.data != null)
                 {
-                    loginToServerViaEmail(body.data.email.toString())
+                    setIsLogin(true)
                     _sdkSignSuccess.value = false
                 }
-                else needSignUp.value = true
+                else {
+                    checkEmail(loginEmail)
+                }
             }
 
+            API_CHECK_EMAIL ->{
+                if(body.success == true){
+                    needSignUp.value = true
+                }else{
+
+                    globalUi.showToast(body.message?:valueModel.getString(R.string.str_checkemail_exist))
+                }
+            }
 
         }
     }

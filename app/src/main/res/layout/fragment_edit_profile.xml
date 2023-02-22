@@ -5,16 +5,12 @@
     tools:context=".ui.main.profile.edit.EditFragment">
     <data>
         <variable
-            name="fg"
-            type="io.sinzak.android.ui.main.profile.edit.EditFragment" />
-        <variable
             name="vm"
             type="io.sinzak.android.ui.main.profile.edit.EditViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/imageView"
@@ -22,7 +18,7 @@
             android:layout_height="24dp"
             android:layout_marginStart="16dp"
             android:background="@drawable/ic_bg_button"
-            android:onClick="@{v->fg.navigateOnBackPressed()}"
+            android:onClick="@{v->vm.onBackPressed()}"
             android:src="@drawable/ic_back"
             app:layout_constraintBottom_toTopOf="@+id/nestedScrollView"
             app:layout_constraintStart_toStartOf="parent"
@@ -57,11 +53,12 @@
                 android:paddingTop="23dp">
 
                 <ImageView
+                    android:id="@+id/img_profile"
                     android:layout_width="73dp"
                     android:layout_height="73dp"
                     android:layout_marginBottom="19dp"
-                    android:background="@drawable/iv_profile_avatar"
-                    android:src="@{vm.profile.imageUrl}" />
+                    remoteImgUrl="@{vm.profile.imageUrl}"
+                    imgRadius="@{20f}"/>
 
                 <TextView
                     style="@style/medium13"
@@ -69,7 +66,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="14.5dp"
                     android:text="@string/str_edit_profile_img"
-                    android:textColor="@color/secondary" />
+                    android:textColor="@color/secondary"
+                    android:onClick="@{v-> vm.onClickChangeImg()}"/>
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
@@ -90,16 +88,17 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@null"
-                        android:hint="@string/str_edit_nickname"
+                        android:textColorHint="@color/gray60"
                         android:inputType="text"
+                        android:maxLength="12"
+                        android:hint="@string/str_edit_nickname"
                         android:onTextChanged="@{(cs,a,b,c)-> vm.inputName(cs)}"
-                        android:text="@{vm.profile.name}"
-                        android:textColorHint="@color/gray60" />
+                        android:text="@{vm.profile.name}"/>
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="166dp"
+                    android:layout_height="190dp"
                     android:background="@drawable/cl_profile_underline"
                     android:orientation="vertical"
                     android:paddingTop="18.5dp"
@@ -115,15 +114,15 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <EditText
+                        android:id="@+id/et_intro"
                         style="@style/regular16"
                         android:layout_width="match_parent"
-                        android:layout_height="80dp"
+                        android:layout_height="110dp"
                         android:layout_marginHorizontal="20.5dp"
                         android:layout_marginTop="8.7dp"
                         android:background="@null"
                         android:gravity="start"
                         android:hint="@string/str_edit_introduction"
-                        android:inputType="textMultiLine"
                         android:maxLength="100"
                         android:onTextChanged="@{(cs,a,b,c) -> vm.typeInputText(cs)}"
                         android:text="@{vm.profile.introduction}"
@@ -139,7 +138,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom"
                         android:gravity="end"
-                        android:text="@{@string/str_edit_introduction_length(vm.introduction.length())}"
+                        android:text="@{@string/str_edit_introduction_length(vm.profile.introduction.length)}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -196,15 +195,18 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@color/background0"
-                        android:text="일반회화" />
+                        android:paddingEnd="10dp"
+                        android:paddingStart="0dp"
+                        android:text="일반회화, 포스터/배너/간판, 앱/웹 디자인" />
 
                     <TextView
                         style="@style/medium16"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="3.8dp"
+                        android:paddingHorizontal="1.9dp"
                         android:text="@string/str_change"
-                        android:textColor="@color/secondary" />
+                        android:textColor="@color/secondary"
+                        android:onClick="@{v->vm.gotoEditInterestPage()}"/>
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <TextView
@@ -214,7 +216,8 @@
                     android:layout_marginTop="23.8dp"
                     android:onClick="@{v-> vm.gotoVerifyPage()}"
                     android:text="@string/str_edit_apply_verify"
-                    android:textColor="@color/secondary" />
+                    android:textColor="@color/secondary"
+                    android:visibility="gone"/>
 
 
             </androidx.appcompat.widget.LinearLayoutCompat>

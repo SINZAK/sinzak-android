@@ -53,14 +53,14 @@
                 android:layout_marginStart="32dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="신작에서 사용할\n이름을 입력해주세요."
+                android:text="@string/str_register_name_title"
                 style="@style/bold20"
                 />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="이름은 공백없이 12자 이하,\n기호는 - _ . 만 사용 가능합니다."
+                android:text="@string/str_register_name_description"
                 style="@style/bold13"
                 android:textColor="@color/text1"
                 android:layout_marginStart="32dp"/>

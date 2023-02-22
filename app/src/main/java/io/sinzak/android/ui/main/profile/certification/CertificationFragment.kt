@@ -4,9 +4,7 @@ import android.view.View
 import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
 import io.sinzak.android.databinding.FragmentCertificationBinding
-import io.sinzak.android.enums.Page
 import io.sinzak.android.ui.base.BaseFragment
-import javax.inject.Inject
 
 @AndroidEntryPoint
 open class CertificationFragment : BaseFragment() {
@@ -25,7 +23,6 @@ open class CertificationFragment : BaseFragment() {
         bind.apply {
             bind.lifecycleOwner = viewLifecycleOwner
             vm = viewModel
-            fg = this@CertificationFragment
         }
     }
 
@@ -34,7 +31,7 @@ open class CertificationFragment : BaseFragment() {
     }
 
     override fun navigateOnBackPressed() {
-        navigator.revealHistory()
+        viewModel.onCancel()
     }
 
 

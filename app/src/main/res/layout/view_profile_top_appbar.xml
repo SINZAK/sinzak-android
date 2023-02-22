@@ -4,13 +4,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
-            name="fg"
-            type="io.sinzak.android.ui.main.profile.ProfileFragment" />
-        <variable
             name="vm"
             type="io.sinzak.android.ui.main.profile.viewmodel.ProfileViewModel" />
         <variable
             name="showBack"
+            type="Boolean" />
+        <variable
+            name="isMyProfile"
             type="Boolean" />
         <import type="io.sinzak.android.enums.Page"/>
     </data>
@@ -23,7 +23,7 @@
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:onClick="@{v->fg.navigateOnBackPressed()}"
+            android:onClick="@{v->vm.onBackPressed()}"
             android:src="@drawable/ic_back"
             android:visibility="@{showBack ? 0 : 8}"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -37,7 +37,7 @@
             android:background="@drawable/ic_bg_button"
             android:onClick="@{v->vm.changePage(Page.PROFILE_SETTING)}"
             android:src="@drawable/ic_profile_setting"
-            android:visibility="@{vm.isMyProfile() ? 0 : 8}"
+            android:visibility="@{isMyProfile ? 0 : 8}"
 
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -52,7 +52,7 @@
             android:onClick="@{v-> vm.showMoreDialog()}"
             android:src="@drawable/ic_more"
 
-            android:visibility="@{!vm.isMyProfile() ? 0 : 8}"
+            android:visibility="@{!isMyProfile &amp; !vm.isMyProfile() ? 0 : 8}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

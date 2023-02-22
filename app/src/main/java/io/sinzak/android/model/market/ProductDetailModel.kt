@@ -2,6 +2,7 @@ package io.sinzak.android.model.market
 
 import io.sinzak.android.constants.*
 import io.sinzak.android.model.BaseModel
+import io.sinzak.android.model.chat.ChatStorage
 import io.sinzak.android.model.profile.ProfileModel
 import io.sinzak.android.remote.dataclass.CResponse
 import io.sinzak.android.remote.dataclass.request.market.ProductLikeRequest
@@ -16,6 +17,8 @@ import javax.inject.Singleton
 
 @Singleton
 class ProductDetailModel @Inject constructor() : BaseModel() {
+
+    @Inject lateinit var chatStorage: ChatStorage
 
     val art = MutableStateFlow<MarketDetailResponse.Detail?>(null)
 
@@ -65,7 +68,10 @@ class ProductDetailModel @Inject constructor() : BaseModel() {
     }
 
 
-
+    fun makeNewChatroom(){
+        chatStorage.makeChatroom(art.value?.productId ?: 0, if(itemType.value == 0) "product" else "work")
+        //이후 Chatroom Fragment로 이동
+    }
 
 
 
@@ -152,4 +158,7 @@ class ProductDetailModel @Inject constructor() : BaseModel() {
             }
         }
     }
+
+
+
 }

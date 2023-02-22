@@ -1,5 +1,9 @@
 package io.sinzak.android.ui.main.profile.certification.adapter
 
+import android.graphics.Color
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -8,12 +12,16 @@ import io.sinzak.android.R
 import io.sinzak.android.databinding.HolderCertificationSearchBinding
 import io.sinzak.android.remote.dataclass.local.SchoolData
 
-class CertificationAdapter(val onItemClick : ((name: SchoolData)->Unit)? = null) : RecyclerView.Adapter<CertificationAdapter.ViewHolder>() {
+class CertificationAdapter(
+    val onItemClick : ((name: SchoolData)->Unit)? = null,
+) : RecyclerView.Adapter<CertificationAdapter.ViewHolder>() {
 
     private var schoolList = listOf<SchoolData>()
+    private var input = ""
 
-    fun setSchoolList(list : List<SchoolData>){
+    fun setSchoolList(list : List<SchoolData>,input: String){
         schoolList = list
+        this.input = input
         notifyDataSetChanged()
     }
 
@@ -39,13 +47,23 @@ class CertificationAdapter(val onItemClick : ((name: SchoolData)->Unit)? = null)
         fun bind(school : SchoolData)
         {
            bind.apply {
-               name = school.schoolName
-
+               tvSchoolItem.text = makeStringHighLight(school.schoolName,input)
                root.setOnClickListener {
                     onItemClick?.let { onItemClick -> onItemClick(school) }
                }
            }
         }
+    }
+
+    private fun makeStringHighLight(schoolName : String, input : String) : SpannableString
+    {
+        val highLightString = SpannableString(schoolName)
+        val start : Int = schoolName.indexOf(input)
+        val end: Int = start + input.length
+
+        highLightString.setSpan(ForegroundColorSpan(Color.parseColor("#FF4040")),start,end,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+        return highLightString
     }
 
 
