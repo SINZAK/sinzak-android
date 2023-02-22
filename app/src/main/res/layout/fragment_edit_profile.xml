@@ -138,7 +138,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom"
                         android:gravity="end"
-                        android:text="@{@string/str_edit_introduction_length(vm.profile.introduction.length)}"
+                        android:text="@{@string/str_edit_introduction_length(vm.introduction.length())}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
