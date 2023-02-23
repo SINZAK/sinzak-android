@@ -7,7 +7,9 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import io.sinzak.android.constants.API_EDIT_MY_IMAGE
 import io.sinzak.android.constants.API_EDIT_MY_PROFILE
 import io.sinzak.android.model.BaseModel
+import io.sinzak.android.model.GlobalValueModel
 import io.sinzak.android.remote.dataclass.CResponse
+import io.sinzak.android.remote.dataclass.local.CategoryData
 import io.sinzak.android.remote.dataclass.request.profile.UpdateUserRequest
 import io.sinzak.android.remote.retrofit.CallImpl
 import io.sinzak.android.system.LogDebug
@@ -21,7 +23,10 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class ProfileEditModel @Inject constructor(@ApplicationContext val context : Context) : BaseModel() {
+class ProfileEditModel @Inject constructor(
+    @ApplicationContext val context : Context,
+    val valueModel: GlobalValueModel
+) : BaseModel() {
 
     private var introduction = ""
     private var name = ""
@@ -112,6 +117,10 @@ class ProfileEditModel @Inject constructor(@ApplicationContext val context : Con
             }
         }
     }
+
+    /********************************
+     * API 요청합니다
+     ********************************/
 
     /**
      * 프로필 이미지 변경을 요청합니다

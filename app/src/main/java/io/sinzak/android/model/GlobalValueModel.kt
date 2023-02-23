@@ -37,12 +37,16 @@ class GlobalValueModel @Inject constructor(@ApplicationContext val context: Cont
         context.getDrawable(it)
     }
 
-
-
     val categoryWork = context.resources.getStringArray(R.array.category_work).toList()
 
-
-
+    val categoryMap : Map<String, String> get() = context.resources.getStringArray(R.array.category_key).let { category ->
+        val value = context.resources.getStringArray(R.array.category_value)
+        val map = mutableMapOf<String, String>()
+        for (i in category.indices){
+            map[category[i]] = value[i]
+        }
+        map
+    }
 
     fun getString(resourceId : Int)
         = context.getString(resourceId)

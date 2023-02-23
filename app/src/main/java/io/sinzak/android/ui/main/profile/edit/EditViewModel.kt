@@ -23,7 +23,7 @@ import javax.inject.Inject
 class EditViewModel @Inject constructor(
     val model: ProfileEditModel,
     val pModel : ProfileModel,
-    val connect: EditConnect
+    val connect: EditConnect,
 ) : BaseViewModel() {
 
     /**
@@ -41,6 +41,8 @@ class EditViewModel @Inject constructor(
     private val _introduction = MutableStateFlow(profile.value!!.introduction)
     val introduction : StateFlow<String> get() = _introduction
 
+    val category = MutableStateFlow("")
+
     fun typeInputText(cs : CharSequence) {
 
         if (!isMaxLines()) {
@@ -52,6 +54,29 @@ class EditViewModel @Inject constructor(
     {
         updateValue(_name,cs)
     }
+
+
+    init {
+        invokeStateFlow(profile){ profile->
+            profile?.let {
+
+                category.value = makeCategoryStr(it.categoryLike.toString())
+
+            }
+        }
+    }
+
+    private fun makeCategoryStr(categoryInput : String) : String
+    {
+        val keys = categoryInput.split(",")
+        val resultList = mutableListOf<String>()
+        for (key in keys)
+        {
+            valueModel.categoryMap[key]?.let { resultList.add(it) }
+        }
+        return resultList.joinToString(",")
+    }
+
 
     /********************************
      * 버튼을 누릅니다

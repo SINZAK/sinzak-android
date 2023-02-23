@@ -197,7 +197,7 @@
                         android:background="@color/background0"
                         android:paddingEnd="10dp"
                         android:paddingStart="0dp"
-                        android:text="일반회화, 포스터/배너/간판, 앱/웹 디자인" />
+                        android:text="@{vm.category}" />
 
                     <TextView
                         style="@style/medium16"
