@@ -197,7 +197,7 @@
                         android:background="@color/background0"
                         android:paddingEnd="10dp"
                         android:paddingStart="0dp"
-                        android:text="@{vm.category}" />
+                        android:text="@{vm.profile.getCategory(vm.valueModel.categoryMap)}" />
 
                     <TextView
                         style="@style/medium16"

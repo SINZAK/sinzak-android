@@ -25,7 +25,6 @@ import javax.inject.Singleton
 @Singleton
 class ProfileEditModel @Inject constructor(
     @ApplicationContext val context : Context,
-    val valueModel: GlobalValueModel
 ) : BaseModel() {
 
     private var introduction = ""

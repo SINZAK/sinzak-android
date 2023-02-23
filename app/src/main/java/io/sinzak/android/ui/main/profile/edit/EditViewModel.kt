@@ -56,28 +56,6 @@ class EditViewModel @Inject constructor(
     }
 
 
-    init {
-        invokeStateFlow(profile){ profile->
-            profile?.let {
-
-                category.value = makeCategoryStr(it.categoryLike.toString())
-
-            }
-        }
-    }
-
-    private fun makeCategoryStr(categoryInput : String) : String
-    {
-        val keys = categoryInput.split(",")
-        val resultList = mutableListOf<String>()
-        for (key in keys)
-        {
-            valueModel.categoryMap[key]?.let { resultList.add(it) }
-        }
-        return resultList.joinToString(",")
-    }
-
-
     /********************************
      * 버튼을 누릅니다
      ********************************/
