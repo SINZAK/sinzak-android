@@ -7,7 +7,6 @@ import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.user.UserApiClient
 import com.navercorp.nid.NaverIdLoginSDK
 import com.navercorp.nid.oauth.NidOAuthBehavior
-import io.sinzak.android.BuildConfig
 import io.sinzak.android.R
 import io.sinzak.android.constants.*
 import io.sinzak.android.enums.SDK
@@ -99,7 +98,7 @@ class SignModel @Inject constructor(
     }
     fun clearJoinInfo(){
         userDisplayName = ""
-        interests = listOf()
+        interests = ""
         univ = null
         univEmail = ""
     }
@@ -126,8 +125,8 @@ class SignModel @Inject constructor(
     fun setUsername(t : String){
         userDisplayName = t
     }
-    private var interests = listOf<String>()
-    fun setInterests(i : List<String>){
+    private var interests : String = ""
+    fun setInterests(i : String){
         interests = i
     }
     private var univ : SchoolData? = null
@@ -165,7 +164,7 @@ class SignModel @Inject constructor(
 
     fun join(){
         JoinRequest(
-            categoryLike = interests.joinToString { it },
+            categoryLike = interests,
             certUniv = false, // todo 이메일 인증하면 true 로
             email = loginEmail,
             name = username,

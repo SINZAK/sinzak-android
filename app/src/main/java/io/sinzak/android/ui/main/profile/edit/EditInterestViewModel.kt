@@ -72,17 +72,7 @@ class EditInterestViewModel @Inject constructor(
         return false
     }
 
-    /**
-     * 선택된 관심장르를 카테고리 키 형태로 바꿉니다
-     */
-    private fun makeRequestStr(list: List<String>) : String
-    {
-        val changeList = mutableListOf<String>()
-        list.forEach {
-            changeList.add(valueModel.reverseCategoryMap[it].toString())
-        }
-        return changeList.joinToString(",")
-    }
+
 
     override fun onSubmit() {
 
@@ -91,7 +81,7 @@ class EditInterestViewModel @Inject constructor(
         if (!isInterestChange(initList = initList, currentList = currentList)) onBackPressed()
 
         else {
-            model.setInterest(makeRequestStr(currentList))
+            model.setInterest(valueModel.makeRequestStr(currentList))
             model.requestInterestUpdate()
             useFlag(model.interestUpdateDone){
                 onBackPressed()

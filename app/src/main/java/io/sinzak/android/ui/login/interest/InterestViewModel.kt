@@ -46,7 +46,7 @@ open class InterestViewModel @Inject constructor(
 
     open fun onSubmit() {
         signModel.setInterests(
-            chosenDesignChip.value + chosenPureChip.value
+            valueModel.makeRequestStr(chosenDesignChip.value + chosenPureChip.value)
         )
         connect.gotoUnivPage()
     }
