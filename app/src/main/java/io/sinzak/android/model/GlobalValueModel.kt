@@ -43,6 +43,20 @@ class GlobalValueModel @Inject constructor(@ApplicationContext val context: Cont
         map
     }
 
+    /**
+     * 키 형태의 관심장르를 한글로 바꿉니다
+     */
+    fun getCategory(categoryLike : String) : String
+    {
+        val keys = categoryLike.split(",")
+        val resultList = mutableListOf<String>()
+        for (key in keys)
+        {
+            categoryMap[key]?.let { resultList.add(it) }
+        }
+        return resultList.joinToString(", ")
+    }
+
     private val reverseCategoryMap : Map<String, String> get() = context.resources.getStringArray(R.array.category_value).let { category ->
         val value = context.resources.getStringArray(R.array.category_key)
         val map = mutableMapOf<String, String>()

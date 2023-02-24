@@ -190,14 +190,14 @@
                         android:text="@string/str_edit_genre" />
 
                     <TextView
+                        android:id="@+id/tv_category"
                         style="@style/regular16"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@color/background0"
                         android:paddingEnd="10dp"
-                        android:paddingStart="0dp"
-                        android:text="@{vm.profile.getCategory(vm.valueModel.categoryMap)}" />
+                        android:paddingStart="0dp"/>
 
                     <TextView
                         style="@style/medium16"

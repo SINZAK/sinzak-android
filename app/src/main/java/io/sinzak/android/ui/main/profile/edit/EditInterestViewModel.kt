@@ -34,7 +34,7 @@ class EditInterestViewModel @Inject constructor(
      */
     private fun setUserInterest()
     {
-        val keys =  pModel.profile.value?.categoryLike.toString().split(",")
+        val keys =  pModel.categoryLike.split(",")
         val pureList =chosenPureChip.value.toMutableList()
         val designList = chosenDesignChip.value.toMutableList()
         for (key in keys)
@@ -84,6 +84,7 @@ class EditInterestViewModel @Inject constructor(
             model.setInterest(valueModel.makeRequestStr(currentList))
             model.requestInterestUpdate()
             useFlag(model.interestUpdateDone){
+                pModel.changeCategory(valueModel.makeRequestStr(currentList))
                 onBackPressed()
             }
         }

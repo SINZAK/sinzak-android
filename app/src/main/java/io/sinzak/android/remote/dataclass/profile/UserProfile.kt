@@ -14,16 +14,4 @@ data class UserProfile(
     @SerializedName("univ") val univ : String = "",
     @SerializedName("ifFollow") val ifFollow : Boolean = false,
     @SerializedName("categoryLike") val categoryLike : String? = null
-) {
-    fun getCategory(map: Map<String,String>) : String
-    {
-        val keys = categoryLike.toString().split(",")
-        val resultList = mutableListOf<String>()
-        for (key in keys)
-        {
-            map[key]?.let { resultList.add(it) }
-        }
-        return resultList.joinToString(",")
-    }
-
-}
+)
