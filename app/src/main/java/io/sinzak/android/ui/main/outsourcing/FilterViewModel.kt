@@ -14,7 +14,7 @@ class FilterViewModel @Inject constructor(
 
 
     val adapter = FilterAdapter(valueModel.categoryWork.toMutableList()) {
-        model.getRemoteMarketWorks(refresh = true, category = it.joinToString(separator = ","))
+        model.getRemoteMarketWorks(refresh = true, valueModel.makeRequestStr(it))
     }
 
 

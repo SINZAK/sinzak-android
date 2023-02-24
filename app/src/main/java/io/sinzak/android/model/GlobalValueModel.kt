@@ -43,6 +43,12 @@ class GlobalValueModel @Inject constructor(@ApplicationContext val context: Cont
         map
     }
 
+    fun getFirstCategory(productCategory : String) : String
+    {
+        val firstKey = productCategory.split(",")[0]
+        return categoryMap[firstKey].toString()
+    }
+
     /**
      * 키 형태의 관심장르를 한글로 바꿉니다
      */

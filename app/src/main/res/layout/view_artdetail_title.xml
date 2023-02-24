@@ -81,14 +81,13 @@
                 android:gravity="end"
                 >
                 <TextView
-                    android:text="@{vm.art.category}"
+                    android:text="@{vm.category}"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:textColor="@color/gray60"
                     style="@style/regular13"
-                    tools:text="로고/바인딩"
                     />
 
 

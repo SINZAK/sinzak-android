@@ -82,6 +82,10 @@ class ContentViewModel @Inject constructor(
      */
     val follower = MutableStateFlow(0)
 
+    /**
+     * 카테고리
+     */
+    val category = MutableStateFlow("")
 
     val itemType = model.itemType
 
@@ -198,6 +202,7 @@ class ContentViewModel @Inject constructor(
                 product = it.productId
                 isFollowing.value = it.isFollowing
                 follower.value = it.authorFollowerCnt
+                category.value = valueModel.getFirstCategory(it.category)
 
                 it.authorId.apply {
                     authorId = this
