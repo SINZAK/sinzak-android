@@ -5,11 +5,13 @@ import android.graphics.Bitmap
 import android.net.Uri
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.sinzak.android.constants.API_EDIT_MY_IMAGE
+import io.sinzak.android.constants.API_EDIT_MY_INTEREST
 import io.sinzak.android.constants.API_EDIT_MY_PROFILE
 import io.sinzak.android.model.BaseModel
 import io.sinzak.android.model.GlobalValueModel
 import io.sinzak.android.remote.dataclass.CResponse
 import io.sinzak.android.remote.dataclass.local.CategoryData
+import io.sinzak.android.remote.dataclass.request.profile.UpdateInterestRequest
 import io.sinzak.android.remote.dataclass.request.profile.UpdateUserRequest
 import io.sinzak.android.remote.retrofit.CallImpl
 import io.sinzak.android.system.LogDebug
@@ -29,14 +31,18 @@ class ProfileEditModel @Inject constructor(
 
     private var introduction = ""
     private var name = ""
+    private var nameErrorMsg = ""
 
     private var link = ""
 
-    private var nameErrorMsg = ""
+    private var interest = ""
 
     private var multiPart : MultipartBody.Part? = null
     private val convertUriFlag = MutableStateFlow(false)
     val isEditDone = MutableStateFlow(false)
+
+    val interestUpdateFlag = MutableStateFlow(false)
+    val interestUpdateDone = MutableStateFlow(false)
 
     /**
      * 소개를 저장합니다
@@ -59,6 +65,14 @@ class ProfileEditModel @Inject constructor(
     fun setLink(l : String)
     {
         link = l.trim()
+    }
+
+    /**
+     * 관심장르를 저장합니다 (앞뒤 공백없이)
+     */
+    fun setInterest(i : String)
+    {
+        interest = i.trim()
     }
 
     /**
@@ -162,6 +176,28 @@ class ProfileEditModel @Inject constructor(
     }
 
     /**
+     * 관심장르 변경을 요청합니다
+     */
+    fun requestInterestUpdate()
+    {
+        if (!interestUpdateFlag.value) {
+            return
+        }
+
+        val request = UpdateInterestRequest(
+            categoryLike = interest
+        )
+
+        CallImpl(
+            API_EDIT_MY_INTEREST,
+            this,
+            request
+        ).apply {
+            remote.sendRequestApi(this)
+        }
+    }
+
+    /**
      * 인증작가 신청을 요청합니다
      */
     fun requestVerify()
@@ -191,6 +227,15 @@ class ProfileEditModel @Inject constructor(
                 if (body.success == true) isEditDone.value = true
 
                 else globalUi.showToast("프로필 사진변경을 실패했어요")
+            }
+
+            API_EDIT_MY_INTEREST -> {
+
+                if (body.success == true){
+                    interestUpdateDone.value = true
+                    globalUi.showToast("관심장르를 변경했어요")
+                }
+
             }
         }
     }
