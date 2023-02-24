@@ -1,13 +1,8 @@
 package io.sinzak.android.model
 
 import android.content.Context
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.components.SingletonComponent
 import io.sinzak.android.R
-import io.sinzak.android.system.App
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -41,6 +36,15 @@ class GlobalValueModel @Inject constructor(@ApplicationContext val context: Cont
 
     val categoryMap : Map<String, String> get() = context.resources.getStringArray(R.array.category_key).let { category ->
         val value = context.resources.getStringArray(R.array.category_value)
+        val map = mutableMapOf<String, String>()
+        for (i in category.indices){
+            map[category[i]] = value[i]
+        }
+        map
+    }
+
+    val reverseCategoryMap : Map<String, String> get() = context.resources.getStringArray(R.array.category_value).let { category ->
+        val value = context.resources.getStringArray(R.array.category_key)
         val map = mutableMapOf<String, String>()
         for (i in category.indices){
             map[category[i]] = value[i]

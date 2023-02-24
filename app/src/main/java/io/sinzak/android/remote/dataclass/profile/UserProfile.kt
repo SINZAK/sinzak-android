@@ -25,4 +25,5 @@ data class UserProfile(
         }
         return resultList.joinToString(",")
     }
+
 }

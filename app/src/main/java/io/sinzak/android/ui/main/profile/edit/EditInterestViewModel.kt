@@ -3,7 +3,6 @@ package io.sinzak.android.ui.main.profile.edit
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.sinzak.android.model.profile.ProfileEditModel
 import io.sinzak.android.model.profile.ProfileModel
-import io.sinzak.android.remote.dataclass.profile.UserProfile
 import io.sinzak.android.ui.login.RegisterConnect
 import io.sinzak.android.ui.login.interest.InterestViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -24,10 +23,15 @@ class EditInterestViewModel @Inject constructor(
 
     override val chosenDesignChip: MutableStateFlow<MutableList<String>> = MutableStateFlow(mutableListOf())
 
+    private var initList = listOf<String>()
+
     init {
         setUserInterest()
     }
 
+    /**
+     * 기존 관심장르에 해당하는 칩들을 선택합니다
+     */
     private fun setUserInterest()
     {
         val keys =  pModel.profile.value?.categoryLike.toString().split(",")
@@ -48,13 +52,46 @@ class EditInterestViewModel @Inject constructor(
 
         chosenPureChip.value = pureList
         chosenDesignChip.value = designList
+        initList = chosenPureChip.value + chosenDesignChip.value
 
     }
 
+    /**
+     * 현재 관심장르와 기존 관심장르에 변화가 있는지?
+     */
+    private fun isInterestChange(initList : List<String>, currentList: List<String>) : Boolean {
+        if (initList.size != currentList.size) return true
+
+        val sortInitList = initList.sorted()
+        val sortChangeList = currentList.sorted()
+
+        for(i in sortInitList.indices){
+            if (sortInitList[i] != sortChangeList[i]) return true
+        }
+
+        return false
+    }
+
+    /**
+     * 선택된 관심장르를 카테고리 키 형태로 바꿉니다
+     */
+    private fun makeRequestStr(list: List<String>) : String
+    {
+        val changeList = mutableListOf<String>()
+        list.forEach {
+            changeList.add(valueModel.reverseCategoryMap[it].toString())
+        }
+        return changeList.joinToString(",")
+    }
+
     override fun onSubmit() {
-        if (!model.interestUpdateFlag.value) onBackPressed()
+
+        val currentList = chosenPureChip.value + chosenDesignChip.value
+
+        if (!isInterestChange(initList = initList, currentList = currentList)) onBackPressed()
+
         else {
-            model.setInterest("")
+            model.setInterest(makeRequestStr(currentList))
             model.requestInterestUpdate()
             useFlag(model.interestUpdateDone){
                 onBackPressed()

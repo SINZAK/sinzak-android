@@ -8,9 +8,7 @@ import io.sinzak.android.constants.API_EDIT_MY_IMAGE
 import io.sinzak.android.constants.API_EDIT_MY_INTEREST
 import io.sinzak.android.constants.API_EDIT_MY_PROFILE
 import io.sinzak.android.model.BaseModel
-import io.sinzak.android.model.GlobalValueModel
 import io.sinzak.android.remote.dataclass.CResponse
-import io.sinzak.android.remote.dataclass.local.CategoryData
 import io.sinzak.android.remote.dataclass.request.profile.UpdateInterestRequest
 import io.sinzak.android.remote.dataclass.request.profile.UpdateUserRequest
 import io.sinzak.android.remote.retrofit.CallImpl
@@ -41,7 +39,6 @@ class ProfileEditModel @Inject constructor(
     private val convertUriFlag = MutableStateFlow(false)
     val isEditDone = MutableStateFlow(false)
 
-    val interestUpdateFlag = MutableStateFlow(false)
     val interestUpdateDone = MutableStateFlow(false)
 
     /**
@@ -180,9 +177,6 @@ class ProfileEditModel @Inject constructor(
      */
     fun requestInterestUpdate()
     {
-        if (!interestUpdateFlag.value) {
-            return
-        }
 
         val request = UpdateInterestRequest(
             categoryLike = interest
