@@ -4,6 +4,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import io.sinzak.android.enums.Page
 import io.sinzak.android.enums.Sort
 import io.sinzak.android.model.insets.SoftKeyModel
+import io.sinzak.android.model.market.MarketHistoryModel
 import io.sinzak.android.model.market.MarketWriteModel
 import io.sinzak.android.model.works.WorkListModel
 import io.sinzak.android.ui.base.BaseViewModel
@@ -16,6 +17,7 @@ class OutsourcingViewModel @Inject constructor(
     val model : WorkListModel,
     val writeModel: MarketWriteModel,
     val connect : WorkConnect,
+    val historyModel: MarketHistoryModel,
     val soft : SoftKeyModel
 ) : BaseViewModel() {
 
@@ -28,6 +30,7 @@ class OutsourcingViewModel @Inject constructor(
     val sortOrder = MutableStateFlow(Sort.BY_REFER)
 
     fun openSearch(){
+        historyModel.getRemoteHistoryList()
         searchOn.value = true
         historyOn.value = true
     }

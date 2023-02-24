@@ -7,6 +7,7 @@ import io.sinzak.android.databinding.*
 import io.sinzak.android.ui.base.BaseFragment
 import io.sinzak.android.ui.main.outsourcing.viewmodel.ArtistViewModel
 import io.sinzak.android.ui.main.outsourcing.viewmodel.OutsourcingViewModel
+import io.sinzak.android.ui.main.search.HistoryAdapter
 import io.sinzak.android.ui.main.search.HistoryViewModel
 import javax.inject.Inject
 
@@ -79,11 +80,12 @@ class OutsourcingFragment : BaseFragment(){
     private fun inflateHistory(){
         ViewSearchHistoryBinding.inflate(layoutInflater).apply{
             vm = hModel
-            setSearch {
-                viewModel.typeSearchFieldText(it[1])
+            model = viewModel.historyModel
+            search = HistoryAdapter.OnClick {
+                viewModel.typeSearchFieldText(it)
                 viewModel.searchText()
-
             }
+            delete = HistoryAdapter.OnClick { id -> viewModel.historyModel.deleteHistory(id) }
             lifecycleOwner = viewLifecycleOwner
             bind.fgHistory.addView(root)
         }
