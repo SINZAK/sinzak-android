@@ -43,7 +43,7 @@ object Module {
 }
 
 const val BASE_URL = "https://sinzak.net/"
-const val STOMP_BASE = "ws://sinzak.net"
+const val STOMP_BASE = "wss://sinzak.net/api/stomp/chat/websocket"
 
 const val CONNECT_TIMEOUT = 1L
 const val WRITE_TIMEOUT = 5L

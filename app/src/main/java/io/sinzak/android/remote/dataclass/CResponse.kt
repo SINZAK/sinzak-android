@@ -8,5 +8,5 @@ open class CResponse(
     @SerializedName("path") val path : String? = null,
     @SerializedName("status") val status : Int? = null,
     @SerializedName("success") val success : Boolean? = null,
-    @SerializedName("message") val message : String? = null
+    @SerializedName("message") val message : String? = null,
 )

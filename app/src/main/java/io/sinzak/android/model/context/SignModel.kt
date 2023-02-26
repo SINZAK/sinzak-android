@@ -41,6 +41,7 @@ class SignModel @Inject constructor(
     private val _isLogin = MutableStateFlow(false)
 
 
+
     private var loginEmail : String = ""
     /**
      * 현재 로그인되어있는지 확인
@@ -430,6 +431,7 @@ class SignModel @Inject constructor(
 
 
     private fun setIsLogin(status : Boolean){
+        LogInfo(javaClass.name,"Login Status Updated : $status")
         _isLogin.value = status
         prefs.setBoolean(CODE_IS_LOGIN, status)
     }
