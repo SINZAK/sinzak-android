@@ -4,6 +4,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.kakao.sdk.auth.model.OAuthToken
+import com.kakao.sdk.common.model.AuthError
 import com.kakao.sdk.user.UserApiClient
 import com.navercorp.nid.NaverIdLoginSDK
 import com.navercorp.nid.oauth.NidOAuthBehavior
@@ -281,6 +282,13 @@ class SignModel @Inject constructor(
     private fun onLoginKakao(token : OAuthToken?, error : Throwable?)
     {
         error?.let{
+            if(error is AuthError){
+                if(error.statusCode == 302){
+                    loginIntentActivity.requestKakaoLoginActivity(loginKaKao,::onLoginKakao, forceWeb = true)
+
+                    return
+                }
+            }
             _errorString.value = it.toString()
             LogError(error)
             _signFailed.value = true
@@ -305,6 +313,7 @@ class SignModel @Inject constructor(
 
             error?.let{
                 LogError(error)
+
             }
 
             user?.kakaoAccount?.let{
@@ -542,6 +551,12 @@ class SignModel @Inject constructor(
     }
 
     private fun checkEmail(email: String){
+
+        if(LEGACY_LOGIN_MODE){
+
+            loginToServerViaEmail(email)
+            return
+        }
         LogInfo(javaClass.name,"Email Check : {$email}")
         if(email.isEmpty()){
             LogError(javaClass.name,"이메일을 불러오는데 실패했습니다.")
@@ -644,5 +659,9 @@ class SignModel @Inject constructor(
         }
     }
 
+
+    companion object{
+        const val LEGACY_LOGIN_MODE = true
+    }
 
 }

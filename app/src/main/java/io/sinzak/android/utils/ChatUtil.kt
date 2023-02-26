@@ -37,7 +37,8 @@ class ChatUtil(
     val messageSubscriber = client.join("/sub/chat/rooms/${roomId}").subscribe ({
         try{
             val chatMsg = Gson().fromJson(it.toString(), ChatMsg::class.java)
-            onReceiveMsg(chatMsg)
+            if(chatMsg.senderId != senderId)
+                onReceiveMsg(chatMsg)
         }catch(e:Exception){
 
         }
@@ -51,12 +52,13 @@ class ChatUtil(
     }
 
 
+    private val senderId: String get() = prefs.getString(CODE_USER_ID,"").toString()
     fun sendMsg(msg: String){
 
         val jsonObject = JsonObject().apply{
             addProperty(MESSAGE, msg)
             addProperty(ROOM_ID, roomId)
-            addProperty(SENDER_ID, prefs.getString(CODE_USER_ID,""))
+            addProperty(SENDER_ID, senderId)
             addProperty(SENDER_NAME, prefs.getString(CODE_USER_NAME,""))
             addProperty(MESSAGE_TYPE, TYPE_TEXT)
         }
