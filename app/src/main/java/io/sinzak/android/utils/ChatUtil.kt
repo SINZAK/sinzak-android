@@ -51,6 +51,22 @@ class ChatUtil(
 
     }
 
+    fun destroyChatroom(){
+
+        val jsonObject = JsonObject().apply{
+            addProperty(ROOM_ID, roomId)
+        }
+
+        LogInfo(javaClass.name,"STOMP : SEND CHAT $jsonObject")
+
+        client.send("/pub/chat/leave", jsonObject.toString()).subscribe {
+            onSuccessSendMsg(it)
+
+        }.dispose()
+
+        destroySession()
+    }
+
 
     private val senderId: String get() = prefs.getString(CODE_USER_ID,"").toString()
     fun sendMsg(msg: String){

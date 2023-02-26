@@ -27,6 +27,9 @@ class ChatStorage @Inject constructor() : BaseModel() {
     private val _chatMsg = MutableStateFlow(mutableListOf<ChatMsg>())
     val chatMsg : StateFlow<MutableList<ChatMsg>> get() = _chatMsg
 
+    private val _chatRoomInfo = MutableStateFlow<ChatRoom?>(null)
+    val chatRoomInfo: StateFlow<ChatRoom?> = _chatRoomInfo
+
     val chatMsgFlow = MutableStateFlow<ChatMsg?>(null)
 
     fun getChatRoomList(){
@@ -55,13 +58,14 @@ class ChatStorage @Inject constructor() : BaseModel() {
         this.postType = postType
     }
 
-    fun loadExistChatroom(uuid: String){
-        makeChatRoom(uuid)
+    fun loadExistChatroom(chatroom: ChatRoom){
+        makeChatRoom(chatroom.roomUuid.toString())
+        _chatRoomInfo.value = chatroom
         remote.sendRequestApi(
             CallImpl(
                 API_GET_CHATROOM_MSG,
                 this,
-                paramStr0 = uuid
+                paramStr0 = chatroom.roomUuid.toString()
             )
         )
     }
@@ -164,5 +168,10 @@ class ChatStorage @Inject constructor() : BaseModel() {
 
     override fun handleError(api: Int, msg: String?, t: Throwable?) {
 
+    }
+
+
+    fun leaveChatroom(){
+        currentChatRoom?.destroyChatroom()
     }
 }
