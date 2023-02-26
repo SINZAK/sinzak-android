@@ -27,12 +27,13 @@
 
                 android:layout_width="24dp"
                 android:layout_height="24dp"
+                android:onClick="@{v->vm.onBackPressed()}"
                 android:layout_marginHorizontal="16dp"
                 android:src="@drawable/ic_back" />
 
             <TextView
                 style="@style/bold16"
-                android:text="김지호"
+                android:text="@{vm.roomName}"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -44,6 +45,7 @@
                 android:src="@drawable/ic_more"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
+                android:onClick="@{v->vm.openChatDialog()}"
                 android:layout_marginHorizontal="16dp" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 

@@ -17,6 +17,7 @@ import io.sinzak.android.model.navigate.Navigation
 import io.sinzak.android.system.LogDebug
 import io.sinzak.android.ui.base.BaseActivity
 import io.sinzak.android.ui.base.BaseFragment
+import io.sinzak.android.ui.main.chat.ChatConnect
 import io.sinzak.android.ui.main.chat.ChatFragment
 import io.sinzak.android.ui.main.chat.ChatRoomFragment
 import io.sinzak.android.ui.main.home.HomeFragment
@@ -59,6 +60,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     @Inject
     lateinit var homeProductModel: HomeProductModel
 
+    @Inject
+    lateinit var chatConnect: ChatConnect
+
     private val viewModel: MainViewModel by viewModels()
 
     private val bottomViewModel: MainBottomViewModel by viewModels()
@@ -79,6 +83,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             }
 
         }
+
+        chatConnect.registerActivity(this)
 
         inflateBottomMenu()
 

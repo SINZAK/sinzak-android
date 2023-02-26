@@ -9,15 +9,11 @@ import io.sinzak.android.databinding.HolderChatRoomBinding
 import io.sinzak.android.remote.dataclass.chat.ChatRoom
 
 class ChatRoomAdapter(
-    val onClickRoom: (String)->Unit
+    val onClickRoom: (ChatRoom)->Unit
 ) : RecyclerView.Adapter<ChatRoomAdapter.ViewHolder>() {
 
 
-    var chatList = listOf(
-        ChatRoom(userVerified = false),
-        ChatRoom(unreadCount = 3),
-        ChatRoom(),
-        ChatRoom(unreadCount = 2),
+    var chatList = listOf<ChatRoom>(
 
         )
 
@@ -45,7 +41,7 @@ class ChatRoomAdapter(
         {
             bind.chat = chat
             bind.root.setOnClickListener {
-                onClickRoom(chat.roomUuid.toString())
+                onClickRoom(chat)
             }
         }
     }

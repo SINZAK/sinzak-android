@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.sinzak.android.enums.Page
 import io.sinzak.android.model.chat.ChatStorage
+import io.sinzak.android.remote.dataclass.chat.ChatRoom
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.ui.main.chat.ChatRoomAdapter
 import kotlinx.coroutines.delay
@@ -35,8 +36,8 @@ class ChatViewModel @Inject constructor(
     }
 
 
-    fun openChatRoom(uuid: String){
-        storage.loadExistChatroom(uuid)
+    fun openChatRoom(chat:ChatRoom){
+        storage.loadExistChatroom(chat)
         navigation.changePage(Page.CHAT_ROOM)
     }
 
@@ -44,6 +45,7 @@ class ChatViewModel @Inject constructor(
     private val chatRoomCollector =
         storage.chatRooms.onEach {
             chatRoomAdapter.chatList = it
+            chatRoomAdapter.notifyDataSetChanged()
         }.launchIn(viewModelScope)
 
 

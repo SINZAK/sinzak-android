@@ -230,4 +230,6 @@
     <string name="str_write_work_content">의뢰 내용</string>
     <string name="str_title">제목</string>
     <string name="str_checkemail_exist">가입한 다른 소셜 계정으로 로그인해주세요.</string>
+    <string name="str_btn_chatroom_leave">채팅방 나가기</string>
+    <string name="str_block_chat">차단하기</string>
 </resources>
