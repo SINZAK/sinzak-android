@@ -65,9 +65,9 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
 
 
 
-    fun requestKakaoLoginActivity(userClient : UserApiClient,  callback : (OAuthToken?, Throwable?)->Unit)
+    fun requestKakaoLoginActivity(userClient : UserApiClient,  callback : (OAuthToken?, Throwable?)->Unit, forceWeb: Boolean = false)
     {
-        if(!userClient.isKakaoTalkLoginAvailable(this))
+        if(!userClient.isKakaoTalkLoginAvailable(this) || forceWeb)
             userClient.loginWithKakaoAccount(this, callback = callback)
         else
             userClient.loginWithKakaoTalk(this, callback = callback)

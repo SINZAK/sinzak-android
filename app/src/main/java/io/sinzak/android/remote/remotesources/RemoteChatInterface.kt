@@ -19,6 +19,6 @@ interface RemoteChatInterface {
     @POST("api/chat/rooms/{id}")
     fun getChatroomInfo(@HeaderMap headerMap: HashMap<String, String>, @Path("id") id: String): Call<ChatRoomResponse>
 
-    @GET("api/chat/rooms/{id}/msg")
+    @GET("api/chat/rooms/{id}/message")
     fun getChatroomMsg(@HeaderMap headerMap: HashMap<String, String>, @Path("id") id: String): Call<ChatRoomMsgResponse>
 }
