@@ -3,7 +3,6 @@ package io.sinzak.android.ui.main.search
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.FragmentComponent
-import dagger.hilt.android.lifecycle.HiltViewModel
 import io.sinzak.android.model.market.MarketHistoryModel
 import io.sinzak.android.remote.dataclass.history.HistoryData
 import io.sinzak.android.ui.base.BaseViewModel
@@ -16,14 +15,12 @@ class HistoryViewModel @Inject constructor(
     val history : History
     ) : BaseViewModel() {
 
-
-
     interface History{
-        fun getHistoryList() : StateFlow<List<List<String>>>
+        fun getHistoryList() : StateFlow<List<HistoryData>>
 
         fun clearHistory()
 
-        fun deleteHistory(tag : List<String>)
+        fun deleteHistory(id : String)
 
         val adapter : HistoryAdapter
     }

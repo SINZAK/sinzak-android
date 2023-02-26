@@ -3,6 +3,7 @@ package io.sinzak.android.ui.main.market
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import io.sinzak.android.R
 import io.sinzak.android.databinding.*
@@ -114,7 +115,9 @@ class MarketFragment : BaseFragment() {
         ViewSearchHistoryBinding.inflate(layoutInflater).apply{
             lifecycleOwner = viewLifecycleOwner
             vm = historyViewModel
-            search = HistoryAdapter.OnClick { history -> viewModel.search(history[1]) }
+            model = viewModel.marketHistory
+            search = HistoryAdapter.OnClick { word -> viewModel.search(word) }
+            delete = HistoryAdapter.OnClick { id -> viewModel.marketHistory.deleteHistory(id) }
             bind.flHistory.addView(root)
         }
     }

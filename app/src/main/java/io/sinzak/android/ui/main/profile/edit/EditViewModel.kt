@@ -1,13 +1,12 @@
 package io.sinzak.android.ui.main.profile.edit
 
 import android.content.res.Resources
-import android.text.Editable
 import android.widget.ImageView
+import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.sinzak.android.R
 import io.sinzak.android.enums.Page
 import io.sinzak.android.model.profile.ProfileEditModel
 import io.sinzak.android.model.profile.ProfileModel
@@ -23,7 +22,7 @@ import javax.inject.Inject
 class EditViewModel @Inject constructor(
     val model: ProfileEditModel,
     val pModel : ProfileModel,
-    val connect: EditConnect
+    val connect: EditConnect,
 ) : BaseViewModel() {
 
     /**
@@ -39,17 +38,23 @@ class EditViewModel @Inject constructor(
      * 소개를 저장하는 공간
      */
     private val _introduction = MutableStateFlow(profile.value!!.introduction)
+    val introduction : StateFlow<String> get() = _introduction
+
 
     fun typeInputText(cs : CharSequence) {
 
         if (!isMaxLines()) {
-            updateValue(_introduction,cs.toString())
+            updateValue(_introduction,cs)
         }
     }
 
     fun inputName(cs: CharSequence)
     {
-        updateValue(_name,cs.toString())
+        updateValue(_name,cs)
+    }
+
+    fun setInterestText(textView: TextView){
+        textView.text = valueModel.getCategory(pModel.categoryLike)
     }
 
     /********************************
@@ -86,7 +91,7 @@ class EditViewModel @Inject constructor(
      */
     fun gotoCertificationPage(hasCert : Boolean){
         if(!hasCert) navigation.changePage(Page.PROFILE_CERTIFICATION)
-        else navigation.changePage(Page.PROFILE_CERTIFICATION) //테스트 - 배포때는 return으로
+        else navigation.changePage(Page.PROFILE_CERTIFICATION) //테스트 - 배포때는 return 으로
     }
 
     /**
@@ -154,10 +159,10 @@ class EditViewModel @Inject constructor(
     /**
      * 입력 글자를 갱신합니다
      */
-    private fun updateValue(value : MutableStateFlow<String>,input : String)
+    private fun updateValue(value : MutableStateFlow<String>, cs : CharSequence)
     {
-        if (value.value != input) {
-            value.value = input
+        cs.toString().let {
+            if (value.value != it) value.value = it
         }
     }
 }

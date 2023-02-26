@@ -1,14 +1,15 @@
 package io.sinzak.android.model.market
 
-import android.util.Log
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
 import io.sinzak.android.constants.API_DELETE_ALL_SEARCH_HISTORY
+import io.sinzak.android.constants.API_DELETE_SEARCH_HISTORY
 import io.sinzak.android.constants.API_GET_SEARCH_HISTORY
 import io.sinzak.android.model.BaseModel
 import io.sinzak.android.remote.dataclass.CResponse
 import io.sinzak.android.remote.dataclass.history.HistoryData
+import io.sinzak.android.remote.dataclass.request.profile.HistoryRequest
 import io.sinzak.android.remote.dataclass.response.history.HistoryResponse
 import io.sinzak.android.remote.retrofit.CallImpl
 import io.sinzak.android.system.LogDebug
@@ -29,34 +30,21 @@ class MarketHistoryModel @Inject constructor(
     /**
      * 검색 기록을 담는 공간
      */
-    private val _history = MutableStateFlow(listOf<List<String>>())
+    private val _history = MutableStateFlow(mutableListOf<HistoryData>())
 
-    override fun getHistoryList(): StateFlow<List<List<String>>> {
-        LogDebug(javaClass.name, "리사이클러뷰 데이터 배정")
+
+    override fun getHistoryList(): StateFlow<List<HistoryData>> {
         return _history
     }
 
     override fun clearHistory() {
+        requestDeleteAllHistory()
     }
 
-    override fun deleteHistory(tag: List<String>) {
-
+    override fun deleteHistory(id: String) {
+        requestDeleteHistory(id)
     }
 
-
-    override fun onConnectionSuccess(api: Int, body: CResponse) {
-        when(api)
-        {
-            API_GET_SEARCH_HISTORY ->
-            {
-                onGetHistoryResponse(body as HistoryResponse)
-            }
-        }
-    }
-
-    override fun handleError(api: Int, msg: String?, t: Throwable?) {
-
-    }
 
     /**
      * 1. 서버에 검색 히스토리를 요청합니다
@@ -78,19 +66,90 @@ class MarketHistoryModel @Inject constructor(
     private fun onGetHistoryResponse(response: HistoryResponse)
     {
         response.data?.let {
-            _history.value = response.data.toMutableList()
-            LogDebug(javaClass.name, "리스펀스 데이터 모델로 받아옴")
+            val list = mutableListOf<HistoryData>()
+            for (i in it){
+                val history = HistoryData(
+                    id = i[0].trim(),
+                    word = i[1].trim()
+                )
+                list.add(history)
+            }
+            _history.value = list
+        }
+    }
+
+    /**
+     *  검색 기록 삭제를 요청합니다
+     */
+    private fun requestDeleteHistory(id : String)
+    {
+        val request = HistoryRequest(id)
+        CallImpl(
+            API_DELETE_SEARCH_HISTORY,
+            this,
+            request
+        ).apply {
+            remote.sendRequestApi(this)
+        }
+    }
+
+    /**
+     *  모든 검색 기록 삭제를 요청합니다
+     */
+    private fun requestDeleteAllHistory()
+    {
+        CallImpl(
+            API_DELETE_ALL_SEARCH_HISTORY,
+            this
+        ).apply {
+            remote.sendRequestApi(this)
         }
     }
 
 
-    fun putHistory(tag : String)
+    override fun onConnectionSuccess(api: Int, body: CResponse) {
+        when(api)
+        {
+            API_GET_SEARCH_HISTORY ->
+            {
+                onGetHistoryResponse(body as HistoryResponse)
+            }
+
+            API_DELETE_SEARCH_HISTORY -> {
+                if (body.success == true)
+                    globalUi.showToast("히스토리 삭제")
+            }
+
+            API_DELETE_ALL_SEARCH_HISTORY -> {
+                if (body.success == true)
+                    adapter.notifyItemRangeRemoved(0,adapter.itemCount)
+            }
+        }
+    }
+
+    override fun handleError(api: Int, msg: String?, t: Throwable?) {
+
+    }
+
+
+    fun putHistory(word : String)
     {
-        if(_historyList.value.contains(tag))
+        if(containWord(word))
             return
-        val list = _historyList.value.toMutableList()
-        list.add(tag)
-        _historyList.value = list
+        val list = _history.value.toMutableList()
+        list.add(HistoryData("",word))
+        _history.value = list
+        adapter.notifyItemInserted(adapter.itemCount)
+    }
+
+    private fun containWord(word : String) : Boolean
+    {
+        for (i in _history.value)
+        {
+            if (i.word == word) return true
+        }
+
+        return false
     }
 
 

@@ -4,11 +4,12 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
 import dagger.hilt.android.qualifiers.ApplicationContext
-import io.sinzak.android.R
 import io.sinzak.android.constants.API_EDIT_MY_IMAGE
+import io.sinzak.android.constants.API_EDIT_MY_INTEREST
 import io.sinzak.android.constants.API_EDIT_MY_PROFILE
 import io.sinzak.android.model.BaseModel
 import io.sinzak.android.remote.dataclass.CResponse
+import io.sinzak.android.remote.dataclass.request.profile.UpdateInterestRequest
 import io.sinzak.android.remote.dataclass.request.profile.UpdateUserRequest
 import io.sinzak.android.remote.retrofit.CallImpl
 import io.sinzak.android.system.LogDebug
@@ -22,19 +23,23 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class ProfileEditModel @Inject constructor(@ApplicationContext val context : Context) : BaseModel() {
+class ProfileEditModel @Inject constructor(
+    @ApplicationContext val context : Context,
+) : BaseModel() {
 
     private var introduction = ""
     private var name = ""
-    private var picture = ""
+    private var nameErrorMsg = ""
 
     private var link = ""
 
-    private var nameErrorMsg = ""
+    private var interest = ""
 
     private var multiPart : MultipartBody.Part? = null
     private val convertUriFlag = MutableStateFlow(false)
     val isEditDone = MutableStateFlow(false)
+
+    val interestUpdateDone = MutableStateFlow(false)
 
     /**
      * 소개를 저장합니다
@@ -57,6 +62,14 @@ class ProfileEditModel @Inject constructor(@ApplicationContext val context : Con
     fun setLink(l : String)
     {
         link = l.trim()
+    }
+
+    /**
+     * 관심장르를 저장합니다 (앞뒤 공백없이)
+     */
+    fun setInterest(i : String)
+    {
+        interest = i.trim()
     }
 
     /**
@@ -95,7 +108,7 @@ class ProfileEditModel @Inject constructor(@ApplicationContext val context : Con
     }
 
     /**
-     * 이미지를 MultiPart로 변환
+     * 이미지를 MultiPart 로 변환
      */
     fun convertUriToMultiPart(uri: Uri)
     {
@@ -114,6 +127,10 @@ class ProfileEditModel @Inject constructor(@ApplicationContext val context : Con
             }
         }
     }
+
+    /********************************
+     * API 요청합니다
+     ********************************/
 
     /**
      * 프로필 이미지 변경을 요청합니다
@@ -145,10 +162,28 @@ class ProfileEditModel @Inject constructor(@ApplicationContext val context : Con
         val request = UpdateUserRequest(
             introduction,
             name,
-            picture
         )
         CallImpl(
             API_EDIT_MY_PROFILE,
+            this,
+            request
+        ).apply {
+            remote.sendRequestApi(this)
+        }
+    }
+
+    /**
+     * 관심장르 변경을 요청합니다
+     */
+    fun requestInterestUpdate()
+    {
+
+        val request = UpdateInterestRequest(
+            categoryLike = interest
+        )
+
+        CallImpl(
+            API_EDIT_MY_INTEREST,
             this,
             request
         ).apply {
@@ -186,6 +221,15 @@ class ProfileEditModel @Inject constructor(@ApplicationContext val context : Con
                 if (body.success == true) isEditDone.value = true
 
                 else globalUi.showToast("프로필 사진변경을 실패했어요")
+            }
+
+            API_EDIT_MY_INTEREST -> {
+
+                if (body.success == true){
+                    interestUpdateDone.value = true
+                    globalUi.showToast("관심장르를 변경했어요")
+                }
+
             }
         }
     }

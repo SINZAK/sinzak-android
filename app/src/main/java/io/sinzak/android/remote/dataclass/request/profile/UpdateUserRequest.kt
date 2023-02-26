@@ -6,5 +6,4 @@ import io.sinzak.android.remote.dataclass.CRequest
 data class UpdateUserRequest(
     @SerializedName("introduction") val introduction : String,
     @SerializedName("name") val name : String,
-    @SerializedName("picture") val picture : String,
 ) : CRequest()

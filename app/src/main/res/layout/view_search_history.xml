@@ -6,8 +6,14 @@
             name="search"
             type="io.sinzak.android.ui.main.search.HistoryAdapter.OnClick" />
         <variable
+            name="delete"
+            type="io.sinzak.android.ui.main.search.HistoryAdapter.OnClick" />
+        <variable
             name="vm"
             type="io.sinzak.android.ui.main.search.HistoryViewModel" />
+        <variable
+            name="model"
+            type="io.sinzak.android.model.market.MarketHistoryModel" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
@@ -28,7 +34,7 @@
                 android:textColor="@color/gray60"
                 android:text="@string/str_market_search_history_title"/>
             <TextView
-                android:onClick="@{v->vm.history.clearHistory()}"
+                android:onClick="@{v->model.clearHistory()}"
                 android:layout_marginStart="16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -44,10 +50,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            adapter="@{vm.history.adapter}"
-            history="@{vm.history.historyList}"
+            adapter="@{model.adapter}"
+            history="@{model.historyList}"
             search="@{search}"
-            delete="@{vm.history::deleteHistory}"
+            delete="@{delete}"
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
     </androidx.appcompat.widget.LinearLayoutCompat>

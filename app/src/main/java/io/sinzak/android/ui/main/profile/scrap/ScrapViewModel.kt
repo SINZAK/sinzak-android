@@ -1,6 +1,6 @@
 package io.sinzak.android.ui.main.profile.scrap
 
-import android.annotation.SuppressLint
+
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.sinzak.android.enums.Page
@@ -64,13 +64,13 @@ class ScrapViewModel @Inject constructor(
     private fun setScrapData(adapter: ScrapAdapter, scrapList : StateFlow<MutableList<Product>>)
     {
         scrapList.onEach { adapter.setScraps(it) }.launchIn(viewModelScope)
-        showNothing.value = adapter.itemCount != 0
+        showNothing.value = adapter.itemCount > 0
     }
 
     private fun setScrapFilterData(adapter: ScrapAdapter, scrapList : StateFlow<MutableList<Product>>)
     {
         scrapList.onEach { list-> adapter.setScraps(list.filter { it.complete == false }) }.launchIn(viewModelScope)
-        showNothing.value = adapter.itemCount != 0
+        showNothing.value = adapter.itemCount > 0
     }
 
 

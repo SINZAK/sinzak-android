@@ -1,8 +1,6 @@
 package io.sinzak.android.ui.main.profile.edit
 
-import android.text.InputFilter
 import android.view.View
-import android.widget.EditText
 import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
 import io.sinzak.android.databinding.FragmentEditProfileBinding
@@ -30,6 +28,8 @@ class EditFragment : BaseFragment() {
                 requireActivity() as BaseActivity<*>,
                 this
             )
+
+            viewModel.setInterestText(bind.tvCategory)
 
         }
     }
