@@ -15,7 +15,7 @@ class FilterViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     val adapter = FilterAdapter(valueModel.categoryMarket.toMutableList()) {
-        marketArtModel.setCategoryString(it.joinToString(separator = ","))
+        marketArtModel.setCategoryString(valueModel.makeRequestStr(it))
     }
 
 

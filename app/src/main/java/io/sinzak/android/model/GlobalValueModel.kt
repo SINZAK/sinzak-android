@@ -1,13 +1,8 @@
 package io.sinzak.android.model
 
 import android.content.Context
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.components.SingletonComponent
 import io.sinzak.android.R
-import io.sinzak.android.system.App
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -37,12 +32,57 @@ class GlobalValueModel @Inject constructor(@ApplicationContext val context: Cont
         context.getDrawable(it)
     }
 
-
-
     val categoryWork = context.resources.getStringArray(R.array.category_work).toList()
 
+    val categoryMap : Map<String, String> get() = context.resources.getStringArray(R.array.category_key).let { category ->
+        val value = context.resources.getStringArray(R.array.category_value)
+        val map = mutableMapOf<String, String>()
+        for (i in category.indices){
+            map[category[i]] = value[i]
+        }
+        map
+    }
 
+    fun getFirstCategory(productCategory : String) : String
+    {
+        val firstKey = productCategory.split(",")[0]
+        return categoryMap[firstKey].toString()
+    }
 
+    /**
+     * 키 형태의 관심장르를 한글로 바꿉니다
+     */
+    fun getCategory(categoryLike : String) : String
+    {
+        val keys = categoryLike.split(",")
+        val resultList = mutableListOf<String>()
+        for (key in keys)
+        {
+            categoryMap[key]?.let { resultList.add(it) }
+        }
+        return resultList.joinToString(", ")
+    }
+
+    private val reverseCategoryMap : Map<String, String> get() = context.resources.getStringArray(R.array.category_value).let { category ->
+        val value = context.resources.getStringArray(R.array.category_key)
+        val map = mutableMapOf<String, String>()
+        for (i in category.indices){
+            map[category[i]] = value[i]
+        }
+        map
+    }
+
+    /**
+     * 선택된 관심장르를 카테고리 키 형태로 바꿉니다
+     */
+    fun makeRequestStr(list: List<String>) : String
+    {
+        val changeList = mutableListOf<String>()
+        list.forEach {
+            changeList.add(reverseCategoryMap[it].toString())
+        }
+        return changeList.joinToString(",")
+    }
 
     fun getString(resourceId : Int)
         = context.getString(resourceId)

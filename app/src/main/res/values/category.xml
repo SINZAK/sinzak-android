@@ -30,4 +30,36 @@
         <item>패키지/라벨</item>
         <item>기타</item>
     </string-array>
+
+    <string-array name="category_key">
+        <item>painting</item>
+        <item>orient</item>
+        <item>sculpture</item>
+        <item>print</item>
+        <item>craft</item>
+        <item>other</item>
+        <item>portrait</item>
+        <item>illustration</item>
+        <item>logo</item>
+        <item>poster</item>
+        <item>design</item>
+        <item>editorial</item>
+        <item>label</item>
+    </string-array>
+
+    <string-array name="category_value">
+        <item>회화일반</item>
+        <item>동양화</item>
+        <item>조소</item>
+        <item>판화</item>
+        <item>공예</item>
+        <item>기타</item>
+        <item>초상화</item>
+        <item>일러스트</item>
+        <item>로고/브랜딩</item>
+        <item>포스터/배너/간판</item>
+        <item>앱/웹 디자인</item>
+        <item>인쇄물</item>
+        <item>패키지/라벨</item>
+    </string-array>
 </resources>

@@ -50,7 +50,7 @@ class CategoryViewModel @Inject constructor(
 
     fun submit(){
         model.setCategoryText(
-            categorySelected.value.joinToString(separator = ",")
+            valueModel.makeRequestStr(categorySelected.value)
         )
     }
 

@@ -1,13 +1,12 @@
 package io.sinzak.android.ui.main.profile.edit
 
 import android.content.res.Resources
-import android.text.Editable
 import android.widget.ImageView
+import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.sinzak.android.R
 import io.sinzak.android.enums.Page
 import io.sinzak.android.model.profile.ProfileEditModel
 import io.sinzak.android.model.profile.ProfileModel
@@ -23,7 +22,7 @@ import javax.inject.Inject
 class EditViewModel @Inject constructor(
     val model: ProfileEditModel,
     val pModel : ProfileModel,
-    val connect: EditConnect
+    val connect: EditConnect,
 ) : BaseViewModel() {
 
     /**
@@ -41,6 +40,7 @@ class EditViewModel @Inject constructor(
     private val _introduction = MutableStateFlow(profile.value!!.introduction)
     val introduction : StateFlow<String> get() = _introduction
 
+
     fun typeInputText(cs : CharSequence) {
 
         if (!isMaxLines()) {
@@ -51,6 +51,10 @@ class EditViewModel @Inject constructor(
     fun inputName(cs: CharSequence)
     {
         updateValue(_name,cs)
+    }
+
+    fun setInterestText(textView: TextView){
+        textView.text = valueModel.getCategory(pModel.categoryLike)
     }
 
     /********************************
@@ -87,7 +91,7 @@ class EditViewModel @Inject constructor(
      */
     fun gotoCertificationPage(hasCert : Boolean){
         if(!hasCert) navigation.changePage(Page.PROFILE_CERTIFICATION)
-        else navigation.changePage(Page.PROFILE_CERTIFICATION) //테스트 - 배포때는 return으로
+        else navigation.changePage(Page.PROFILE_CERTIFICATION) //테스트 - 배포때는 return 으로
     }
 
     /**

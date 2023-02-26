@@ -12,7 +12,6 @@ import com.bumptech.glide.request.target.Target
 import io.sinzak.android.R
 import io.sinzak.android.databinding.HolderProfileScrapGridBinding
 import io.sinzak.android.remote.dataclass.product.Product
-import io.sinzak.android.system.LogDebug
 
 class ScrapAdapter(
     val onItemClick : ((Product)->Unit)? = null

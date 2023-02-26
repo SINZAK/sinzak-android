@@ -85,6 +85,13 @@ class ProfileViewModel @Inject constructor(
 
     }
 
+    fun onResumeFragment()
+    {
+        if(!signModel.isUserLogin()) {
+            uiModel.gotoLogin()
+        }
+    }
+
     /********************************
      * REQUEST
      ********************************/

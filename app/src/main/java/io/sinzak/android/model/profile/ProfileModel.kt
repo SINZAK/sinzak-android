@@ -30,6 +30,11 @@ class ProfileModel @Inject constructor() : BaseModel() {
      */
     private val myUserId = MutableStateFlow(INIT_MY_ID)
 
+    var categoryLike = ""
+    fun changeCategory(changeCategory : String){
+        categoryLike = changeCategory
+    }
+
     /**
      * 조회중인 유저 아이디 저장하는 공간
      */
@@ -106,9 +111,14 @@ class ProfileModel @Inject constructor() : BaseModel() {
     private fun onMyProfileResponse(response: UserProfileResponse)
     {
         response.data?.let { profileResponse ->
-            profile.value = profileResponse.profile
-            setMyId(profileResponse.profile.userId)
-            prefs.setString(CODE_USER_NAME, profileResponse.profile.name)
+
+            profileResponse.profile.let {
+                profile.value = it
+                setMyId(it.userId)
+                prefs.setString(CODE_USER_NAME, it.name)
+                categoryLike = it.categoryLike.toString()
+            }
+
             _workList.value = profileResponse.works!!.toMutableList().asReversed()
             _productList.value = profileResponse.products!!.toMutableList().asReversed()
             _workEmployList.value = profileResponse.workEmploys!!.toMutableList().asReversed()
