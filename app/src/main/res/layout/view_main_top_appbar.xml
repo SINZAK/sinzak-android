@@ -4,10 +4,12 @@
         <variable
             name="marketVM"
             type="io.sinzak.android.ui.main.market.viewmodel.MarketViewModel" />
-
         <variable
-            name="fg"
-            type="io.sinzak.android.ui.main.home.HomeFragment" />
+            name="hVm"
+            type="io.sinzak.android.ui.main.home.viewmodel.HomeViewModel" />
+        <variable
+            name="isHome"
+            type="Boolean" />
     </data>
     <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -29,13 +31,15 @@
             android:layout_width="26dp"
             android:layout_height="26dp"
             style="@style/btn_default"
+            android:visibility="@{isHome ? 8 : 0}"
             android:onClick="@{v->marketVM.openSearchPage()}"
             android:src="@drawable/ic_search"/>
 
         <ImageView
             android:layout_marginStart="6dp"
             android:layout_width="30dp"
-            android:onClick="@{v->fg.gotoNotification()}"
+            android:visibility="@{isHome ? 0 : 8}"
+            android:onClick="@{v->hVm.gotoNotification()}"
             android:layout_height="30dp"
             style="@style/btn_default"
             android:src="@drawable/ic_notification"/>
