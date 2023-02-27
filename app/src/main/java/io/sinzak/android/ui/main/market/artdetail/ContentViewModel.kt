@@ -10,6 +10,7 @@ import io.sinzak.android.model.chat.ChatStorage
 import io.sinzak.android.model.market.ProductDetailModel
 import io.sinzak.android.model.market.MarketWriteModel
 import io.sinzak.android.model.profile.ProfileModel
+import io.sinzak.android.model.profile.UserCommandModel
 import io.sinzak.android.remote.dataclass.response.market.MarketProductResponse
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.ui.main.profile.report.ReportSendViewModel
@@ -22,7 +23,8 @@ class ContentViewModel @Inject constructor(
     val model : ProductDetailModel,
     val writeModel: MarketWriteModel,
     val pModel: ProfileModel,
-    val chatStorage: ChatStorage
+    val chatStorage: ChatStorage,
+    val commandModel: UserCommandModel
 ): BaseViewModel(){
 
 
@@ -260,7 +262,10 @@ class ContentViewModel @Inject constructor(
      */
     private fun showBlockDialog(){
         connect.artistBlockDialog {
-            //block artist
+            commandModel.blockUser(authorId,art.value!!.author)
+            useFlag(commandModel.reportSuccessFlag){
+                uiModel.showToast("해당 유저를 차단했어요")
+            }
         }
 
     }
