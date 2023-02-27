@@ -99,6 +99,14 @@ class OutsourcingViewModel @Inject constructor(
 
     }
 
+    fun setNullImg(isArtsNull : Boolean) : Boolean {
+        if (searchOn.value)
+        {
+            return isArtsNull
+        }
+        return false
+    }
+
 
     init{
 

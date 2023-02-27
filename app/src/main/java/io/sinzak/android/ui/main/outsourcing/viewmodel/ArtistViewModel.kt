@@ -8,6 +8,7 @@ import io.sinzak.android.model.works.WorkListModel
 import io.sinzak.android.remote.dataclass.product.Product
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.ui.main.market.adapter.ArtsAdapter
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
@@ -19,16 +20,16 @@ class ArtistViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     private val arts = mutableListOf<Product>()
+
+    val isArtsNull = MutableStateFlow(false)
+
     val adapter = ArtsAdapter(arts){
         pModel.loadWork(it.id!!)
         navigation.changePage(Page.ART_DETAIL)
     }
 
-
-
-
-
     private fun updateProducts(p : MutableList<Product>){
+        isArtsNull.value = p.isEmpty()
         arts.clear()
         arts.addAll(p)
         adapter.notifyDataSetChanged()

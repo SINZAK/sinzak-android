@@ -66,6 +66,7 @@ class OutsourcingFragment : BaseFragment(){
     private fun inflateArtist(){
         ViewOutsourcingArtistBinding.inflate(layoutInflater).apply{
             vm = artistViewModel
+            oVm = viewModel
             lifecycleOwner = viewLifecycleOwner
             bind.flOutsourcing.addView(root)
         }
