@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
@@ -8,8 +9,11 @@
         <variable
             name="vm"
             type="io.sinzak.android.ui.main.market.viewmodel.ArtsViewModel" />
+        <variable
+            name="mVm"
+            type="io.sinzak.android.ui.main.market.viewmodel.MarketViewModel" />
     </data>
-    <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:gravity="center_vertical"
@@ -57,18 +61,37 @@
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_marginTop="14dp"
-            android:layout_marginHorizontal="6dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="2"
-            android:adapter="@{vm.adapter}"
-            marginHorizon="@{6}"
-            app:bottomReached="@{v->vm.md.getRemoteMarketProducts(false)}"
-            marginVertical="@{10}"
-            android:layout_weight="1"/>
+            android:layout_marginTop="14dp"
+            android:layout_marginHorizontal="6dp"
+            android:layout_weight="1">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView2"
+                marginHorizon="@{6}"
+                marginVertical="@{10}"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adapter="@{vm.adapter}"
+                app:bottomReached="@{v->vm.md.getRemoteMarketProducts(false)}"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="2" />
+
+            <TextView
+                style="@style/bold16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/str_market_content_null"
+                android:textAlignment="center"
+                android:textColor="@color/gray60"
+                android:visibility="@{mVm.setNullImg(vm.isProductEmpty) ? 0 : 8 }"
+                app:drawableTopCompat="@drawable/ic_nothing"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

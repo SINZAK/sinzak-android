@@ -60,6 +60,13 @@ class MarketViewModel @Inject constructor(
         marketArtModel.getRemoteMarketProducts(refresh = true, search = "")
     }
 
+    fun setNullImg(isProductNull : Boolean) : Boolean{
+        if (searchPageOn.value){
+            return isProductNull
+        }
+        return false
+    }
+
 
     /********************************
      * REQUEST

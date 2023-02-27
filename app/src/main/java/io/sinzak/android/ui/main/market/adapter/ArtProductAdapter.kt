@@ -30,8 +30,10 @@ class ArtProductAdapter(
 
 
 
-    fun setProducts(products : List<Product>)
+    fun setProducts(products : List<Product>, isProductsEmpty : (Boolean)->Unit)
     {
+        isProductsEmpty(products.isEmpty())
+
         if(this.artProducts != products)
         {
             val oldSize = itemCount
