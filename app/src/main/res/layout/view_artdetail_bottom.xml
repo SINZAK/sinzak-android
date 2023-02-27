@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -8,14 +10,15 @@
             type="io.sinzak.android.ui.main.market.artdetail.ContentViewModel" />
     </data>
 
-    <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="20dp">
+        android:paddingHorizontal="20dp"
+        android:gravity="center_vertical"
+        android:paddingVertical="20dp">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-
             android:layout_height="wrap_content"
             android:layout_weight="1">
 
@@ -36,7 +39,6 @@
 
                 <TextView
                     style="@style/bold13"
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{String.valueOf(vm.likeCnt)}"
@@ -44,7 +46,7 @@
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <View
-                android:layout_width="1dp"
+                android:layout_width="0.5dp"
                 android:layout_height="match_parent"
                 android:background="@color/gray60" />
 
@@ -74,67 +76,71 @@
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="188dp"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
             <TextView
-
+                android:id="@+id/textView17"
                 style="@style/bold16"
-                android:visibility="@{!vm.isMyProduct ? 0 : 8}"
-                android:enabled="@{!vm.isBought}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
                 android:background="@drawable/btn_primary_filled_enable"
+                android:enabled="@{!vm.isBought}"
                 android:gravity="center"
                 android:onClick="@{v->vm.onClickChat()}"
                 android:paddingHorizontal="34dp"
                 android:paddingVertical="11dp"
                 android:text="@string/str_artdetail_ask"
                 android:textColor="@color/white"
+                android:visibility="@{!vm.isMyProduct ? 0 : 8}"
                 app:drawableLeftCompat="@drawable/ic_detail_comment_26"
-                app:drawableTint="@color/white" />
+                app:drawableTint="@color/white"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:onClick="@{v->vm.onClickChat()}"
-                android:visibility="@{vm.isMyProduct ? 0 : 8}"
-
-
-                android:paddingVertical="11dp"
+                android:id="@+id/textView16"
+                style="@style/bold16"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/btn_primary_filled_enable"
                 android:gravity="center"
-                style="@style/bold16"
-                android:layout_marginBottom="8dp"
-                android:textColor="@color/white"
                 android:lines="1"
-
+                android:onClick="@{v->vm.onClickChat()}"
+                android:paddingVertical="11dp"
                 android:text="@{@string/str_detail_holder_chatcnt(vm.art.chatCnt)}"
-               />
+                android:textColor="@color/white"
+                android:visibility="@{vm.isMyProduct ? 0 : 8}"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 style="@style/bold13"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
                 android:text="@string/str_artdetail_nagatiate_not"
                 android:textColor="@color/gray60"
-                android:visibility="@{vm.art.priceSuggestEnable ? 8 : 0}" />
+                android:visibility="@{!vm.art.priceSuggestEnable &amp; !vm.isMyProduct ? 0 : 8}"
+                app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
             <TextView
+                android:id="@+id/textView15"
                 style="@style/bold13"
-                android:onClick="@{v->vm.onClickSuggest()}"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:onClick="@{v->vm.onClickSuggest()}"
                 android:text="@string/str_artdetail_nagotiate"
                 android:textColor="@color/secondary"
-                android:visibility="@{vm.art.priceSuggestEnable ? 0 : 8}" />
+                android:visibility="@{vm.art.priceSuggestEnable &amp; !vm.isMyProduct ? 0 : 8}"
+                app:layout_constraintTop_toBottomOf="@+id/textView17"/>
 
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </androidx.appcompat.widget.LinearLayoutCompat>

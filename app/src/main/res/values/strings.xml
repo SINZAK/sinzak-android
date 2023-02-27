@@ -203,10 +203,11 @@
     <string name="str_btn_upload_picture">사진 업로드하기</string>
     <string name="str_holder_won">%d원</string>
     <string name="str_holder_univ_cert">%sverifed</string>
-    <string name="str_author_follower_holder">·팔로워 %d</string>
+    <string name="str_author_follower_holder">팔로워 %d</string>
     <string name="str_holder_author">%s 작가</string>
     <string name="str_holder_author_">%s 작가 · </string>
     <string name="str_holder_dot"> · </string>
+    <string name="str_holder_dot_">·</string>
 
     <string name="str_home_recent">최신 작품</string>
     <string name="str_home_title_category">장르별 작품</string>

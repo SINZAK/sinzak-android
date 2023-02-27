@@ -18,9 +18,9 @@
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_marginTop="20dp"
             android:layout_width="match_parent"
-            android:layout_height="60dp">
-            <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_height="93dp">
 
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_marginHorizontal="20dp"
                 android:layout_width="match_parent"
                 android:layout_weight="1"
@@ -31,9 +31,8 @@
 
                 <TextView
                     android:text="@{vm.art.title}"
-                    tools:text="홍대입구 작업물입니다.\n즐겨보시겠습니까?"
+                    tools:text="홍대입구 작업물입니다"
                     android:maxLines="2"
-
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -45,7 +44,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:gravity="center_vertical"
-                    >
+                    android:layout_marginTop="5dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -83,8 +82,7 @@
                 <TextView
                     android:text="@{vm.category}"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_height="20dp"
                     android:gravity="center"
                     android:textColor="@color/gray60"
                     style="@style/regular13"
@@ -92,22 +90,17 @@
 
 
                 <TextView
-                    android:text="@{vm.art.getTimePassed}"
+                    android:text="@{vm.art.timePassedExceptDot}"
                     tools:text="방금 전"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_height="20dp"
                     android:gravity="center"
                     android:textColor="@color/gray60"
                     style="@style/bold13"
-                    />
+                    android:layout_marginTop="20dp"/>
             </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.appcompat.widget.LinearLayoutCompat>
-
-
-
         <View
-            android:layout_marginTop="12dp"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/gray40"

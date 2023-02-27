@@ -51,5 +51,8 @@ data class MarketDetailResponse(
         fun getTimePassed() : String {
             return TimeUtil.getTimePassed(date.toString())
         }
+        fun getTimePassedExceptDot() : String {
+            return TimeUtil.getTimePassedExceptDot(date.toString())
+        }
     }
 }
