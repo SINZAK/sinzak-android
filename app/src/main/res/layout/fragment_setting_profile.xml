@@ -80,6 +80,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             style="@style/regular16"
+                            socialOrigin="@{vm.socialOrigin}"
                             android:textColor="@color/gray60"/>
                     </androidx.appcompat.widget.LinearLayoutCompat>
                     <TextView
@@ -143,21 +144,24 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/str_register_agree_service"
+                        android:text="@string/str_setting_app_service"
                         style="@style/regular16"
-                        android:paddingVertical="10dp"/>
+                        android:paddingVertical="10dp"
+                        android:onClick="@{v->vm.navigation.changePage(Page.PROFILE_SETTING_SERVICE)}"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/str_setting_info_use"
                         style="@style/regular16"
-                        android:paddingVertical="10dp"/>
+                        android:paddingVertical="10dp"
+                        android:onClick="@{v->vm.navigation.changePage(Page.PROFILE_SETTING_INFO_USE)}"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/str_setting_license"
                         style="@style/regular16"
-                        android:paddingVertical="10dp"/>
+                        android:paddingVertical="10dp"
+                        android:onClick="@{v->vm.onLicense()}"/>
 
 
                 </androidx.appcompat.widget.LinearLayoutCompat>

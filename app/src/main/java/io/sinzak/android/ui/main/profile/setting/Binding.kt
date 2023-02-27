@@ -2,17 +2,17 @@ package io.sinzak.android.ui.main.profile.setting
 
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import io.sinzak.android.enums.SDK
 import io.sinzak.android.enums.SDK.*
 
-@BindingAdapter("currentSdk")
-fun setCurrentSdk(textView: TextView, sdk: SDK)
+@BindingAdapter("socialOrigin")
+fun setSocialOrigin(textView: TextView, origin: String)
 {
     textView.text =
-        when(sdk)
+        when(origin)
         {
-            naver -> "네이버"
-            google -> "구글"
-            kakao -> "카카오"
+            naver.name -> "네이버"
+            google.name -> "구글"
+            kakao.name -> "카카오"
+            else -> "에러"
         }
 }
