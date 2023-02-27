@@ -77,7 +77,7 @@ class ProfileViewModel @Inject constructor(
                 styledIntro.value = it.introduction
                 follower.value = it.followerNumber
                 following.value = it.followingNumber
-                isFollow.value = it.ifFollow
+                isFollow.value = it.isFollow
 
             }
         }
