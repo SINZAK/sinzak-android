@@ -34,6 +34,11 @@ class HistoryAdapter @Inject constructor() : RecyclerView.Adapter<HistoryAdapter
         return this
     }
 
+    fun clearData(){
+        data = listOf()
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.holder_search_history,parent,false))
     }
@@ -55,6 +60,9 @@ class HistoryAdapter @Inject constructor() : RecyclerView.Adapter<HistoryAdapter
         {
             bind.text = tag.word
             bind.setDeleteItem {
+                val changeList = data.toMutableList()
+                changeList.removeAt(adapterPosition)
+                data = changeList
                 notifyItemRemoved(adapterPosition)
                 onDelete?.onClick(tag.id)
             }

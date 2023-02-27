@@ -67,6 +67,7 @@ class OutsourcingViewModel @Inject constructor(
     }
 
     fun searchText(){
+        historyModel.getRemoteHistoryList()
         historyOn.value = false
         model.getRemoteMarketWorks(refresh = true, search = searchFieldText.value)
 

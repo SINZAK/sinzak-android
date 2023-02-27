@@ -32,7 +32,9 @@ class OutsourcingFragment : BaseFragment(){
     }
 
     override fun navigateOnBackPressed() {
-
+        if (viewModel.searchOn.value){
+            viewModel.closeSearchPage()
+        }
     }
 
     override fun showBottomBar(): Boolean {
