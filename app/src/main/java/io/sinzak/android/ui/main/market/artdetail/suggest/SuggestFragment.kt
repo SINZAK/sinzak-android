@@ -27,6 +27,7 @@ class SuggestFragment : BaseFragment() {
 
     override fun onFragmentCreated() {
         bind.apply{
+            lifecycleOwner = viewLifecycleOwner
             vm = viewModel
             fg = this@SuggestFragment
         }

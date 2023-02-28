@@ -73,47 +73,57 @@
                     style="@style/bold16"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="현재 최고 금액"/>
+                    android:text="현재 최고 금액 "/>
                 <TextView
                     style="@style/bold16"
                     android:textColor="@color/secondary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="50000"/>
+                    android:text="@{vm.addCommaToNumber(50000)}"/>
                 <TextView
                     style="@style/bold16"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="원"/>
+                    android:text=" 원"/>
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <androidx.appcompat.widget.LinearLayoutCompat
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:gravity="center"
                 android:layout_marginTop="24dp"
                 android:layout_height="wrap_content">
+
                 <EditText
-                    android:gravity="center"
-                    android:imeOptions="actionDone"
+                    android:id="@+id/editText2"
+                    style="@style/bold20"
                     android:layout_width="230dp"
                     android:layout_height="54dp"
+                    android:background="@drawable/et_gray_filled"
+                    android:gravity="center"
+                    android:imeOptions="actionDone"
                     android:inputType="numberDecimal"
                     android:onTextChanged="@{(cs,a,b,c)->vm.onTypePrice(cs)}"
-                    style="@style/bold20"
-                    android:background="@drawable/et_gray_filled"/>
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <TextView
+                    style="@style/bold20"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="원"
-                    style="@style/bold20"
-                    android:textColor="@color/text3"/>
-            </androidx.appcompat.widget.LinearLayoutCompat>
+                    android:textColor="@color/text3"
+                    android:layout_marginLeft="6.4dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/editText2"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center">
+                android:gravity="center"
+                android:layout_marginTop="6dp">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -142,6 +152,7 @@
             android:background="@drawable/btn_red_filled"
             android:text="제안하기"
             android:layout_marginHorizontal="16dp"
+            android:enabled="@{vm.priceInserted}"
             android:onClick="@{v->vm.onClickSuggest()}"
             android:gravity="center"
             style="@style/medium16"
