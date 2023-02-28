@@ -661,7 +661,7 @@ class SignModel @Inject constructor(
 
 
     companion object{
-        const val LEGACY_LOGIN_MODE = true
+        const val LEGACY_LOGIN_MODE = false
     }
 
 }

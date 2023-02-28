@@ -61,7 +61,7 @@ class HomeFragment : BaseFragment() {
             }
             else{
                 inflateRecentView()
-                inflateArtReferView()
+                //inflateArtReferView()
                 inflateArtOnmarketView()
                 inflateCategory()
             }
