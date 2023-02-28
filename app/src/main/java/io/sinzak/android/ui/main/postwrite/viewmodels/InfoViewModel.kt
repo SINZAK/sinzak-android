@@ -21,7 +21,7 @@ class InfoViewModel @Inject constructor(
     val title = MutableStateFlow("")
     var content : String = ""
     var price : Int? = null
-    val priceInseted = MutableStateFlow(false)
+    val priceInserted = MutableStateFlow(false)
 
 
     fun setTitleString(cs : CharSequence){
@@ -36,7 +36,7 @@ class InfoViewModel @Inject constructor(
 
     fun setPrice(cs : CharSequence){
         try{
-            priceInseted.value = cs.toString().isNotEmpty()
+            priceInserted.value = cs.toString().isNotEmpty()
             price = cs.toString().toInt()
             model.setPrice(cs.toString().toInt())
         }catch(e:Exception){

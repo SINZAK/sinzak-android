@@ -185,7 +185,7 @@
                 android:layout_height="65dp"
                 android:layout_marginTop="28dp"
                 android:layout_marginBottom="26dp"
-                android:enabled="@{!vm.title.empty &amp; vm.priceInseted}"
+                android:enabled="@{!vm.title.empty &amp; vm.priceInserted}"
                 android:background="@drawable/btn_red_filled"
                 android:gravity="center"
                 android:onClick="@{v->fg.goSpecPage()}"
