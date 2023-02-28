@@ -67,6 +67,7 @@ class OutsourcingViewModel @Inject constructor(
     }
 
     fun searchText(){
+        historyModel.getRemoteHistoryList()
         historyOn.value = false
         model.getRemoteMarketWorks(refresh = true, search = searchFieldText.value)
 
@@ -96,6 +97,14 @@ class OutsourcingViewModel @Inject constructor(
             setSortOrder(it)
         }
 
+    }
+
+    fun setNullImg(isArtsNull : Boolean) : Boolean {
+        if (searchOn.value)
+        {
+            return isArtsNull
+        }
+        return false
     }
 
 

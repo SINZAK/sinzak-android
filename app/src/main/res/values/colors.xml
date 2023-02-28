@@ -39,4 +39,7 @@
     <color name="gray20">#D9D9D9</color>
     <color name="gray10">#EEEEEE</color>
 
+    <color name="btn_secondary">#4040FF</color>
+
+
 </resources>

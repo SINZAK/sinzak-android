@@ -30,7 +30,6 @@ open class ProfileFragment : BaseFragment() {
     override fun onResume() {
         super.onResume()
         viewModel.registerConnect(connect)
-        viewModel.onResumeFragment()
     }
 
     override fun getFragmentRoot(): View {

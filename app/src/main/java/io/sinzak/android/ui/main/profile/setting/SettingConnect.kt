@@ -1,5 +1,7 @@
 package io.sinzak.android.ui.main.profile.setting
 
+import android.content.Intent
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import io.sinzak.android.model.GlobalUiModel
 import io.sinzak.android.ui.base.BaseActivity
@@ -19,5 +21,11 @@ class SettingConnect @Inject constructor() {
     fun goToWriteMail(globalUiModel: GlobalUiModel)
     {
         EmailUtil.goToWriteMail(activity, globalUiModel)
+    }
+
+    fun showLicense(activityTitle : String)
+    {
+        activity.startActivity(Intent(activity, OssLicensesMenuActivity::class.java))
+        OssLicensesMenuActivity.setActivityTitle(activityTitle)
     }
 }

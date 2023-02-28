@@ -26,8 +26,7 @@
             android:layout_marginStart="6dp"
             android:gravity="center_vertical"
             android:background="@drawable/ll_search"
-            android:layout_weight="1"
-            android:onClick="@{v->marketVM.marketHistory.getRemoteHistoryList()}">
+            android:layout_weight="1">
             <EditText
                 android:id="@+id/et_search"
                 android:layout_width="match_parent"

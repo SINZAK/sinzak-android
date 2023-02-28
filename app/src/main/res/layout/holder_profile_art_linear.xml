@@ -92,7 +92,7 @@
                 android:background="@drawable/tv_sale_work_holder_btn"
                 android:gravity="center"
                 android:text="@string/str_sale_work_holder_btn"
-                android:textColor="@{isComplete ? @color/gray60 : @color/secondary}"
+                android:textColor="@{isComplete ? @color/gray60 : @color/btn_secondary}"
                 isSelect="@{isComplete}"
                 android:onClick="@{completeTradeClick}"
                 android:visibility="@{isMine ? 0 : 8}"/>

@@ -4,6 +4,9 @@
         <variable
             name="vm"
             type="io.sinzak.android.ui.main.outsourcing.viewmodel.ArtistViewModel" />
+        <variable
+            name="oVm"
+            type="io.sinzak.android.ui.main.outsourcing.viewmodel.OutsourcingViewModel" />
     </data>
 
     <FrameLayout xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -11,18 +14,34 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_marginTop="14dp"
-            android:layout_marginHorizontal="6dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="2"
-            android:adapter="@{vm.adapter}"
-            marginHorizon="@{6}"
-            marginVertical="@{10}"
-            app:bottomReached="@{v->vm.getMoreWorks()}"
-            android:layout_weight="1"/>
+            android:layout_marginTop="14dp"
+            android:layout_marginHorizontal="6dp">
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="2"
+                android:adapter="@{vm.adapter}"
+                marginHorizon="@{6}"
+                marginVertical="@{10}"
+                app:bottomReached="@{v->vm.getMoreWorks()}"/>
+            <TextView
+                style="@style/bold16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/str_market_content_null"
+                android:textAlignment="center"
+                android:textColor="@color/gray60"
+                android:visibility="@{oVm.setNullImg(vm.isArtsNull) ? 0 : 8 }"
+                app:drawableTopCompat="@drawable/ic_nothing"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
     </FrameLayout>
 </layout>

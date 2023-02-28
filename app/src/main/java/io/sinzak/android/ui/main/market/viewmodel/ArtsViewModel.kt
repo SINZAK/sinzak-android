@@ -7,6 +7,7 @@ import io.sinzak.android.model.market.MarketArtModel
 import io.sinzak.android.model.market.ProductDetailModel
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.ui.main.market.adapter.ArtProductAdapter
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -18,13 +19,16 @@ class ArtsViewModel @Inject constructor(
     val productModel: ProductDetailModel
 ) : BaseViewModel() {
 
+    val isProductEmpty = MutableStateFlow(false)
 
     val adapter = ArtProductAdapter(productModel::postProductLike) { p ->
         productModel.loadProduct(p.id!!)
         navigation.changePage(Page.ART_DETAIL)
     }.apply {
         md.marketProducts.onEach {
-            setProducts(it)
+            setProducts(it) { bool ->
+                isProductEmpty.value = bool
+            }
         }.launchIn(viewModelScope)
     }
 

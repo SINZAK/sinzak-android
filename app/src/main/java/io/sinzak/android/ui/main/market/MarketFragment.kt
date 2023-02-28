@@ -98,6 +98,7 @@ class MarketFragment : BaseFragment() {
         ViewMarketArtsBinding.inflate(layoutInflater).apply{
             lifecycleOwner = viewLifecycleOwner
             vm = artsViewModel
+            mVm = viewModel
             fg = this@MarketFragment
             bind.flArts.addView(root)
         }

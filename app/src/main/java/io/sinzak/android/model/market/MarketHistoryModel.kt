@@ -25,8 +25,6 @@ class MarketHistoryModel @Inject constructor(
     override val adapter : HistoryAdapter
     ) : BaseModel(), HistoryViewModel.History {
 
-    private val _historyList = MutableStateFlow(listOf("신작", "아트"))
-
     /**
      * 검색 기록을 담는 공간
      */
@@ -57,7 +55,6 @@ class MarketHistoryModel @Inject constructor(
         ).apply {
             remote.sendRequestApi(this)
         }
-        LogDebug(javaClass.name, "api 콜")
     }
 
     /**
@@ -122,7 +119,8 @@ class MarketHistoryModel @Inject constructor(
 
             API_DELETE_ALL_SEARCH_HISTORY -> {
                 if (body.success == true)
-                    adapter.notifyItemRangeRemoved(0,adapter.itemCount)
+                    adapter.clearData()
+                    globalUi.showToast("전체 히스토리 삭제")
             }
         }
     }
@@ -132,7 +130,7 @@ class MarketHistoryModel @Inject constructor(
     }
 
 
-    fun putHistory(word : String)
+/*    fun putHistory(word : String)
     {
         if(containWord(word))
             return
@@ -150,9 +148,7 @@ class MarketHistoryModel @Inject constructor(
         }
 
         return false
-    }
-
-
+    }*/
 
     @dagger.Module
     @InstallIn(ActivityComponent::class)

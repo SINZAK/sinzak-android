@@ -6,7 +6,6 @@ import io.sinzak.android.model.insets.SoftKeyModel
 import io.sinzak.android.model.market.MarketArtModel
 import io.sinzak.android.model.market.MarketHistoryModel
 import io.sinzak.android.model.market.MarketWriteModel
-import io.sinzak.android.system.LogDebug
 import io.sinzak.android.ui.base.BaseViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -52,12 +51,20 @@ class MarketViewModel @Inject constructor(
     }
 
     fun showHistory(){
+        marketHistory.getRemoteHistoryList()
         _searchHistoryOn.value = true
     }
 
     fun deleteSearchField() {
         _searchFieldText.value = ""
         marketArtModel.getRemoteMarketProducts(refresh = true, search = "")
+    }
+
+    fun setNullImg(isProductNull : Boolean) : Boolean{
+        if (searchPageOn.value){
+            return isProductNull
+        }
+        return false
     }
 
 
@@ -77,7 +84,6 @@ class MarketViewModel @Inject constructor(
     }
 
     fun search(tag: String) {
-//        marketHistory.putHistory(tag)
         marketArtModel.getRemoteMarketProducts(refresh = true, search = tag)
         soft.hideKeyboard()
         _searchFieldText.value = tag

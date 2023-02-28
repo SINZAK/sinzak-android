@@ -98,6 +98,7 @@ class ReportSendViewModel @Inject constructor(
             userId = userId.value
         )
         useFlag(commandModel.reportSuccessFlag){
+            uiModel.showToast("신고가 접수됐어요")
             initState()
             navigation.removeHistory(Page.PROFILE_REPORT_SEND)
             navigation.removeHistory(Page.PROFILE_REPORT_TYPE)

@@ -25,6 +25,7 @@
     <string name="str_market_search_hint">작품 통합 검색</string>
     <string name="str_market_search_history_title">최근 검색어</string>
     <string name="str_market_history_delete">전체 삭제</string>
+    <string name="str_market_content_null">검색 결과가 없어요</string>
     <string name="str_notification">알림</string>
     <string name="str_notification_activity">활동</string>
     <string name="str_notification_follow">팔로우</string>
@@ -73,7 +74,7 @@
     <string name="str_setting_group_app">이용 안내</string>
     <string name="str_setting_app_version">앱 버전</string>
     <string name="str_setting_contact_us">문의하기</string>
-    <string name="str_setting_announce">공지하기</string>
+    <string name="str_setting_announce">공지사항</string>
     <string name="str_setting_app_service">서비스 이용약관</string>
     <string name="str_setting_info_use">개인정보 처리방침</string>
     <string name="str_setting_license">오픈소스 라이선스</string>

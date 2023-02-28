@@ -6,6 +6,7 @@ import io.sinzak.android.constants.CODE_USER_REPORT_ID
 import io.sinzak.android.constants.CODE_USER_REPORT_NAME
 import io.sinzak.android.enums.Page
 import io.sinzak.android.model.profile.ProfileModel
+import io.sinzak.android.model.profile.UserCommandModel
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.ui.main.profile.ProfileConnect
 import io.sinzak.android.ui.main.profile.report.ReportSendViewModel
@@ -14,7 +15,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
-    val model: ProfileModel
+    val model: ProfileModel,
+    val commandModel: UserCommandModel
 ) : BaseViewModel() {
 
     private var _connect : ProfileConnect? = null
@@ -77,19 +79,12 @@ class ProfileViewModel @Inject constructor(
                 styledIntro.value = it.introduction
                 follower.value = it.followerNumber
                 following.value = it.followingNumber
-                isFollow.value = it.ifFollow
+                isFollow.value = it.isFollow
 
             }
         }
 
 
-    }
-
-    fun onResumeFragment()
-    {
-        if(!signModel.isUserLogin()) {
-            uiModel.gotoLogin()
-        }
     }
 
     /********************************
@@ -186,7 +181,10 @@ class ProfileViewModel @Inject constructor(
      */
     private fun showBlockDialog(){
         connect.userBlockDialog {
-            //block artist
+            commandModel.blockUser(profile.value!!.userId,profile.value!!.name)
+            useFlag(commandModel.reportSuccessFlag){
+                uiModel.showToast("해당 유저를 차단했어요")
+            }
         }
     }
 
