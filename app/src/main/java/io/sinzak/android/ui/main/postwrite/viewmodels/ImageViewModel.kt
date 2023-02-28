@@ -80,15 +80,13 @@ class ImageViewModel @Inject constructor(
         canGoNext.value = imgUris.isNotEmpty()
     }
 
-    fun insertImg(uri: Uri) {
+    private fun insertImg(uri: Uri) {
         if (imgUris.size > 4)
-            imgUris.removeAt(0)
+            return
 
         imgUris.add(uri.toString())
 
         updateCount()
-
-
 
         adapter.notifyDataSetChanged()
 
@@ -100,8 +98,16 @@ class ImageViewModel @Inject constructor(
     }
 
     fun loadImage(){
+
+        if (imgUris.size>4){
+            uiModel.showToast("5장까지 업로드 가능해요")
+            return
+        }
+
         connect.loadImage {
-            insertImg(it)
+            it.forEach { uri ->
+                insertImg(uri)
+            }
         }
     }
 
