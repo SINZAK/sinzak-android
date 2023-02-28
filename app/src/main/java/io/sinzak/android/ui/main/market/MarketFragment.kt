@@ -83,6 +83,7 @@ class MarketFragment : BaseFragment() {
             LogDebug(javaClass.name,"INFLATE APPBAR")
             bind.flAppbar.addView(root)
             marketVM = viewModel
+            isHome = false
         }
     }
 

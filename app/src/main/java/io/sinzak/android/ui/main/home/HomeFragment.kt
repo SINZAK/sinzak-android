@@ -75,10 +75,6 @@ class HomeFragment : BaseFragment() {
         viewModel.getProducts()
     }
 
-    fun gotoNotification(){
-        navigator.changePage(Page.HOME_NOTIFICATION)
-    }
-
     private fun inflateBanner(){
         DataBindingUtil.inflate<ViewHomeBannerBinding>(layoutInflater,R.layout.view_home_banner,null,true).apply{
             lifecycleOwner = viewLifecycleOwner
@@ -91,7 +87,8 @@ class HomeFragment : BaseFragment() {
     private fun inflateAppbar(){
         DataBindingUtil.inflate<ViewMainTopAppbarBinding>(layoutInflater, R.layout.view_main_top_appbar,null,false).apply{
             lifecycleOwner = viewLifecycleOwner
-            fg = this@HomeFragment
+            hVm = viewModel
+            isHome = true
             bind.flAppbar.addView(root)
         }
 

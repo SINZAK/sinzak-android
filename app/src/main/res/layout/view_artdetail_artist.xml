@@ -62,15 +62,19 @@
                     <TextView
                         android:text="@{@string/str_holder_univ_cert(vm.art.authorUniv)}"
                         android:visibility="@{vm.art.certUni ? 0 : 8}"
-
                         android:textColor="@color/primary_variant"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/regular13"/>
-
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/regular13"
+                        android:textColor="@color/gray60"
+                        android:text="@string/str_holder_dot_"
+                        android:visibility="@{vm.art.authorUniv != null ? 0 : 8}"/>
                     <TextView
                         android:text="@{@string/str_author_follower_holder(vm.follower)}"
-
                         android:textColor="@color/gray60"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

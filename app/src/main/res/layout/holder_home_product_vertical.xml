@@ -7,17 +7,17 @@
             name="product"
             type="io.sinzak.android.remote.dataclass.product.Product" />
     </data>
-    <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.appcompat.widget.LinearLayoutCompat
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:orientation="vertical"
-
-        android:layout_height="wrap_content">
+        android:layout_height="241dp"
+        android:layout_marginBottom="20dp">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:elevation="0dp"
             android:layout_marginHorizontal="16dp"
-
             app:cardCornerRadius="12dp"
             android:layout_height="165dp">
             <ImageView
@@ -29,20 +29,20 @@
         <androidx.appcompat.widget.LinearLayoutCompat
             android:paddingHorizontal="16dp"
             android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:layout_weight="1"
                 android:orientation="vertical">
                 <TextView
                     android:text="@{product.title}"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/medium16"/>
+                    style="@style/medium16"
+                    android:maxLines="1"/>
 
                 <TextView
                     android:text="@{product.formattedPrice}"
@@ -52,20 +52,25 @@
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:text="@{@string/str_holder_author(product.author)}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/medium13"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/str_holder_dot"
+                        style="@style/medium13"
+                        android:visibility="@{product.authorUniv != null ? 0 : 8}"/>
+                    <TextView
+                        android:text="@{product.authorUniv}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/medium13"/>
                 </androidx.appcompat.widget.LinearLayoutCompat>
-                <TextView
-                    android:text="@{@string/str_holder_author_(product.author)}"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/medium13"/>
-                <TextView
-                    android:text="@{product.authorUniv}"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/medium13"/>
-
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -76,8 +81,8 @@
                 android:gravity="end"
                 android:orientation="vertical">
                 <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
                     android:background="@drawable/btn_item_art_linear_like"
                     android:orientation="vertical"
 
@@ -86,13 +91,13 @@
                     app:layout_constraintEnd_toEndOf="parent">
 
                     <ImageView
-                        android:layout_width="12dp"
-                        android:layout_height="12dp"
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
                         android:visibility="@{product.like ? 0 : 8}"
                         android:src="@drawable/ic_heart_red"/>
                     <ImageView
-                        android:layout_width="12dp"
-                        android:layout_height="12dp"
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
                         android:visibility="@{product.like ? 8 : 0}"
                         android:src="@drawable/ic_heart_white_stroke"/>
                     <TextView
@@ -101,16 +106,16 @@
                         android:text="@{product.lickCntFit}"
                         style="@style/medium10"
                         android:textColor="@color/on_primary"/>
-
-
-
                 </androidx.appcompat.widget.LinearLayoutCompat>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/medium13"
-                    android:textColor="@color/text3"
-                    android:text="@{product.timePassed}"/>
+                    android:textColor="@color/text1"
+                    android:text="@{product.timePassedExceptDot}"
+                    android:layout_marginTop="10dp"/>
+
             </androidx.appcompat.widget.LinearLayoutCompat>
             
         </androidx.appcompat.widget.LinearLayoutCompat>
