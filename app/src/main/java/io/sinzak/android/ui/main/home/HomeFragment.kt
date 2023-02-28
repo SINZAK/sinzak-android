@@ -42,10 +42,6 @@ class HomeFragment : BaseFragment() {
         LogDebug(javaClass.name,"FRAGMENT_CREATED")
 
 
-        inflateAppbar()
-
-
-
 
         viewModel.getProducts()
 
@@ -84,15 +80,6 @@ class HomeFragment : BaseFragment() {
         }
     }
 
-    private fun inflateAppbar(){
-        DataBindingUtil.inflate<ViewMainTopAppbarBinding>(layoutInflater, R.layout.view_main_top_appbar,null,false).apply{
-            lifecycleOwner = viewLifecycleOwner
-            hVm = viewModel
-            isHome = true
-            bind.flAppbar.addView(root)
-        }
-
-    }
 
     private fun inflateArtReferView(){
         DataBindingUtil.inflate<ViewHomeLinearBinding>(layoutInflater,R.layout.view_home_linear,null,true).apply{

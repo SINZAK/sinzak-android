@@ -13,6 +13,7 @@ class HomeViewModel @Inject constructor(
 ) : BaseViewModel() {
 
 
+    val isLogin get() = signModel.isLogin
     fun getProducts(){
         model.getProducts()
         model.getBanner()
