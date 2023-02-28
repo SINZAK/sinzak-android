@@ -64,7 +64,7 @@
                 android:drawablePadding="8dp"
                 android:paddingStart="8dp"
                 android:text="@string/str_choose_field"
-                android:drawableStart="@drawable/ic_gray_dot"/>
+                app:drawableStartCompat="@drawable/ic_gray_dot" />
             
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_marginTop="16dp"
@@ -90,7 +90,7 @@
                         android:layout_height="wrap_content"
                         style="@style/bold16"
                         android:text="@string/str_category_market"
-                        android:textColor="@{btnMarket.isSelected() ? @color/on_primary : @color/on_secondary}"/>
+                        android:textColor="@{vm.currentField == 0 ? @color/on_primary : @color/on_secondary}"/>
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.appcompat.widget.LinearLayoutCompat
@@ -106,13 +106,13 @@
                     <ImageView
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:src="@drawable/ic_dynamic_heart"/>
+                        android:src="@drawable/ic_dynamic_link"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/bold16"
                         android:text="@string/str_category_client"
-                        android:textColor="@{btnClient.isSelected() ? @color/on_primary : @color/on_secondary}"/>
+                        android:textColor="@{vm.currentField == 1 ? @color/on_primary : @color/on_secondary}"/>
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.appcompat.widget.LinearLayoutCompat
@@ -127,13 +127,13 @@
                     <ImageView
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:src="@drawable/ic_dynamic_heart"/>
+                        android:src="@drawable/ic_dynamic_bucket"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/bold16"
                         android:text="@string/str_category_artist"
-                        android:textColor="@{btnArtist.isSelected() ? @color/on_primary : @color/on_secondary}"/>
+                        android:textColor="@{vm.currentField == 2 ? @color/on_primary : @color/on_secondary}"/>
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
             </androidx.appcompat.widget.LinearLayoutCompat>
@@ -147,7 +147,7 @@
                 android:drawablePadding="8dp"
                 android:paddingStart="8dp"
                 android:text="@string/str_choose_category_plz"
-                android:drawableStart="@drawable/ic_gray_dot"/>
+                app:drawableStartCompat="@drawable/ic_gray_dot" />
 
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/cg_category"
@@ -168,6 +168,7 @@
                 android:layout_height="65dp"
                 android:background="@drawable/btn_red_filled"
                 android:text="@string/str_next"
+                android:enabled="@{vm.categorySelected.size > 0}"
                 android:onClick="@{v->fg.moveToImagePicker() &amp; vm.submit()}"
                 android:gravity="center"
                 style="@style/medium16"
