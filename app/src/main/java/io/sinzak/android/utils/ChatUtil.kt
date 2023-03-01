@@ -68,7 +68,7 @@ class ChatUtil(
     }
 
 
-    private val senderId: String get() = prefs.getString(CODE_USER_ID,"").toString()
+
     fun sendMsg(msg: String){
 
         val jsonObject = JsonObject().apply{
@@ -100,6 +100,7 @@ class ChatUtil(
         const val MESSAGE_ID = "messageId"
         const val SEND_AT = "sendAt"
         const val TYPE_IMAGE = "IMAGE"
+        val senderId: String get() = prefs.getString(CODE_USER_ID,"").toString()
     }
 
 }

@@ -9,10 +9,14 @@ import io.sinzak.android.remote.dataclass.CResponse
 import io.sinzak.android.remote.dataclass.chat.*
 import io.sinzak.android.remote.dataclass.response.market.MarketDetailResponse
 import io.sinzak.android.remote.retrofit.CallImpl
+import io.sinzak.android.system.App.Companion.prefs
 import io.sinzak.android.system.LogInfo
 import io.sinzak.android.utils.ChatUtil
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -146,8 +150,12 @@ class ChatStorage @Inject constructor() : BaseModel() {
     }
 
     private fun onReceiveChatMsg(msg: ChatMsg){
-        msg.isMyChat = false
-        addChatMsgOnTail(msg)
+        addChatMsgOnTail(null)
+        CoroutineScope(Dispatchers.IO).launch {
+            msg.isMyChat = false
+            addChatMsgOnTail(msg)
+        }
+
 
 
     }
@@ -192,7 +200,10 @@ class ChatStorage @Inject constructor() : BaseModel() {
             API_GET_CHATROOM_MSG ->{
                 body as ChatRoomMsgResponse
                 body.msgContent?.let{
-                    _chatMsg.value = it.toMutableList()
+                    _chatMsg.value = it.onEach{msg->
+                        msg.isMyChat = msg.senderId == ChatUtil.senderId
+
+                    }.toMutableList()
                 }
             }
 
