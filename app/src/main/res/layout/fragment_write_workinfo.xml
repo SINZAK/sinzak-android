@@ -62,16 +62,17 @@
                 android:drawablePadding="8dp"
                 android:paddingStart="8dp"
                 android:text="@string/str_title"
-                android:drawableStart="@drawable/ic_gray_dot"/>
+                app:drawableStartCompat="@drawable/ic_gray_dot" />
 
             <EditText
                 android:layout_marginTop="12dp"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="wrap_content"
                 android:text="@{vm.title}"
                 android:background="@drawable/et_gray_filled"
                 android:gravity="center_vertical"
                 android:paddingStart="24dp"
+                android:paddingVertical="15dp"
                 android:onTextChanged="@{(cs,s,e,c)->vm.setTitleString(cs)}"
                 android:hint="의뢰 제목"
                 style="@style/bold16"
@@ -89,7 +90,7 @@
                 android:drawablePadding="8dp"
                 android:paddingStart="8dp"
                 android:text="@string/str_write_work_content"
-                android:drawableStart="@drawable/ic_gray_dot"/>
+                app:drawableStartCompat="@drawable/ic_gray_dot" />
 
 
             <EditText
@@ -110,11 +111,11 @@
 
             <TextView
                 android:onClick="@{v->vm.submitData()}"
+                android:enabled="@{!vm.title.empty}"
                 android:layout_marginTop="28dp"
                 style="@style/medium16"
                 android:layout_width="match_parent"
                 android:layout_height="65dp"
-
                 android:layout_marginBottom="26dp"
                 android:background="@drawable/btn_red_filled"
                 android:gravity="center"

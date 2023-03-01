@@ -18,13 +18,14 @@ class InfoViewModel @Inject constructor(
     val isOnBuild = model.isBuildMode
 
 
-    var title : String = ""
+    val title = MutableStateFlow("")
     var content : String = ""
     var price : Int? = null
+    val priceInserted = MutableStateFlow(false)
 
 
     fun setTitleString(cs : CharSequence){
-        title = cs.toString()
+        title.value = cs.toString()
         model.setTitle(cs.toString())
     }
 
@@ -35,6 +36,7 @@ class InfoViewModel @Inject constructor(
 
     fun setPrice(cs : CharSequence){
         try{
+            priceInserted.value = cs.toString().isNotEmpty()
             price = cs.toString().toInt()
             model.setPrice(cs.toString().toInt())
         }catch(e:Exception){
@@ -60,7 +62,7 @@ class InfoViewModel @Inject constructor(
     }
 
     private fun insertDefaultData(title : String, content : String, price : Int?, isSuggest : Boolean){
-        this.title = title
+        this.title.value = title
         this.content = content
         this.price = price
         negotiationEnable.value = isSuggest

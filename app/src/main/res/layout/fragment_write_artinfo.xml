@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
@@ -48,50 +49,52 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_marginTop="24dp"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="24dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ll_appbar">
+            app:layout_constraintTop_toBottomOf="@+id/ll_appbar"
+            app:layout_constraintVertical_bias="1.0"
+            tools:layout_editor_absoluteX="16dp">
 
 
             <TextView
+                style="@style/regular16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/regular16"
-                android:textColor="@color/text3"
                 android:drawablePadding="8dp"
                 android:paddingStart="8dp"
                 android:text="@string/str_write_art_title"
-                android:drawableStart="@drawable/ic_gray_dot"/>
+                android:textColor="@color/text3"
+                app:drawableStartCompat="@drawable/ic_gray_dot" />
 
             <EditText
-                android:layout_marginTop="12dp"
+                style="@style/bold16"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:text="@{vm.title}"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
                 android:background="@drawable/et_gray_filled"
                 android:gravity="center_vertical"
-                android:paddingStart="24dp"
-                android:onTextChanged="@{(cs,s,e,c)->vm.setTitleString(cs)}"
                 android:hint="@string/str_write_art_title"
-                style="@style/bold16"
-                android:textColor="@color/text0"/>
-
+                android:onTextChanged="@{(cs,s,e,c)->vm.setTitleString(cs)}"
+                android:paddingVertical="18dp"
+                android:paddingStart="24dp"
+                android:text="@{vm.title}"
+                android:textColor="@color/text0" />
 
 
             <TextView
-                android:layout_marginTop="16dp"
+                style="@style/regular16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/regular16"
-                android:textColor="@color/text3"
+                android:layout_marginTop="16dp"
                 android:drawablePadding="8dp"
                 android:paddingStart="8dp"
                 android:text="@string/str_write_art_price"
-                android:drawableStart="@drawable/ic_gray_dot"/>
+                android:textColor="@color/text3"
+                app:drawableStartCompat="@drawable/ic_gray_dot" />
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
@@ -100,97 +103,95 @@
                 android:gravity="center_vertical">
 
                 <EditText
-                    android:inputType="numberDecimal"
+                    style="@style/bold16"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_weight="1"
-                    android:text="@{String.valueOf(vm.price)}"
-                    android:onTextChanged="@{(cs,s,e,c)->vm.setPrice(cs)}"
                     android:background="@drawable/et_gray_filled"
                     android:gravity="center"
-                    style="@style/bold16"
-                    android:textColor="@color/text0"/>
+                    android:inputType="numberDecimal"
+                    android:onTextChanged="@{(cs,s,e,c)->vm.setPrice(cs)}"
+                    android:text="@{String.valueOf(vm.price)}"
+                    android:textColor="@color/text0" />
 
                 <TextView
+                    style="@style/bold16"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/bold16"
-                    android:textColor="@color/text3"
                     android:drawablePadding="8dp"
                     android:paddingStart="8dp"
-                    android:text="@string/str_count_won" />
+                    android:text="@string/str_count_won"
+                    android:textColor="@color/text3" />
 
                 <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_marginStart="16dp"
-                    android:layout_width="wrap_content"
                     android:id="@+id/btn_negotiation"
-                    android:gravity="center"
                     isSelect="@{vm.negotiationEnable}"
-                    android:onClick="@{v->vm.toggleNegotiation()}"
-                    android:layout_height="match_parent">
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="16dp"
+                    android:gravity="center"
+                    android:onClick="@{v->vm.toggleNegotiation()}">
+
                     <CheckBox
                         android:id="@+id/cb_negotiation"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
+                        android:background="@drawable/ic_checkbox_r"
                         android:button="@null"
                         android:checked="@{vm.negotiationEnable}"
-                        android:clickable="false"
-                        android:background="@drawable/ic_checkbox_r"/>
+                        android:clickable="false" />
+
                     <TextView
-                        android:clickable="false"
+                        style="@style/regular13"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/regular13"
-                        android:text="@string/str_enable_negotiation"/>
+                        android:clickable="false"
+                        android:text="@string/str_enable_negotiation" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <TextView
-                android:layout_marginTop="18dp"
+                style="@style/regular16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/regular16"
-                android:textColor="@color/text3"
+                android:layout_marginTop="18dp"
                 android:drawablePadding="8dp"
                 android:paddingStart="8dp"
                 android:text="@string/str_write_art_description"
-                android:drawableStart="@drawable/ic_gray_dot"/>
+                android:textColor="@color/text3"
+                app:drawableStartCompat="@drawable/ic_gray_dot" />
 
 
             <EditText
-                android:layout_marginTop="12dp"
+                style="@style/regular16"
                 android:layout_width="match_parent"
-                android:text="@{vm.content}"
-                android:onTextChanged="@{(cs,s,e,c)->vm.setContentString(cs)}"
                 android:layout_height="match_parent"
+                android:layout_marginTop="12dp"
                 android:layout_weight="1"
                 android:background="@drawable/et_gray_filled"
                 android:gravity="top"
-                android:paddingVertical="24dp"
-                android:paddingHorizontal="32dp"
                 android:hint="@string/str_write_art_description"
-                style="@style/regular16"
-                android:textColor="@color/text0"/>
+                android:onTextChanged="@{(cs,s,e,c)->vm.setContentString(cs)}"
+                android:paddingHorizontal="32dp"
+                android:paddingVertical="24dp"
+                android:text="@{vm.content}"
+                android:textColor="@color/text0" />
 
 
             <TextView
-                android:onClick="@{v->fg.goSpecPage()}"
-                android:layout_marginTop="28dp"
                 style="@style/medium16"
                 android:layout_width="match_parent"
                 android:layout_height="65dp"
-
+                android:layout_marginTop="28dp"
                 android:layout_marginBottom="26dp"
+                android:enabled="@{!vm.title.empty &amp; vm.priceInserted}"
                 android:background="@drawable/btn_red_filled"
                 android:gravity="center"
+                android:onClick="@{v->fg.goSpecPage()}"
                 android:text="@string/str_next"
-                android:textColor="@color/on_primary"
-             />
+                android:textColor="@color/on_primary" />
         </androidx.appcompat.widget.LinearLayoutCompat>
-
-
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

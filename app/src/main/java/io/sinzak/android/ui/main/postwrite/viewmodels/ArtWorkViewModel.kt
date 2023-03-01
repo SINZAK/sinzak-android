@@ -5,6 +5,7 @@ import io.sinzak.android.model.market.MarketWriteModel
 import io.sinzak.android.model.market.ProductDetailModel
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.ui.main.postwrite.WriteConnect
+import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 
 @HiltViewModel
@@ -17,12 +18,11 @@ class ArtWorkViewModel @Inject constructor(
 
     val isOnBuild = model.isBuildMode
 
-
-    var title : String = ""
+    val title = MutableStateFlow("")
     var content : String = ""
 
     fun setTitleString(cs : CharSequence){
-        title = cs.toString()
+        title.value = cs.toString()
         model.setTitle(cs.toString())
     }
 
@@ -62,7 +62,7 @@ class ArtWorkViewModel @Inject constructor(
      * 값 초기화를 수행합니다.
      */
     private fun insertDefaultData(title : String, content : String){
-        this.title = title
+        this.title.value = title
         this.content = content
     }
 
@@ -75,7 +75,7 @@ class ArtWorkViewModel @Inject constructor(
      * 의뢰를 등록합니다.
      */
     fun submitData(){
-        model.setTitle(title)
+        model.setTitle(title.value)
         model.setContent(content)
         model.doneInput()
     }

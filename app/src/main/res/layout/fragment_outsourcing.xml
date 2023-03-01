@@ -9,8 +9,6 @@
         <variable
             name="vm"
             type="io.sinzak.android.ui.main.outsourcing.viewmodel.OutsourcingViewModel" />
-
-
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -21,7 +19,6 @@
             android:paddingHorizontal="9dp"
             android:layout_width="match_parent"
             android:gravity="center"
-            android:elevation="2dp"
             android:background="@color/background0"
             android:layout_height="@dimen/appbar_height"
             app:layout_constraintTop_toTopOf="parent"
@@ -33,7 +30,6 @@
                 android:paddingHorizontal="9dp"
                 android:layout_width="match_parent"
                 android:gravity="center"
-                android:elevation="2dp"
                 android:layout_height="match_parent"
                 app:layout_constraintTop_toTopOf="parent"
                 >
