@@ -251,6 +251,7 @@ class SignModel @Inject constructor(
     fun onSuccessNaverLogin()
     {
         NaverIdLoginSDK.getAccessToken()?.let{token->
+            oAuthIdToken = ""
             oAuthTokenTaken = token
             socialOrigin = SDK.Naver.name
             CallImpl(API_EMAIL_GET_NAVER,
@@ -306,6 +307,7 @@ class SignModel @Inject constructor(
         token?.let{
             _sdkSignSuccess.value = true
             oAuthTokenTaken = token.accessToken
+            oAuthIdToken = ""
             socialOrigin = SDK.Kakao.name
             LogInfo(javaClass.name,"카카오 로그인 성공 : $token")
             getKakaoEmail()
