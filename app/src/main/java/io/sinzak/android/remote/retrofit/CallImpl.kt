@@ -60,6 +60,8 @@ class CallImpl(
 
             API_CHECK_EMAIL -> remoteApi.checkEmail(header, JsonObject().apply{addProperty("email", paramStr0)} )
 
+            API_USER_RESIGN -> remoteApi.resignUser(header)
+
             API_LOGIN_EMAIL -> remoteApi.loginEmail(header,requestBody as LoginEmailBody)
 
             API_POST_GOOGLE_OAUTH_TOKEN -> remoteApi.postGoogleAccessToken(header, requestBody as OAuthRequest)

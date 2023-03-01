@@ -183,7 +183,7 @@
                         android:text="@string/str_setting_withdrawal"
                         style="@style/regular16"
                         android:paddingVertical="10dp"
-                        android:onClick="@{v->vm.onWithdrawal()}"/>
+                        android:onClick="@{v->vm.onResign()}"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

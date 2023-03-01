@@ -59,4 +59,7 @@ interface RemoteProfileInterface {
 
     @POST("api/users/deletehistories")
     fun deleteAllSearchHistory(@HeaderMap header: HashMap<String, String>) : Call<CResponse>
+
+    @POST("api/users/resign")
+    fun resignUser(@HeaderMap header: HashMap<String, String>) : Call<CResponse>
 }

@@ -22,6 +22,7 @@ const val API_POST_OAUTH_TOKEN = 111
 const val API_POST_GOOGLE_OAUTH_TOKEN = 112  // 나중에 합쳐질 API
 const val API_GET_GOOGLE_ACCESS_TOKEN = 113
 const val API_CHECK_EMAIL = 114
+const val API_USER_RESIGN = 115
 
 const val API_EMAIL_GET_NAVER = 150
 

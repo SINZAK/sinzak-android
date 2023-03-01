@@ -61,6 +61,8 @@ class SignModel @Inject constructor(
     private val _signFailed = MutableStateFlow(false)
     private val _errorString = MutableStateFlow("")
 
+    val resignSuccessFlag = MutableStateFlow(false)
+
 
     /**************************************************************************************************************************
      * REGISTER ACTIVITY
@@ -476,6 +478,15 @@ class SignModel @Inject constructor(
         setIsLogin(false)
     }
 
+    fun resign(){
+        CallImpl(
+            API_USER_RESIGN,
+            this
+        ).apply {
+            remote.sendRequestApi(this)
+        }
+    }
+
     /**
      * [안승우] 로그인 통합될때까지 쓸 임시함수
      */
@@ -639,6 +650,16 @@ class SignModel @Inject constructor(
                 }else{
 
                     globalUi.showToast(body.message?:valueModel.getString(R.string.str_checkemail_exist))
+                }
+            }
+
+            API_USER_RESIGN -> {
+                if (body.success == true) {
+                    resignSuccessFlag.value = true
+                    prefs.accessToken = ""
+                    prefs.refreshToken = ""
+                    setIsLogin(false)
+                    globalUi.showToast("신작을 이용해주셔서 감사합니다")
                 }
             }
 

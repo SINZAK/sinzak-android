@@ -46,8 +46,12 @@ class SettingViewModel @Inject constructor(
     /**
      * 회원 탈퇴를 누릅니다
      */
-    fun onWithdrawal()
+    fun onResign()
     {
+        signModel.resign()
+        useFlag(signModel.resignSuccessFlag){
+            navigation.changePage(Page.HOME)
+        }
 
     }
 
