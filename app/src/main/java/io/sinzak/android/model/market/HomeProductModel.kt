@@ -67,6 +67,13 @@ class HomeProductModel @Inject constructor() : BaseModel() {
         )
     }
 
+    fun getMoreRecent(){
+       // todo:
+        //  remote.sendRequestApi(
+       //     CallImpl(API_GET_HOME_RECENT, this)
+       // )
+    }
+
     fun getBanner(){
         banners.value = listOf()
         remote.sendRequestApi(
@@ -121,6 +128,11 @@ class HomeProductModel @Inject constructor() : BaseModel() {
             API_GET_HOME_FOLLOWING ->{
                 body as HomeMoreResponse
                 followingProductsAll.value = body.products ?: listOf()
+            }
+
+            API_GET_HOME_RECENT ->{
+                body as HomeMoreResponse
+                recentProductsAll.value = body.products ?: listOf()
             }
         }
     }

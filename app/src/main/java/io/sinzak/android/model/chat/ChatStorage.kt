@@ -1,7 +1,7 @@
 package io.sinzak.android.model.chat
 
-import dagger.hilt.android.scopes.ActivityRetainedScoped
 import io.sinzak.android.constants.API_CREATE_CHATROOM
+import io.sinzak.android.constants.API_GET_CHATROOM_DETAIL
 import io.sinzak.android.constants.API_GET_CHATROOM_LIST
 import io.sinzak.android.constants.API_GET_CHATROOM_MSG
 import io.sinzak.android.model.BaseModel
@@ -9,7 +9,6 @@ import io.sinzak.android.remote.dataclass.CResponse
 import io.sinzak.android.remote.dataclass.chat.*
 import io.sinzak.android.remote.dataclass.response.market.MarketDetailResponse
 import io.sinzak.android.remote.retrofit.CallImpl
-import io.sinzak.android.system.LogDebug
 import io.sinzak.android.system.LogInfo
 import io.sinzak.android.utils.ChatUtil
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -27,8 +26,8 @@ class ChatStorage @Inject constructor() : BaseModel() {
     private val _chatMsg = MutableStateFlow(mutableListOf<ChatMsg>())
     val chatMsg : StateFlow<MutableList<ChatMsg>> get() = _chatMsg
 
-    private val _chatRoomInfo = MutableStateFlow<ChatRoom?>(null)
-    val chatRoomInfo: StateFlow<ChatRoom?> = _chatRoomInfo
+    private val _chatRoomInfo = MutableStateFlow<ChatRoomResponse?>(null)
+    val chatRoomInfo: StateFlow<ChatRoomResponse?> = _chatRoomInfo
 
     val chatMsgFlow = MutableStateFlow<ChatMsg?>(null)
 
@@ -53,17 +52,36 @@ class ChatStorage @Inject constructor() : BaseModel() {
     /**
      * 채팅이 없는 상품에 채팅 생성
      */
-    fun makeChatroom(postId: Int, postType: String){
-        this.postId = postId
-        this.postType = postType
+    fun makeChatroom(postDetail: MarketDetailResponse.Detail, type: String){
+        this.postId = postDetail.productId
+        this.postType = type
+        _chatRoomInfo.value =
+            ChatRoomResponse(
+                roomName = postDetail.author,
+                productId = postDetail.productId,
+                productName = postDetail.title,
+                thumbnail = postDetail.imgUrls?.get(0)?:""
+            )
     }
 
     fun loadExistChatroom(chatroom: ChatRoom){
         makeChatRoom(chatroom.roomUuid.toString())
-        _chatRoomInfo.value = chatroom
+        loadChatRoomDetailInfo(chatroom)
+
         remote.sendRequestApi(
             CallImpl(
                 API_GET_CHATROOM_MSG,
+                this,
+                paramStr0 = chatroom.roomUuid.toString()
+            )
+        )
+    }
+
+    fun loadChatRoomDetailInfo(chatroom: ChatRoom){
+
+        remote.sendRequestApi(
+            CallImpl(
+                API_GET_CHATROOM_DETAIL,
                 this,
                 paramStr0 = chatroom.roomUuid.toString()
             )
@@ -153,7 +171,11 @@ class ChatStorage @Inject constructor() : BaseModel() {
             API_CREATE_CHATROOM ->{
                 if(body.success == true){
                     body as ChatCreateResponse
-                    makeChatRoom(body.data?.roomUuid!!)
+                    body.data?.let{chatroom->
+                        makeChatRoom(chatroom.roomUuid!!)
+                        loadChatRoomDetailInfo(chatroom)
+                    }
+
                 }
             }
 
@@ -162,6 +184,12 @@ class ChatStorage @Inject constructor() : BaseModel() {
                 body.msgContent?.let{
                     _chatMsg.value = it.toMutableList()
                 }
+            }
+
+            API_GET_CHATROOM_DETAIL ->{
+                body as ChatRoomResponse
+
+                _chatRoomInfo.value = body
             }
         }
     }

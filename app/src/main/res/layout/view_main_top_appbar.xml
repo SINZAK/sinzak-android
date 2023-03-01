@@ -38,7 +38,7 @@
         <ImageView
             android:layout_marginStart="6dp"
             android:layout_width="30dp"
-            android:visibility="@{isHome ? 0 : 8}"
+            android:visibility="@{isHome &amp;&amp; hVm.isLogin ? 0 : 8}"
             android:onClick="@{v->hVm.gotoNotification()}"
             android:layout_height="30dp"
             style="@style/btn_default"

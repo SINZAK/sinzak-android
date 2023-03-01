@@ -2,6 +2,7 @@ package io.sinzak.android.remote.retrofit
 
 import com.google.gson.JsonObject
 import io.sinzak.android.constants.*
+import io.sinzak.android.enums.SDK
 import io.sinzak.android.remote.dataclass.CRequest
 import io.sinzak.android.remote.dataclass.CResponse
 import io.sinzak.android.remote.dataclass.request.certify.MailRequest
@@ -118,7 +119,8 @@ class CallImpl(
             API_POST_OAUTH_TOKEN -> remoteApi.postAccessToken(header, JsonObject().apply{
                 addProperty("accessToken", paramStr0)
                 addProperty("origin", paramStr1)
-                addProperty("idToken", paramStr2)
+                if(paramStr1 == SDK.Google.displayName)
+                    addProperty("idToken", paramStr2)
             })
 
 
@@ -194,6 +196,10 @@ class CallImpl(
 
 
             API_GET_CHATROOM_MSG -> remoteApi.getChatroomMsg(header, paramStr0!!)
+
+            API_GET_CHATROOM_DETAIL -> remoteApi.getChatroomInfo(header, paramStr0!!)
+
+
 
             API_GET_CHATROOM_LIST -> remoteApi.getChatRooms(header)
 

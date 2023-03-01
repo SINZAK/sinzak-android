@@ -42,6 +42,7 @@ class HomeMoreViewModel  @Inject constructor(
                 title.value = valueModel.getString(R.string.str_home_more_following)
             }
             RECENT -> {
+                model.getMoreRecent()
                 invokeStateFlow(model.recentProductsAll, ::updateProducts)
                 title.value = valueModel.getString(R.string.str_home_recent)
 

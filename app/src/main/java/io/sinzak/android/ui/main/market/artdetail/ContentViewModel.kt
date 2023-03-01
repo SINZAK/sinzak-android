@@ -311,7 +311,7 @@ class ContentViewModel @Inject constructor(
 
             return
         }
-        chatStorage.makeChatroom(product.productId, if(itemType.value == 0) "product" else "work")
+        model.makeNewChatroom()
         navigation.changePage(Page.CHAT_ROOM)
 
 
