@@ -31,8 +31,6 @@ class ChatViewModel @Inject constructor(
             getChatRooms()
             delay(10000)
         }
-
-
     }
 
 

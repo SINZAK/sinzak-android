@@ -13,6 +13,7 @@ data class ChatRoomResponse(
         @SerializedName("productName") val productName: String,
         @SerializedName("thumbnail") val thumbnail: String,
         @SerializedName("complete") val complete: Boolean = false,
-        @SerializedName("suggest") val suggest: Boolean = false
+        @SerializedName("suggest") val suggest: Boolean = false,
+        @SerializedName("userId") val userId: String = ""
     )
 }

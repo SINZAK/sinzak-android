@@ -28,7 +28,7 @@ class ChatroomViewModel @Inject constructor(
     private val connect: ChatConnect,
     private val profileConnect: ProfileConnect,
     private val commandModel: UserCommandModel
-): BaseViewModel() {
+) : BaseViewModel() {
     private val chatMsgList = mutableListOf<ChatMsg>()
 
     val chatAdapter = ChatMsgAdapter(chatMsgList)
@@ -38,36 +38,35 @@ class ChatroomViewModel @Inject constructor(
     private val _roomName = MutableStateFlow("")
     val roomName: StateFlow<String> = _roomName
 
-    fun onBackPressed(){
+    fun onBackPressed() {
         uiModel.navigation.revealHistory()
     }
 
-    fun invokeAdapter(rv: RecyclerView): ChatMsgAdapter{
+    fun invokeAdapter(rv: RecyclerView): ChatMsgAdapter {
         chatAdapter.rv = rv
         return chatAdapter
     }
 
     private val chatroomInfoCollect = storage.chatRoomInfo.onEach {
-        it?.let{chatroom->
+        it?.let { chatroom ->
             _roomName.value = chatroom.roomName
         }
     }.launchIn(viewModelScope)
 
 
-
-    private val chatCollectJob = storage.chatMsg.onEach{
+    private val chatCollectJob = storage.chatMsg.onEach {
         chatUpdater(it)
     }.launchIn(viewModelScope)
 
-    private val singleChatCollect = storage.chatMsgFlow.onEach {
-        it?.let{
-            LogInfo(javaClass.name,"CHAT COLLECT: $it")
-            chatMsgList.add(it)
+    private val singleChatCollect = storage.chatMsgFlow.onEach { newMessageOptional ->
+        newMessageOptional?.let { newMessage ->
+            LogInfo(javaClass.name, "CHAT COLLECT: $newMessage")
+            chatMsgList.add(newMessage)
             chatAdapter.notifyMsgAdded(1)
         }
     }.launchIn(viewModelScope)
 
-    private fun chatUpdater(chat: MutableList<ChatMsg>){
+    private fun chatUpdater(chat: MutableList<ChatMsg>) {
 
         //아얘 다른 내용 -> List 초기화
 
@@ -75,30 +74,27 @@ class ChatroomViewModel @Inject constructor(
 
         //추후 입력으로 불러온 내용 -> 리스트 하단에 추가
 
+        chat.filter { it !in chatMsgList }.let { pendingChat ->
+            if (pendingChat.isEmpty()) {
+                chatMsgList.clear()
+                chatMsgList.addAll(chat)
+                chatAdapter.notifyNewChatRoom()
+                return
+            }
 
-        if(chat.filter{it in chatMsgList}.isEmpty()){
-            chatMsgList.clear()
-            chatMsgList.addAll(chat)
-            chatAdapter.notifyNewChatRoom()
-            return
+            chatMsgList.addAll(pendingChat)
+            chatAdapter.notifyMsgAdded(pendingChat.size)
         }
-        val newMsg = chat.filter { it !in chatMsgList }
-
-        chatMsgList.addAll(newMsg)
-        chatAdapter.notifyMsgAdded(newMsg.size)
-
-
-
-
     }
 
-    fun openSaleDialog(){
+
+    fun openSaleDialog() {
         connect.showOnSaleDialog {
 
         }
     }
 
-    fun openChatDialog(){
+    fun openChatDialog() {
         connect.showChatDialog(
             ::blockUser,
             ::reportUser,
@@ -107,23 +103,23 @@ class ChatroomViewModel @Inject constructor(
     }
 
 
-    private fun blockUser(){
+    private fun blockUser() {
         profileConnect.userBlockDialog {
-            profileModel.profile.value?.let{profile->
-                commandModel.blockUser(profile.userId,profile.name)
-                useFlag(commandModel.reportSuccessFlag){
+            profileModel.profile.value?.let { profile ->
+                commandModel.blockUser(profile.userId, profile.name)
+                useFlag(commandModel.reportSuccessFlag) {
                     uiModel.showToast("해당 유저를 차단했어요")
                 }
             }
         }
     }
 
-    private fun reportUser(){
-        chatRoom.value?.let{info->
-            Bundle().apply{
-                putString(CODE_USER_REPORT_NAME, "")
-                putString(CODE_USER_REPORT_ID,  "")
-                navigation.putBundleData(ReportSendViewModel::class,this)
+    private fun reportUser() {
+        chatRoom.value?.let { info ->
+            Bundle().apply {
+                putString(CODE_USER_REPORT_NAME, info.roomName)
+                putString(CODE_USER_REPORT_ID, info.userId)
+                navigation.putBundleData(ReportSendViewModel::class, this)
             }
             navigation.changePage(Page.PROFILE_REPORT_TYPE)
         }
@@ -131,7 +127,7 @@ class ChatroomViewModel @Inject constructor(
 
     }
 
-    private fun leaveChatroom(){
+    private fun leaveChatroom() {
         storage.leaveChatroom()
         uiModel.navigation.revealHistory()
     }
