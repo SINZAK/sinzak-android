@@ -26,8 +26,8 @@ class ChatStorage @Inject constructor() : BaseModel() {
     private val _chatMsg = MutableStateFlow(mutableListOf<ChatMsg>())
     val chatMsg : StateFlow<MutableList<ChatMsg>> get() = _chatMsg
 
-    private val _chatRoomInfo = MutableStateFlow<ChatRoomResponse?>(null)
-    val chatRoomInfo: StateFlow<ChatRoomResponse?> = _chatRoomInfo
+    private val _chatRoomInfo = MutableStateFlow<ChatRoomResponse.Data?>(null)
+    val chatRoomInfo: StateFlow<ChatRoomResponse.Data?> = _chatRoomInfo
 
     val chatMsgFlow = MutableStateFlow<ChatMsg?>(null)
 
@@ -56,17 +56,24 @@ class ChatStorage @Inject constructor() : BaseModel() {
         this.postId = postDetail.productId
         this.postType = type
         _chatRoomInfo.value =
-            ChatRoomResponse(
+            ChatRoomResponse.Data(
                 roomName = postDetail.author,
                 productId = postDetail.productId,
                 productName = postDetail.title,
-                thumbnail = postDetail.imgUrls?.get(0)?:""
+                thumbnail = postDetail.imgUrls?.let{
+                   if(it.isNotEmpty()) it[0]
+                   else ""
+                }?:""
             )
     }
 
     fun loadExistChatroom(chatroom: ChatRoom){
         makeChatRoom(chatroom.roomUuid.toString())
         loadChatRoomDetailInfo(chatroom)
+        getChatroomMsg(chatroom)
+    }
+
+    fun getChatroomMsg(chatroom: ChatRoom){
 
         remote.sendRequestApi(
             CallImpl(
@@ -117,6 +124,9 @@ class ChatStorage @Inject constructor() : BaseModel() {
     fun sendMsg(msg: String){
         if(msg.isEmpty())
             return
+
+        addChatMsgOnTail(null)
+
         currentChatRoom?.let{
 
             it.sendMsg(msg)
@@ -142,7 +152,7 @@ class ChatStorage @Inject constructor() : BaseModel() {
 
     }
 
-    private fun addChatMsgOnTail(msg: ChatMsg){
+    private fun addChatMsgOnTail(msg: ChatMsg?){
         chatMsgFlow.value = msg
 
 
@@ -173,7 +183,7 @@ class ChatStorage @Inject constructor() : BaseModel() {
                     body as ChatCreateResponse
                     body.data?.let{chatroom->
                         makeChatRoom(chatroom.roomUuid!!)
-                        loadChatRoomDetailInfo(chatroom)
+                        loadExistChatroom(chatroom)
                     }
 
                 }
@@ -188,8 +198,10 @@ class ChatStorage @Inject constructor() : BaseModel() {
 
             API_GET_CHATROOM_DETAIL ->{
                 body as ChatRoomResponse
+                body.data?.let { chatroom->
+                    _chatRoomInfo.value = chatroom
+                }
 
-                _chatRoomInfo.value = body
             }
         }
     }

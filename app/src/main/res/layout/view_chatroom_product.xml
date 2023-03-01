@@ -5,7 +5,7 @@
 
         <variable
             name="chatRoom"
-            type="io.sinzak.android.remote.dataclass.chat.ChatRoomResponse" />
+            type="io.sinzak.android.remote.dataclass.chat.ChatRoomResponse.Data" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
