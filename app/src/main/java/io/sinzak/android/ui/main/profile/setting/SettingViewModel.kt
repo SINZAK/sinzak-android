@@ -1,5 +1,6 @@
 package io.sinzak.android.ui.main.profile.setting
 
+import android.os.Looper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.sinzak.android.BuildConfig
 import io.sinzak.android.R
@@ -8,6 +9,8 @@ import io.sinzak.android.enums.Page
 import io.sinzak.android.ui.base.BaseViewModel
 import javax.inject.Inject
 import io.sinzak.android.system.App.Companion.prefs
+import kotlinx.coroutines.*
+import java.util.logging.Handler
 
 @HiltViewModel
 class SettingViewModel @Inject constructor(
@@ -60,6 +63,12 @@ class SettingViewModel @Inject constructor(
     {
         navigation.removeHistory(Page.PROFILE_SETTING)
         navigation.changePage(Page.HOME)
+
+        CoroutineScope(Dispatchers.Main).launch {
+            delay(2000)
+            resignSuccess.value = false
+        }
+
     }
 
     /**
