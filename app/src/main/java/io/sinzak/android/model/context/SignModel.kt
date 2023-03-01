@@ -253,7 +253,7 @@ class SignModel @Inject constructor(
         NaverIdLoginSDK.getAccessToken()?.let{token->
             oAuthIdToken = ""
             oAuthTokenTaken = token
-            socialOrigin = SDK.Naver.name
+            socialOrigin = SDK.Naver.displayName
             CallImpl(API_EMAIL_GET_NAVER,
             this,
             paramStr0 = token).apply{
@@ -308,7 +308,7 @@ class SignModel @Inject constructor(
             _sdkSignSuccess.value = true
             oAuthTokenTaken = token.accessToken
             oAuthIdToken = ""
-            socialOrigin = SDK.Kakao.name
+            socialOrigin = SDK.Kakao.displayName
             LogInfo(javaClass.name,"카카오 로그인 성공 : $token")
             getKakaoEmail()
 
@@ -372,8 +372,8 @@ class SignModel @Inject constructor(
 
                 oAuthTokenTaken = authCode
                 oAuthIdToken = it.idToken.toString()
-                socialOrigin = SDK.Google.name
-                postOAuthToken(authCode,SDK.Google.name, idToken = it.idToken.toString())
+                socialOrigin = SDK.Google.displayName
+                postOAuthToken(authCode, socialOrigin, idToken = it.idToken.toString())
                 //getGoogleAccessToken(authCode)
             }
 
