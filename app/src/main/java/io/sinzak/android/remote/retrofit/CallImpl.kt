@@ -116,7 +116,8 @@ class CallImpl(
             API_POST_OAUTH_TOKEN -> remoteApi.postAccessToken(header, JsonObject().apply{
                 addProperty("accessToken", paramStr0)
                 addProperty("origin", paramStr1)
-                addProperty("idToken", paramStr2)
+                if(paramStr1 == "Google")
+                    addProperty("idToken", paramStr2)
             })
 
 
