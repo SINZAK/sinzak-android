@@ -183,7 +183,7 @@
                         android:text="@string/str_setting_withdrawal"
                         style="@style/regular16"
                         android:paddingVertical="10dp"
-                        android:onClick="@{v->vm.onResign()}"/>
+                        android:onClick="@{v->vm.navigation.changePage(Page.PROFILE_SETTING_RESIGN)}"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

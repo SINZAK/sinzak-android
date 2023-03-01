@@ -668,10 +668,7 @@ class SignModel @Inject constructor(
             API_USER_RESIGN -> {
                 if (body.success == true) {
                     resignSuccessFlag.value = true
-                    prefs.accessToken = ""
-                    prefs.refreshToken = ""
-                    setIsLogin(false)
-                    globalUi.showToast("신작을 이용해주셔서 감사합니다")
+                    logout()
                 }
             }
 

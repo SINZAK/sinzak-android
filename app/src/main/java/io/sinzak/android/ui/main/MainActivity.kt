@@ -42,6 +42,7 @@ import io.sinzak.android.ui.main.profile.art.SaleFragment
 import io.sinzak.android.ui.main.profile.art.WorkFragment
 import io.sinzak.android.ui.main.profile.edit.EditInterestFragment
 import io.sinzak.android.ui.main.profile.scrap.ScrapFragment
+import io.sinzak.android.ui.main.profile.setting.ResignFragment
 import io.sinzak.android.ui.main.profile.setting.SettingFragment
 import io.sinzak.android.ui.main.profile.setting.SettingInfoUseFragment
 import io.sinzak.android.ui.main.profile.setting.SettingServiceFragment
@@ -180,6 +181,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 PROFILE_SETTING,
                 PROFILE_SETTING_SERVICE,
                 PROFILE_SETTING_INFO_USE,
+                PROFILE_SETTING_RESIGN,
                 PROFILE_CERTIFICATION,
                 PROFILE_WEBMAIL,
                 PROFILE_VERIFY,
@@ -244,6 +246,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 SettingServiceFragment()
             PROFILE_SETTING_INFO_USE ->
                 SettingInfoUseFragment()
+            PROFILE_SETTING_RESIGN ->
+                ResignFragment()
             PROFILE_CERTIFICATION ->
                 CertificationFragment()
             PROFILE_WEBMAIL ->

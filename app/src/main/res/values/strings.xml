@@ -83,6 +83,12 @@
     <string name="str_setting_withdrawal">회원 탈퇴</string>
     <string name="str_setting_logout">로그아웃</string>
 
+    <string name="str_resign">탈퇴하기</string>
+    <string name="str_resign_title_first">정말로\n탈퇴하시겠습니까?</string>
+    <string name="str_resign_title_second">탈퇴가 완료되었습니다</string>
+    <string name="str_resign_desc_first">· 탈퇴 시 더 이상 해당 계정에 접근할 수 없어요.</string>
+    <string name="str_resign_desc_second">· 탈퇴 시 작성된 게시물, 댓글 등이 전부 사라져요.</string>
+
 
     <string name="str_certification">학교 인증</string>
     <string name="str_certification_school">학교 이름</string>
@@ -121,6 +127,7 @@
     <string name="str_apply">신청하기</string>
     <string name="str_graduate">대학생이 아니에요</string>
     <string name="str_next_time">다음에 하기</string>
+    <string name="str_check">확인</string>
 
     <string name="str_login_subtitle">신세대의 작품을 만나다</string>
     <string name="str_login_naver">네이버로 시작하기</string>

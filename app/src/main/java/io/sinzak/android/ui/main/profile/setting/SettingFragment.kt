@@ -27,8 +27,6 @@ class SettingFragment : BaseFragment() {
         }
 
         viewModel.connect.registerActivity(requireActivity() as BaseActivity<*>)
-
-        LogDebug(javaClass.name, viewModel.socialOrigin.toString())
     }
 
     override fun showBottomBar(): Boolean {

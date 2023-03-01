@@ -18,6 +18,8 @@ class SettingViewModel @Inject constructor(
 
     val version get() = BuildConfig.VERSION_NAME
 
+    val resignSuccess get() = signModel.resignSuccessFlag
+
     /************************************************
      * 클릭 시 실행
      ***************************************/
@@ -49,10 +51,15 @@ class SettingViewModel @Inject constructor(
     fun onResign()
     {
         signModel.resign()
-        useFlag(signModel.resignSuccessFlag){
-            navigation.changePage(Page.HOME)
-        }
+    }
 
+    /**
+     * 회원 탈퇴 후 확인을 누릅니다
+     */
+    fun completeResign()
+    {
+        navigation.removeHistory(Page.PROFILE_SETTING)
+        navigation.changePage(Page.HOME)
     }
 
     /**
