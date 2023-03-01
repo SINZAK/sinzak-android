@@ -193,6 +193,10 @@ class CallImpl(
 
             API_GET_CHATROOM_MSG -> remoteApi.getChatroomMsg(header, paramStr0!!)
 
+            API_GET_CHATROOM_DETAIL -> remoteApi.getChatroomInfo(header, paramStr0!!)
+
+
+
             API_GET_CHATROOM_LIST -> remoteApi.getChatRooms(header)
 
             API_CREATE_CHATROOM -> remoteApi.createChatRoom(header, JsonObject().apply{

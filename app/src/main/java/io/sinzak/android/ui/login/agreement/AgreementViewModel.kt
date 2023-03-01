@@ -15,6 +15,7 @@ class AgreementViewModel @Inject constructor(
     ) : BaseViewModel() {
 
     fun onSubmit() {
+        signModel.termMarketing = checkMarketing.value
         connect.gotoDisplayNamePage()
     }
 
