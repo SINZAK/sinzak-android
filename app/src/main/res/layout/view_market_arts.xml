@@ -86,7 +86,7 @@
                 android:text="@string/str_market_content_null"
                 android:textAlignment="center"
                 android:textColor="@color/gray60"
-                android:visibility="@{mVm.setNullImg(vm.isProductEmpty) ? 0 : 8 }"
+                android:visibility="@{vm.isProductEmpty ? 0 : 8 }"
                 app:drawableTopCompat="@drawable/ic_nothing"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

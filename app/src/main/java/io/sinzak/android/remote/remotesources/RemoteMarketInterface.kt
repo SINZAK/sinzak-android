@@ -29,14 +29,14 @@ interface RemoteMarketInterface {
 
     @Multipart
     @POST("api/products/{id}/image")
-    fun uploadProductImage(@HeaderMap headerMap: HashMap<String,String>,@Path("id") id : Int, @Part parts : List<MultipartBody.Part>) : Call<CResponse>
+    fun uploadProductImage(@HeaderMap headerMap: HashMap<String,String>, @Path("id") id : Int, @Part parts : List<MultipartBody.Part>) : Call<CResponse>
 
 
     @POST("api/products/{id}/deleteimage")
-    fun deleteProductImage(@HeaderMap headerMap: HashMap<String,String>,@Path("id") id : Int, @Body body : JsonObject) : Call<CResponse>
+    fun deleteProductImage(@HeaderMap headerMap: HashMap<String,String>, @Path("id") id : Int, @Body body : JsonObject) : Call<CResponse>
 
     @POST("api/products/{id}/delete")
-    fun deleteProduct(@HeaderMap headerMap: HashMap<String,String>,@Path("id") id : Int) : Call<CResponse>
+    fun deleteProduct(@HeaderMap headerMap: HashMap<String,String>, @Path("id") id : Int) : Call<CResponse>
 
 
 

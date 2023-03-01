@@ -375,7 +375,8 @@ class SignModel @Inject constructor(
                 oAuthTokenTaken = authCode
                 oAuthIdToken = it.idToken.toString()
                 socialOrigin = SDK.Google.displayName
-                postOAuthToken(authCode, socialOrigin, idToken = it.idToken.toString())
+
+                postOAuthToken(oAuthTokenTaken, socialOrigin, idToken = it.idToken.toString())
                 //getGoogleAccessToken(authCode)
             }
 

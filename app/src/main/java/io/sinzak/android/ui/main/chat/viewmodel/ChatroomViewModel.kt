@@ -1,14 +1,21 @@
 package io.sinzak.android.ui.main.chat.viewmodel
 
+import android.os.Bundle
 import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.sinzak.android.constants.CODE_USER_REPORT_ID
+import io.sinzak.android.constants.CODE_USER_REPORT_NAME
+import io.sinzak.android.enums.Page
 import io.sinzak.android.model.chat.ChatStorage
+import io.sinzak.android.model.profile.UserCommandModel
 import io.sinzak.android.remote.dataclass.chat.ChatMsg
 import io.sinzak.android.system.LogInfo
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.ui.main.chat.ChatConnect
 import io.sinzak.android.ui.main.chat.ChatMsgAdapter
+import io.sinzak.android.ui.main.profile.ProfileConnect
+import io.sinzak.android.ui.main.profile.report.ReportSendViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -18,7 +25,9 @@ import javax.inject.Inject
 @HiltViewModel
 class ChatroomViewModel @Inject constructor(
     private val storage: ChatStorage,
-    private val connect: ChatConnect
+    private val connect: ChatConnect,
+    private val profileConnect: ProfileConnect,
+    private val commandModel: UserCommandModel
 ): BaseViewModel() {
     private val chatMsgList = mutableListOf<ChatMsg>()
 
@@ -43,6 +52,8 @@ class ChatroomViewModel @Inject constructor(
             _roomName.value = chatroom.roomName
         }
     }.launchIn(viewModelScope)
+
+
 
     private val chatCollectJob = storage.chatMsg.onEach{
         chatUpdater(it)
@@ -81,6 +92,11 @@ class ChatroomViewModel @Inject constructor(
 
     }
 
+    fun openSaleDialog(){
+        connect.showOnSaleDialog {
+
+        }
+    }
 
     fun openChatDialog(){
         connect.showChatDialog(
@@ -92,10 +108,25 @@ class ChatroomViewModel @Inject constructor(
 
 
     private fun blockUser(){
-
+        profileConnect.userBlockDialog {
+            profileModel.profile.value?.let{profile->
+                commandModel.blockUser(profile.userId,profile.name)
+                useFlag(commandModel.reportSuccessFlag){
+                    uiModel.showToast("해당 유저를 차단했어요")
+                }
+            }
+        }
     }
 
     private fun reportUser(){
+        chatRoom.value?.let{info->
+            Bundle().apply{
+                putString(CODE_USER_REPORT_NAME, "")
+                putString(CODE_USER_REPORT_ID,  "")
+                navigation.putBundleData(ReportSendViewModel::class,this)
+            }
+            navigation.changePage(Page.PROFILE_REPORT_TYPE)
+        }
 
 
     }

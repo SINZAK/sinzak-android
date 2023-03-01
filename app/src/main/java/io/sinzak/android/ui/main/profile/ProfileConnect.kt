@@ -3,14 +3,17 @@ package io.sinzak.android.ui.main.profile
 import android.app.Dialog
 import android.content.Context
 import dagger.hilt.android.qualifiers.ActivityContext
+import dagger.hilt.android.scopes.ActivityRetainedScoped
 import dagger.hilt.android.scopes.ActivityScoped
 import io.sinzak.android.ui.main.market.artdetail.dialog.ArtistBlockDialog
 import io.sinzak.android.ui.main.market.artdetail.dialog.ArtistReportDialog
 import javax.inject.Inject
 
-@ActivityScoped
-class ProfileConnect @Inject constructor(@ActivityContext val context: Context)  {
+@ActivityRetainedScoped
+class ProfileConnect @Inject constructor()  {
 
+
+    lateinit var context: Context
 
     private var dialog: Dialog? = null
 

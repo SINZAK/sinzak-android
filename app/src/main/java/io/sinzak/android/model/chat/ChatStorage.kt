@@ -1,23 +1,29 @@
 package io.sinzak.android.model.chat
 
-import io.sinzak.android.constants.API_CREATE_CHATROOM
-import io.sinzak.android.constants.API_GET_CHATROOM_DETAIL
-import io.sinzak.android.constants.API_GET_CHATROOM_LIST
-import io.sinzak.android.constants.API_GET_CHATROOM_MSG
+import android.content.Context
+import android.net.Uri
+import androidx.core.net.toUri
+import dagger.hilt.android.qualifiers.ApplicationContext
+import io.sinzak.android.constants.*
 import io.sinzak.android.model.BaseModel
 import io.sinzak.android.remote.dataclass.CResponse
 import io.sinzak.android.remote.dataclass.chat.*
 import io.sinzak.android.remote.dataclass.response.market.MarketDetailResponse
 import io.sinzak.android.remote.retrofit.CallImpl
+import io.sinzak.android.system.App.Companion.prefs
 import io.sinzak.android.system.LogInfo
 import io.sinzak.android.utils.ChatUtil
+import io.sinzak.android.utils.FileUtil
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class ChatStorage @Inject constructor() : BaseModel() {
+class ChatStorage @Inject constructor(@ApplicationContext val context: Context) : BaseModel() {
 
 
     private val _chatRooms = MutableStateFlow(mutableListOf<ChatRoom>())
@@ -26,10 +32,12 @@ class ChatStorage @Inject constructor() : BaseModel() {
     private val _chatMsg = MutableStateFlow(mutableListOf<ChatMsg>())
     val chatMsg : StateFlow<MutableList<ChatMsg>> get() = _chatMsg
 
-    private val _chatRoomInfo = MutableStateFlow<ChatRoomResponse?>(null)
-    val chatRoomInfo: StateFlow<ChatRoomResponse?> = _chatRoomInfo
+    private val _chatRoomInfo = MutableStateFlow<ChatRoomResponse.Data?>(null)
+    val chatRoomInfo: StateFlow<ChatRoomResponse.Data?> = _chatRoomInfo
 
     val chatMsgFlow = MutableStateFlow<ChatMsg?>(null)
+
+    private var currentChatroomUUID = ""
 
     fun getChatRoomList(){
         CallImpl(API_GET_CHATROOM_LIST,this).apply{
@@ -56,17 +64,25 @@ class ChatStorage @Inject constructor() : BaseModel() {
         this.postId = postDetail.productId
         this.postType = type
         _chatRoomInfo.value =
-            ChatRoomResponse(
+            ChatRoomResponse.Data(
                 roomName = postDetail.author,
                 productId = postDetail.productId,
                 productName = postDetail.title,
-                thumbnail = postDetail.imgUrls?.get(0)?:""
+                thumbnail = postDetail.imgUrls?.let{
+                   if(it.isNotEmpty()) it[0]
+                   else ""
+                }?:""
             )
     }
 
     fun loadExistChatroom(chatroom: ChatRoom){
         makeChatRoom(chatroom.roomUuid.toString())
         loadChatRoomDetailInfo(chatroom)
+        getChatroomMsg(chatroom)
+        currentChatroomUUID = chatroom.roomUuid.toString()
+    }
+
+    fun getChatroomMsg(chatroom: ChatRoom){
 
         remote.sendRequestApi(
             CallImpl(
@@ -113,10 +129,30 @@ class ChatStorage @Inject constructor() : BaseModel() {
     }
 
 
+    fun postImage(imgUrls: List<Uri>){
+        remote.sendRequestApi(
+            CallImpl(
+                API_CHAT_UPLOAD_IMG,
+                this,
+                multipartList = imgUrls.map{uri->
+                    FileUtil.getBitmapFile(context, uri)
+                }.map{
+                    FileUtil.getMultipart(context,"multipartFile", it)
+                },
+                paramStr0 = currentChatroomUUID
+            )
+        )
+
+
+    }
+
 
     fun sendMsg(msg: String){
         if(msg.isEmpty())
             return
+
+        addChatMsgOnTail(null)
+
         currentChatRoom?.let{
 
             it.sendMsg(msg)
@@ -136,13 +172,17 @@ class ChatStorage @Inject constructor() : BaseModel() {
     }
 
     private fun onReceiveChatMsg(msg: ChatMsg){
-        msg.isMyChat = false
-        addChatMsgOnTail(msg)
+        addChatMsgOnTail(null)
+        CoroutineScope(Dispatchers.IO).launch {
+            msg.isMyChat = false
+            addChatMsgOnTail(msg)
+        }
+
 
 
     }
 
-    private fun addChatMsgOnTail(msg: ChatMsg){
+    private fun addChatMsgOnTail(msg: ChatMsg?){
         chatMsgFlow.value = msg
 
 
@@ -173,7 +213,7 @@ class ChatStorage @Inject constructor() : BaseModel() {
                     body as ChatCreateResponse
                     body.data?.let{chatroom->
                         makeChatRoom(chatroom.roomUuid!!)
-                        loadChatRoomDetailInfo(chatroom)
+                        loadExistChatroom(chatroom)
                     }
 
                 }
@@ -182,14 +222,30 @@ class ChatStorage @Inject constructor() : BaseModel() {
             API_GET_CHATROOM_MSG ->{
                 body as ChatRoomMsgResponse
                 body.msgContent?.let{
-                    _chatMsg.value = it.toMutableList()
+                    _chatMsg.value = it.onEach{msg->
+                        msg.isMyChat = msg.senderId == ChatUtil.senderId
+
+                    }.toMutableList()
                 }
             }
 
             API_GET_CHATROOM_DETAIL ->{
                 body as ChatRoomResponse
+                body.data?.let { chatroom->
+                    _chatRoomInfo.value = chatroom
+                }
 
-                _chatRoomInfo.value = body
+            }
+
+            API_CHAT_UPLOAD_IMG ->{
+                body as ChatImageUploadResponse
+                body.data?.imageUrls?.forEach {url->
+                    currentChatRoom?.sendMsg(
+                        url,
+                        type = ChatUtil.TYPE_IMAGE
+                    )
+
+                }
             }
         }
     }

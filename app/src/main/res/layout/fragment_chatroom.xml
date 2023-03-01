@@ -60,6 +60,7 @@
 
             <include
                 layout="@layout/view_chatroom_product"
+                bind:viewmodel="@{vm}"
                 bind:chatRoom="@{vm.chatRoom}"/>
 
             <androidx.recyclerview.widget.RecyclerView

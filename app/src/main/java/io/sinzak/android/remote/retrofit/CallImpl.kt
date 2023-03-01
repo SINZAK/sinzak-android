@@ -136,6 +136,8 @@ class CallImpl(
                 this.remove(CONTENT_TYPE)
             }, paramInt0!!, multipartList!!)
 
+
+
             API_PRODUCT_DELETE_IMG -> remoteApi.deleteProductImage(header,paramInt0!!, JsonObject().apply{
                 addProperty("url",paramStr0!!)
             })
@@ -143,6 +145,10 @@ class CallImpl(
             API_DELETE_MARKET_PRODUCT -> remoteApi.deleteProduct(header,paramInt0!!)
 
 
+
+            API_CHAT_UPLOAD_IMG -> remoteApi.postChatImg(header.apply{
+                this.remove(CONTENT_TYPE)
+            }, paramStr0!!, multipartList!!)
 
 
 

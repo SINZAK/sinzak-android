@@ -294,6 +294,7 @@ class ContentViewModel @Inject constructor(
     }
 
 
+
     fun openChatPage(){
         art.value?:run{
             return

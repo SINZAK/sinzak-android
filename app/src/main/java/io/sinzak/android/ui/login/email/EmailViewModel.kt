@@ -40,6 +40,8 @@ class EmailViewModel @Inject constructor(
         }.launchIn(viewModelScope)
     }
 
+
+
     fun join(){
         signModel.join()
     }

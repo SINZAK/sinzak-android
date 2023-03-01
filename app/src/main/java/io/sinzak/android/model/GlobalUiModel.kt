@@ -2,6 +2,7 @@ package io.sinzak.android.model
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -9,6 +10,7 @@ import io.sinzak.android.enums.Page
 import io.sinzak.android.model.navigate.Navigation
 import io.sinzak.android.ui.base.BaseActivity
 import io.sinzak.android.ui.login.LoginActivity
+import io.sinzak.android.utils.FileUtil
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -53,6 +55,14 @@ val navigation: Navigation
     }
 
 
+    fun loadImage(callback : (List<Uri>)->Unit){
+        activity?.let{
+            FileUtil.pickFromGallery(it,{
+                callback(it)
+            },true)
+        }
+
+    }
 
 
 
