@@ -6,6 +6,10 @@
         <variable
             name="chatRoom"
             type="io.sinzak.android.remote.dataclass.chat.ChatRoomResponse.Data" />
+
+        <variable
+            name="viewmodel"
+            type="io.sinzak.android.ui.main.chat.viewmodel.ChatroomViewModel" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
@@ -41,7 +45,7 @@
                     style="@style/bold13"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
+                    android:onClick="@{v->viewmodel.openSaleDialog()}"
                     android:text='@{chatRoom.complete ? "거래중" : "거래완료"}'
                     app:drawableRightCompat="@drawable/ic_arrow_down" />
 

@@ -27,5 +27,15 @@ class ChatConnect @Inject constructor() {
         ).show()
     }
 
+    fun showOnSaleDialog(
+        updateSaleStatus: (Boolean) -> Unit
+    ){
+        ChatroomSaleDialog(
+            context,
+            updateSaleStatus
+        ).show()
+
+    }
+
 
 }

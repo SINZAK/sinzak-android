@@ -14,6 +14,7 @@ import io.sinzak.android.model.GlobalUiModel
 import io.sinzak.android.model.insets.SoftKeyModel
 import io.sinzak.android.system.LogDebug
 import io.sinzak.android.system.LogInfo
+import io.sinzak.android.ui.main.profile.ProfileConnect
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -25,6 +26,7 @@ abstract class BaseActivity<T : ViewDataBinding>(private val layoutId : Int) : A
 
     @Inject lateinit var softKey : SoftKeyModel
     @Inject lateinit var uiModel : GlobalUiModel
+    @Inject lateinit var profileConnect: ProfileConnect
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +48,7 @@ abstract class BaseActivity<T : ViewDataBinding>(private val layoutId : Int) : A
         super.onResume()
         softKey.registerActivity(this)
         uiModel.registerActivity(this)
+        profileConnect.context = this
 
     }
 

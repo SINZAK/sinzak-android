@@ -1,9 +1,10 @@
 package io.sinzak.android.model.chat
 
-import io.sinzak.android.constants.API_CREATE_CHATROOM
-import io.sinzak.android.constants.API_GET_CHATROOM_DETAIL
-import io.sinzak.android.constants.API_GET_CHATROOM_LIST
-import io.sinzak.android.constants.API_GET_CHATROOM_MSG
+import android.content.Context
+import android.net.Uri
+import androidx.core.net.toUri
+import dagger.hilt.android.qualifiers.ApplicationContext
+import io.sinzak.android.constants.*
 import io.sinzak.android.model.BaseModel
 import io.sinzak.android.remote.dataclass.CResponse
 import io.sinzak.android.remote.dataclass.chat.*
@@ -12,6 +13,7 @@ import io.sinzak.android.remote.retrofit.CallImpl
 import io.sinzak.android.system.App.Companion.prefs
 import io.sinzak.android.system.LogInfo
 import io.sinzak.android.utils.ChatUtil
+import io.sinzak.android.utils.FileUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,7 +23,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class ChatStorage @Inject constructor() : BaseModel() {
+class ChatStorage @Inject constructor(@ApplicationContext val context: Context) : BaseModel() {
 
 
     private val _chatRooms = MutableStateFlow(mutableListOf<ChatRoom>())
@@ -34,6 +36,8 @@ class ChatStorage @Inject constructor() : BaseModel() {
     val chatRoomInfo: StateFlow<ChatRoomResponse.Data?> = _chatRoomInfo
 
     val chatMsgFlow = MutableStateFlow<ChatMsg?>(null)
+
+    private var currentChatroomUUID = ""
 
     fun getChatRoomList(){
         CallImpl(API_GET_CHATROOM_LIST,this).apply{
@@ -75,6 +79,7 @@ class ChatStorage @Inject constructor() : BaseModel() {
         makeChatRoom(chatroom.roomUuid.toString())
         loadChatRoomDetailInfo(chatroom)
         getChatroomMsg(chatroom)
+        currentChatroomUUID = chatroom.roomUuid.toString()
     }
 
     fun getChatroomMsg(chatroom: ChatRoom){
@@ -123,6 +128,23 @@ class ChatStorage @Inject constructor() : BaseModel() {
         }
     }
 
+
+    fun postImage(imgUrls: List<Uri>){
+        remote.sendRequestApi(
+            CallImpl(
+                API_CHAT_UPLOAD_IMG,
+                this,
+                multipartList = imgUrls.map{uri->
+                    FileUtil.getBitmapFile(context, uri)
+                }.map{
+                    FileUtil.getMultipart(context,"multipartFile", it)
+                },
+                paramStr0 = currentChatroomUUID
+            )
+        )
+
+
+    }
 
 
     fun sendMsg(msg: String){
@@ -213,6 +235,17 @@ class ChatStorage @Inject constructor() : BaseModel() {
                     _chatRoomInfo.value = chatroom
                 }
 
+            }
+
+            API_CHAT_UPLOAD_IMG ->{
+                body as ChatImageUploadResponse
+                body.data?.imageUrls?.forEach {url->
+                    currentChatRoom?.sendMsg(
+                        url,
+                        type = ChatUtil.TYPE_IMAGE
+                    )
+
+                }
             }
         }
     }

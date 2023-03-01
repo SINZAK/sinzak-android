@@ -69,14 +69,14 @@ class ChatUtil(
 
 
 
-    fun sendMsg(msg: String){
+    fun sendMsg(msg: String, type: String = TYPE_TEXT){
 
         val jsonObject = JsonObject().apply{
             addProperty(MESSAGE, msg)
             addProperty(ROOM_ID, roomId)
             addProperty(SENDER_ID, senderId)
             addProperty(SENDER_NAME, prefs.getString(CODE_USER_NAME,""))
-            addProperty(MESSAGE_TYPE, TYPE_TEXT)
+            addProperty(MESSAGE_TYPE, type)
         }
 
         LogInfo(javaClass.name,"STOMP : SEND CHAT $jsonObject")

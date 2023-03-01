@@ -25,4 +25,10 @@ class ChatroomFormViewModel @Inject constructor(
         storage.sendMsg(text.toString())
 
     }
+
+    fun openImageUpload(){
+        uiModel.loadImage {
+            storage.postImage(it)
+        }
+    }
 }

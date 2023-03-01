@@ -16,6 +16,7 @@
             android:layout_height="38dp"
             style="@style/btn_default"
             android:src="@drawable/ic_album"
+            android:onClick="@{v->vm.openImageUpload()}"
             app:tint="@color/text1" />
 
         <EditText

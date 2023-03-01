@@ -31,9 +31,5 @@ class WriteConnect @Inject constructor(
 
 
 
-    fun loadImage(callback : (List<Uri>)->Unit){
-        FileUtil.pickFromGallery(activity,{
-            callback(it)
-        },true)
-    }
+
 }

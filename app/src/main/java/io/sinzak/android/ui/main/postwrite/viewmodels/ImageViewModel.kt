@@ -104,7 +104,7 @@ class ImageViewModel @Inject constructor(
             return
         }
 
-        connect.loadImage {
+        uiModel.loadImage {
             it.forEach { uri ->
                 insertImg(uri)
             }
