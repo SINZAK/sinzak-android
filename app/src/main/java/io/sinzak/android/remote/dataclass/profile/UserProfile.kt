@@ -12,6 +12,6 @@ data class UserProfile(
     @SerializedName("followingNumber") val followingNumber : Int = 0,
     @SerializedName("imageUrl") val imageUrl : String? = "",
     @SerializedName("univ") val univ : String = "",
-    @SerializedName("isFollow") val isFollow : Boolean = false,
+    @SerializedName("follow") val isFollow : Boolean = false,
     @SerializedName("categoryLike") val categoryLike : String? = null
 )
