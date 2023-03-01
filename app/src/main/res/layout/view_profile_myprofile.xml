@@ -164,7 +164,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
 
-                isSelect="@{vm.isFollow()}"
+                isSelect="@{vm.isFollow}"
                 android:text="@{vm.isFollow ? @string/str_profile_follow : @string/str_profile_unfollow}"
                 android:onClick="@{v->vm.toggleFollow()}"
                 android:visibility="@{!isMyProfile &amp; !vm.isMyProfile ? 0 : 8}"
