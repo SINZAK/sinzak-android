@@ -227,7 +227,7 @@ class SignModel @Inject constructor(
         }
 
         initSignStatus()
-        sdkType = SDK.naver
+        sdkType = SDK.Naver
         initNaverSdk()
         //todo : Login With Naver
 
@@ -243,7 +243,7 @@ class SignModel @Inject constructor(
     {
         NaverIdLoginSDK.getAccessToken()?.let{token->
             oAuthTokenTaken = token
-            socialOrigin = "naver"
+            socialOrigin = SDK.Naver.name
             CallImpl(API_EMAIL_GET_NAVER,
             this,
             paramStr0 = token).apply{
@@ -297,7 +297,7 @@ class SignModel @Inject constructor(
         token?.let{
             _sdkSignSuccess.value = true
             oAuthTokenTaken = token.accessToken
-            socialOrigin = "kakao"
+            socialOrigin = SDK.Kakao.name
             LogInfo(javaClass.name,"카카오 로그인 성공 : $token")
             getKakaoEmail()
 
@@ -320,7 +320,7 @@ class SignModel @Inject constructor(
                 _sdkSignSuccess.value = true
                 loginEmail = it.email.toString()
                 username = it.name.toString()
-                sdkType = SDK.kakao
+                sdkType = SDK.Kakao
                 loginToServer()
                 return@me
             }
@@ -354,15 +354,15 @@ class SignModel @Inject constructor(
             val account : GoogleSignInAccount = completedTask.getResult(ApiException::class.java)
             account.let {
                 _sdkSignSuccess.value = true
-                sdkType = SDK.google
+                sdkType = SDK.Google
                 val authCode = it.serverAuthCode.toString()
                 loginEmail = account.email.toString()
                 username = account.displayName.toString()
 
                 oAuthTokenTaken = authCode
                 oAuthIdToken = it.idToken.toString()
-                socialOrigin = "google"
-                postOAuthToken(authCode,"google", idToken = it.idToken.toString())
+                socialOrigin = SDK.Google.name
+                postOAuthToken(authCode,SDK.Google.name, idToken = it.idToken.toString())
                 //getGoogleAccessToken(authCode)
             }
 
@@ -414,8 +414,10 @@ class SignModel @Inject constructor(
     /**
      * 로그인, 회원가입 성공시 가지고 있는 소셜 정보를 prefs 에 저장합니다.
      */
-    private fun saveTokenToPrefs(){
-        prefs.setString(CODE_OAUTH_ORIGIN, socialOrigin)
+    private fun saveTokenToPrefs(origin : String, hasOrigin : Boolean){
+        if (hasOrigin){
+            prefs.setString(CODE_OAUTH_ORIGIN, origin)
+        }
         prefs.setString(CODE_OAUTH_IDTOKEN, oAuthIdToken)
         prefs.setString(CODE_OAUTH_AUTHTOKEN, oAuthTokenTaken)
     }
@@ -518,7 +520,7 @@ class SignModel @Inject constructor(
             checkEmail(loginEmail)
         }else{
             // login
-            saveTokenToPrefs()
+            saveTokenToPrefs(response.origin.toString(),true)
             setIsLogin(true)
         }
     }
@@ -531,7 +533,7 @@ class SignModel @Inject constructor(
     {
         if(success){
             needSignUp.value = false
-            saveTokenToPrefs()
+            saveTokenToPrefs("",false)
             setIsLogin(true)
         }else{
             //todo 회원가입 실패

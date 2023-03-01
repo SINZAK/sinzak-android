@@ -7,4 +7,6 @@ open class Token(
     @SerializedName("accessToken") val accessToken : String? = null,
     @SerializedName("accessTokenExpireDate") val accessTokenExpireDate : String? = null,
     @SerializedName("refreshToken") val refreshToken : String? = null,
+    @SerializedName("joined") val joined : Boolean? = null,
+    @SerializedName("origin") val origin : String? = null
 ) : CResponse()

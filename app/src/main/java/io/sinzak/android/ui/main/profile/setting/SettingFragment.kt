@@ -4,6 +4,7 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import io.sinzak.android.databinding.FragmentSettingProfileBinding
+import io.sinzak.android.system.LogDebug
 import io.sinzak.android.ui.base.BaseActivity
 import io.sinzak.android.ui.base.BaseFragment
 
@@ -26,6 +27,8 @@ class SettingFragment : BaseFragment() {
         }
 
         viewModel.connect.registerActivity(requireActivity() as BaseActivity<*>)
+
+        LogDebug(javaClass.name, viewModel.socialOrigin.toString())
     }
 
     override fun showBottomBar(): Boolean {

@@ -58,36 +58,40 @@ class SpecViewModel @Inject constructor(
      *  EditText Action
      *************************************************************/
     fun inputWidthM(cs: CharSequence) {
-        pWidth = adjustHead(pWidth, cs.toString().toInt())
+        pWidth = adjustHead(pWidth, cs.toString())
     }
 
     fun inputWidthCm(cs: CharSequence) {
-        pWidth = adjustTail(pWidth, cs.toString().toInt())
+        pWidth = adjustTail(pWidth, cs.toString())
     }
 
     fun inputHeightM(cs: CharSequence) {
-        pHeight = adjustHead(pHeight, cs.toString().toInt())
+        pHeight = adjustHead(pHeight, cs.toString())
     }
 
     fun inputHeightCm(cs: CharSequence) {
-        pHeight = adjustTail(pHeight, cs.toString().toInt())
+        pHeight = adjustTail(pHeight, cs.toString())
     }
 
     fun inputVerticalM(cs: CharSequence) {
-        pVertical = adjustHead(pVertical, cs.toString().toInt())
+        pVertical = adjustHead(pVertical, cs.toString())
     }
 
     fun inputVerticalCm(cs: CharSequence) {
-        pVertical = adjustTail(pVertical, cs.toString().toInt())
+        pVertical = adjustTail(pVertical, cs.toString())
     }
 
 
-    private fun adjustHead(source: Int, new: Int): Int {
-        return source % 100 + new * 100
+    private fun adjustHead(source: Int, new: String): Int {
+        var newInt = new.toIntOrNull()
+        if (newInt==null) newInt = 0
+        return source % 100 + newInt * 100
     }
 
-    private fun adjustTail(source: Int, new: Int): Int {
-        return source / 100 * 100 + new
+    private fun adjustTail(source: Int, new: String): Int {
+        var newInt = new.toIntOrNull()
+        if (newInt==null) newInt = 0
+        return source / 100 * 100 + newInt
     }
 
 

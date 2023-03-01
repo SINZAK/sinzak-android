@@ -27,6 +27,7 @@ class ArtWorkFragment : BaseFragment() {
 
     override fun onFragmentCreated() {
         bind.apply{
+            lifecycleOwner = viewLifecycleOwner
             vm = viewModel
         }
     }
