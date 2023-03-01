@@ -33,7 +33,7 @@ class LoginViewModel @Inject constructor() : BaseViewModel() {
     fun loginNaver() {
         signModel.loginViaNaver()
         invokeBooleanFlow(signModel.sdkSignSuccess){
-            if(signModel.sdkType == SDK.naver)
+            if(signModel.sdkType == SDK.Naver)
                 signModel.onSuccessNaverLogin()
         }
     }

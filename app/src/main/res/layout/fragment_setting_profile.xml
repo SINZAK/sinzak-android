@@ -80,7 +80,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             style="@style/regular16"
-                            socialOrigin="@{vm.socialOrigin}"
+                            socialOrigin="@{vm.socialOrigin.toString()}"
                             android:textColor="@color/gray60"/>
                     </androidx.appcompat.widget.LinearLayoutCompat>
                     <TextView

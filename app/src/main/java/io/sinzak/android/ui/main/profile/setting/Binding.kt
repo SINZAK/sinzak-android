@@ -10,9 +10,9 @@ fun setSocialOrigin(textView: TextView, origin: String)
     textView.text =
         when(origin)
         {
-            naver.name -> "네이버"
-            google.name -> "구글"
-            kakao.name -> "카카오"
-            else -> "에러"
+            Naver.name -> "네이버"
+            Google.name -> "구글"
+            Kakao.name -> "카카오"
+            else -> ""
         }
 }
