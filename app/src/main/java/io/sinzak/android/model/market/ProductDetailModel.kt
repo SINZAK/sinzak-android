@@ -69,7 +69,10 @@ class ProductDetailModel @Inject constructor() : BaseModel() {
 
 
     fun makeNewChatroom(){
-        chatStorage.makeChatroom(art.value?.productId ?: 0, if(itemType.value == 0) "product" else "work")
+        art.value?.let{
+            chatStorage.makeChatroom(it, if(itemType.value == 0) "product" else "work")
+        }
+
         //이후 Chatroom Fragment로 이동
     }
 

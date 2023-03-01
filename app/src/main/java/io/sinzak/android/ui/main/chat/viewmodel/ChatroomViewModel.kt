@@ -24,6 +24,8 @@ class ChatroomViewModel @Inject constructor(
 
     val chatAdapter = ChatMsgAdapter(chatMsgList)
 
+    val chatRoom = storage.chatRoomInfo
+
     private val _roomName = MutableStateFlow("")
     val roomName: StateFlow<String> = _roomName
 
@@ -38,7 +40,7 @@ class ChatroomViewModel @Inject constructor(
 
     private val chatroomInfoCollect = storage.chatRoomInfo.onEach {
         it?.let{chatroom->
-            _roomName.value = chatroom.sender.toString()
+            _roomName.value = chatroom.roomName
         }
     }.launchIn(viewModelScope)
 

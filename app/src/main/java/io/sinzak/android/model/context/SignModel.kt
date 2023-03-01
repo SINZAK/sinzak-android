@@ -58,6 +58,12 @@ class SignModel @Inject constructor(
     private val _sdkSignSuccess = MutableStateFlow(false)
     val sdkSignSuccess : StateFlow<Boolean> get() = _sdkSignSuccess
 
+
+    /**
+     * 마케팅 수신 동의
+     */
+    var termMarketing = false
+
     private val _signFailed = MutableStateFlow(false)
     private val _errorString = MutableStateFlow("")
 
@@ -85,6 +91,9 @@ class SignModel @Inject constructor(
     }
 
     fun checkToken(){
+        if(LEGACY_REISSUE_MODE)
+            if(isLogin.value)
+                return
         setIsLogin(false)
         CallImpl(
             API_REFRESH_TOKEN,
@@ -167,14 +176,14 @@ class SignModel @Inject constructor(
     fun join(){
         JoinRequest(
             categoryLike = interests,
-            certUniv = false, // todo 이메일 인증하면 true 로
-            email = loginEmail,
-            name = username,
+            //certUniv = false, // todo 이메일 인증하면 true 로
+            //email = loginEmail,
+            //name = username,
             nickname = userDisplayName,
-            SDKOrigin = sdkType!!.name,
-            term = true, // todo 거절시 false
-            university = univ?.schoolName.toString(),
-            univEmail = univEmail
+            //SDKOrigin = sdkType!!.name,
+            term = termMarketing,
+            //university = univ?.schoolName.toString(),
+            //univEmail = univEmail
         ).apply{
             CallImpl(API_JOIN_ACCOUNT,this@SignModel,this).apply{
                 remote.sendRequestApi(this)
@@ -425,7 +434,9 @@ class SignModel @Inject constructor(
     /**
      * 최초 refresh 실패 시, 가지고 있는 소셜 정보를 통해 재 로그인을 시도합니다.
      */
-    private fun restoreTokenFromPrefs(){
+    private fun restoreSsoTokenFromPrefs(){
+        prefs.accessToken = ""
+        prefs.refreshToken = ""
         socialOrigin = prefs.getString(CODE_OAUTH_ORIGIN,"").toString()
         oAuthIdToken = prefs.getString(CODE_OAUTH_IDTOKEN,"").toString()
         oAuthTokenTaken = prefs.getString(CODE_OAUTH_AUTHTOKEN,"").toString()
@@ -501,7 +512,7 @@ class SignModel @Inject constructor(
     private fun onRefreshToken(response : Token)
     {
         if(response.accessToken.isNullOrEmpty()){
-            restoreTokenFromPrefs()
+            restoreSsoTokenFromPrefs()
             return
 
         }
@@ -604,7 +615,6 @@ class SignModel @Inject constructor(
                 if(body.success == true){
                     setIsLogin(true)
                     _sdkSignSuccess.value = false
-                    //loginToServerViaEmail(body.data.email.toString())
                 }else{
                     checkEmail(loginEmail)
                 }
@@ -651,6 +661,11 @@ class SignModel @Inject constructor(
 
         when (api)
         {
+            API_REFRESH_TOKEN ->{
+
+                restoreSsoTokenFromPrefs()
+
+            }
             API_LOGIN_EMAIL ->{
 
             }
@@ -663,7 +678,8 @@ class SignModel @Inject constructor(
 
 
     companion object{
-        const val LEGACY_LOGIN_MODE = true
+        const val LEGACY_LOGIN_MODE = false
+        const val LEGACY_REISSUE_MODE = true
     }
 
 }

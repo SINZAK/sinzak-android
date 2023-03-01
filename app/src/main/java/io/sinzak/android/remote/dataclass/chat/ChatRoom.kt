@@ -11,8 +11,15 @@ data class ChatRoom(
     @SerializedName("latestMessageTime") val time : String? = "1시간 전",
     val userVerified : Boolean? = true,
     @SerializedName("image") val image: String = "",
-    @SerializedName("roomUuid")val roomUuid: String? = ""
+    @SerializedName("roomUuid")val roomUuid: String? = "",
+    var itemType: String? = null,
+    var onSale: Boolean? = false,
+    var title: String? = "",
+    var price: Int? = 0
+
 ){
+
+
     fun getFormattedTime(): String{
         return TimeUtil.getTimePassed(time.toString())
     }
