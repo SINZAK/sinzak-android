@@ -44,8 +44,6 @@ import io.sinzak.android.ui.main.profile.edit.EditInterestFragment
 import io.sinzak.android.ui.main.profile.scrap.ScrapFragment
 import io.sinzak.android.ui.main.profile.setting.ResignFragment
 import io.sinzak.android.ui.main.profile.setting.SettingFragment
-import io.sinzak.android.ui.main.profile.setting.SettingInfoUseFragment
-import io.sinzak.android.ui.main.profile.setting.SettingServiceFragment
 import io.sinzak.android.utils.RootViewDeferringInsetsCallback
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -179,8 +177,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 PROFILE_EDIT,
                 PROFILE_EDIT_INTEREST,
                 PROFILE_SETTING,
-                PROFILE_SETTING_SERVICE,
-                PROFILE_SETTING_INFO_USE,
                 PROFILE_SETTING_RESIGN,
                 PROFILE_CERTIFICATION,
                 PROFILE_WEBMAIL,
@@ -242,10 +238,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 EditInterestFragment()
             PROFILE_SETTING ->
                 SettingFragment()
-            PROFILE_SETTING_SERVICE ->
-                SettingServiceFragment()
-            PROFILE_SETTING_INFO_USE ->
-                SettingInfoUseFragment()
             PROFILE_SETTING_RESIGN ->
                 ResignFragment()
             PROFILE_CERTIFICATION ->

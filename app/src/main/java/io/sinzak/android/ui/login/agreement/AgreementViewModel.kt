@@ -64,6 +64,11 @@ class AgreementViewModel @Inject constructor(
         checkMarketing.value = !checkMarketing.value
     }
 
+    fun onConnectLink(url: String)
+    {
+        connect.connectLink(url)
+    }
+
 
 
 }

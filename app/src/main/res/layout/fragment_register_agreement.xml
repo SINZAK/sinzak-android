@@ -7,6 +7,7 @@
         <variable
             name="vm"
             type="io.sinzak.android.ui.login.agreement.AgreementViewModel" />
+        <import type="io.sinzak.android.constants.ProfileConstKt"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -98,13 +99,6 @@
                     isSelect="@{vm.checkAge}"
                     app:drawableStartCompat="@drawable/ic_check_32" />
 
-                <ImageView
-                    android:onClick="@{v->void}"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginHorizontal="16dp"
-                    app:tint="@color/text1"
-                    android:src="@drawable/ic_arrow_right" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -127,7 +121,7 @@
                     app:drawableStartCompat="@drawable/ic_check_32" />
 
                 <ImageView
-                    android:onClick="@{v->void}"
+                    android:onClick="@{v->vm.onConnectLink(ProfileConstKt.LINK_SERVICE_URL)}"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_marginHorizontal="16dp"
@@ -155,7 +149,7 @@
                     app:drawableStartCompat="@drawable/ic_check_32" />
 
                 <ImageView
-                    android:onClick="@{v->void}"
+                    android:onClick="@{v->vm.onConnectLink(ProfileConstKt.LINK_INFO_USE_URL)}"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_marginHorizontal="16dp"

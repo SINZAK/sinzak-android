@@ -49,6 +49,14 @@ class SettingViewModel @Inject constructor(
     }
 
     /**
+     * 외부 링크로 연결합니다
+     */
+    fun onConnectLink(url : String)
+    {
+        connect.connectLink(url)
+    }
+
+    /**
      * 회원 탈퇴를 누릅니다
      */
     fun onResign()

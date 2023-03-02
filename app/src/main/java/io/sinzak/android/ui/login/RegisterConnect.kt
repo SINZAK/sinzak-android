@@ -4,7 +4,9 @@ import android.content.Context
 import android.content.Intent
 import io.sinzak.android.enums.RegisterPage
 import io.sinzak.android.model.navigate.RegisterNavigation
+import io.sinzak.android.ui.base.BaseActivity
 import io.sinzak.android.ui.main.MainActivity
+import io.sinzak.android.utils.LinkUtil
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -14,8 +16,11 @@ class RegisterConnect @Inject constructor(val navigation : RegisterNavigation) {
     private lateinit var _context : Context
     val context : Context get() = _context
 
-    fun registerActivityContext(activityContext : Context){
+    private lateinit var _activity : BaseActivity<*>
+
+    fun registerActivityContext(activityContext : Context, activity: BaseActivity<*>){
         _context = activityContext
+        _activity = activity
     }
 
 
@@ -72,6 +77,9 @@ class RegisterConnect @Inject constructor(val navigation : RegisterNavigation) {
         )
     }
 
+    fun connectLink(url : String){
+        LinkUtil.goToLink(_activity,url)
+    }
 
 
 

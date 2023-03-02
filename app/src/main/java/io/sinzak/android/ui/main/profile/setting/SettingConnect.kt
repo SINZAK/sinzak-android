@@ -6,6 +6,7 @@ import dagger.hilt.android.scopes.ActivityRetainedScoped
 import io.sinzak.android.model.GlobalUiModel
 import io.sinzak.android.ui.base.BaseActivity
 import io.sinzak.android.utils.EmailUtil
+import io.sinzak.android.utils.LinkUtil
 import javax.inject.Inject
 
 @ActivityRetainedScoped
@@ -27,5 +28,9 @@ class SettingConnect @Inject constructor() {
     {
         activity.startActivity(Intent(activity, OssLicensesMenuActivity::class.java))
         OssLicensesMenuActivity.setActivityTitle(activityTitle)
+    }
+
+    fun connectLink(url : String){
+        LinkUtil.goToLink(activity,url)
     }
 }
