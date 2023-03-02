@@ -205,7 +205,13 @@ class CallImpl(
 
             API_GET_CHATROOM_DETAIL -> remoteApi.getChatroomInfo(header, paramStr0!!)
 
-
+            API_GET_CHATROOM_POST_LIST -> remoteApi.getChatRoomFromPost(
+                header,
+                JsonObject().apply{
+                    addProperty("postId", paramInt0)
+                    addProperty("postType", paramStr0)
+                }
+            )
 
             API_GET_CHATROOM_LIST -> remoteApi.getChatRooms(header)
 

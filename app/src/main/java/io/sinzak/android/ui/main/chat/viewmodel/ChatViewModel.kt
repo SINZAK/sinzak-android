@@ -17,21 +17,10 @@ import javax.inject.Inject
 class ChatViewModel @Inject constructor(
     private val storage: ChatStorage
 ) : BaseViewModel() {
-
-    fun getChatRooms(){
-        storage.getChatRoomList()
-    }
-
     val chatRoomAdapter = ChatRoomAdapter{
         openChatRoom(it)
     }
 
-    private val chatRoomRequest = viewModelScope.launch {
-        while(true){
-            getChatRooms()
-            delay(10000)
-        }
-    }
 
 
     fun openChatRoom(chat:ChatRoom){
@@ -49,7 +38,7 @@ class ChatViewModel @Inject constructor(
 
     override fun onCleared() {
         super.onCleared()
-        chatRoomRequest.cancel()
+        storage.forceClearJob()
         chatRoomCollector.cancel()
     }
 

@@ -1,10 +1,12 @@
 package io.sinzak.android.ui.main.market.artdetail
 
 import android.os.Bundle
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.sinzak.android.constants.CODE_USER_ID
 import io.sinzak.android.constants.CODE_USER_REPORT_ID
 import io.sinzak.android.constants.CODE_USER_REPORT_NAME
+import io.sinzak.android.constants.TYPE_MARKET_PRODUCT
 import io.sinzak.android.enums.Page
 import io.sinzak.android.model.chat.ChatStorage
 import io.sinzak.android.model.market.ProductDetailModel
@@ -20,24 +22,23 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ContentViewModel @Inject constructor(
-    val model : ProductDetailModel,
+    val model: ProductDetailModel,
     val writeModel: MarketWriteModel,
     val pModel: ProfileModel,
     val chatStorage: ChatStorage,
     val commandModel: UserCommandModel
-): BaseViewModel(){
+) : BaseViewModel() {
 
 
-
-    private var _connect : ArtDetailConnect? = null
-    private val connect : ArtDetailConnect
+    private var _connect: ArtDetailConnect? = null
+    private val connect: ArtDetailConnect
         get() = requireNotNull(_connect)
 
 
     /**
      * 액티비티에 필요한 기능을 요청하는 connect 클래스
      */
-    fun registerConnect(connect : ArtDetailConnect){
+    fun registerConnect(connect: ArtDetailConnect) {
         _connect = connect
     }
 
@@ -61,14 +62,17 @@ class ContentViewModel @Inject constructor(
      * 좋아요 한 프로덕트인가?
      */
     val isLike = MutableStateFlow(false)
+
     /**
      * 좋아요 갯수
      */
     val likeCnt = MutableStateFlow(0)
+
     /**
      * 찜한 프로덕트인가?
      */
     val isWish = MutableStateFlow(false)
+
     /**
      * 찜한 개수
      */
@@ -95,13 +99,13 @@ class ContentViewModel @Inject constructor(
      * 작가 아이디
      */
     private var authorId = "-1"
+
     /**
      * 상품 id
      */
     private var product = -1
 
     val imgAdapter = VpAdapter()
-
 
 
     /*********************************************************************
@@ -111,29 +115,29 @@ class ContentViewModel @Inject constructor(
     /**
      * Like 버튼을 눌렀을때 동작
      */
-    fun toggleLike(){
-        model.postProductLike(product,!isLike.value)
+    fun toggleLike() {
+        model.postProductLike(product, !isLike.value)
         isLike.value = !isLike.value
-        likeCnt.value = likeCnt.value + if(isLike.value) 1 else -1
+        likeCnt.value = likeCnt.value + if (isLike.value) 1 else -1
     }
 
 
     /**
      * Wish 버튼을 눌렀을때 동작
      */
-    fun toggleWish(){
-        model.postProductWish(product,!isWish.value)
+    fun toggleWish() {
+        model.postProductWish(product, !isWish.value)
         isWish.value = !isWish.value
-        wishCnt.value = wishCnt.value + if(isWish.value) 1 else -1
+        wishCnt.value = wishCnt.value + if (isWish.value) 1 else -1
     }
 
     /**
      * 더보기 버튼을 눌렀을때 동작
      */
-    fun showMoreDialog(){
+    fun showMoreDialog() {
         if (!signModel.isUserLogin()) return
 
-        if(isMyProduct.value){
+        if (isMyProduct.value) {
             showEditDialog()
             return
         }
@@ -144,22 +148,22 @@ class ContentViewModel @Inject constructor(
     /**
      * 채팅방 버튼을 눌렀을때 동작
      */
-    fun onClickChat(){
+    fun onClickChat() {
         openChatPage()
     }
 
     /**
      * 가격 제안하기 버튼 눌렀을때 동작
      */
-    fun onClickSuggest(){
+    fun onClickSuggest() {
         navigation.changePage(Page.ART_DETAIL_SUGGEST)
     }
 
     /**
      * 팔로우 버튼
      */
-    fun onClickFollow(){
-        profileModel.followUser(isFollowing.value,authorId)
+    fun onClickFollow() {
+        profileModel.followUser(isFollowing.value, authorId)
         isFollowing.value = !isFollowing.value
         follower.value = follower.value + if (isFollowing.value) 1 else -1
 
@@ -168,7 +172,7 @@ class ContentViewModel @Inject constructor(
     /**
      * 작가 프로필 조회
      */
-    fun onClickArtistProfile(){
+    fun onClickArtistProfile() {
         profileModel.changeProfile(newUserId = authorId)
         navigation.changePage(Page.PROFILE_OTHER)
     }
@@ -179,10 +183,10 @@ class ContentViewModel @Inject constructor(
      **********************************************************************/
 
 
-    init{
+    init {
         collectArt()
 
-        useFlag(model.productDeleteSuccessFlag){
+        useFlag(model.productDeleteSuccessFlag) {
             showToast("작품을 삭제했습니다.")
             navigation.revealHistory()
         }
@@ -191,10 +195,10 @@ class ContentViewModel @Inject constructor(
     /**
      * 작품 데이터를 구독한다. 필요한 데이터를 분리해서 state 를 저장한다.
      */
-    private fun collectArt(){
-        invokeStateFlow(model.art){art->
-            art?.let{
-                imgAdapter.imgs = it.imgUrls?: listOf()
+    private fun collectArt() {
+        invokeStateFlow(model.art) { art ->
+            art?.let {
+                imgAdapter.imgs = it.imgUrls ?: listOf()
                 imgAdapter.notifyDataSetChanged()
 
                 isLike.value = it.like
@@ -226,7 +230,7 @@ class ContentViewModel @Inject constructor(
     /**
      * 게시글 수정 다이알로그 열기
      */
-    private fun showEditDialog(){
+    private fun showEditDialog() {
         connect.productEditDialog(
             edit = ::gotoEdit,
             delete = {
@@ -235,7 +239,7 @@ class ContentViewModel @Inject constructor(
         )
     }
 
-    private fun gotoEdit(){
+    private fun gotoEdit() {
         writeModel.startEdit(itemType.value, product, art.value!!)
         navigation.changePage(Page.NEW_POST_IMAGE)
     }
@@ -243,7 +247,7 @@ class ContentViewModel @Inject constructor(
     /**
      * 작가 신고 / 차단 다아일로그 열기
      */
-    private fun showReportDialog(){
+    private fun showReportDialog() {
 
         connect.artistReportDialog(
             art.value!!.author,
@@ -260,10 +264,10 @@ class ContentViewModel @Inject constructor(
     /**
      * 작가 차단하기 다이알로그
      */
-    private fun showBlockDialog(){
+    private fun showBlockDialog() {
         connect.artistBlockDialog {
-            commandModel.blockUser(authorId,art.value!!.author)
-            useFlag(commandModel.reportSuccessFlag){
+            commandModel.blockUser(authorId, art.value!!.author)
+            useFlag(commandModel.reportSuccessFlag) {
                 uiModel.showToast("해당 유저를 차단했어요")
             }
         }
@@ -273,7 +277,7 @@ class ContentViewModel @Inject constructor(
     /**
      * 작품 삭제 다이알로그 열기
      */
-    private fun showDeleteDialog(){
+    private fun showDeleteDialog() {
         connect.productDeleteDialog {
             model.deleteProduct(product)
         }
@@ -282,37 +286,42 @@ class ContentViewModel @Inject constructor(
     /**
      * 사용자 신고 페이지 가기
      */
-    private fun goToReportPage(){
-        art.value?.let{product->
-            Bundle().apply{
+    private fun goToReportPage() {
+        art.value?.let { product ->
+            Bundle().apply {
                 putString(CODE_USER_REPORT_NAME, product.author)
                 putString(CODE_USER_REPORT_ID, product.authorId)
-                navigation.putBundleData(ReportSendViewModel::class,this)
+                navigation.putBundleData(ReportSendViewModel::class, this)
             }
             navigation.changePage(Page.PROFILE_REPORT_TYPE)
         }
     }
 
 
-
-    fun openChatPage(){
-        art.value?:run{
+    fun openChatPage() {
+        art.value ?: run {
             return
         }
         val product = art.value!!
-        if(!signModel.isUserLogin()){
+        if (!signModel.isUserLogin()) {
             uiModel.gotoLogin()
             return
         }
 
 
-        if(isMyProduct.value){
+        if (isMyProduct.value) {
             navigation.changePage(Page.CHAT)
+            chatStorage.fetchRoomListByPostJob(
+                viewModelScope,
+                product.productId,
+                if (itemType.value == TYPE_MARKET_PRODUCT) "product" else "work"
+            )
 
 
             return
         }
         model.makeNewChatroom()
+
         navigation.changePage(Page.CHAT_ROOM)
 
 
