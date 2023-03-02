@@ -53,7 +53,7 @@ class LoginViewModel @Inject constructor() : BaseViewModel() {
      */
     fun loginViaEmailTemp()
     {
-        signModel.loginEmailTemp("univcertofficial@gmail.com")
+        signModel.loginEmailTemp("insi2000@naver.com")
     }
 
 
