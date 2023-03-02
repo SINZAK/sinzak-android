@@ -27,7 +27,8 @@
             <ImageView
                 android:layout_width="42dp"
                 android:layout_height="42dp"
-                android:src="@drawable/ic_user_temp" />
+                remoteImgUrl="@{vm.art.authorPic}"
+                imgRadius="@{14f}"/>
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
@@ -90,7 +91,7 @@
                 style="@style/medium13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingVertical="10dp"
+                android:paddingVertical="14dp"
                 android:paddingHorizontal="12dp"
                 android:background="@drawable/btn_follow"
                 android:gravity="center"
