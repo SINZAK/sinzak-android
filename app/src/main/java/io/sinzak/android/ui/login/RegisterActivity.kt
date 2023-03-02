@@ -77,5 +77,8 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>(R.layout.activity
 
     }
 
-
+    override fun onBackPressed() {
+        if (viewModel.regNav.revealHistory()) return
+        else super.onBackPressed()
+    }
 }

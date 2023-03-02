@@ -87,7 +87,7 @@
     <string name="str_resign_title_first">정말로\n탈퇴하시겠습니까?</string>
     <string name="str_resign_title_second">탈퇴가 완료되었습니다</string>
     <string name="str_resign_desc_first">· 탈퇴 시 더 이상 해당 계정에 접근할 수 없어요.</string>
-    <string name="str_resign_desc_second">· 탈퇴 시 작성된 게시물, 댓글 등이 전부 사라져요.</string>
+    <string name="str_resign_desc_second">· 탈퇴 시 작성된 게시물, 채팅 등이 전부 사라져요.</string>
 
 
     <string name="str_certification">학교 인증</string>

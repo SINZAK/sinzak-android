@@ -52,6 +52,6 @@ class NameViewModel @Inject constructor(
     }
 
     fun onBackPressed(){
-        navigation.revealHistory()
+        connect.navigation.revealHistory()
     }
 }
