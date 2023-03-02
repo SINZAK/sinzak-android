@@ -1,19 +1,13 @@
 package io.sinzak.android.ui.login
 
-import android.content.Intent
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
-import dagger.Provides
-import dagger.hilt.InstallIn
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.components.ActivityComponent
 import io.sinzak.android.R
 import io.sinzak.android.databinding.ActivityRegisterBinding
 import io.sinzak.android.enums.RegisterPage
 import io.sinzak.android.enums.RegisterPage.*
-import io.sinzak.android.model.navigate.RegisterNavigation
 import io.sinzak.android.system.LogDebug
-import io.sinzak.android.system.LogInfo
 import io.sinzak.android.ui.base.BaseActivity
 import io.sinzak.android.ui.base.BaseFragment
 import io.sinzak.android.ui.login.agreement.AgreementFragment
@@ -22,8 +16,6 @@ import io.sinzak.android.ui.login.email.EmailFragment
 import io.sinzak.android.ui.login.interest.InterestFragment
 import io.sinzak.android.ui.login.name.NameFragment
 import io.sinzak.android.ui.login.welcome.WelcomeFragment
-import io.sinzak.android.ui.main.MainActivity
-import io.sinzak.android.ui.main.profile.certification.CertificationFragment
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -47,7 +39,7 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>(R.layout.activity
         viewModel.regNav.changePage(PAGE_AGREEMENT)
         observeNavigation()
 
-        registerConnect.registerActivityContext(this)
+        registerConnect.registerActivityContext(this, this as BaseActivity<*>)
 
     }
 
@@ -85,5 +77,8 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>(R.layout.activity
 
     }
 
-
+    override fun onBackPressed() {
+        if (viewModel.regNav.revealHistory()) return
+        else super.onBackPressed()
+    }
 }

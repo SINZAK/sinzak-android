@@ -67,6 +67,8 @@ class SignModel @Inject constructor(
     private val _signFailed = MutableStateFlow(false)
     private val _errorString = MutableStateFlow("")
 
+    val resignSuccessFlag = MutableStateFlow(false)
+
 
     /**************************************************************************************************************************
      * REGISTER ACTIVITY
@@ -426,10 +428,8 @@ class SignModel @Inject constructor(
     /**
      * 로그인, 회원가입 성공시 가지고 있는 소셜 정보를 prefs 에 저장합니다.
      */
-    private fun saveTokenToPrefs(origin : String, hasOrigin : Boolean){
-        if (hasOrigin){
-            prefs.setString(CODE_OAUTH_ORIGIN, origin)
-        }
+    private fun saveTokenToPrefs(origin : String){
+        prefs.setString(CODE_OAUTH_ORIGIN, origin)
         prefs.setString(CODE_OAUTH_IDTOKEN, oAuthIdToken)
         prefs.setString(CODE_OAUTH_AUTHTOKEN, oAuthTokenTaken)
     }
@@ -490,6 +490,15 @@ class SignModel @Inject constructor(
         setIsLogin(false)
     }
 
+    fun resign(){
+        CallImpl(
+            API_USER_RESIGN,
+            this
+        ).apply {
+            remote.sendRequestApi(this)
+        }
+    }
+
     /**
      * [안승우] 로그인 통합될때까지 쓸 임시함수
      */
@@ -534,7 +543,7 @@ class SignModel @Inject constructor(
             checkEmail(loginEmail)
         }else{
             // login
-            saveTokenToPrefs(response.origin.toString(),true)
+            saveTokenToPrefs(response.origin.toString())
             setIsLogin(true)
         }
     }
@@ -543,15 +552,15 @@ class SignModel @Inject constructor(
     /**
      * 회원가입
      */
-    private fun onResponseJoin(success : Boolean, message : String)
+    private fun onResponseJoin(response: JoinResponse)
     {
-        if(success){
+        if(response.success == true){
             needSignUp.value = false
-            saveTokenToPrefs("",false)
+            saveTokenToPrefs(response.token!!.origin.toString())
             setIsLogin(true)
         }else{
             //todo 회원가입 실패
-            LogError(javaClass.name,"회원가입 실패 $message")
+            LogError(javaClass.name,"회원가입 실패 ${response.message}")
         }
     }
 
@@ -609,7 +618,7 @@ class SignModel @Inject constructor(
             }
 
             API_JOIN_ACCOUNT ->{
-                onResponseJoin(body.success!!, body.message.toString())
+                onResponseJoin(body as JoinResponse)
             }
 
             API_POST_OAUTH_TOKEN ->{
@@ -652,6 +661,13 @@ class SignModel @Inject constructor(
                 }else{
 
                     globalUi.showToast(body.message?:valueModel.getString(R.string.str_checkemail_exist))
+                }
+            }
+
+            API_USER_RESIGN -> {
+                if (body.success == true) {
+                    resignSuccessFlag.value = true
+                    logout()
                 }
             }
 

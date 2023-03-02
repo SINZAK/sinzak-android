@@ -2,23 +2,25 @@ package io.sinzak.android.ui.main.profile.setting
 
 import android.view.View
 import androidx.fragment.app.activityViewModels
-import io.sinzak.android.databinding.FragmentSettingServiceBinding
+import dagger.hilt.android.AndroidEntryPoint
+import io.sinzak.android.databinding.FragmentResignBinding
 import io.sinzak.android.ui.base.BaseFragment
 
-class SettingServiceFragment : BaseFragment(){
+@AndroidEntryPoint
+class ResignFragment : BaseFragment() {
 
-    private lateinit var bind : FragmentSettingServiceBinding
+    private lateinit var bind : FragmentResignBinding
 
     private val viewModel by activityViewModels<SettingViewModel>()
 
     override fun getFragmentRoot(): View {
-        bind = FragmentSettingServiceBinding.inflate(layoutInflater)
+        bind = FragmentResignBinding.inflate(layoutInflater)
         return bind.root
     }
 
     override fun onFragmentCreated() {
         bind.apply {
-            bind.lifecycleOwner = viewLifecycleOwner
+            lifecycleOwner = viewLifecycleOwner
             vm = viewModel
         }
     }

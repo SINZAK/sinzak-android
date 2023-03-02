@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="vm"
+            type="io.sinzak.android.ui.main.profile.setting.SettingViewModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="25.5dp">
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/ic_bg_button"
+            android:onClick="@{v->vm.onBackPressed()}"
+            android:src="@drawable/ic_back"
+            app:layout_constraintBottom_toBottomOf="@+id/textView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView"
+            style="@style/bold16"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/appbar_height"
+            android:gravity="center"
+            android:text="@string/str_resign"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView3"
+            style="@style/bold25"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="147.5dp"
+            android:text="@string/str_resign_title_first"
+            android:textAlignment="center"
+            android:textColor="@color/primary"
+            android:visibility="@{!vm.resignSuccess ? 0 : 8}"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+        <TextView
+            android:id="@+id/textView4"
+            style="@style/bold25"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="147.5dp"
+            android:text="@string/str_resign_title_second"
+            android:textAlignment="center"
+            android:textColor="@color/primary"
+            android:visibility="@{vm.resignSuccess ? 0 : 8}"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+        <TextView
+            android:id="@+id/textView14"
+            style="@style/medium14"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/str_resign_desc_first"
+            android:textColor="@color/text3"
+            android:paddingHorizontal="40dp"
+            android:visibility="@{!vm.resignSuccess ? 0 : 8}"
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+        <TextView
+            style="@style/medium14"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/str_resign_desc_second"
+            android:textColor="@color/text3"
+            android:layout_marginTop="4.5dp"
+            android:paddingHorizontal="40dp"
+            android:visibility="@{!vm.resignSuccess ? 0 : 8}"
+            app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/linearLayoutCompat3"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/btn_height"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="@{!vm.resignSuccess ? 0 : 8}">
+            <TextView
+                style="@style/bold16"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textColor="@color/white"
+                android:background="@drawable/btn_gray_filled"
+                android:gravity="center"
+
+                android:text="@string/str_cancel"
+                android:onClick="@{v->vm.onBackPressed()}"/>
+            <Space
+                android:layout_width="11dp"
+                android:layout_height="match_parent"/>
+            <TextView
+                style="@style/bold16"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textColor="@color/white"
+                android:background="@drawable/btn_red_filled"
+                android:gravity="center"
+
+                android:text="@string/str_resign"
+                android:onClick="@{v->vm.onResign()}"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <TextView
+            android:id="@+id/textView2"
+            style="@style/bold16"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/btn_height"
+            android:layout_marginHorizontal="8dp"
+            android:background="@drawable/btn_red_filled"
+            android:gravity="center"
+            android:text="@string/str_check"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:visibility="@{vm.resignSuccess ? 0 : 8}"
+            android:onClick="@{v-> vm.completeResign()}"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

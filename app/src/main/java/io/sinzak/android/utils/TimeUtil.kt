@@ -18,15 +18,17 @@ object TimeUtil {
                     return "· ${(timeGap / 24 / 30).toInt()}개월 전"
                 timeGap >= 24 ->
                     return "· ${(timeGap / 24).toInt()}일 전"
-                else ->
+                timeGap >= 1 ->
                     return "· ${timeGap.toInt()}시간 전"
+                else ->
+                    return "· 방금 전"
             }
 
         } catch (e: Exception)
         {
 
         }
-        return "· 최근"
+        return "· 방금 전"
     }
 
     fun getTimePassedExceptDot(date : String) : String {
@@ -43,8 +45,10 @@ object TimeUtil {
                     return "${(timeGap / 24 / 30).toInt()}개월 전"
                 timeGap >= 24 ->
                     return "${(timeGap / 24).toInt()}일 전"
-                else ->
+                timeGap >= 1 ->
                     return "${timeGap.toInt()}시간 전"
+                else ->
+                    return "방금 전"
             }
 
         } catch (e: Exception)

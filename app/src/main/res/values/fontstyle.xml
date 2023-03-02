@@ -28,6 +28,11 @@
         <item name="android:textSize">16sp</item>
     </style>
 
+    <style name="medium14" parent="textMedium">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+
     <style name="medium13" parent="textMedium">
         <item name="android:textSize">13sp</item>
     </style>
@@ -43,6 +48,10 @@
 
     <style name="bold30" parent="textBold">
         <item name="android:textSize">30sp</item>
+    </style>
+
+    <style name="bold25" parent="textBold">
+        <item name="android:textSize">25sp</item>
     </style>
 
     <style name="bold20" parent="textBold">

@@ -23,8 +23,8 @@ class ArtistReportDialog(
             dismiss()
         }
         bind.setBlockArtist {
-            blockArtist()
             dismiss()
+            blockArtist()
         }
         bind.setDismiss {
             dismiss()

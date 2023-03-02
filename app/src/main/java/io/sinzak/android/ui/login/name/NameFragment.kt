@@ -19,8 +19,7 @@ class NameFragment() : BaseFragment() {
     }
 
     override fun navigateOnBackPressed() {
-
-
+        viewModel.onBackPressed()
     }
 
 

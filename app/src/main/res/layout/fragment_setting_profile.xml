@@ -7,6 +7,7 @@
             name="vm"
             type="io.sinzak.android.ui.main.profile.setting.SettingViewModel" />
         <import type="io.sinzak.android.enums.Page"/>
+        <import type="io.sinzak.android.constants.ProfileConstKt"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -140,21 +141,22 @@
                         android:layout_height="wrap_content"
                         android:text="@string/str_setting_announce"
                         style="@style/regular16"
-                        android:paddingVertical="10dp"/>
+                        android:paddingVertical="10dp"
+                        android:onClick="@{v->vm.onConnectLink(ProfileConstKt.LINK_ANNOUNCE_URL)}"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/str_setting_app_service"
                         style="@style/regular16"
                         android:paddingVertical="10dp"
-                        android:onClick="@{v->vm.navigation.changePage(Page.PROFILE_SETTING_SERVICE)}"/>
+                        android:onClick="@{v->vm.onConnectLink(ProfileConstKt.LINK_SERVICE_URL)}"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/str_setting_info_use"
                         style="@style/regular16"
                         android:paddingVertical="10dp"
-                        android:onClick="@{v->vm.navigation.changePage(Page.PROFILE_SETTING_INFO_USE)}"/>
+                        android:onClick="@{v->vm.onConnectLink(ProfileConstKt.LINK_INFO_USE_URL)}"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -183,7 +185,7 @@
                         android:text="@string/str_setting_withdrawal"
                         style="@style/regular16"
                         android:paddingVertical="10dp"
-                        android:onClick="@{v->vm.onWithdrawal()}"/>
+                        android:onClick="@{v->vm.navigation.changePage(Page.PROFILE_SETTING_RESIGN)}"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
