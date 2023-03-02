@@ -49,6 +49,7 @@ class EmailViewModel @Inject constructor(
 
     fun onFinishRegister(){
         connect.gotoWelcome()
+        connect.navigation.clearHistory()
     }
 
     fun checkCode(){

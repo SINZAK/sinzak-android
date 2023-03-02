@@ -338,9 +338,6 @@ class ProfileModel @Inject constructor() : BaseModel() {
                     followControlSuccessFlag.value = true
                     globalUi.showToast("팔로잉합니다")
                 }
-                else {
-                    globalUi.showToast(body.message.toString())
-                }
             }
 
             API_UNFOLLOW_USER ->
@@ -350,9 +347,7 @@ class ProfileModel @Inject constructor() : BaseModel() {
                     followControlSuccessFlag.value = true
                     globalUi.showToast("언팔로잉합니다")
                 }
-                else {
-                    globalUi.showToast(body.message.toString())
-                }
+
             }
         }
     }

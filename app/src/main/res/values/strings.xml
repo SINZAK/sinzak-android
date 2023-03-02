@@ -244,4 +244,7 @@
     <string name="str_block_chat">차단하기</string>
     <string name="str_product_onsale_done">거래 완료</string>
     <string name="str_porduct_onsale_on">거래중</string>
+
+
+    <string name="str_need_login">로그인이 필요해요</string>
 </resources>

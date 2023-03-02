@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:paddingHorizontal="20dp"
         android:gravity="center_vertical"
-        android:paddingVertical="20dp">
+        android:paddingVertical="11dp">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -77,7 +77,7 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="188dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:orientation="vertical">
@@ -91,13 +91,14 @@
                 android:enabled="@{!vm.isBought}"
                 android:gravity="center"
                 android:onClick="@{v->vm.onClickChat()}"
-                android:paddingHorizontal="34dp"
+                android:paddingHorizontal="25dp"
                 android:paddingVertical="11dp"
                 android:text="@string/str_artdetail_ask"
                 android:textColor="@color/white"
                 android:visibility="@{!vm.isMyProduct ? 0 : 8}"
                 app:drawableLeftCompat="@drawable/ic_detail_comment_26"
                 app:drawableTint="@color/white"
+                android:drawablePadding="3dp"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -116,6 +117,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:id="@+id/textView18"
                 style="@style/bold13"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -124,20 +126,23 @@
                 android:text="@string/str_artdetail_nagatiate_not"
                 android:textColor="@color/gray60"
                 android:visibility="@{!vm.art.priceSuggestEnable &amp; !vm.isMyProduct ? 0 : 8}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
             <TextView
                 android:id="@+id/textView15"
                 style="@style/bold13"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:gravity="center"
                 android:onClick="@{v->vm.onClickSuggest()}"
                 android:text="@string/str_artdetail_nagotiate"
                 android:textColor="@color/secondary"
                 android:visibility="@{vm.art.priceSuggestEnable &amp; !vm.isMyProduct ? 0 : 8}"
-                app:layout_constraintTop_toBottomOf="@+id/textView17"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

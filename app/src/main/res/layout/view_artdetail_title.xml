@@ -54,6 +54,7 @@
                         android:textColor="@color/on_primary"
                         android:background="@drawable/tv_detail_ontrading"
                         android:paddingHorizontal="2dp"
+                        android:layout_marginEnd="5dp"
                         android:visibility="@{vm.art.trading ? 0 : 8}"
                         />
 
@@ -97,7 +98,7 @@
                     android:gravity="center"
                     android:textColor="@color/gray60"
                     style="@style/bold13"
-                    android:layout_marginTop="20dp"/>
+                    android:layout_marginTop="23dp"/>
             </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.appcompat.widget.LinearLayoutCompat>
         <View

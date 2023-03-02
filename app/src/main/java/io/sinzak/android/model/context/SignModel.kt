@@ -485,6 +485,7 @@ class SignModel @Inject constructor(
 
 
     fun logout(){
+        prefs.clear()
         prefs.accessToken = ""
         prefs.refreshToken = ""
         setIsLogin(false)
@@ -627,6 +628,7 @@ class SignModel @Inject constructor(
                 if(body.success == true){
                     setIsLogin(true)
                     _sdkSignSuccess.value = false
+                    profile.getProfile()
                 }else{
                     checkEmail(loginEmail)
                 }

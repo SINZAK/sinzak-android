@@ -2,6 +2,7 @@ package io.sinzak.android.ui.main.market.artdetail
 
 import android.os.Bundle
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.sinzak.android.R
 import io.sinzak.android.constants.CODE_USER_ID
 import io.sinzak.android.constants.CODE_USER_REPORT_ID
 import io.sinzak.android.constants.CODE_USER_REPORT_NAME
@@ -112,6 +113,7 @@ class ContentViewModel @Inject constructor(
      * Like 버튼을 눌렀을때 동작
      */
     fun toggleLike(){
+        if (!checkLoginStatus()) return
         model.postProductLike(product,!isLike.value)
         isLike.value = !isLike.value
         likeCnt.value = likeCnt.value + if(isLike.value) 1 else -1
@@ -122,6 +124,7 @@ class ContentViewModel @Inject constructor(
      * Wish 버튼을 눌렀을때 동작
      */
     fun toggleWish(){
+        if (!checkLoginStatus()) return
         model.postProductWish(product,!isWish.value)
         isWish.value = !isWish.value
         wishCnt.value = wishCnt.value + if(isWish.value) 1 else -1
@@ -152,6 +155,7 @@ class ContentViewModel @Inject constructor(
      * 가격 제안하기 버튼 눌렀을때 동작
      */
     fun onClickSuggest(){
+        if (goToLoginIfNot()) return
         navigation.changePage(Page.ART_DETAIL_SUGGEST)
     }
 
@@ -159,6 +163,7 @@ class ContentViewModel @Inject constructor(
      * 팔로우 버튼
      */
     fun onClickFollow(){
+        if (!checkLoginStatus()) return
         profileModel.followUser(isFollowing.value,authorId)
         isFollowing.value = !isFollowing.value
         follower.value = follower.value + if (isFollowing.value) 1 else -1
@@ -300,11 +305,8 @@ class ContentViewModel @Inject constructor(
             return
         }
         val product = art.value!!
-        if(!signModel.isUserLogin()){
-            uiModel.gotoLogin()
-            return
-        }
 
+        if(goToLoginIfNot()) return
 
         if(isMyProduct.value){
             navigation.changePage(Page.CHAT)
@@ -315,8 +317,22 @@ class ContentViewModel @Inject constructor(
         model.makeNewChatroom()
         navigation.changePage(Page.CHAT_ROOM)
 
+    }
 
+    private fun checkLoginStatus() : Boolean{
+        if (!signModel.isUserLogin()) {
+            uiModel.showToast(valueModel.getString(R.string.str_need_login))
+            return false
+        }
+        return true
+    }
 
+    private fun goToLoginIfNot() : Boolean{
+        if (!signModel.isUserLogin()) {
+            uiModel.gotoLogin()
+            return true
+        }
+        return false
     }
 
 }
