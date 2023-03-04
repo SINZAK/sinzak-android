@@ -21,6 +21,9 @@ interface RemoteChatInterface {
     fun getChatroomMsg(@HeaderMap headerMap: HashMap<String, String>, @Path("id") id: String): Call<ChatRoomMsgResponse>
 
 
+    @POST("api/chat/rooms/post")
+    fun getChatRoomFromPost(@HeaderMap headerMap: HashMap<String, String>, @Body body: JsonObject): Call<ChatRoomListResponse>
+
     @Multipart
     @POST("api/chat/rooms/{id}/image")
     fun postChatImg(@HeaderMap headerMap: HashMap<String, String>, @Path("id") id: String, @Part body: List<MultipartBody.Part>): Call<ChatImageUploadResponse>

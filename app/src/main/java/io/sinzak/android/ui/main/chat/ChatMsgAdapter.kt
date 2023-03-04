@@ -12,6 +12,10 @@ import io.sinzak.android.databinding.HolderChatMsgReceiveImgBinding
 import io.sinzak.android.databinding.HolderChatMsgSentBinding
 import io.sinzak.android.databinding.HolderChatMsgSentImgBinding
 import io.sinzak.android.remote.dataclass.chat.ChatMsg
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class ChatMsgAdapter(val msgList: List<ChatMsg>) : RecyclerView.Adapter<ChatMsgAdapter.ViewHolder>() {
 
@@ -29,7 +33,11 @@ class ChatMsgAdapter(val msgList: List<ChatMsg>) : RecyclerView.Adapter<ChatMsgA
 
     fun notifyNewChatRoom(){
         notifyDataSetChanged()
-        rv?.scrollBy(0,999999)
+        CoroutineScope(Dispatchers.Main).launch {
+            delay(100)
+            rv?.scrollBy(0,99999)
+        }
+
     }
 
 

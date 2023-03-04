@@ -12,8 +12,7 @@
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="18dp"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <View
@@ -121,7 +120,8 @@
                     android:gravity="center"
                     android:lines="1"
                     android:onClick="@{v->vm.onClickChat()}"
-                    android:paddingVertical="11dp"
+                    android:paddingHorizontal="25dp"
+                    android:paddingVertical="15dp"
                     android:text="@{@string/str_detail_holder_chatcnt(vm.art.chatCnt)}"
                     android:textColor="@color/white"
                     android:visibility="@{vm.isMyProduct ? 0 : 8}"

@@ -14,11 +14,9 @@ import io.sinzak.android.system.App.Companion.prefs
 import io.sinzak.android.system.LogInfo
 import io.sinzak.android.utils.ChatUtil
 import io.sinzak.android.utils.FileUtil
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -39,8 +37,42 @@ class ChatStorage @Inject constructor(@ApplicationContext val context: Context) 
 
     private var currentChatroomUUID = ""
 
+    private var job: Job? = null
+
+
+    fun forceClearJob(){
+        job?.cancel()
+        job = null
+    }
+    fun fetchRoomListJob(scope: CoroutineScope){
+        forceClearJob()
+        job = scope.launch {
+            while(true){
+                getChatRoomList()
+                delay(10000)
+            }
+        }
+    }
+
+    fun fetchRoomListByPostJob(scope: CoroutineScope, postId: Int, postType: String){
+        forceClearJob()
+        job = scope.launch {
+            while(true){
+                getChatRoomFromPost(postId, postType)
+                delay(10000)
+            }
+        }
+    }
+
+
     fun getChatRoomList(){
         CallImpl(API_GET_CHATROOM_LIST,this).apply{
+            remote.sendRequestApi(this)
+        }
+    }
+
+    fun getChatRoomFromPost(postId: Int, postType: String){
+        CallImpl(API_GET_CHATROOM_POST_LIST, this, paramInt0 = postId, paramStr0 = postType).apply{
             remote.sendRequestApi(this)
         }
     }
@@ -192,8 +224,8 @@ class ChatStorage @Inject constructor(@ApplicationContext val context: Context) 
 
     }
 
-    fun destroyChatroom(){
-        currentChatRoom?.destroySession()
+    fun leaveChatroom(){
+        currentChatRoom?.destroyChatroom()
         currentChatRoom = null
     }
 
@@ -206,6 +238,13 @@ class ChatStorage @Inject constructor(@ApplicationContext val context: Context) 
                     _chatRooms.value = body.data.toMutableList()
                 }
 
+            }
+
+            API_GET_CHATROOM_POST_LIST ->{
+                if(body.success == true){
+                    body as ChatRoomListResponse
+                    _chatRooms.value = body.data.toMutableList()
+                }
             }
 
             API_CREATE_CHATROOM ->{
@@ -255,7 +294,5 @@ class ChatStorage @Inject constructor(@ApplicationContext val context: Context) 
     }
 
 
-    fun leaveChatroom(){
-        currentChatRoom?.destroyChatroom()
-    }
+
 }

@@ -485,7 +485,6 @@ class SignModel @Inject constructor(
 
 
     fun logout(){
-        prefs.clear()
         prefs.accessToken = ""
         prefs.refreshToken = ""
         setIsLogin(false)

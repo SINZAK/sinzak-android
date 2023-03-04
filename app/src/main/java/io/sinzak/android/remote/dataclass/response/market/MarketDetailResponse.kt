@@ -44,13 +44,11 @@ data class MarketDetailResponse(
         @SerializedName("height") val dHeight: Int = 0,
         @SerializedName("vertical") val dVertical: Int = 0,
         @SerializedName("views") val views: Int = 0,
-
         @SerializedName("wish") val wish: Boolean = false,
-        @SerializedName("wishCnt") val wishCnt: Int = 0
-            ){
-        fun getTimePassed() : String {
-            return TimeUtil.getTimePassed(date.toString())
-        }
+        @SerializedName("wishCnt") val wishCnt: Int = 0,
+        @SerializedName("myPost") val myPost : Boolean = false
+            )
+    {
         fun getTimePassedExceptDot() : String {
             return TimeUtil.getTimePassedExceptDot(date.toString())
         }
