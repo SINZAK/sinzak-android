@@ -3,6 +3,7 @@ package io.sinzak.android.remote.dataclass.product
 import com.google.gson.annotations.SerializedName
 import io.sinzak.android.system.LogError
 import io.sinzak.android.utils.DateFormats
+import io.sinzak.android.utils.PriceUtil
 import io.sinzak.android.utils.TimeUtil
 import java.lang.Exception
 import java.text.NumberFormat
@@ -40,7 +41,7 @@ data class Product(
 
     fun getFormattedPrice() : String?{
         price?.let{
-            return NumberFormat.getNumberInstance(Locale.KOREA).format(it)+"원"
+            return PriceUtil.getFormattedPrice(it)+"원"
         }
         return null
     }
@@ -51,18 +52,6 @@ data class Product(
 
     fun getTimePassedExceptDot() : String {
         return TimeUtil.getTimePassedExceptDot(date.toString())
-    }
-
-    fun getFormattedDate() : String{
-        return try{
-            val time = DateFormats.MySqlFormat.parse(date.toString().replace('T',' '))
-            DateFormats.KoreanFormatDateOnly.format(time)
-        } catch(e:Exception) {
-            LogError(e)
-            "최근"
-
-        }
-
     }
 
     fun toggleLike() : Product{

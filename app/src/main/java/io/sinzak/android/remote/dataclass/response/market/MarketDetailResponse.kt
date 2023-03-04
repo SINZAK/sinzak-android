@@ -2,6 +2,7 @@ package io.sinzak.android.remote.dataclass.response.market
 
 import com.google.gson.annotations.SerializedName
 import io.sinzak.android.remote.dataclass.CResponse
+import io.sinzak.android.utils.PriceUtil
 import io.sinzak.android.utils.TimeUtil
 
 data class MarketDetailResponse(
@@ -51,6 +52,10 @@ data class MarketDetailResponse(
     {
         fun getTimePassedExceptDot() : String {
             return TimeUtil.getTimePassedExceptDot(date.toString())
+        }
+
+        fun getFormattedPrice() : String{
+            return PriceUtil.getFormattedPrice(price)+"원"
         }
     }
 }

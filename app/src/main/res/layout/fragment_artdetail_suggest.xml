@@ -3,9 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <variable
-            name="fg"
-            type="io.sinzak.android.ui.main.market.artdetail.suggest.SuggestFragment" />
           <variable
             name="vm"
             type="io.sinzak.android.ui.main.market.artdetail.suggest.SuggestViewModel" />
@@ -27,7 +24,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/ic_bg_button"
-                android:onClick="@{v->fg.navigateOnBackPressed()}"
+                android:onClick="@{v->vm.onBackPressed()}"
                 android:src="@drawable/ic_back"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -102,6 +99,8 @@
                     android:gravity="center"
                     android:imeOptions="actionDone"
                     android:inputType="numberDecimal"
+                    android:maxLength="11"
+                    addComma="@{vm.price}"
                     android:onTextChanged="@{(cs,a,b,c)->vm.onTypePrice(cs)}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -138,7 +137,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="만 제안이 가능해요   "
+                    android:text="만 제안이 가능해요"
                     style="regular13"/>
 
             </androidx.appcompat.widget.LinearLayoutCompat>
@@ -152,7 +151,7 @@
             android:background="@drawable/btn_red_filled"
             android:text="제안하기"
             android:layout_marginHorizontal="16dp"
-            android:enabled="@{vm.priceInserted}"
+            android:enabled="@{!vm.price.empty}"
             android:onClick="@{v->vm.onClickSuggest()}"
             android:gravity="center"
             style="@style/medium16"

@@ -1,8 +1,10 @@
 package io.sinzak.android.ui.main.market.artdetail.suggest
 
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.sinzak.android.R
 import io.sinzak.android.model.market.ProductDetailModel
 import io.sinzak.android.ui.base.BaseViewModel
+import io.sinzak.android.utils.PriceUtil
 import kotlinx.coroutines.flow.MutableStateFlow
 import java.text.DecimalFormat
 import javax.inject.Inject
@@ -12,8 +14,7 @@ class SuggestViewModel @Inject constructor(
     val model : ProductDetailModel
 ) : BaseViewModel() {
 
-    private var price : Int = 0
-    val priceInserted = MutableStateFlow(false)
+    val price = MutableStateFlow("")
     private var productId : Int = -1
 
 
@@ -23,8 +24,7 @@ class SuggestViewModel @Inject constructor(
 
 
     fun onClickSuggest(){
-        model.postProductSuggest(productId, price)
-
+        model.postProductSuggest(productId, PriceUtil.makePriceInt(price.value))
     }
 
 
@@ -33,8 +33,7 @@ class SuggestViewModel @Inject constructor(
      ****************************************/
 
     fun onTypePrice(cs : CharSequence){
-        priceInserted.value = cs.toString().isNotEmpty()
-        price = cs.toString().toInt()
+        price.value = cs.toString()
     }
 
 
@@ -59,12 +58,15 @@ class SuggestViewModel @Inject constructor(
     private fun collectSuccessFlag(){
         useFlag(model.productSuggestSuccessFlag){
             navigation.revealHistory()
-            uiModel.showToast("가격제안을 전송했습니다.")
+            uiModel.showToast(valueModel.getString(R.string.str_send_suggest))
         }
     }
 
     fun addCommaToNumber(number: Int): String {
-        val formatter = DecimalFormat("#,###")
-        return formatter.format(number)
+        return PriceUtil.getFormattedPrice(number)
+    }
+
+    fun onBackPressed() {
+        navigation.revealHistory()
     }
 }

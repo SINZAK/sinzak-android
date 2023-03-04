@@ -1,8 +1,10 @@
 package io.sinzak.android.ui.main.postwrite.viewmodels
 
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.sinzak.android.enums.Page
 import io.sinzak.android.model.market.MarketWriteModel
 import io.sinzak.android.ui.base.BaseViewModel
+import io.sinzak.android.utils.PriceUtil
 import kotlinx.coroutines.flow.MutableStateFlow
 import java.lang.Exception
 import javax.inject.Inject
@@ -20,8 +22,7 @@ class InfoViewModel @Inject constructor(
 
     val title = MutableStateFlow("")
     var content : String = ""
-    var price : Int? = null
-    val priceInserted = MutableStateFlow(false)
+    val price = MutableStateFlow("0")
 
 
     fun setTitleString(cs : CharSequence){
@@ -35,19 +36,13 @@ class InfoViewModel @Inject constructor(
     }
 
     fun setPrice(cs : CharSequence){
-        try{
-            priceInserted.value = cs.toString().isNotEmpty()
-            price = cs.toString().toInt()
-            model.setPrice(cs.toString().toInt())
-        }catch(e:Exception){
-
-        }
+        price.value = cs.toString()
     }
 
 
     init{
         invokeBooleanFlow(model.flagPrepareBuild){
-            insertDefaultData("","",null,false)
+            insertDefaultData("","",0,false)
         }
 
         invokeBooleanFlow(model.flagPrepareEdit){
@@ -64,7 +59,7 @@ class InfoViewModel @Inject constructor(
     private fun insertDefaultData(title : String, content : String, price : Int?, isSuggest : Boolean){
         this.title.value = title
         this.content = content
-        this.price = price
+        this.price.value = price.toString()
         negotiationEnable.value = isSuggest
     }
 
@@ -72,6 +67,11 @@ class InfoViewModel @Inject constructor(
     fun toggleNegotiation(){
         negotiationEnable.value = !negotiationEnable.value
         model.setSuggestEnable(negotiationEnable.value)
+    }
+
+    fun goSpecPage(){
+        model.setPrice(PriceUtil.makePriceInt(price.value))
+        navigation.changePage(Page.NEW_POST_SPEC)
     }
 
 }

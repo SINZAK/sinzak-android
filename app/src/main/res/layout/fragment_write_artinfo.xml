@@ -110,8 +110,9 @@
                     android:background="@drawable/et_gray_filled"
                     android:gravity="center"
                     android:inputType="numberDecimal"
+                    android:maxLength="11"
                     android:onTextChanged="@{(cs,s,e,c)->vm.setPrice(cs)}"
-                    android:text="@{String.valueOf(vm.price)}"
+                    addComma="@{vm.price}"
                     android:textColor="@color/text0" />
 
                 <TextView
@@ -185,10 +186,10 @@
                 android:layout_height="65dp"
                 android:layout_marginTop="28dp"
                 android:layout_marginBottom="26dp"
-                android:enabled="@{!vm.title.empty &amp; vm.priceInserted}"
+                android:enabled="@{!vm.title.empty &amp; !vm.price.empty}"
                 android:background="@drawable/btn_red_filled"
                 android:gravity="center"
-                android:onClick="@{v->fg.goSpecPage()}"
+                android:onClick="@{v->vm.goSpecPage()}"
                 android:text="@string/str_next"
                 android:textColor="@color/on_primary" />
         </androidx.appcompat.widget.LinearLayoutCompat>
