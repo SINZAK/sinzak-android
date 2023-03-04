@@ -1,7 +1,6 @@
 package io.sinzak.android.ui.main.profile.viewmodel
 
 import android.graphics.Color
-import android.text.Html
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
@@ -11,7 +10,7 @@ import androidx.databinding.BindingAdapter
 import java.util.regex.Pattern
 
 @BindingAdapter("highLightText")
-fun highlightText(textView: TextView,input : String) {
+fun highlightText(textView: TextView, input : String) {
     val spannableString = SpannableString(input)
 
     // @로 시작하는 모든 단어에 대해 스타일 적용

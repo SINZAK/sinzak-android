@@ -61,6 +61,8 @@ class CallImpl(
 
             API_CHECK_EMAIL -> remoteApi.checkEmail(header, JsonObject().apply{addProperty("email", paramStr0)} )
 
+            API_CHECK_NAME -> remoteApi.checkName(header, JsonObject().apply { addProperty("nickName",paramStr0) })
+
             API_USER_RESIGN -> remoteApi.resignUser(header)
 
             API_LOGIN_EMAIL -> remoteApi.loginEmail(header,requestBody as LoginEmailBody)
