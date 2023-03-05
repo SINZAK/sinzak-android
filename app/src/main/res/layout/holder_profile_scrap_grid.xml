@@ -9,6 +9,9 @@
         <variable
             name="onItemClick"
             type="android.view.View.OnClickListener" />
+        <variable
+            name="isProduct"
+            type="Boolean" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -68,6 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="7dp"
             android:layout_marginTop="3dp"
+            android:visibility="@{isProduct ? 0 : 4}"
             android:text="@{product.formattedPrice}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView13" />

@@ -12,12 +12,13 @@ import com.bumptech.glide.request.target.Target
 import io.sinzak.android.R
 import io.sinzak.android.databinding.HolderProfileScrapGridBinding
 import io.sinzak.android.remote.dataclass.product.Product
+import kotlinx.coroutines.flow.MutableStateFlow
 
 class ScrapAdapter(
-    val onItemClick : ((Product)->Unit)? = null
+    val scrapList : MutableList<Product> = mutableListOf(),
+    val onItemClick : ((Product)->Unit)? = null,
+    val isProduct : MutableStateFlow<Boolean>
 ) : RecyclerView.Adapter<ScrapAdapter.ViewHolder>() {
-
-    private var scrapList : List<Product> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -33,19 +34,6 @@ class ScrapAdapter(
         return scrapList.size
     }
 
-    fun setScraps(scraps : List<Product>)
-    {
-        if(this.scrapList != scraps)
-        {
-            val oldSize = itemCount
-            this.scrapList = scraps
-            if(oldSize >= itemCount)
-                notifyDataSetChanged()
-            else
-                notifyItemRangeInserted(oldSize,itemCount - oldSize)
-        }
-    }
-
 
     inner class ViewHolder(val bind : HolderProfileScrapGridBinding)
         :RecyclerView.ViewHolder(bind.root), RequestListener<Bitmap> {
@@ -56,6 +44,7 @@ class ScrapAdapter(
             bind.setOnItemClick {
                 onItemClick!!(product)
             }
+            bind.isProduct = !isProduct.value
         }
 
 
