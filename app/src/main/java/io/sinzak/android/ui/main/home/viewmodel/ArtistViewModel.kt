@@ -30,4 +30,11 @@ class ArtistViewModel @Inject constructor(
     override var title: String
             = valueModel.getString(R.string.str_home_artist_title)
 
+
+    init {
+        invokeStateFlow(model.followingProducts){
+            adapter.updateData(it)
+        }
+    }
+
 }

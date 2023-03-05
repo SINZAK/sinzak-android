@@ -7,6 +7,8 @@ import io.sinzak.android.ui.base.BaseViewModel
 abstract class HomeLinearViewModel : BaseViewModel() {
 
     abstract val adapter : RecyclerView.Adapter<*>
-    abstract var title : String
+    abstract val title : String
     abstract val hMargin : Float
+
+    val isUserLogin get() = signModel.isUserLogin()
 }
