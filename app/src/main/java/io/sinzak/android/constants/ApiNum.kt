@@ -16,6 +16,7 @@ package io.sinzak.android.constants
 const val API_REFRESH_TOKEN = 1
 
 const val API_LOGIN_EMAIL = 100
+const val API_CHECK_NAME = 101
 
 const val API_JOIN_ACCOUNT = 110
 const val API_POST_OAUTH_TOKEN = 111

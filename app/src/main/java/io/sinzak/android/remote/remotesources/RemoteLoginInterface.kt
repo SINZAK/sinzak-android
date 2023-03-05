@@ -15,8 +15,12 @@ interface RemoteLoginInterface {
     @POST("api/login")
     fun loginEmail(@HeaderMap header : HashMap<String, String>, @Body body : LoginEmailBody) : Call<LoginEmailResponse>
 
-    @POST("api/checkemail")
+    @POST("api/check/email")
     fun checkEmail(@HeaderMap header: HashMap<String, String>, @Body jsonObject: JsonObject): Call<CResponse>
+
+    @POST("api/check/nickname")
+    fun checkName(@HeaderMap header: HashMap<String, String>, @Body jsonObject: JsonObject) : Call<CResponse>
+
     @GET("https://openapi.naver.com/v1/nid/me")
     fun loginGetNaverEmail(@Header("Authorization") auth : String) : Call<NaverProfile>
 

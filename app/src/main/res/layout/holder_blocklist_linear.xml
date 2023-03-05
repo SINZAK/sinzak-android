@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="profile"
+            type="io.sinzak.android.remote.dataclass.profile.UserProfile" />
+        <variable
+            name="onButtonClick"
+            type="android.view.View.OnClickListener" />
+    </data>
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="21dp"
+        android:paddingEnd="31dp"
+        android:paddingVertical="13dp">
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            remoteImgUrl="@{profile.imageUrl}"
+            imgRadius="@{16f}"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/bold16"
+            android:text="@{profile.name}"
+            android:layout_marginStart="10dp"/>
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/medium13"
+            android:text="@string/str_setting_unblock"
+            android:textColor="@color/on_primary"
+            android:paddingVertical="8.5dp"
+            android:paddingHorizontal="22.5dp"
+            android:background="@drawable/btn_red_filled"
+            android:onClick="@{onButtonClick}"/>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

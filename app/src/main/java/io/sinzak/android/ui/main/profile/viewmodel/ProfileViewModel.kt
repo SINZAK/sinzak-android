@@ -2,6 +2,7 @@ package io.sinzak.android.ui.main.profile.viewmodel
 
 import android.os.Bundle
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.sinzak.android.R
 import io.sinzak.android.constants.CODE_USER_REPORT_ID
 import io.sinzak.android.constants.CODE_USER_REPORT_NAME
 import io.sinzak.android.enums.Page
@@ -103,11 +104,22 @@ class ProfileViewModel @Inject constructor(
      * 뒤로 가기 클릭시 프로필 히스토리 관리
      */
     private fun revealProfileHistory() = model.revealProfileHistory()
+
+    /**
+     * 채팅하기 클릭시 동작
+     */
+    fun onChatting(){
+        if (goToLoginIfNot()) return
+        navigation.changePage(Page.CHAT)
+    }
     /**
      * 팔로우 버튼 클릭시 동작
      */
     fun toggleFollow()
     {
+
+        if (!checkLoginStatus()) return
+
         model.followUser(isFollow.value,model.currentUserId.value)
 
         useFlag(model.followControlSuccessFlag) {
@@ -200,6 +212,22 @@ class ProfileViewModel @Inject constructor(
             }
             navigation.changePage(Page.PROFILE_REPORT_TYPE)
         }
+    }
+
+    private fun checkLoginStatus() : Boolean{
+        if (!signModel.isUserLogin()) {
+            uiModel.showToast(valueModel.getString(R.string.str_need_login))
+            return false
+        }
+        return true
+    }
+
+    private fun goToLoginIfNot() : Boolean{
+        if (!signModel.isUserLogin()) {
+            uiModel.gotoLogin()
+            return true
+        }
+        return false
     }
 
 }

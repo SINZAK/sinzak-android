@@ -33,11 +33,11 @@ class EditViewModel @Inject constructor(
     /**
      * 이름을 저장하는 공간
      */
-    private val _name = MutableStateFlow(profile.value!!.name)
+    private val _name = MutableStateFlow("")
     /**
      * 소개를 저장하는 공간
      */
-    private val _introduction = MutableStateFlow(profile.value!!.introduction)
+    private val _introduction = MutableStateFlow("")
     val introduction : StateFlow<String> get() = _introduction
 
 
@@ -56,6 +56,22 @@ class EditViewModel @Inject constructor(
     fun setInterestText(textView: TextView){
         textView.text = valueModel.getCategory(pModel.categoryLike)
     }
+
+    /********************************
+     * 생성 시 실행
+     ********************************/
+    init {
+        invokeStateFlow(profile){ profile ->
+            profile?.let {
+                it.name.let { name ->
+                    _name.value = name
+                    model.setCurrentName(name)
+                }
+                _introduction.value = it.introduction
+            }
+        }
+    }
+
 
     /********************************
      * 버튼을 누릅니다

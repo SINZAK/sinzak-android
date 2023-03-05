@@ -70,6 +70,9 @@
     <string name="str_setting">설정</string>
     <string name="str_setting_group_personal">개인 설정</string>
     <string name="str_setting_account">연결된 계정 관리</string>
+    <string name="str_setting_manage_block">차단 사용자 관리</string>
+    <string name="str_setting_blocklist">차단된 사용자</string>
+    <string name="str_setting_unblock">차단 해제</string>
 
     <string name="str_setting_group_app">이용 안내</string>
     <string name="str_setting_app_version">앱 버전</string>
@@ -244,4 +247,8 @@
     <string name="str_block_chat">차단하기</string>
     <string name="str_product_onsale_done">거래 완료</string>
     <string name="str_porduct_onsale_on">거래중</string>
+
+    <!-- 토스트 메세지용 -->
+    <string name="str_need_login">로그인이 필요해요</string>
+    <string name="str_send_suggest">가격 제안을 전송했어요</string>
 </resources>

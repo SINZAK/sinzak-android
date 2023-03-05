@@ -3,6 +3,7 @@ package io.sinzak.android.ui.main.market.artdetail
 import android.os.Bundle
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.sinzak.android.R
 import io.sinzak.android.constants.CODE_USER_ID
 import io.sinzak.android.constants.CODE_USER_REPORT_ID
 import io.sinzak.android.constants.CODE_USER_REPORT_NAME
@@ -115,8 +116,9 @@ class ContentViewModel @Inject constructor(
     /**
      * Like 버튼을 눌렀을때 동작
      */
-    fun toggleLike() {
-        model.postProductLike(product, !isLike.value)
+    fun toggleLike(){
+        if (!checkLoginStatus()) return
+        model.postProductLike(product,!isLike.value)
         isLike.value = !isLike.value
         likeCnt.value = likeCnt.value + if (isLike.value) 1 else -1
     }
@@ -125,8 +127,9 @@ class ContentViewModel @Inject constructor(
     /**
      * Wish 버튼을 눌렀을때 동작
      */
-    fun toggleWish() {
-        model.postProductWish(product, !isWish.value)
+    fun toggleWish(){
+        if (!checkLoginStatus()) return
+        model.postProductWish(product,!isWish.value)
         isWish.value = !isWish.value
         wishCnt.value = wishCnt.value + if (isWish.value) 1 else -1
     }
@@ -155,15 +158,17 @@ class ContentViewModel @Inject constructor(
     /**
      * 가격 제안하기 버튼 눌렀을때 동작
      */
-    fun onClickSuggest() {
+    fun onClickSuggest(){
+        if (goToLoginIfNot()) return
         navigation.changePage(Page.ART_DETAIL_SUGGEST)
     }
 
     /**
      * 팔로우 버튼
      */
-    fun onClickFollow() {
-        profileModel.followUser(isFollowing.value, authorId)
+    fun onClickFollow(){
+        if (!checkLoginStatus()) return
+        profileModel.followUser(isFollowing.value,authorId)
         isFollowing.value = !isFollowing.value
         follower.value = follower.value + if (isFollowing.value) 1 else -1
 
@@ -201,6 +206,7 @@ class ContentViewModel @Inject constructor(
                 imgAdapter.imgs = it.imgUrls ?: listOf()
                 imgAdapter.notifyDataSetChanged()
 
+                authorId = it.authorId
                 isLike.value = it.like
                 likeCnt.value = it.likeCnt
                 isWish.value = it.wish
@@ -209,11 +215,7 @@ class ContentViewModel @Inject constructor(
                 isFollowing.value = it.isFollowing
                 follower.value = it.authorFollowerCnt
                 category.value = valueModel.getFirstCategory(it.category)
-
-                it.authorId.apply {
-                    authorId = this
-                    isMyProduct.value = pModel.isMine(this)
-                }
+                isMyProduct.value = it.myPost
 
             }
 
@@ -303,11 +305,8 @@ class ContentViewModel @Inject constructor(
             return
         }
         val product = art.value!!
-        if (!signModel.isUserLogin()) {
-            uiModel.gotoLogin()
-            return
-        }
 
+        if(goToLoginIfNot()) return
 
         if (isMyProduct.value) {
             navigation.changePage(Page.CHAT)
@@ -324,8 +323,22 @@ class ContentViewModel @Inject constructor(
 
         navigation.changePage(Page.CHAT_ROOM)
 
+    }
 
+    private fun checkLoginStatus() : Boolean{
+        if (!signModel.isUserLogin()) {
+            uiModel.showToast(valueModel.getString(R.string.str_need_login))
+            return false
+        }
+        return true
+    }
 
+    private fun goToLoginIfNot() : Boolean{
+        if (!signModel.isUserLogin()) {
+            uiModel.gotoLogin()
+            return true
+        }
+        return false
     }
 
 }

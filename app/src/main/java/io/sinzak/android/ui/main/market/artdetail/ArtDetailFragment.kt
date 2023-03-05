@@ -73,7 +73,6 @@ class ArtDetailFragment : BaseFragment(){
         ViewArtdetailTitleBinding.inflate(layoutInflater).apply{
             lifecycleOwner = viewLifecycleOwner
             vm = contentViewModel
-
             bind.llContent.addView(root)
         }
     }

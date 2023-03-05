@@ -90,7 +90,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="7dp"
-
                 android:text='@{product.getFormattedPrice() ?? "30,000원"}' />
 
             <androidx.appcompat.widget.LinearLayoutCompat

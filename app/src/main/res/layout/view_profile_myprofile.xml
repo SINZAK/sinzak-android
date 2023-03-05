@@ -116,8 +116,7 @@
                 style="@style/bold13"
                 android:textColor="@color/secondary"
                 android:visibility="@{!isMyProfile &amp; !vm.isMyProfile ? 0 : 8}"
-                android:onClick="@{v-> vm.changePage(Page.CHAT)}"
-                />
+                android:onClick="@{v-> vm.onChatting()}"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <TextView

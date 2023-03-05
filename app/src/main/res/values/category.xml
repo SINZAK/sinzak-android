@@ -28,7 +28,6 @@
         <item>앱/웹 디자인</item>
         <item>인쇄물</item>
         <item>패키지/라벨</item>
-        <item>기타</item>
     </string-array>
 
     <string-array name="category_key">

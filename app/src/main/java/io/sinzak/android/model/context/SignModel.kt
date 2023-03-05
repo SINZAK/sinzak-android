@@ -627,6 +627,7 @@ class SignModel @Inject constructor(
                 if(body.success == true){
                     setIsLogin(true)
                     _sdkSignSuccess.value = false
+                    profile.getProfile()
                 }else{
                     checkEmail(loginEmail)
                 }

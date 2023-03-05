@@ -2,6 +2,7 @@ package io.sinzak.android.remote.dataclass.response.market
 
 import com.google.gson.annotations.SerializedName
 import io.sinzak.android.remote.dataclass.CResponse
+import io.sinzak.android.utils.PriceUtil
 import io.sinzak.android.utils.TimeUtil
 
 data class MarketDetailResponse(
@@ -44,15 +45,17 @@ data class MarketDetailResponse(
         @SerializedName("height") val dHeight: Int = 0,
         @SerializedName("vertical") val dVertical: Int = 0,
         @SerializedName("views") val views: Int = 0,
-
         @SerializedName("wish") val wish: Boolean = false,
-        @SerializedName("wishCnt") val wishCnt: Int = 0
-            ){
-        fun getTimePassed() : String {
-            return TimeUtil.getTimePassed(date.toString())
-        }
+        @SerializedName("wishCnt") val wishCnt: Int = 0,
+        @SerializedName("myPost") val myPost : Boolean = false
+            )
+    {
         fun getTimePassedExceptDot() : String {
             return TimeUtil.getTimePassedExceptDot(date.toString())
+        }
+
+        fun getFormattedPrice() : String{
+            return PriceUtil.getFormattedPrice(price)+"원"
         }
     }
 }

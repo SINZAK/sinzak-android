@@ -42,6 +42,7 @@ import io.sinzak.android.ui.main.profile.art.SaleFragment
 import io.sinzak.android.ui.main.profile.art.WorkFragment
 import io.sinzak.android.ui.main.profile.edit.EditInterestFragment
 import io.sinzak.android.ui.main.profile.scrap.ScrapFragment
+import io.sinzak.android.ui.main.profile.setting.BlockListFragment
 import io.sinzak.android.ui.main.profile.setting.ResignFragment
 import io.sinzak.android.ui.main.profile.setting.SettingFragment
 import io.sinzak.android.utils.RootViewDeferringInsetsCallback
@@ -178,6 +179,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 PROFILE_EDIT_INTEREST,
                 PROFILE_SETTING,
                 PROFILE_SETTING_RESIGN,
+                PROFILE_SETTING_BLOCKLIST,
                 PROFILE_CERTIFICATION,
                 PROFILE_WEBMAIL,
                 PROFILE_VERIFY,
@@ -240,6 +242,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 SettingFragment()
             PROFILE_SETTING_RESIGN ->
                 ResignFragment()
+            PROFILE_SETTING_BLOCKLIST ->
+                BlockListFragment()
             PROFILE_CERTIFICATION ->
                 CertificationFragment()
             PROFILE_WEBMAIL ->

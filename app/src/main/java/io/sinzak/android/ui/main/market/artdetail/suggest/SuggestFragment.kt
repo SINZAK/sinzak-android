@@ -22,14 +22,13 @@ class SuggestFragment : BaseFragment() {
     }
 
     override fun navigateOnBackPressed() {
-        navigator.revealHistory()
+        viewModel.onBackPressed()
     }
 
     override fun onFragmentCreated() {
         bind.apply{
             lifecycleOwner = viewLifecycleOwner
             vm = viewModel
-            fg = this@SuggestFragment
         }
     }
 

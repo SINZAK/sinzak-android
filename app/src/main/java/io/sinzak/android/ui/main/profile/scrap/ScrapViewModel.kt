@@ -21,6 +21,8 @@ class ScrapViewModel @Inject constructor(
     val productModel : ProductDetailModel
 ) : BaseViewModel() {
 
+    private val scraps = mutableListOf<Product>()
+
     /**
      * 스크랩 타입 : 판매작품:false , 의뢰해요:true
      */
@@ -40,39 +42,41 @@ class ScrapViewModel @Inject constructor(
     /**
      * 스크랩 목록 어뎁터
      */
-    val adapter = ScrapAdapter(::onItemClick)
-        .apply {typeFlow(this)}
+    val adapter = ScrapAdapter(scraps,::onItemClick,scrapType)
 
-    private fun typeFlow(adapter: ScrapAdapter)
-    {
-        invokeBooleanFlow(
-            scrapType,
-            {onSaleFlow(adapter,model.productWishList)},
-            {onSaleFlow(adapter,model.workWishList)}
+    init {
+
+        scrapType.value = PRODUCT
+        showOnSale.value = false
+
+        invokeBooleanFlow(scrapType,
+            {
+                model.productWishList.onEach(::filterScrapList).launchIn(viewModelScope)
+            },
+            {
+                model.workWishList.onEach(::filterScrapList).launchIn(viewModelScope)
+            }
         )
     }
 
-    private fun onSaleFlow(adapter: ScrapAdapter, scrapList : StateFlow<MutableList<Product>>)
-    {
-        invokeBooleanFlow(
-            showOnSale,
-            {setScrapData(adapter, scrapList)},
-            {setScrapFilterData(adapter, scrapList)}
+    private fun filterScrapList(s: MutableList<Product>){
+        var scrapList = s
+        invokeBooleanFlow(showOnSale,
+            {
+                showNothing.value = scrapList.isEmpty()
+                scraps.clear()
+                scraps.addAll(scrapList)
+                adapter.notifyDataSetChanged()
+            },
+            {
+                scrapList = scrapList.filter { it.complete == false }.toMutableList()
+                showNothing.value = scrapList.isEmpty()
+                scraps.clear()
+                scraps.addAll(scrapList)
+                adapter.notifyDataSetChanged()
+            }
         )
     }
-
-    private fun setScrapData(adapter: ScrapAdapter, scrapList : StateFlow<MutableList<Product>>)
-    {
-        scrapList.onEach { adapter.setScraps(it) }.launchIn(viewModelScope)
-        showNothing.value = adapter.itemCount > 0
-    }
-
-    private fun setScrapFilterData(adapter: ScrapAdapter, scrapList : StateFlow<MutableList<Product>>)
-    {
-        scrapList.onEach { list-> adapter.setScraps(list.filter { it.complete == false }) }.launchIn(viewModelScope)
-        showNothing.value = adapter.itemCount > 0
-    }
-
 
     /*********************************************************************
      * Click Event

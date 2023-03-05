@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
 import dagger.hilt.android.qualifiers.ApplicationContext
+import io.sinzak.android.constants.API_CHECK_NAME
 import io.sinzak.android.constants.API_EDIT_MY_IMAGE
 import io.sinzak.android.constants.API_EDIT_MY_INTEREST
 import io.sinzak.android.constants.API_EDIT_MY_PROFILE
@@ -29,6 +30,7 @@ class ProfileEditModel @Inject constructor(
 
     private var introduction = ""
     private var name = ""
+    private var currentName = ""
     private var nameErrorMsg = ""
 
     private var link = ""
@@ -54,6 +56,14 @@ class ProfileEditModel @Inject constructor(
     fun setName(n : String)
     {
         name = n.trim()
+    }
+
+    /**
+     * 기존 이름을 저장합니다 (앞뒤 공백없이)
+     */
+    fun setCurrentName(n : String)
+    {
+        currentName = n.trim()
     }
 
     /**
@@ -104,6 +114,7 @@ class ProfileEditModel @Inject constructor(
             }
         }
 
+
         return true
     }
 
@@ -131,6 +142,17 @@ class ProfileEditModel @Inject constructor(
     /********************************
      * API 요청합니다
      ********************************/
+
+    private fun requestCheckName()
+    {
+        CallImpl(
+            API_CHECK_NAME,
+            this,
+            paramStr0 = name
+        ).apply {
+            remote.sendRequestApi(this)
+        }
+    }
 
     /**
      * 프로필 이미지 변경을 요청합니다
@@ -203,6 +225,11 @@ class ProfileEditModel @Inject constructor(
     override fun onConnectionSuccess(api: Int, body: CResponse) {
         when(api)
         {
+            API_CHECK_NAME ->
+            {
+
+            }
+
             API_EDIT_MY_PROFILE ->
             {
                 if (body.success == true)
@@ -211,9 +238,7 @@ class ProfileEditModel @Inject constructor(
 
                     else isEditDone.value = true
 
-
                 }
-
             }
 
             API_EDIT_MY_IMAGE ->

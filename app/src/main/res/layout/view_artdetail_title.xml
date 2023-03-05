@@ -47,18 +47,19 @@
                     android:layout_marginTop="5dp">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="50dp"
+                        android:layout_height="20dp"
                         android:text="@string/str_detail_on_trading"
                         style="@style/medium13"
                         android:textColor="@color/on_primary"
+                        android:textAlignment="center"
                         android:background="@drawable/tv_detail_ontrading"
-                        android:paddingHorizontal="2dp"
+                        android:layout_marginEnd="5dp"
                         android:visibility="@{vm.art.trading ? 0 : 8}"
                         />
 
                     <TextView
-                        android:text="@{@string/str_holder_won(vm.art.price)}"
+                        android:text="@{vm.art.formattedPrice}"
                         tools:text="50000원"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -97,7 +98,7 @@
                     android:gravity="center"
                     android:textColor="@color/gray60"
                     style="@style/bold13"
-                    android:layout_marginTop="20dp"/>
+                    android:layout_marginTop="23dp"/>
             </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.appcompat.widget.LinearLayoutCompat>
         <View

@@ -4,7 +4,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import io.sinzak.android.R
 import io.sinzak.android.enums.HomeMore
 import io.sinzak.android.enums.Page
+import io.sinzak.android.enums.Sort
 import io.sinzak.android.model.market.HomeProductModel
+import io.sinzak.android.model.market.MarketArtModel
 import io.sinzak.android.model.market.ProductDetailModel
 import io.sinzak.android.ui.main.home.adapter.ArtLinearAdapter
 import javax.inject.Inject
@@ -12,12 +14,15 @@ import javax.inject.Inject
 @HiltViewModel
 class ArtRecentViewModel @Inject constructor(
     val model : HomeProductModel,
-    val pModel : ProductDetailModel
+    val pModel : ProductDetailModel,
+    val marketArtModel: MarketArtModel
 ) : HomeLinearViewModel() {
     override val adapter = ArtLinearAdapter(
         onNextClick = {
-            model.morePageType.value = HomeMore.RECENT
-            navigation.changePage(Page.HOME_MORE)
+              marketArtModel.setMarketSort(Sort.BY_RECENT)
+                navigation.changePage(Page.MARKET)
+//            model.morePageType.value = HomeMore.RECENT
+//            navigation.changePage(Page.HOME_MORE)
         },
         onLikeClick = pModel::postProductLike
 

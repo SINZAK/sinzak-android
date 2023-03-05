@@ -33,8 +33,6 @@ class ArtInfoFragment : BaseFragment() {
         bind.vm = viewModel
     }
 
-    fun goSpecPage(){
-        navigator.changePage(Page.NEW_POST_SPEC)
-    }
+
 
 }

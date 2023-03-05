@@ -21,7 +21,7 @@ class ArtsViewModel @Inject constructor(
 
     val isProductEmpty = MutableStateFlow(false)
 
-    val adapter = ArtProductAdapter(productModel::postProductLike) { p ->
+    val adapter = ArtProductAdapter(::requestProductLike) { p ->
         productModel.loadProduct(p.id!!)
         navigation.changePage(Page.ART_DETAIL)
     }.apply {
@@ -38,6 +38,11 @@ class ArtsViewModel @Inject constructor(
 
     fun toggleShowOnSale() {
         md.onClickShowOnSale(!stShowOnSale.value)
+    }
+
+    private fun requestProductLike(id : Int, status : Boolean){
+        if (!signModel.isUserLogin()) return
+        productModel.postProductLike(id, status)
     }
 
 
