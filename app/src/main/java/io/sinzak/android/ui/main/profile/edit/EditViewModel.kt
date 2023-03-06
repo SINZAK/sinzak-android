@@ -63,10 +63,7 @@ class EditViewModel @Inject constructor(
     init {
         invokeStateFlow(profile){ profile ->
             profile?.let {
-                it.name.let { name ->
-                    _name.value = name
-                    model.setCurrentName(name)
-                }
+                _name.value = it.name
                 _introduction.value = it.introduction
             }
         }
