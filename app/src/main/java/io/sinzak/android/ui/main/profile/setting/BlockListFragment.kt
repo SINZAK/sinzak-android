@@ -23,6 +23,7 @@ class BlockListFragment : BaseFragment() {
             lifecycleOwner = viewLifecycleOwner
             vm = viewModel
         }
+        viewModel.getReportList()
     }
 
     override fun showBottomBar(): Boolean {

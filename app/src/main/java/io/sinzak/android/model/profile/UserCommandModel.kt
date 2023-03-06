@@ -1,23 +1,29 @@
 package io.sinzak.android.model.profile
 
+import io.sinzak.android.constants.API_CANCEL_REPORT
 import io.sinzak.android.constants.API_GET_REPORT_LIST
 import io.sinzak.android.constants.API_REPORT_USER
 import io.sinzak.android.constants.CODE_USER_NAME
 import io.sinzak.android.model.BaseModel
 import io.sinzak.android.remote.dataclass.CResponse
+import io.sinzak.android.remote.dataclass.profile.UserProfile
 import io.sinzak.android.remote.dataclass.request.profile.ReportRequest
+import io.sinzak.android.remote.dataclass.response.profile.ReportListResponse
 import io.sinzak.android.remote.retrofit.CallImpl
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 import javax.inject.Singleton
 import io.sinzak.android.system.App.Companion.prefs
 import io.sinzak.android.system.LogDebug
+import kotlinx.coroutines.flow.StateFlow
 
 @Singleton
 class UserCommandModel @Inject constructor() : BaseModel(){
 
     val reportSuccessFlag = MutableStateFlow(false)
 
+    private val _reportList = MutableStateFlow(mutableListOf<UserProfile>())
+    val reportList : StateFlow<MutableList<UserProfile>> get() = _reportList
 
     /**********************************************************************************************************************
      * REQUEST
@@ -59,9 +65,21 @@ class UserCommandModel @Inject constructor() : BaseModel(){
 
     fun getReportList()
     {
+        _reportList.value = mutableListOf()
         CallImpl(
             API_GET_REPORT_LIST,
             this
+        ).apply {
+            remote.sendRequestApi(this)
+        }
+    }
+
+    fun cancelReport(userId: String){
+        val request = ReportRequest(userId = userId, reason = "")
+        CallImpl(
+            API_CANCEL_REPORT,
+            this,
+            request
         ).apply {
             remote.sendRequestApi(this)
         }
@@ -81,7 +99,10 @@ class UserCommandModel @Inject constructor() : BaseModel(){
             }
 
             API_GET_REPORT_LIST -> {
-                LogDebug(javaClass.name, body.success.toString())
+                body as ReportListResponse
+                body.data?.let {
+                    _reportList.value = it.toMutableList().asReversed()
+                }
             }
         }
     }

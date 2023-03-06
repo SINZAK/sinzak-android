@@ -14,6 +14,20 @@ class BlockListViewModel @Inject constructor(
 
     val adapter = BlockListAdapter(::onUnBlockButton)
 
+    init {
+        invokeStateFlow(model.reportList){
+            adapter.setBlockList(it)
+        }
+    }
+
+    /************************************************
+     * API 를 요청
+     ***************************************/
+    fun getReportList()
+    {
+        model.getReportList()
+    }
+
 
     /************************************************
      * 클릭 시 실행
@@ -22,8 +36,8 @@ class BlockListViewModel @Inject constructor(
     /**
      * 차단 해제를 누릅니다
      */
-    fun onUnBlockButton(userId : String){
-
+    private fun onUnBlockButton(userId : String){
+        model.cancelReport(userId)
     }
 
     /**

@@ -5,7 +5,6 @@ import io.sinzak.android.BuildConfig
 import io.sinzak.android.R
 import io.sinzak.android.constants.CODE_OAUTH_ORIGIN
 import io.sinzak.android.enums.Page
-import io.sinzak.android.model.profile.UserCommandModel
 import io.sinzak.android.ui.base.BaseViewModel
 import javax.inject.Inject
 import io.sinzak.android.system.App.Companion.prefs
@@ -13,8 +12,7 @@ import kotlinx.coroutines.*
 
 @HiltViewModel
 class SettingViewModel @Inject constructor(
-    val connect: SettingConnect,
-    val commandModel: UserCommandModel
+    val connect: SettingConnect
 ): BaseViewModel() {
 
     val socialOrigin get() = prefs.getString(CODE_OAUTH_ORIGIN,"")
@@ -30,10 +28,9 @@ class SettingViewModel @Inject constructor(
     /**
      * 차단 사용자 관리를 누릅니다
      */
-    fun onManageBlock()
+    fun changePage(page: Page)
     {
-        commandModel.getReportList()
-        navigation.changePage(Page.PROFILE_SETTING_BLOCKLIST)
+        navigation.changePage(page)
     }
 
     /**
