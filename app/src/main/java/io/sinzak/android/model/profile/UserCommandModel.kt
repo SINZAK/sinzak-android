@@ -1,5 +1,6 @@
 package io.sinzak.android.model.profile
 
+import io.sinzak.android.constants.API_GET_REPORT_LIST
 import io.sinzak.android.constants.API_REPORT_USER
 import io.sinzak.android.constants.CODE_USER_NAME
 import io.sinzak.android.model.BaseModel
@@ -10,6 +11,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 import javax.inject.Singleton
 import io.sinzak.android.system.App.Companion.prefs
+import io.sinzak.android.system.LogDebug
 
 @Singleton
 class UserCommandModel @Inject constructor() : BaseModel(){
@@ -55,6 +57,16 @@ class UserCommandModel @Inject constructor() : BaseModel(){
         }
     }
 
+    fun getReportList()
+    {
+        CallImpl(
+            API_GET_REPORT_LIST,
+            this
+        ).apply {
+            remote.sendRequestApi(this)
+        }
+    }
+
     override fun onConnectionSuccess(api: Int, body: CResponse) {
         when(api)
         {
@@ -66,6 +78,10 @@ class UserCommandModel @Inject constructor() : BaseModel(){
                     reportSuccessFlag.value = false
                     globalUi.showToast(body.message.toString())
                 }
+            }
+
+            API_GET_REPORT_LIST -> {
+                LogDebug(javaClass.name, body.success.toString())
             }
         }
     }

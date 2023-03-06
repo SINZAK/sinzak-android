@@ -1,20 +1,20 @@
 package io.sinzak.android.ui.main.profile.setting
 
-import android.os.Looper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.sinzak.android.BuildConfig
 import io.sinzak.android.R
 import io.sinzak.android.constants.CODE_OAUTH_ORIGIN
 import io.sinzak.android.enums.Page
+import io.sinzak.android.model.profile.UserCommandModel
 import io.sinzak.android.ui.base.BaseViewModel
 import javax.inject.Inject
 import io.sinzak.android.system.App.Companion.prefs
 import kotlinx.coroutines.*
-import java.util.logging.Handler
 
 @HiltViewModel
 class SettingViewModel @Inject constructor(
-    val connect: SettingConnect
+    val connect: SettingConnect,
+    val commandModel: UserCommandModel
 ): BaseViewModel() {
 
     val socialOrigin get() = prefs.getString(CODE_OAUTH_ORIGIN,"")
@@ -27,9 +27,13 @@ class SettingViewModel @Inject constructor(
      * 클릭 시 실행
      ***************************************/
 
-    fun changePage(page: Page)
+    /**
+     * 차단 사용자 관리를 누릅니다
+     */
+    fun onManageBlock()
     {
-        navigation.changePage(page)
+        commandModel.getReportList()
+        navigation.changePage(Page.PROFILE_SETTING_BLOCKLIST)
     }
 
     /**

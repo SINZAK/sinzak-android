@@ -19,10 +19,14 @@ class ArtRecentViewModel @Inject constructor(
 ) : HomeLinearViewModel() {
     override val adapter = ArtLinearAdapter(
         onNextClick = {
-              marketArtModel.setMarketSort(Sort.BY_RECENT)
+            if (!isUserLogin) {
+                marketArtModel.setMarketSort(Sort.BY_RECENT)
                 navigation.changePage(Page.MARKET)
-//            model.morePageType.value = HomeMore.RECENT
-//            navigation.changePage(Page.HOME_MORE)
+            }
+            else {
+                model.morePageType.value = HomeMore.RECENT
+                navigation.changePage(Page.HOME_MORE)
+            }
         },
         onLikeClick = pModel::postProductLike
 

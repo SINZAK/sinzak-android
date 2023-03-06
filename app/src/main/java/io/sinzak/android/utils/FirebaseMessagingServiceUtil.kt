@@ -9,7 +9,6 @@ import android.media.RingtoneManager
 import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-import com.google.firebase.messaging.ktx.remoteMessage
 import io.sinzak.android.R
 import io.sinzak.android.system.LogDebug
 import io.sinzak.android.ui.main.MainActivity
@@ -32,6 +31,9 @@ class FirebaseMessagingServiceUtil : FirebaseMessagingService() {
         val id = 0
         val title = remoteMessage.notification!!.title
         val body = remoteMessage.notification!!.body
+        val noti = remoteMessage.data.getValue("route")
+
+        LogDebug(javaClass.name, noti.toString())
 
         val intent = Intent(this, MainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)

@@ -7,7 +7,7 @@ import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import io.sinzak.android.R
 import io.sinzak.android.databinding.*
-import io.sinzak.android.enums.Page
+import io.sinzak.android.databinding.ViewHomeBannerBinding
 import io.sinzak.android.system.LogDebug
 import io.sinzak.android.ui.base.BaseFragment
 import io.sinzak.android.ui.main.home.viewmodel.*
@@ -26,6 +26,7 @@ class HomeFragment : BaseFragment() {
     private val artRecentViewModel by activityViewModels<ArtRecentViewModel>()
     private val artistViewModel : ArtistViewModel by activityViewModels()
     private val categoryViewModel : ArtCategoryViewModel by activityViewModels()
+    private val hotViewModel : ArtHotViewModel by activityViewModels()
 
     override fun getFragmentRoot(): View {
         bind = FragmentHomeBinding.inflate(layoutInflater)
@@ -57,7 +58,7 @@ class HomeFragment : BaseFragment() {
             }
             else{
                 inflateRecentView()
-                inflateArtReferView()
+                inflateHotView()
                 inflateArtOnmarketView()
                 inflateCategory()
             }
@@ -117,6 +118,15 @@ class HomeFragment : BaseFragment() {
         }
     }
 
+    private fun inflateHotView(){
+        DataBindingUtil.inflate<ViewHomeLinearBinding>(layoutInflater, R.layout.view_home_linear, null,true).apply {
+            lifecycleOwner = viewLifecycleOwner
+            vm = hotViewModel
+            fg = this@HomeFragment
+            bind.llMain.addView(root)
+        }
+    }
+
     private fun inflateCategory(){
         DataBindingUtil.inflate<ViewHomeLinearBinding>(layoutInflater, R.layout.view_home_linear, null, true).apply{
             lifecycleOwner = viewLifecycleOwner
@@ -125,6 +135,7 @@ class HomeFragment : BaseFragment() {
             bind.llMain.addView(root)
         }
     }
+
 
     override fun showBottomBar(): Boolean {
         return true
