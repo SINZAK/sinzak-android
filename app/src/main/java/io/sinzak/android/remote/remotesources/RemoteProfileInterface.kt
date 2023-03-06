@@ -16,6 +16,7 @@ import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface RemoteProfileInterface {
     @GET("api/users/{userId}/profile")
@@ -69,4 +70,7 @@ interface RemoteProfileInterface {
 
     @POST("api/users/report/cancel")
     fun cancelReportUser(@HeaderMap header: HashMap<String, String>,@Body body: ReportRequest) : Call<CResponse>
+
+    @POST("api/users/fcm")
+    fun saveUserFcmToken(@HeaderMap header: HashMap<String, String>, @Query("fcmToken") token : String, @Query("userId") id : String) : Call<CResponse>
 }

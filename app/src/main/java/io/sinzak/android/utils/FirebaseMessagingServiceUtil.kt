@@ -31,9 +31,8 @@ class FirebaseMessagingServiceUtil : FirebaseMessagingService() {
         val id = 0
         val title = remoteMessage.notification!!.title
         val body = remoteMessage.notification!!.body
-        val noti = remoteMessage.data.getValue("route")
+        val route = remoteMessage.data.getValue("route")
 
-        LogDebug(javaClass.name, noti.toString())
 
         val intent = Intent(this, MainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)

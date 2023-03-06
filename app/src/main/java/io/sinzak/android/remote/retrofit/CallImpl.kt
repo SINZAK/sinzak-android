@@ -63,6 +63,8 @@ class CallImpl(
 
             API_CHECK_NAME -> remoteApi.checkName(header, JsonObject().apply { addProperty("nickName",paramStr0) })
 
+            API_POST_FCM_TOKEN -> remoteApi.saveUserFcmToken(header, paramStr0!!, paramStr1!!)
+
             API_USER_RESIGN -> remoteApi.resignUser(header)
 
             API_LOGIN_EMAIL -> remoteApi.loginEmail(header,requestBody as LoginEmailBody)

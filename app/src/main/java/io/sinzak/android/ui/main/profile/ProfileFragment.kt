@@ -40,6 +40,7 @@ open class ProfileFragment : BaseFragment() {
 
     override fun onFragmentCreated() {
         viewModel.getMyProfileRemote()
+        viewModel.postFcmToken()
         inflateChild()
     }
 
