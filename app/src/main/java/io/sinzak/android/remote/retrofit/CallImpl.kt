@@ -85,7 +85,9 @@ class CallImpl(
 
             API_REPORT_USER -> remoteApi.reportUser(header, requestBody as ReportRequest)
 
+            API_GET_REPORT_LIST -> remoteApi.getReportList(header)
 
+            API_CANCEL_REPORT -> remoteApi.cancelReportUser(header, requestBody as ReportRequest)
 
 
 

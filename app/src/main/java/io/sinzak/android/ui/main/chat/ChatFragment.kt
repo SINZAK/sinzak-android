@@ -28,6 +28,11 @@ class ChatFragment : BaseFragment() {
             viewmodel = viewModel
 
         }
+
+        /**
+         * [안승우] 테스트를 위한 코드
+         */
+        viewModel.getRemoteChatRoomList()
     }
 
     override fun showBottomBar(): Boolean {

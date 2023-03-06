@@ -62,4 +62,10 @@ interface RemoteProfileInterface {
 
     @POST("api/users/resign")
     fun resignUser(@HeaderMap header: HashMap<String, String>) : Call<CResponse>
+
+    @POST("api/users/reportlist")
+    fun getReportList(@HeaderMap header: HashMap<String, String>) : Call<CResponse>
+
+    @POST("api/users/report/cancel")
+    fun cancelReportUser(@HeaderMap header: HashMap<String, String>,@Body body: ReportRequest) : Call<CResponse>
 }
