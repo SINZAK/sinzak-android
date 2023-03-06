@@ -14,17 +14,18 @@
         android:layout_height="241dp"
         android:layout_marginBottom="20dp">
 
-        <androidx.cardview.widget.CardView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:elevation="0dp"
+            android:layout_height="165dp"
             android:layout_marginHorizontal="16dp"
-            app:cardCornerRadius="12dp"
-            android:layout_height="165dp">
+            android:background="@drawable/cl_sale_work_holder_item">
+
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                remoteImgUrl="@{product.thumbnail}"/>
-        </androidx.cardview.widget.CardView>
+                remoteImgUrl="@{product.thumbnail}"
+                cornerRadius="@{12f}"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:paddingHorizontal="16dp"

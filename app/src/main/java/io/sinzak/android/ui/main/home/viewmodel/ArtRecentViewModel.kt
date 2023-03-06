@@ -2,7 +2,6 @@ package io.sinzak.android.ui.main.home.viewmodel
 
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.sinzak.android.R
-import io.sinzak.android.enums.HomeMore
 import io.sinzak.android.enums.Page
 import io.sinzak.android.enums.Sort
 import io.sinzak.android.model.market.HomeProductModel
@@ -19,20 +18,16 @@ class ArtRecentViewModel @Inject constructor(
 ) : HomeLinearViewModel() {
     override val adapter = ArtLinearAdapter(
         onNextClick = {
-            if (!isUserLogin) {
-                marketArtModel.setMarketSort(Sort.BY_RECENT)
-                navigation.changePage(Page.MARKET)
-            }
-            else {
-                model.morePageType.value = HomeMore.RECENT
-                navigation.changePage(Page.HOME_MORE)
-            }
+            marketArtModel.setMarketSort(Sort.BY_RECENT)
+            navigation.changePage(Page.MARKET)
         },
         onLikeClick = pModel::postProductLike
 
     ){
-        navigation.changePage(Page.ART_DETAIL)
-        pModel.loadProduct(it.id!!)
+        if (isUserLogin) {
+            navigation.changePage(Page.ART_DETAIL)
+            pModel.loadProduct(it.id!!)
+        }
     }
 
     override val hMargin: Float
