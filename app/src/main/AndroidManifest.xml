@@ -54,6 +54,13 @@
                     android:scheme="@string/kakao_native_key" />
             </intent-filter>
         </activity>
+
+        <service android:name=".utils.FirebaseMessagingServiceUtil"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

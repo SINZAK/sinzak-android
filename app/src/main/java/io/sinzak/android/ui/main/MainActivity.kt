@@ -5,6 +5,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
 import io.sinzak.android.R
 import io.sinzak.android.databinding.ActivityMainBinding
@@ -15,6 +17,7 @@ import io.sinzak.android.model.context.SignModel
 import io.sinzak.android.model.market.HomeProductModel
 import io.sinzak.android.model.navigate.Navigation
 import io.sinzak.android.system.LogDebug
+import io.sinzak.android.system.LogError
 import io.sinzak.android.ui.base.BaseActivity
 import io.sinzak.android.ui.base.BaseFragment
 import io.sinzak.android.ui.main.chat.ChatConnect
@@ -93,7 +96,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         attachInsetsCallback()
 
 
-
+        getFCMToken()
         signModel.checkToken()
     }
 
@@ -261,6 +264,24 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             else ->
                 ReportSendFragment()
         }
+    }
+
+    private fun getFCMToken(): String?{
+        var token: String? = null
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                LogError(javaClass.name, "Fetching FCM registration token failed")
+                return@OnCompleteListener
+            }
+
+            // Get new FCM registration token
+            token = task.result
+
+            // Log and toast
+            LogDebug(javaClass.name,"FCM Token is ${token}")
+        })
+
+        return token
     }
 
 
