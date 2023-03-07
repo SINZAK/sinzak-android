@@ -11,9 +11,11 @@ import io.sinzak.android.remote.dataclass.chat.*
 import io.sinzak.android.remote.dataclass.response.market.MarketDetailResponse
 import io.sinzak.android.remote.retrofit.CallImpl
 import io.sinzak.android.system.App.Companion.prefs
+import io.sinzak.android.system.LogDebug
 import io.sinzak.android.system.LogInfo
 import io.sinzak.android.utils.ChatUtil
 import io.sinzak.android.utils.FileUtil
+import io.sinzak.android.utils.TimeUtil
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -38,6 +40,8 @@ class ChatStorage @Inject constructor(@ApplicationContext val context: Context) 
     private var currentChatroomUUID = ""
 
     private var job: Job? = null
+
+    val chatProductExistFlag = MutableStateFlow(false)
 
 
     fun forceClearJob(){
@@ -66,6 +70,7 @@ class ChatStorage @Inject constructor(@ApplicationContext val context: Context) 
 
 
     fun getChatRoomList(){
+        _chatRooms.value = mutableListOf()
         CallImpl(API_GET_CHATROOM_LIST,this).apply{
             remote.sendRequestApi(this)
         }
@@ -127,6 +132,7 @@ class ChatStorage @Inject constructor(@ApplicationContext val context: Context) 
 
     fun loadChatRoomDetailInfo(chatroom: ChatRoom){
 
+        _chatRoomInfo.value = null
         remote.sendRequestApi(
             CallImpl(
                 API_GET_CHATROOM_DETAIL,
@@ -192,7 +198,8 @@ class ChatStorage @Inject constructor(@ApplicationContext val context: Context) 
                 ChatMsg(
                     msgId = msg.hashCode(),
                     msg = msg,
-                    isMyChat = true
+                    isMyChat = true,
+                    sendTime = TimeUtil.getCurrentDateTimeString()
                 )
             )
         }?:run{
@@ -264,12 +271,13 @@ class ChatStorage @Inject constructor(@ApplicationContext val context: Context) 
                     _chatMsg.value = it.onEach{msg->
                         msg.isMyChat = msg.senderId == ChatUtil.senderId
 
-                    }.toMutableList()
+                    }.toMutableList().asReversed()
                 }
             }
 
             API_GET_CHATROOM_DETAIL ->{
                 body as ChatRoomResponse
+                chatProductExistFlag.value = body.success!!
                 body.data?.let { chatroom->
                     _chatRoomInfo.value = chatroom
                 }
@@ -283,6 +291,7 @@ class ChatStorage @Inject constructor(@ApplicationContext val context: Context) 
                         url,
                         type = ChatUtil.TYPE_IMAGE
                     )
+                    LogDebug(javaClass.name , "사진 전송 성공")
 
                 }
             }

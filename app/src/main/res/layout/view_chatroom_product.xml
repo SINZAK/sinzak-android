@@ -2,7 +2,6 @@
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
             name="chatRoom"
             type="io.sinzak.android.remote.dataclass.chat.ChatRoomResponse.Data" />
@@ -12,65 +11,81 @@
             type="io.sinzak.android.ui.main.chat.viewmodel.ChatroomViewModel" />
     </data>
 
-    <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.appcompat.widget.LinearLayoutCompat
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="68dp"
-        android:gravity="center">
+        android:layout_height="wrap_content"
+        android:paddingVertical="7dp"
+        android:paddingStart="23dp"
+        android:paddingEnd="37dp">
 
 
         <ImageView
             android:id="@+id/iv_image"
-            imgRadius="@{8}"
+            cornerRadius="@{13f}"
             remoteImgUrl="@{chatRoom.thumbnail}"
             android:layout_width="52dp"
-            android:layout_height="52dp"
-            android:layout_marginVertical="7dp"
-            android:layout_marginStart="24dp" />
+            android:layout_height="52dp"/>
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+            android:layout_marginStart="10.54dp">
 
-            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/str_product_not_exist"
+                style="@style/regular13"
+                android:gravity="center_vertical"
+                android:visibility="@{viewmodel.isProductExist ? 8 : 0}"/>
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="8dp"
-                android:layout_weight="1"
-                android:gravity="center">
+                android:layout_height="wrap_content"
+                android:visibility="@{viewmodel.isProductExist ? 0 : 8}">
 
                 <TextView
                     style="@style/bold13"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:onClick="@{v->viewmodel.openSaleDialog()}"
-                    android:text='@{chatRoom.complete ? "거래중" : "거래완료"}'
-                    app:drawableRightCompat="@drawable/ic_arrow_down" />
+                    android:text='@{chatRoom.complete ? "거래중" : "거래완료"}'/>
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/ic_arrow_down"
+                    android:visibility="@{viewmodel.myId == chatRoom.userId ? 0 : 8}"/>
 
                 <TextView
+                    style="@style/regular13"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:lines="1"
-                    android:text="@{chatRoom.productName}" />
+                    android:text="@{chatRoom.productName}"
+                    android:layout_marginStart="5dp"/>
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center">
-
+                android:layout_height="wrap_content">
                 <TextView
                     style="@style/regular13"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
-                    />
-
+                    android:text="@{chatRoom.formattedPrice}"
+                    android:layout_marginEnd="3.5dp"/>
+                <TextView
+                    style="@style/regular13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{chatRoom.suggest ? @string/str_chat_suggest : @string/str_chat_no_suggest}"
+                    android:textColor="@{chatRoom.suggest ? @color/secondary : @color/text1}"
+                    android:layout_marginEnd="3.5dp"/>
 
             </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.appcompat.widget.LinearLayoutCompat>

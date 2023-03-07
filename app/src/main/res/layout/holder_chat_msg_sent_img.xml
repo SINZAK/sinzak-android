@@ -16,21 +16,25 @@
         android:layout_height="wrap_content">
         <Space
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_height="1dp"/>
+            />
+        <TextView
+            style="@style/regular10"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:paddingBottom="4dp"
+            android:textColor="@color/text5"
+            android:text="@{msg.formattedTime}"
+            tools:text="오후 03:03"/>
         <ImageView
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="120dp"
-            android:layout_width="160dp"
-            android:layout_height="160dp"
+            android:layout_marginEnd="14dp"
+            android:layout_marginStart="4dp"
+            android:layout_width="174dp"
+            android:layout_height="174dp"
             remoteImgUrl="@{msg.msg}"
-            imgRadius="@{12f}"
-            android:background="@drawable/btn_primary_filled_enable"
-            style="@style/regular16"
-            android:textColor="@color/background0"
-            android:paddingVertical="12dp"
-            android:paddingHorizontal="18dp"
-        />
+            imgRadius="@{12f}"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

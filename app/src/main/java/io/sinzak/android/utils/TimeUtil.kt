@@ -1,6 +1,9 @@
 package io.sinzak.android.utils
 
 import java.lang.Exception
+import java.time.LocalDateTime
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 
 object TimeUtil {
 
@@ -56,6 +59,19 @@ object TimeUtil {
 
         }
         return "방금 전"
+    }
+
+    fun dateTimeToString(dateTimeString: String): String {
+        val dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")
+        val localTime = LocalTime.parse(dateTimeString, dateTimeFormatter)
+
+        return localTime.format(DateTimeFormatter.ofPattern("a h:mm"))
+    }
+
+    fun getCurrentDateTimeString(): String {
+        val currentDateTime = LocalDateTime.now()
+        val dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")
+        return currentDateTime.format(dateTimeFormatter)
     }
 
 }

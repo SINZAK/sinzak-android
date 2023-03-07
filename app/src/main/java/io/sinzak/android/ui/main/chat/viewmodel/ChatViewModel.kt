@@ -21,8 +21,6 @@ class ChatViewModel @Inject constructor(
         openChatRoom(it)
     }
 
-
-
     fun openChatRoom(chat:ChatRoom){
         storage.loadExistChatroom(chat)
         navigation.changePage(Page.CHAT_ROOM)
@@ -42,9 +40,6 @@ class ChatViewModel @Inject constructor(
         chatRoomCollector.cancel()
     }
 
-    /**
-     * [안승우] 테스트를 위한 코드
-     */
     fun getRemoteChatRoomList()
     {
         storage.getChatRoomList()

@@ -24,10 +24,8 @@ class ArtRecentViewModel @Inject constructor(
         onLikeClick = pModel::postProductLike
 
     ){
-        if (isUserLogin) {
-            navigation.changePage(Page.ART_DETAIL)
-            pModel.loadProduct(it.id!!)
-        }
+        navigation.changePage(Page.ART_DETAIL)
+        pModel.loadProduct(it.id!!)
     }
 
     override val hMargin: Float

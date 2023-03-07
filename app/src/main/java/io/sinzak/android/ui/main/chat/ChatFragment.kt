@@ -29,9 +29,6 @@ class ChatFragment : BaseFragment() {
 
         }
 
-        /**
-         * [안승우] 테스트를 위한 코드
-         */
         viewModel.getRemoteChatRoomList()
     }
 

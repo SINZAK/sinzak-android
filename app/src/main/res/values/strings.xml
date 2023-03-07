@@ -255,6 +255,12 @@
     <string name="str_product_onsale_done">거래 완료</string>
     <string name="str_porduct_onsale_on">거래중</string>
 
+    <string name="str_chat_hint">메세지 보내기</string>
+    <string name="str_chat_unabled_hint">메세지를 보낼 수 없어요</string>
+    <string name="str_chat_suggest">가격제안하기</string>
+    <string name="str_chat_no_suggest">가격제안불가</string>
+    <string name="str_product_not_exist">삭제된 게시물입니다.</string>
+
     <!-- 토스트 메세지용 -->
     <string name="str_need_login">로그인이 필요해요</string>
     <string name="str_send_suggest">가격 제안을 전송했어요</string>

@@ -17,16 +17,26 @@
         <Space
             android:layout_width="match_parent"
             android:layout_weight="1"
-            android:layout_height="1dp"/>
+            android:layout_height="wrap_content"/>
         <TextView
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="120dp"
+            style="@style/regular10"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:paddingBottom="4dp"
+            android:textColor="@color/text5"
+            android:text="@{msg.formattedTime}"
+            tools:text="오후 03:03"/>
+        <TextView
+            android:layout_marginEnd="14dp"
+            android:layout_marginStart="4dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:maxWidth="250dp"
             android:background="@drawable/btn_primary_filled_enable"
             style="@style/regular16"
-            android:textColor="@color/background0"
-            android:paddingVertical="12dp"
+            android:textColor="@color/on_primary"
+            android:paddingVertical="13dp"
             android:text="@{msg.msg}"
             android:paddingHorizontal="18dp"
             tools:text="어쩌구저쩌구 맛있나"/>
