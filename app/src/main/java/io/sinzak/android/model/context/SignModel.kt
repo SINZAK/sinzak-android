@@ -175,6 +175,19 @@ class SignModel @Inject constructor(
         }
     }
 
+    val nameCheckSuccessFlag = MutableStateFlow(false)
+
+    fun checkName(name : String)
+    {
+        CallImpl(
+            API_CHECK_NAME,
+            this,
+            paramStr0 = name
+        ).apply {
+            remote.sendRequestApi(this)
+        }
+    }
+
 
 
     private lateinit var naverCallback : NaverImpl
@@ -610,6 +623,10 @@ class SignModel @Inject constructor(
                     loginToServer()
                 }
 
+            }
+
+            API_CHECK_NAME -> {
+                nameCheckSuccessFlag.value = body.success!!
             }
 
             API_JOIN_ACCOUNT ->{

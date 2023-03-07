@@ -1,13 +1,9 @@
 package io.sinzak.android.ui.login.name
 
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.sinzak.android.enums.RegisterPage
-import io.sinzak.android.model.context.SignModel
-import io.sinzak.android.model.navigate.RegisterNavigation
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.ui.login.RegisterConnect
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
 @HiltViewModel
@@ -18,29 +14,54 @@ class NameViewModel @Inject constructor(
 
 
     var typedName = ""
-    private val _nameConfirmed = MutableStateFlow(false)
-    val nameConfirmed: StateFlow<Boolean> get() = _nameConfirmed
+    var nameCheckMsg = ""
 
+    val nameCheckStatus = MutableStateFlow(INIT)
 
     fun typeName(text: CharSequence) {
-        _nameConfirmed.value = checkName(text)
         typedName = text.toString()
     }
 
-    private fun checkName(text: CharSequence): Boolean {
-        if (text.contains(' '))
-            return false
+    private fun isNameValidate(): Boolean {
 
-        if (text.length > 12)
+        if(typedName.length < 2){
+            nameCheckMsg = "닉네임은 두 글자 이상 설정해주세요"
             return false
+        }
 
-        text.forEach {
-            if (it.code !in 0xAC00..0xD7AF && it.code !in 0x41..0x5A && it.code !in 0x61..0x7A && it !in "._-" && it !in "0123456789")
+        if (typedName.contains(' ')){
+            nameCheckMsg = "닉네임은 공백없이 설정해주세요"
+            return false
+        }
+
+        typedName.forEach {
+            if (it.code !in 0xAC00..0xD7AF && it.code !in 0x41..0x5A && it.code !in 0x61..0x7A && it !in "._-" && it !in "0123456789"){
+                nameCheckMsg = "닉네임 기호는 - _ . 만 사용 가능합니다"
                 return false
-
+            }
         }
 
         return true
+
+    }
+
+    fun onNameCheck(){
+        if (!isNameValidate()) {
+            uiModel.showToast(nameCheckMsg)
+            return
+        }
+
+        signModel.checkName(typedName)
+
+        invokeBooleanFlow(
+            signModel.nameCheckSuccessFlag,
+            {
+                nameCheckStatus.value = ERROR
+            },
+            {
+                nameCheckStatus.value = CHECK
+            }
+        )
 
     }
 
@@ -53,5 +74,11 @@ class NameViewModel @Inject constructor(
 
     fun onBackPressed(){
         connect.navigation.revealHistory()
+    }
+
+    companion object {
+        const val INIT = 0
+        const val CHECK = 1
+        const val ERROR = 2
     }
 }

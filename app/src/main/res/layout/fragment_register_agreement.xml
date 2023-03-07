@@ -177,7 +177,7 @@
                     app:drawableStartCompat="@drawable/ic_check_32" />
 
                 <ImageView
-                    android:onClick="@{v->void}"
+                    android:onClick="@{v->vm.onConnectLink(ProfileConstKt.LINK_MARKETING_ACCEPT_URL)}"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_marginHorizontal="16dp"

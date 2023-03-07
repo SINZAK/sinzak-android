@@ -183,7 +183,7 @@
     <string name="str_centimeter">cm</string>
     <string name="str_meter">m</string>
     <string name="str_register_name_title">신작에서 사용할\n이름을 입력해주세요.</string>
-    <string name="str_register_name_description">이름은 공백없이 12자 이하,\n기호는 - _ . 만 사용 가능합니다.</string>
+    <string name="str_register_name_description">이름은 공백없이 2자 이상 12자 이하,\n기호는 - _ . 만 사용 가능합니다.</string>
     <string name="str_register_agree_service">서비스 이용 동의</string>
     <string name="str_register_agree_all">약관 전체 동의</string>
     <string name="str_register_agree_age">만 14세 이상입니다.</string>
@@ -195,6 +195,10 @@
     <string name="str_write_art_description">작품 설명</string>
     <string name="str_register_undergrad">재학생 인증</string>
     <string name="str_register_graduated">졸업생 인증</string>
+
+    <string name="str_name_check">중복확인</string>
+    <string name="str_name_pass">멋진 이름이네요!</string>
+    <string name="str_name_cant">사용불가능한 이름입니다</string>
 
 
     <string name="str_report">사용자 신고</string>
