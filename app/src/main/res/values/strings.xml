@@ -132,6 +132,9 @@
     <string name="str_next_time">다음에 하기</string>
     <string name="str_check">확인</string>
 
+    <string name="str_ask_update_app">새 버전으로 업데이트가 필요해요.\n바로 업데이트 할까요?</string>
+    <string name="str_go_store">스토어로 이동하기</string>
+
     <string name="str_login_subtitle">신세대의 작품을 만나다</string>
     <string name="str_login_naver">네이버로 시작하기</string>
     <string name="str_login_kakao">카카오로 시작하기</string>

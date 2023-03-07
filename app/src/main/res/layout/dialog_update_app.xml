@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="goToStore"
+            type="android.view.View.OnClickListener" />
+        <variable
+            name="dismiss"
+            type="android.view.View.OnClickListener" />
+    </data>
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:theme="@style/DialogStyle">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:background="@drawable/btn_white_filled"
+            android:paddingHorizontal="11.8dp"
+            android:paddingVertical="9.6dp"
+            android:layout_marginHorizontal="16.5dp"
+            android:layout_marginBottom="320dp">
+
+            <TextView
+                style="@style/medium16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/str_ask_update_app"
+                android:textAlignment="center"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="33.7dp"/>
+
+           <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/gray60"
+                app:layout_constraintBottom_toTopOf="@+id/linearLayoutCompat4"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/linearLayoutCompat4"
+                android:layout_width="match_parent"
+                android:layout_height="47dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="@string/str_next_time"
+                    style="@style/medium16"
+                    android:gravity="center"
+                    android:onClick="@{dismiss}"/>
+                <View
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/gray60"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="@string/str_go_store"
+                    style="@style/medium16"
+                    android:textColor="@color/secondary"
+                    android:gravity="center"
+                    android:onClick="@{goToStore}"/>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>
