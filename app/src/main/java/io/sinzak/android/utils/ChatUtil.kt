@@ -53,8 +53,18 @@ class ChatUtil(
 
     fun destroyChatroom(){
 
-        val jsonObject = JsonObject().apply{
+        /**
+         * [안승우] 테스트를 위한 코드
+         */
+/*        val jsonObject = JsonObject().apply{
             addProperty(ROOM_ID, roomId)
+        }*/
+        val jsonObject = JsonObject().apply{
+            addProperty(MESSAGE, "")
+            addProperty(ROOM_ID, roomId)
+            addProperty(SENDER_ID, senderId)
+            addProperty(SENDER_NAME, prefs.getString(CODE_USER_NAME,""))
+            addProperty(MESSAGE_TYPE, TYPE_LEAVE)
         }
 
         LogInfo(javaClass.name,"STOMP : SEND CHAT $jsonObject")
@@ -100,6 +110,7 @@ class ChatUtil(
         const val MESSAGE_ID = "messageId"
         const val SEND_AT = "sendAt"
         const val TYPE_IMAGE = "IMAGE"
+        const val TYPE_LEAVE = "LEAVE"
         val senderId: String get() = prefs.getString(CODE_USER_ID,"").toString()
     }
 

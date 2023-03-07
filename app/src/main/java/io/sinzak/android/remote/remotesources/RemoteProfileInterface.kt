@@ -4,6 +4,7 @@ import io.sinzak.android.remote.dataclass.CResponse
 import io.sinzak.android.remote.dataclass.request.profile.*
 import io.sinzak.android.remote.dataclass.response.history.HistoryResponse
 import io.sinzak.android.remote.dataclass.response.profile.FollowResponse
+import io.sinzak.android.remote.dataclass.response.profile.ReportListResponse
 import io.sinzak.android.remote.dataclass.response.profile.UserProfileResponse
 import io.sinzak.android.remote.dataclass.response.profile.WishResponse
 import okhttp3.MultipartBody
@@ -15,6 +16,7 @@ import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface RemoteProfileInterface {
     @GET("api/users/{userId}/profile")
@@ -62,4 +64,13 @@ interface RemoteProfileInterface {
 
     @POST("api/users/resign")
     fun resignUser(@HeaderMap header: HashMap<String, String>) : Call<CResponse>
+
+    @POST("api/users/reportlist")
+    fun getReportList(@HeaderMap header: HashMap<String, String>) : Call<ReportListResponse>
+
+    @POST("api/users/report/cancel")
+    fun cancelReportUser(@HeaderMap header: HashMap<String, String>,@Body body: ReportRequest) : Call<CResponse>
+
+    @POST("api/users/fcm")
+    fun saveUserFcmToken(@HeaderMap header: HashMap<String, String>, @Query("fcmToken") token : String, @Query("userId") id : String) : Call<CResponse>
 }

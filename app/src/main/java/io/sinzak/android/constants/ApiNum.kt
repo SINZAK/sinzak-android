@@ -17,6 +17,7 @@ const val API_REFRESH_TOKEN = 1
 
 const val API_LOGIN_EMAIL = 100
 const val API_CHECK_NAME = 101
+const val API_POST_FCM_TOKEN = 102
 
 const val API_JOIN_ACCOUNT = 110
 const val API_POST_OAUTH_TOKEN = 111
@@ -31,6 +32,8 @@ const val API_GET_USER_PROFILE = 160
 const val API_FOLLOW_USER = 161
 const val API_UNFOLLOW_USER = 162
 const val API_REPORT_USER =163
+const val API_GET_REPORT_LIST = 164
+const val API_CANCEL_REPORT = 165
 
 const val API_GET_FOLLOWER_LIST = 170
 const val API_GET_FOLLOWING_LIST = 171

@@ -3,6 +3,8 @@ package io.sinzak.android.ui.main.profile.viewmodel
 import android.os.Bundle
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.sinzak.android.R
+import io.sinzak.android.constants.CODE_FCM_TOKEN
+import io.sinzak.android.constants.CODE_USER_ID
 import io.sinzak.android.constants.CODE_USER_REPORT_ID
 import io.sinzak.android.constants.CODE_USER_REPORT_NAME
 import io.sinzak.android.enums.Page
@@ -13,6 +15,7 @@ import io.sinzak.android.ui.main.profile.ProfileConnect
 import io.sinzak.android.ui.main.profile.report.ReportSendViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
+import io.sinzak.android.system.App.Companion.prefs
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
@@ -81,11 +84,19 @@ class ProfileViewModel @Inject constructor(
                 follower.value = it.followerNumber
                 following.value = it.followingNumber
                 isFollow.value = it.isFollow
-
             }
         }
 
+    }
 
+    fun postFcmToken()
+    {
+        useFlag(model.isFirstLogin){
+            signModel.postFcmToken(
+                fcmToken = prefs.getString(CODE_FCM_TOKEN,"").toString(),
+                userId = prefs.getString(CODE_USER_ID,"").toString()
+            )
+        }
     }
 
     /********************************

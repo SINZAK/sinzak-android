@@ -45,7 +45,7 @@
         <ImageView
             android:id="@+id/imageView8"
             cornerRadius="@{12f}"
-            remoteImgUrl="@{vm.productsList[1].thumbnail}"
+            remoteImgUrl="@{vm.worksList[1].thumbnail}"
             android:layout_width="165dp"
             android:layout_height="165dp"
             android:layout_marginStart="12.5dp"

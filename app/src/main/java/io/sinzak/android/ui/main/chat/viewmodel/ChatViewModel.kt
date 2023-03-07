@@ -42,5 +42,13 @@ class ChatViewModel @Inject constructor(
         chatRoomCollector.cancel()
     }
 
+    /**
+     * [안승우] 테스트를 위한 코드
+     */
+    fun getRemoteChatRoomList()
+    {
+        storage.getChatRoomList()
+    }
+
 
 }

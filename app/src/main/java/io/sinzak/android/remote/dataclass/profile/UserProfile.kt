@@ -13,5 +13,11 @@ data class UserProfile(
     @SerializedName("imageUrl") val imageUrl : String? = "",
     @SerializedName("univ") val univ : String = "",
     @SerializedName("follow") val isFollow : Boolean = false,
-    @SerializedName("categoryLike") val categoryLike : String? = null
+    @SerializedName("categoryLike") val categoryLike : String? = null,
+
+    /**
+     * 차단 리스트 용
+     */
+    @SerializedName("nickName") val nickName : String? = null,
+    @SerializedName("picture") val picture : String? = null
 )

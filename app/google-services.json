@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "782966145872",
+    "project_id": "sinzak-372703",
+    "storage_bucket": "sinzak-372703.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:782966145872:android:a8f01f0adc9cefe89ca255",
+        "android_client_info": {
+          "package_name": "io.sinzak.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "782966145872-6l88t9lr5fac2s01vvg9ojnn3oehu2bv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlqtVa3kpVjN_kuOi0c_cYIMh4G5yfHo4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "782966145872-6l88t9lr5fac2s01vvg9ojnn3oehu2bv.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "782966145872-p7tg17spb6nec5dikuu5vrfqc8mnqftb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.kimdee.Sinzak",
+                "app_store_id": "1663670053"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

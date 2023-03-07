@@ -1,6 +1,5 @@
 package io.sinzak.android.ui.main.profile.setting
 
-import android.os.Looper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.sinzak.android.BuildConfig
 import io.sinzak.android.R
@@ -10,7 +9,6 @@ import io.sinzak.android.ui.base.BaseViewModel
 import javax.inject.Inject
 import io.sinzak.android.system.App.Companion.prefs
 import kotlinx.coroutines.*
-import java.util.logging.Handler
 
 @HiltViewModel
 class SettingViewModel @Inject constructor(
@@ -27,6 +25,9 @@ class SettingViewModel @Inject constructor(
      * 클릭 시 실행
      ***************************************/
 
+    /**
+     * 차단 사용자 관리를 누릅니다
+     */
     fun changePage(page: Page)
     {
         navigation.changePage(page)

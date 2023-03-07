@@ -36,6 +36,7 @@ import javax.inject.Singleton
 class SignModel @Inject constructor(
     val valueModel: GlobalValueModel
 ) : BaseModel() {
+
     @Inject lateinit var profile : ProfileModel
 
 
@@ -485,6 +486,7 @@ class SignModel @Inject constructor(
 
 
     fun logout(){
+        postFcmToken("", prefs.getString(CODE_USER_ID, "").toString())
         prefs.accessToken = ""
         prefs.refreshToken = ""
         setIsLogin(false)
@@ -510,6 +512,17 @@ class SignModel @Inject constructor(
                 email = email
             )
         ).apply{
+            remote.sendRequestApi(this)
+        }
+    }
+
+    fun postFcmToken(fcmToken : String, userId : String) {
+        CallImpl(
+            API_POST_FCM_TOKEN,
+            this,
+            paramStr0 = fcmToken,
+            paramStr1 = userId
+        ).apply {
             remote.sendRequestApi(this)
         }
     }
@@ -628,6 +641,7 @@ class SignModel @Inject constructor(
                     setIsLogin(true)
                     _sdkSignSuccess.value = false
                     profile.getProfile()
+                    profile.isFirstLogin.value = true
                 }else{
                     checkEmail(loginEmail)
                 }
@@ -670,6 +684,10 @@ class SignModel @Inject constructor(
                     resignSuccessFlag.value = true
                     logout()
                 }
+            }
+
+            API_POST_FCM_TOKEN -> {
+                LogDebug(javaClass.name, body.success.toString())
             }
 
         }

@@ -63,6 +63,8 @@ class CallImpl(
 
             API_CHECK_NAME -> remoteApi.checkName(header, JsonObject().apply { addProperty("nickName",paramStr0) })
 
+            API_POST_FCM_TOKEN -> remoteApi.saveUserFcmToken(header, paramStr0!!, paramStr1!!)
+
             API_USER_RESIGN -> remoteApi.resignUser(header)
 
             API_LOGIN_EMAIL -> remoteApi.loginEmail(header,requestBody as LoginEmailBody)
@@ -85,7 +87,9 @@ class CallImpl(
 
             API_REPORT_USER -> remoteApi.reportUser(header, requestBody as ReportRequest)
 
+            API_GET_REPORT_LIST -> remoteApi.getReportList(header)
 
+            API_CANCEL_REPORT -> remoteApi.cancelReportUser(header, requestBody as ReportRequest)
 
 
 

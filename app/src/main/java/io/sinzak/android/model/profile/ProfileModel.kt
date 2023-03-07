@@ -26,6 +26,11 @@ class ProfileModel @Inject constructor() : BaseModel() {
     val profile = MutableStateFlow<UserProfile?>(null)
 
     /**
+     * 최초 로그인 확인
+     */
+    val isFirstLogin = MutableStateFlow(false)
+
+    /**
      * 내 아이디를 저장하는 공간
      */
     private val myUserId = MutableStateFlow(INIT_MY_ID)
@@ -330,7 +335,6 @@ class ProfileModel @Inject constructor() : BaseModel() {
                 if (body.success == true)
                 {
                     followControlSuccessFlag.value = true
-                    globalUi.showToast("팔로잉합니다")
                 }
             }
 
@@ -339,7 +343,6 @@ class ProfileModel @Inject constructor() : BaseModel() {
                 if (body.success == true)
                 {
                     followControlSuccessFlag.value = true
-                    globalUi.showToast("언팔로잉합니다")
                 }
 
             }
