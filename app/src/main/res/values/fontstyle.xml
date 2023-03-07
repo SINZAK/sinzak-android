@@ -9,6 +9,9 @@
     <style name="regular10" parent="textRegular">
         <item name="android:textSize">10sp</item>
     </style>
+    <style name="regular11" parent="textRegular">
+        <item name="android:textSize">11sp</item>
+    </style>
     <style name="regular13" parent="textRegular">
         <item name="android:textSize">13sp</item>
     </style>
@@ -22,6 +25,10 @@
     <style name="textMedium">
         <item name="android:textColor">@color/text0</item>
         <item name="fontFamily">@font/spoqa_medium</item>
+    </style>
+
+    <style name="medium18" parent="textMedium">
+        <item name="android:textSize">18sp</item>
     </style>
 
     <style name="medium16" parent="textMedium">
@@ -56,6 +63,10 @@
 
     <style name="bold20" parent="textBold">
         <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="bold18" parent="textBold">
+        <item name="android:textSize">18sp</item>
     </style>
 
     <style name="bold16" parent="textBold">

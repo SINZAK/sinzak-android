@@ -21,4 +21,5 @@ class MainViewModel @Inject constructor(
     {
         _showBottomMenu.value = boolean
     }
+
 }

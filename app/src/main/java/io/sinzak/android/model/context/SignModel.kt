@@ -154,23 +154,10 @@ class SignModel @Inject constructor(
     var sdkType : SDK? = null
 
 
-
-
-    fun getUserDisplayName() : String{
-        return userDisplayName
-    }
-
     fun getUnivAddress() : String{
         return univ!!.schoolDomain
     }
 
-    fun getUnivName() : String{
-        return univ!!.schoolName
-    }
-
-    /**
-     * [안승우] certifyModel 변경으로 임시 getter
-     */
     fun getUniv() : SchoolData {
         return univ!!
     }
@@ -179,14 +166,8 @@ class SignModel @Inject constructor(
     fun join(){
         JoinRequest(
             categoryLike = interests,
-            //certUniv = false, // todo 이메일 인증하면 true 로
-            //email = loginEmail,
-            //name = username,
             nickname = userDisplayName,
-            //SDKOrigin = sdkType!!.name,
             term = termMarketing,
-            //university = univ?.schoolName.toString(),
-            //univEmail = univEmail
         ).apply{
             CallImpl(API_JOIN_ACCOUNT,this@SignModel,this).apply{
                 remote.sendRequestApi(this)
@@ -571,6 +552,7 @@ class SignModel @Inject constructor(
             needSignUp.value = false
             saveTokenToPrefs(response.token!!.origin.toString())
             setIsLogin(true)
+            prefs.setString(CODE_USER_NAME,userDisplayName)
         }else{
             //todo 회원가입 실패
             LogError(javaClass.name,"회원가입 실패 ${response.message}")

@@ -178,6 +178,10 @@ class ContentViewModel @Inject constructor(
      * 작가 프로필 조회
      */
     fun onClickArtistProfile() {
+        if (authorId.isNullOrEmpty()) {
+            uiModel.showToast(valueModel.getString(R.string.str_null_user))
+            return
+        }
         profileModel.changeProfile(newUserId = authorId)
         navigation.changePage(Page.PROFILE_OTHER)
     }

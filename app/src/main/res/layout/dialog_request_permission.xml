@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="allowPermission"
+            type="android.view.View.OnClickListener" />
+    </data>
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:theme="@style/DialogStyle"
+        android:gravity="center_horizontal">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_white_filled"
+            android:paddingHorizontal="36dp"
+            android:paddingTop="33dp"
+            android:paddingBottom="26dp"
+            android:layout_marginBottom="200dp">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/linearLayoutCompat8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    style="@style/bold18"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="접근권한" />
+
+                <TextView
+                    style="@style/medium18"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="을 " />
+
+                <TextView
+                    style="@style/bold18"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="허용" />
+
+                <TextView
+                    style="@style/medium18"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="해주세요!" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <TextView
+                android:id="@+id/textView19"
+                style="@style/regular13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:text="신작의 더 다양한 서비스를 이용할 수 있어요"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat8" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/linearLayoutCompat9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="27dp"
+                android:orientation="vertical"
+                android:paddingHorizontal="4dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView19">
+
+                <TextView
+                    style="@style/medium13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="5dp"
+                    android:gravity="center_vertical"
+                    android:text="카메라 (선택)"
+                    app:drawableStartCompat="@drawable/ic_camera_mini" />
+
+                <TextView
+                    style="@style/regular11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:paddingHorizontal="26dp"
+                    android:text="신작에 프로필 사진 및 게시글 사진을\n촬영하여 업로드해요." />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/linearLayoutCompat10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="19dp"
+                android:orientation="vertical"
+                android:paddingHorizontal="4dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat9">
+
+                <TextView
+                    style="@style/medium13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="5dp"
+                    android:gravity="center_vertical"
+                    android:text="앨범 (선택)"
+                    app:drawableStartCompat="@drawable/ic_album_mini" />
+
+                <TextView
+                    style="@style/regular11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:paddingHorizontal="26dp"
+                    android:text="신작에 프로필 사진 및 게시글 사진을\n앨범에서 선택하여 업로드해요." />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/linearLayoutCompat11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="19dp"
+                android:orientation="vertical"
+                android:paddingHorizontal="4dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat10">
+
+                <TextView
+                    style="@style/medium13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="5dp"
+                    android:gravity="center_vertical"
+                    android:text="알림 (선택)"
+                    app:drawableStartCompat="@drawable/ic_notification_mini" />
+
+                <TextView
+                    style="@style/regular11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:paddingHorizontal="26dp"
+                    android:text="활동 알림, 팔로우 알림 등 다양한 안내를\n푸쉬로 보내드려요." />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+            <TextView
+                style="@style/medium13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_red_filled"
+                android:gravity="center"
+                android:paddingHorizontal="80dp"
+                android:paddingVertical="14dp"
+                android:layout_marginTop="30.5dp"
+                android:text="@string/str_check"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat11"
+                android:onClick="@{allowPermission}"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

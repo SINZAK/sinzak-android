@@ -1,6 +1,10 @@
 package io.sinzak.android.ui.main
 
+import android.Manifest
+import android.content.pm.PackageManager
 import androidx.activity.viewModels
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
@@ -70,11 +74,21 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     @Inject
     lateinit var chatConnect: ChatConnect
 
+    @Inject
+    lateinit var mainConnect: MainConnect
+
     private val viewModel: MainViewModel by viewModels()
 
     private val bottomViewModel: MainBottomViewModel by viewModels()
 
     private var fragment: BaseFragment? = null
+
+    private val requiredPermissions = arrayListOf(Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE)
+
+
+    private val REQUEST_CODE_PERMISSIONS = 101
+
+    private lateinit var notGrantedPermissions : List<String>
 
     override fun onActivityCreate() {
         useBind {
@@ -91,15 +105,26 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
         }
 
+        mainConnect.registerActivity(this)
         chatConnect.registerActivity(this)
 
         inflateBottomMenu()
 
         attachInsetsCallback()
 
-
         getFCMToken()
+
         signModel.checkToken()
+
+        notGrantedPermissions = requiredPermissions.filter {
+            ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED
+        }
+
+        if (notGrantedPermissions.isNotEmpty()) {
+            mainConnect.permissionDialog(::acceptPermissions)
+        }
+
+
     }
 
 
@@ -287,5 +312,32 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         return token
     }
 
+    private fun acceptPermissions(){
+        ActivityCompat.requestPermissions(this,notGrantedPermissions.toTypedArray(), REQUEST_CODE_PERMISSIONS)
+    }
+
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        when (requestCode) {
+            REQUEST_CODE_PERMISSIONS -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // 권한 요청이 승인된 경우, 기능을 실행합니다.
+                    // ...
+                } else {
+                    // 권한 요청이 거부된 경우, 사용자에게 권한이 필요하다는 안내 메시지를 보여줍니다.
+                    uiModel.showToast(viewModel.valueModel.getString(R.string.str_need_permission))
+                }
+                return
+            }
+            else -> {
+                // 다른 요청 코드를 처리하는 경우, 부모 클래스의 함수를 호출합니다.
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+            }
+        }
+    }
 
 }

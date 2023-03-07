@@ -8,6 +8,7 @@ import android.net.Uri
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import io.sinzak.android.ui.base.BaseActivity
 import io.sinzak.android.ui.main.dialog.AppUpdateDialog
+import io.sinzak.android.ui.main.dialog.PermissionDialog
 import javax.inject.Inject
 
 @ActivityRetainedScoped
@@ -33,6 +34,15 @@ class MainConnect @Inject constructor() {
         if (isDialogOn())
             return
         dialog = AppUpdateDialog(context,::goStore).apply {
+            show()
+        }
+    }
+
+    fun permissionDialog(requestPermission : ()->Unit)
+    {
+        if(isDialogOn())
+            return
+        dialog = PermissionDialog(context,requestPermission).apply {
             show()
         }
     }
@@ -63,4 +73,8 @@ class MainConnect @Inject constructor() {
         }
 
     }*/
+
+
+
+
 }
