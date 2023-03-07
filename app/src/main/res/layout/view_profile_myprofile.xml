@@ -107,7 +107,7 @@
             <Space
                 android:layout_width="30dp"
                 android:layout_height="wrap_content"
-                android:visibility="@{!isMyProfile &amp; !vm.isMyProfile ? 0 : 8}"
+                android:visibility="gone"
                 />
             <TextView
                 android:layout_width="wrap_content"
@@ -115,7 +115,7 @@
                 android:text="@string/str_profile_chat"
                 style="@style/bold13"
                 android:textColor="@color/secondary"
-                android:visibility="@{!isMyProfile &amp; !vm.isMyProfile ? 0 : 8}"
+                android:visibility="gone"
                 android:onClick="@{v-> vm.onChatting()}"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
 

@@ -54,7 +54,8 @@ class MarketArtModel @Inject constructor() : BaseModel() {
 
     fun onClickShowOnSale(status : Boolean)
     {
-        _stShowOnSale.value = !status
+        _stShowOnSale.value = status
+        getRemoteMarketProducts(refresh = true)
     }
 
 

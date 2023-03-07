@@ -59,6 +59,7 @@ class OutsourcingViewModel @Inject constructor(
 
 
     fun showHistory(){
+        historyModel.getRemoteHistoryList()
         historyOn.value = true
     }
 
