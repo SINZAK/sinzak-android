@@ -8,10 +8,11 @@
 
     <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center"
-        android:layout_height="42dp">
+        android:paddingVertical="14dp">
         <ImageView
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="9dp"
             android:layout_width="38dp"
             android:layout_height="38dp"
             style="@style/btn_default"
@@ -22,12 +23,14 @@
         <EditText
             android:id="@+id/et_chat"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             style="@style/regular16"
             android:imeOptions="actionSend"
             android:paddingHorizontal="16dp"
+            android:paddingVertical="12dp"
             android:inputType="text"
-
+            android:enabled="@{vm.isProductExist}"
+            android:hint="@{vm.isProductExist ? @string/str_chat_hint : @string/str_chat_unabled_hint}"
             onActionDone="@{v->vm.sendTypedMsg(etChat.getText())}"
             android:layout_weight="1"
             android:background="@drawable/et_gray_filled"

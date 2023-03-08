@@ -28,9 +28,6 @@ class MarketViewModel @Inject constructor(
     private val _searchFieldText = MutableStateFlow("")
     val searchFieldText: StateFlow<String> get() = _searchFieldText
 
-    val artProducts = marketArtModel.marketProducts
-
-
 
     /********************************
      * LOCAL VARIABLE CHANGE

@@ -2,6 +2,7 @@ package io.sinzak.android.remote.dataclass.chat
 
 import com.google.gson.annotations.SerializedName
 import io.sinzak.android.utils.ChatUtil
+import io.sinzak.android.utils.TimeUtil
 
 data class ChatMsg(
     @SerializedName(ChatUtil.MESSAGE_ID) val msgId : Int = 0,
@@ -19,5 +20,9 @@ data class ChatMsg(
 
 
         return super.equals(other)
+    }
+
+    fun getFormattedTime() : String {
+        return TimeUtil.dateTimeToString(sendTime)
     }
 }

@@ -20,7 +20,8 @@ class FilterViewModel @Inject constructor(
 
 
     fun loadCategory(){
-        marketArtModel.getCategoryString().let{
+        valueModel.getCategory(marketArtModel.getCategoryString())
+        .let{
             filter->
             if(filter.isEmpty())
                 return

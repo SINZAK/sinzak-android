@@ -110,7 +110,7 @@
                     android:background="@drawable/et_gray_filled"
                     android:gravity="center"
                     android:inputType="numberDecimal"
-                    android:maxLength="11"
+                    android:maxLength="10"
                     android:onTextChanged="@{(cs,s,e,c)->vm.setPrice(cs)}"
                     addComma="@{vm.price}"
                     android:textColor="@color/text0" />

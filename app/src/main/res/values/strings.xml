@@ -183,7 +183,7 @@
     <string name="str_centimeter">cm</string>
     <string name="str_meter">m</string>
     <string name="str_register_name_title">신작에서 사용할\n이름을 입력해주세요.</string>
-    <string name="str_register_name_description">이름은 공백없이 12자 이하,\n기호는 - _ . 만 사용 가능합니다.</string>
+    <string name="str_register_name_description">이름은 공백없이 2자 이상 12자 이하,\n기호는 - _ . 만 사용 가능합니다.</string>
     <string name="str_register_agree_service">서비스 이용 동의</string>
     <string name="str_register_agree_all">약관 전체 동의</string>
     <string name="str_register_agree_age">만 14세 이상입니다.</string>
@@ -195,6 +195,10 @@
     <string name="str_write_art_description">작품 설명</string>
     <string name="str_register_undergrad">재학생 인증</string>
     <string name="str_register_graduated">졸업생 인증</string>
+
+    <string name="str_name_check">중복확인</string>
+    <string name="str_name_pass">멋진 이름이네요!</string>
+    <string name="str_name_cant">사용불가능한 이름입니다</string>
 
 
     <string name="str_report">사용자 신고</string>
@@ -251,7 +255,15 @@
     <string name="str_product_onsale_done">거래 완료</string>
     <string name="str_porduct_onsale_on">거래중</string>
 
+    <string name="str_chat_hint">메세지 보내기</string>
+    <string name="str_chat_unabled_hint">메세지를 보낼 수 없어요</string>
+    <string name="str_chat_suggest">가격제안하기</string>
+    <string name="str_chat_no_suggest">가격제안불가</string>
+    <string name="str_product_not_exist">삭제된 게시물입니다.</string>
+
     <!-- 토스트 메세지용 -->
     <string name="str_need_login">로그인이 필요해요</string>
     <string name="str_send_suggest">가격 제안을 전송했어요</string>
+    <string name="str_need_permission">권한을 설정해주세요</string>
+    <string name="str_null_user">탈퇴한 회원이에요</string>
 </resources>

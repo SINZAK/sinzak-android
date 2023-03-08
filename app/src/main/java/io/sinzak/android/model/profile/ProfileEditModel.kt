@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
 import dagger.hilt.android.qualifiers.ApplicationContext
-import io.sinzak.android.constants.API_CHECK_NAME
 import io.sinzak.android.constants.API_EDIT_MY_IMAGE
 import io.sinzak.android.constants.API_EDIT_MY_INTEREST
 import io.sinzak.android.constants.API_EDIT_MY_PROFILE
@@ -89,8 +88,8 @@ class ProfileEditModel @Inject constructor(
     private fun isNameValidate() : Boolean
     {
 
-        if(name.isEmpty()){
-            nameErrorMsg = "닉네임은 한 글자 이상 설정해주세요"
+        if(name.length < 2){
+            nameErrorMsg = "닉네임은 두 글자 이상 설정해주세요"
             return false
         }
 

@@ -18,7 +18,7 @@ class ChatroomFormViewModel @Inject constructor(
 
     private val msgList: MutableList<ChatMsg> = mutableListOf()
 
-
+    val isProductExist get() = storage.chatProductExistFlag
 
     fun sendTypedMsg(text: Editable){
 
@@ -27,6 +27,7 @@ class ChatroomFormViewModel @Inject constructor(
     }
 
     fun openImageUpload(){
+        if (!isProductExist.value) return
         uiModel.loadImage {
             storage.postImage(it)
         }

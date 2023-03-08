@@ -18,18 +18,18 @@ class ChatroomDialog(
 ) {
     override fun initBind(bind: DialogChatroomBinding) {
         bind.setBlockArtist {
+            dismiss()
             blockArtist()
-            dismiss()
-        }
-        bind.setDismiss {
-            dismiss()
         }
         bind.setLeaveChatroom {
             leaveChatroom()
             dismiss()
         }
         bind.setReportArtist {
+            dismiss()
             reportArtist()
+        }
+        bind.setDismiss {
             dismiss()
         }
 

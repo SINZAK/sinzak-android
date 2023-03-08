@@ -99,7 +99,7 @@
                     android:gravity="center"
                     android:imeOptions="actionDone"
                     android:inputType="numberDecimal"
-                    android:maxLength="11"
+                    android:maxLength="10"
                     addComma="@{vm.price}"
                     android:onTextChanged="@{(cs,a,b,c)->vm.onTypePrice(cs)}"
                     app:layout_constraintEnd_toEndOf="parent"

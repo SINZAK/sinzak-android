@@ -15,18 +15,21 @@
         android:gravity="start"
         android:layout_height="wrap_content">
         <ImageView
-            android:layout_marginEnd="120dp"
-            android:layout_marginStart="16dp"
-            android:layout_width="160dp"
-            android:layout_height="160dp"
+            android:layout_marginStart="14dp"
+            android:layout_marginEnd="4dp"
+            android:layout_width="174dp"
+            android:layout_height="174dp"
             remoteImgUrl="@{msg.msg}"
-            imgRadius="@{12f}"
-            android:background="@drawable/btn_back1_filled_enable"
-            style="@style/regular16"
-            android:textColor="@color/text0"
-            android:paddingVertical="12dp"
-            android:paddingHorizontal="18dp"
-        />
+            imgRadius="@{12f}"/>
+        <TextView
+            style="@style/regular10"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:paddingBottom="4dp"
+            android:textColor="@color/text5"
+            android:text="@{msg.formattedTime}"
+            tools:text="오후 03:03"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

@@ -99,7 +99,7 @@ class ContentViewModel @Inject constructor(
     /**
      * 작가 아이디
      */
-    private var authorId = "-1"
+    private var authorId : String? = "-1"
 
     /**
      * 상품 id
@@ -140,6 +140,11 @@ class ContentViewModel @Inject constructor(
     fun showMoreDialog() {
         if (!signModel.isUserLogin()) return
 
+        if (authorId.isNullOrEmpty()) {
+            uiModel.showToast(valueModel.getString(R.string.str_null_user))
+            return
+        }
+
         if (isMyProduct.value) {
             showEditDialog()
             return
@@ -168,7 +173,11 @@ class ContentViewModel @Inject constructor(
      */
     fun onClickFollow(){
         if (!checkLoginStatus()) return
-        profileModel.followUser(isFollowing.value,authorId)
+        if (authorId.isNullOrEmpty()) {
+            uiModel.showToast(valueModel.getString(R.string.str_null_user))
+            return
+        }
+        profileModel.followUser(isFollowing.value,authorId.toString())
         isFollowing.value = !isFollowing.value
         follower.value = follower.value + if (isFollowing.value) 1 else -1
 
@@ -178,7 +187,11 @@ class ContentViewModel @Inject constructor(
      * 작가 프로필 조회
      */
     fun onClickArtistProfile() {
-        profileModel.changeProfile(newUserId = authorId)
+        if (authorId.isNullOrEmpty()) {
+            uiModel.showToast(valueModel.getString(R.string.str_null_user))
+            return
+        }
+        profileModel.changeProfile(newUserId = authorId.toString())
         navigation.changePage(Page.PROFILE_OTHER)
     }
 
@@ -268,7 +281,7 @@ class ContentViewModel @Inject constructor(
      */
     private fun showBlockDialog() {
         connect.artistBlockDialog {
-            commandModel.blockUser(authorId, art.value!!.author)
+            commandModel.blockUser(authorId.toString(), art.value!!.author)
             useFlag(commandModel.reportSuccessFlag) {
                 uiModel.showToast("해당 유저를 차단했어요")
             }
@@ -307,6 +320,11 @@ class ContentViewModel @Inject constructor(
         val product = art.value!!
 
         if(goToLoginIfNot()) return
+
+        if (authorId.isNullOrEmpty()) {
+            uiModel.showToast(valueModel.getString(R.string.str_null_user))
+            return
+        }
 
         if (isMyProduct.value) {
             navigation.changePage(Page.CHAT)

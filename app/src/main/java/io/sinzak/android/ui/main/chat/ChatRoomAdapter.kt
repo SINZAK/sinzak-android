@@ -13,9 +13,7 @@ class ChatRoomAdapter(
 ) : RecyclerView.Adapter<ChatRoomAdapter.ViewHolder>() {
 
 
-    var chatList = listOf<ChatRoom>(
-
-        )
+    var chatList = listOf<ChatRoom>()
 
 
     override fun getItemCount(): Int {
