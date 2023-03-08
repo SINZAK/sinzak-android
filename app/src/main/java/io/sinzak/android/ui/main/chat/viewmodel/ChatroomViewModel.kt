@@ -46,9 +46,7 @@ class ChatroomViewModel @Inject constructor(
 
     val isProductExist get() = storage.chatProductExistFlag
 
-    fun onBackPressed() {
-        uiModel.navigation.revealHistory()
-    }
+    val tradeState = MutableStateFlow(false)
 
     fun invokeAdapter(rv: RecyclerView): ChatMsgAdapter {
         chatAdapter.rv = rv
@@ -95,15 +93,28 @@ class ChatroomViewModel @Inject constructor(
         }
     }
 
+    init {
+
+        invokeStateFlow(chatRoom){ data ->
+            data?.let {
+                tradeState.value = it.complete
+            }
+        }
+
+        useFlag(detailModel.updateStateSuccessFlag){
+            tradeState.value = !tradeState.value
+        }
+    }
+
     fun onSuggest(productId : Int)
     {
         detailModel.setIdForSuggest(productId)
         navigation.changePage(Page.ART_DETAIL_SUGGEST)
     }
 
-    fun openSaleDialog() {
+    fun openSaleDialog(productId: Int) {
         connect.showOnSaleDialog {
-            TODO()
+            detailModel.updateTradeState(productId.toString(), it)
         }
     }
 
@@ -137,6 +148,10 @@ class ChatroomViewModel @Inject constructor(
 
     private fun leaveChatroom() {
         storage.leaveChatroom()
+        uiModel.navigation.revealHistory()
+    }
+
+    fun onBackPressed() {
         uiModel.navigation.revealHistory()
     }
 

@@ -1,6 +1,7 @@
 package io.sinzak.android.ui.main.profile.art
 
 import androidx.lifecycle.viewModelScope
+import io.sinzak.android.model.market.ProductDetailModel
 import io.sinzak.android.remote.dataclass.product.Product
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.ui.main.profile.art.adapter.SaleWorkAdapter
@@ -22,6 +23,8 @@ abstract class ProfileArtViewModel : BaseViewModel() {
      * 아이템 클릭
      */
     abstract fun onItemClick(product: Product)
+
+    abstract fun onEndTrade(id: String)
 
     fun setIsComplete(status : Boolean)
     {
@@ -60,6 +63,7 @@ abstract class ProfileArtViewModel : BaseViewModel() {
             }.launchIn(viewModelScope)
         }
     }
+
 
 
 }

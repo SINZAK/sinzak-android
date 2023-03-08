@@ -3,14 +3,12 @@ package io.sinzak.android.model.market
 import io.sinzak.android.constants.*
 import io.sinzak.android.model.BaseModel
 import io.sinzak.android.model.chat.ChatStorage
-import io.sinzak.android.model.profile.ProfileModel
 import io.sinzak.android.remote.dataclass.CResponse
-import io.sinzak.android.remote.dataclass.request.market.ProductLikeRequest
+import io.sinzak.android.remote.dataclass.request.market.ProductFormRequest
 import io.sinzak.android.remote.dataclass.request.market.ProductSuggestRequest
 import io.sinzak.android.remote.dataclass.response.market.MarketDetailResponse
 import io.sinzak.android.remote.retrofit.CallImpl
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -24,7 +22,7 @@ class ProductDetailModel @Inject constructor() : BaseModel() {
 
     val productSuggestSuccessFlag = MutableStateFlow(false)
     val productDeleteSuccessFlag = MutableStateFlow(false)
-
+    val updateStateSuccessFlag = MutableStateFlow(false)
 
     val itemType = MutableStateFlow(TYPE_MARKET_PRODUCT) // 0 : product, 1 : work
 
@@ -61,7 +59,7 @@ class ProductDetailModel @Inject constructor() : BaseModel() {
                 API_POST_LIKE_PRODUCT
                 else API_POST_LIKE_WORK
                 , this,
-                ProductLikeRequest(
+                ProductFormRequest(
                     id,
                     status
                 )
@@ -85,7 +83,7 @@ class ProductDetailModel @Inject constructor() : BaseModel() {
             CallImpl(if(itemType.value == TYPE_MARKET_PRODUCT)
                 API_POST_WISH_PRODUCT
             else API_POST_WISH_WORK, this,
-                ProductLikeRequest(
+                ProductFormRequest(
                     id,
                     status
                 )
@@ -118,12 +116,20 @@ class ProductDetailModel @Inject constructor() : BaseModel() {
         )
     }
 
-    /**
-     * [안승우] 거래 종료하기 임시함수
-     */
-    fun endTrade(id : String, status: Boolean)
+    fun updateTradeState(id : String, state : Boolean)
     {
+        val request = ProductFormRequest(
+            id = id.toInt(),
+            mode = !state
+        )
 
+        CallImpl(
+            API_POST_PRODUCT_STATE,
+            this,
+            request
+        ).apply {
+            remote.sendRequestApi(this)
+        }
     }
 
 
@@ -160,6 +166,10 @@ class ProductDetailModel @Inject constructor() : BaseModel() {
                     art.value = body.data
                 }else
                     globalUi.showToast(body.message.toString())
+            }
+
+            API_POST_PRODUCT_STATE -> {
+                updateStateSuccessFlag.value = body.success!!
             }
         }
     }

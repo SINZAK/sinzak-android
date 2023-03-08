@@ -52,13 +52,13 @@
                     style="@style/bold13"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="@{v->viewmodel.openSaleDialog()}"
-                    android:text='@{chatRoom.complete ? "거래중" : "거래완료"}'/>
+                    android:onClick="@{v->viewmodel.openSaleDialog(chatRoom.productId)}"
+                    android:text='@{viewmodel.tradeState ? "거래완료" : "거래중"}'/>
                 <ImageView
                     android:layout_width="16dp"
                     android:layout_height="16dp"
                     android:src="@drawable/ic_arrow_down"
-                    android:onClick="@{v->viewmodel.openSaleDialog()}"
+                    android:onClick="@{v->viewmodel.openSaleDialog(chatRoom.productId)}"
                     android:visibility="@{viewmodel.myId.equals(chatRoom.userId) ? 0 : 8}"/>
                 <TextView
                     style="@style/regular13"

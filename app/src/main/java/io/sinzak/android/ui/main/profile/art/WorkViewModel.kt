@@ -15,7 +15,7 @@ class WorkViewModel @Inject constructor(
 ) : ProfileArtViewModel() {
 
     val adapter = SaleWorkAdapter(
-        productModel::endTrade,
+        ::onEndTrade,
         ::onItemClick,
         completeList.value,
         viewType = 1,
@@ -30,5 +30,10 @@ class WorkViewModel @Inject constructor(
         productModel.loadWork(product.id!!)
         navigation.changePage(Page.ART_DETAIL)
     }
+
+    override fun onEndTrade(id: String) {
+        productModel.updateTradeState(id,false)
+    }
+
 
 }

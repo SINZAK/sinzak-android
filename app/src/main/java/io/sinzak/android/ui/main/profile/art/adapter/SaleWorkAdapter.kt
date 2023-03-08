@@ -12,7 +12,7 @@ import io.sinzak.android.remote.dataclass.product.Product
 import io.sinzak.android.system.LogDebug
 
 class SaleWorkAdapter(
-    val completeTradeClick : ((String,Boolean) -> Unit)? = null,
+    val completeTradeClick : ((String) -> Unit)? = null,
     val onItemClick : ((Product) -> Unit)? = null,
     val isComplete : Boolean = false,
     val viewType: Int,
@@ -68,7 +68,7 @@ class SaleWorkAdapter(
                 onItemClick!!(product)
             }
             bind.setCompleteTradeClick {
-                completeTradeClick!!(product.id.toString(), product.complete!!)
+                completeTradeClick!!(product.id.toString())
             }
             bind.isComplete = isComplete
             bind.completeText = setCompleteText(viewType)
