@@ -28,8 +28,15 @@ class ProductDetailModel @Inject constructor() : BaseModel() {
 
     val itemType = MutableStateFlow(TYPE_MARKET_PRODUCT) // 0 : product, 1 : work
 
+    /**
+     * 가격 제안을 위한 아이디 세팅
+     */
+    val productId = MutableStateFlow(0)
 
-
+    fun setIdForSuggest(id : Int)
+    {
+        productId.value = id
+    }
 
     fun loadProduct(id : Int){
         art.value = null
@@ -46,11 +53,6 @@ class ProductDetailModel @Inject constructor() : BaseModel() {
             CallImpl(API_GET_MARKET_WORK_DETAIL, this, paramInt0 = id)
         )
     }
-
-
-
-
-
 
     fun postProductLike(id : Int, status : Boolean){
         remote.sendRequestApi(

@@ -165,6 +165,7 @@ class ContentViewModel @Inject constructor(
      */
     fun onClickSuggest(){
         if (goToLoginIfNot()) return
+        model.setIdForSuggest(product)
         navigation.changePage(Page.ART_DETAIL_SUGGEST)
     }
 
@@ -337,6 +338,7 @@ class ContentViewModel @Inject constructor(
 
             return
         }
+
         model.makeNewChatroom()
 
         navigation.changePage(Page.CHAT_ROOM)

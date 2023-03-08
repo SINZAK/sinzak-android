@@ -15,7 +15,6 @@ class SuggestViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     val price = MutableStateFlow("")
-    private var productId : Int = -1
 
 
     /*************************************
@@ -24,7 +23,7 @@ class SuggestViewModel @Inject constructor(
 
 
     fun onClickSuggest(){
-        model.postProductSuggest(productId, PriceUtil.makePriceInt(price.value))
+        model.postProductSuggest(model.productId.value, PriceUtil.makePriceInt(price.value))
     }
 
 
@@ -42,18 +41,10 @@ class SuggestViewModel @Inject constructor(
      ****************************************/
 
     init{
-        collectArt()
+
         collectSuccessFlag()
     }
 
-    private fun collectArt(){
-        invokeStateFlow(model.art){
-            it?.let{p->
-                productId = p.productId
-            }
-
-        }
-    }
 
     private fun collectSuccessFlag(){
         useFlag(model.productSuggestSuccessFlag){
