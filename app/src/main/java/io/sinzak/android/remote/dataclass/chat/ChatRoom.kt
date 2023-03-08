@@ -5,22 +5,18 @@ import io.sinzak.android.utils.TimeUtil
 
 data class ChatRoom(
     val unreadCount : Int? = 0,
-    @SerializedName("roomName") val sender : String? = "김지호",
-    @SerializedName("latestMessage") val lastMsg : String? = "네 감사합니다 ~",
-    @SerializedName("univ") val school : String? = "홍익대",
-    @SerializedName("latestMessageTime") val time : String? = "1시간 전",
-    val userVerified : Boolean? = true,
+    @SerializedName("roomName") val sender : String? = null,
+    @SerializedName("latestMessage") val lastMsg : String? = null,
+    @SerializedName("univ") val school : String? = null,
+    @SerializedName("latestMessageTime") val time : String? = null,
     @SerializedName("image") val image: String = "",
     @SerializedName("roomUuid")val roomUuid: String? = "",
-    var itemType: String? = null,
-    var onSale: Boolean? = false,
-    var title: String? = "",
-    var price: Int? = 0
+    val userVerified : Boolean? = false,
 
 ){
 
 
     fun getFormattedTime(): String{
-        return TimeUtil.getTimePassed(time.toString())
+        return TimeUtil.getTimePassedExceptDot(time.toString())
     }
 }

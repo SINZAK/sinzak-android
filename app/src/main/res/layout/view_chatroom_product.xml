@@ -22,7 +22,7 @@
 
         <ImageView
             android:id="@+id/iv_image"
-            cornerRadius="@{13f}"
+            smallImgRadius="@{13f}"
             remoteImgUrl="@{chatRoom.thumbnail}"
             android:layout_width="52dp"
             android:layout_height="52dp"/>
@@ -79,6 +79,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{chatRoom.formattedPrice}"
+                    android:visibility="@{chatRoom.price != null ? 0 : 8}"
                     android:layout_marginEnd="3.5dp"/>
                 <TextView
                     style="@style/regular13"
