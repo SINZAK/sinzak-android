@@ -33,7 +33,7 @@ class RequestViewModel @Inject constructor(
     }
 
     override fun onEndTrade(id: String) {
-        productModel.updateTradeState(id,false)
+
     }
 
 }

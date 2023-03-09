@@ -206,7 +206,12 @@ class CallImpl(
 
             API_POST_WISH_WORK -> remoteApi.postWorkWish(header, requestBody as ProductFormRequest)
 
-            API_POST_PRODUCT_STATE -> remoteApi.postProductTradingState(header, requestBody as ProductFormRequest)
+            API_POST_TRADE_STATE -> remoteApi.postProductTradingState(header, requestBody as ProductFormRequest)
+
+            API_POST_SELL_STATE -> remoteApi.postProductSellState(header, JsonObject().apply {
+                addProperty("productId",paramInt0)
+                }
+            )
 
 
             API_GET_CHATROOM_MSG -> remoteApi.getChatroomMsg(header, paramStr0!!)

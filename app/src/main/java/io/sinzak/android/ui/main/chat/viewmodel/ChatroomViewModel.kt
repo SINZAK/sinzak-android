@@ -46,8 +46,6 @@ class ChatroomViewModel @Inject constructor(
 
     val isProductExist get() = storage.chatProductExistFlag
 
-    val tradeState = MutableStateFlow(false)
-
     fun invokeAdapter(rv: RecyclerView): ChatMsgAdapter {
         chatAdapter.rv = rv
         return chatAdapter
@@ -93,30 +91,17 @@ class ChatroomViewModel @Inject constructor(
         }
     }
 
-    init {
-
-        invokeStateFlow(chatRoom){ data ->
-            data?.let {
-                tradeState.value = it.complete
-            }
-        }
-
-        useFlag(detailModel.updateStateSuccessFlag){
-            tradeState.value = !tradeState.value
-        }
-    }
-
     fun onSuggest(productId : Int)
     {
         detailModel.setIdForSuggest(productId)
         navigation.changePage(Page.ART_DETAIL_SUGGEST)
     }
 
-    fun openSaleDialog(productId: Int) {
+/*    fun openSaleDialog(productId: Int) {
         connect.showOnSaleDialog {
             detailModel.updateTradeState(productId.toString(), it)
         }
-    }
+    }*/
 
     fun openChatDialog() {
         connect.showChatDialog(

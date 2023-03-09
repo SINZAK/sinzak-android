@@ -80,12 +80,6 @@ interface RemoteMarketInterface {
     @POST("api/works/suggest")
     fun postWorkSuggest(@HeaderMap headerMap: HashMap<String, String>, @Body body : ProductSuggestRequest) : Call<CResponse>
 
-
-
-
-
-
-
     @POST("api/home/products")
     fun getHomeProducts(@HeaderMap headerMap : HashMap<String,String>) : Call<MarketHomeResponse>
 
@@ -111,4 +105,7 @@ interface RemoteMarketInterface {
 
     @POST("api/products/trading")
     fun postProductTradingState(@HeaderMap headerMap: HashMap<String, String>, @Body body : ProductFormRequest) : Call<CResponse>
+
+    @POST("api/products/sell")
+    fun postProductSellState(@HeaderMap headerMap: HashMap<String, String>, @Body body: JsonObject) : Call<CResponse>
 }
