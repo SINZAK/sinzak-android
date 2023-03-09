@@ -8,6 +8,7 @@ import dagger.hilt.android.scopes.ActivityRetainedScoped
 import dagger.hilt.android.scopes.ActivityScoped
 import io.sinzak.android.enums.Page
 import io.sinzak.android.model.navigate.Navigation
+import io.sinzak.android.ui.main.chat.ChatroomSaleDialog
 import io.sinzak.android.ui.main.market.artdetail.dialog.ArtistBlockDialog
 import io.sinzak.android.ui.main.market.artdetail.dialog.ArtistReportDialog
 import io.sinzak.android.ui.main.market.artdetail.dialog.ProductDeleteDialog
@@ -87,6 +88,25 @@ val navigation: Navigation) {
         dialog = ProductDeleteDialog(context, delete).apply{
             show()
         }
+    }
+
+    fun showOnSaleDialog(
+        tradingState: () -> Unit,
+        saleState : () -> Unit
+    ){
+        if(isDialogOn())
+            return
+
+        dialog =
+            ChatroomSaleDialog(
+                context,
+                tradingState,
+                saleState
+
+            ).apply {
+                show()
+            }
+
     }
 
 

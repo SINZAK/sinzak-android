@@ -9,7 +9,8 @@ import io.sinzak.android.ui.base.BaseDialog
 
 class ChatroomSaleDialog(
     context: Context,
-    val updateSaleStatus:(Boolean) -> Unit
+    val tradingState: () -> Unit,
+    val saleState : () -> Unit
 ) :
     BaseDialog<DialogProductOnsaleBinding>(
     context,
@@ -17,13 +18,13 @@ class ChatroomSaleDialog(
 ) {
     override fun initBind(bind: DialogProductOnsaleBinding) {
         bind.setOnSale {
-            updateSaleStatus(true)
             dismiss()
+            tradingState()
         }
 
         bind.setOffSale {
-            updateSaleStatus(false)
             dismiss()
+            saleState()
         }
 
         bind.setDismiss {

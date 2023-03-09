@@ -20,6 +20,9 @@ class ProductDetailModel @Inject constructor() : BaseModel() {
 
     val art = MutableStateFlow<MarketDetailResponse.Detail?>(null)
 
+    val productSaleState = MutableStateFlow(TRADE)
+    val productStateUpdateFlag = MutableStateFlow(false)
+
     val productSuggestSuccessFlag = MutableStateFlow(false)
     val productDeleteSuccessFlag = MutableStateFlow(false)
 
@@ -37,14 +40,14 @@ class ProductDetailModel @Inject constructor() : BaseModel() {
 
     fun loadProduct(id : Int){
         art.value = null
-        itemType.value = 0
+        itemType.value = TYPE_MARKET_PRODUCT
         CallImpl(API_GET_PRODUCT_DETAIL, this,paramInt0 = id).apply{
             remote.sendRequestApi(this)
         }
     }
 
     fun loadWork(id : Int){
-        itemType.value = 1
+        itemType.value = TYPE_MARKET_WORK
         art.value = null
         remote.sendRequestApi(
             CallImpl(API_GET_MARKET_WORK_DETAIL, this, paramInt0 = id)
@@ -184,10 +187,17 @@ class ProductDetailModel @Inject constructor() : BaseModel() {
                     globalUi.showToast(body.message.toString())
             }
 
-            API_POST_TRADE_STATE -> {
+            API_POST_TRADE_STATE,
+            API_POST_SELL_STATE-> {
+                productStateUpdateFlag.value = body.success!!
             }
 
         }
+    }
+
+    companion object {
+        const val TRADE = true
+        const val SALE = false
     }
 
 

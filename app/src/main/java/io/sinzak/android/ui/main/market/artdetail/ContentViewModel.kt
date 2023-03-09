@@ -261,6 +261,19 @@ class ContentViewModel @Inject constructor(
     }
 
     /**
+     * 작품 거래 상태 다이얼로그 열기
+     */
+    fun showOnSaleDialog()
+    {
+        if (!isMyProduct.value) return
+
+        connect.showOnSaleDialog(
+            tradingState = { model.updateTradeState(product) },
+            saleState = { model.updateSellState(product) }
+        )
+    }
+
+    /**
      * 작가 신고 / 차단 다아일로그 열기
      */
     private fun showReportDialog() {

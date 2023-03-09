@@ -46,17 +46,29 @@
                     android:gravity="center_vertical"
                     android:layout_marginTop="5dp">
 
-                    <TextView
-                        android:layout_width="50dp"
-                        android:layout_height="20dp"
-                        android:text="@string/str_detail_on_trading"
-                        style="@style/medium13"
-                        android:textColor="@color/on_primary"
-                        android:textAlignment="center"
-                        android:background="@drawable/tv_detail_ontrading"
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:paddingVertical="3dp"
+                        android:paddingHorizontal="10dp"
                         android:layout_marginEnd="5dp"
-                        android:visibility="@{vm.art.trading ? 0 : 8}"
-                        />
+                        android:layout_marginTop="2dp"
+                        android:background="@drawable/tv_detail_ontrading"
+                        android:onClick="@{v -> vm.showOnSaleDialog()}">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/str_detail_on_trading"
+                            style="@style/medium13"
+                            android:textColor="@color/on_primary"/>
+                        <ImageView
+                            android:layout_width="13dp"
+                            android:layout_height="13dp"
+                            android:src="@drawable/ic_arrow_down_white"
+                            android:layout_marginStart="3dp"
+                            android:visibility="@{vm.art.myPost ? 0 : 8}"/>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <TextView
                         android:text="@{vm.art.formattedPrice}"
@@ -64,8 +76,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        style="@style/bold20"
-                        />
+                        style="@style/bold20"/>
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
