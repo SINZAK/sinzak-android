@@ -36,6 +36,17 @@
             android:layout_height="156dp"
             android:background="@drawable/cl_sale_work_holder_item">
 
+            <ImageView
+                android:id="@+id/iv_sale_img"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                cornerRadius="@{12f}"
+                remoteImgUrl="@{product.thumbnail}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -52,17 +63,6 @@
                     android:drawablePadding="1dp"
                     app:drawableTopCompat="@drawable/ic_check_white" />
             </LinearLayout>
-
-            <ImageView
-                android:id="@+id/iv_sale_img"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                cornerRadius="@{12f}"
-                remoteImgUrl="@{product.thumbnail}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView

@@ -165,6 +165,10 @@ class ContentViewModel @Inject constructor(
      */
     fun onClickSuggest(){
         if (goToLoginIfNot()) return
+        if (authorId.isNullOrEmpty()) {
+            uiModel.showToast(valueModel.getString(R.string.str_null_user))
+            return
+        }
         model.setIdForSuggest(product)
         navigation.changePage(Page.ART_DETAIL_SUGGEST)
     }

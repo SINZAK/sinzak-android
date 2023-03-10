@@ -18,7 +18,7 @@ class RequestViewModel @Inject constructor(
     val adapter = SaleWorkAdapter(
         ::onEndTrade,
         ::onItemClick,
-        completeList.value,
+        completeList,
         viewType = 2,
         model
     )
@@ -33,7 +33,7 @@ class RequestViewModel @Inject constructor(
     }
 
     override fun onEndTrade(id: String) {
-
+        if (!completeList.value) return
     }
 
 }
