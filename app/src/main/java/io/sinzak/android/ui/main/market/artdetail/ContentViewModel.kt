@@ -357,6 +357,7 @@ class ContentViewModel @Inject constructor(
             return
         }
 
+        chatStorage.chatProductExistFlag.value = true
         model.makeNewChatroom()
 
         navigation.changePage(Page.CHAT_ROOM)
