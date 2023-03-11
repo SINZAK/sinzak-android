@@ -105,4 +105,9 @@ interface RemoteMarketInterface {
 
     @POST("api/products/sell")
     fun postProductSellState(@HeaderMap headerMap: HashMap<String, String>, @Body body: JsonObject) : Call<CResponse>
+
+    @POST("api/works/sell")
+    fun postWorkSellState(@HeaderMap headerMap: HashMap<String, String>, @Body body: JsonObject) : Call<CResponse>
+
+
 }

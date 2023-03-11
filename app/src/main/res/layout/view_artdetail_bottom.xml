@@ -98,7 +98,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/btn_primary_filled_enable"
-                    android:enabled="@{!vm.isBought}"
                     android:gravity="center"
                     android:onClick="@{v->vm.onClickChat()}"
                     android:paddingHorizontal="25dp"
