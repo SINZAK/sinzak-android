@@ -19,6 +19,7 @@ class WorkViewModel @Inject constructor(
         ::onItemClick,
         completeList,
         viewType = 1,
+        WORK,
         model
     )
 

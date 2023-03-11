@@ -20,8 +20,8 @@ class ProductDetailModel @Inject constructor() : BaseModel() {
 
     val art = MutableStateFlow<MarketDetailResponse.Detail?>(null)
 
-    val productSaleState = MutableStateFlow(TRADE)
-    val productStateUpdateFlag = MutableStateFlow(false)
+    val productTradeUpdateFlag = MutableStateFlow(false)
+    val productSellUpdateFlag = MutableStateFlow(false)
 
     val productSuggestSuccessFlag = MutableStateFlow(false)
     val productDeleteSuccessFlag = MutableStateFlow(false)
@@ -36,6 +36,15 @@ class ProductDetailModel @Inject constructor() : BaseModel() {
     fun setIdForSuggest(id : Int)
     {
         productId.value = id
+    }
+
+    fun getProductStatusStr(complete : Boolean) : String {
+        if (itemType.value == TYPE_MARKET_PRODUCT){
+            return if (complete) "거래완료" else "거래중"
+        }
+        else {
+            return if (complete) "모집완료" else "모집중"
+       }
     }
 
     fun loadProduct(id : Int){
@@ -125,7 +134,7 @@ class ProductDetailModel @Inject constructor() : BaseModel() {
     {
         val request = ProductFormRequest(
             id = id,
-            mode = true
+            mode = false
         )
 
         CallImpl(
@@ -187,18 +196,16 @@ class ProductDetailModel @Inject constructor() : BaseModel() {
                     globalUi.showToast(body.message.toString())
             }
 
-            API_POST_TRADE_STATE,
+            API_POST_TRADE_STATE -> {
+                productTradeUpdateFlag.value = body.success!!
+            }
             API_POST_SELL_STATE-> {
-                productStateUpdateFlag.value = body.success!!
+                productSellUpdateFlag.value = body.success!!
             }
 
         }
     }
 
-    companion object {
-        const val TRADE = true
-        const val SALE = false
-    }
 
 
 

@@ -92,7 +92,8 @@ val navigation: Navigation) {
 
     fun showOnSaleDialog(
         tradingState: () -> Unit,
-        saleState : () -> Unit
+        saleState : () -> Unit,
+        itemType : Int
     ){
         if(isDialogOn())
             return
@@ -101,7 +102,8 @@ val navigation: Navigation) {
             ChatroomSaleDialog(
                 context,
                 tradingState,
-                saleState
+                saleState,
+                itemType
 
             ).apply {
                 show()

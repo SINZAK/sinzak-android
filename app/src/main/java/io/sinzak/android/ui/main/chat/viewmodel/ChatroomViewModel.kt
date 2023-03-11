@@ -97,11 +97,13 @@ class ChatroomViewModel @Inject constructor(
         navigation.changePage(Page.ART_DETAIL_SUGGEST)
     }
 
-/*    fun openSaleDialog(productId: Int) {
-        connect.showOnSaleDialog {
-            detailModel.updateTradeState(productId.toString(), it)
-        }
-    }*/
+    fun openSaleDialog() {
+        connect.showOnSaleDialog(
+            tradingState = {},
+            saleState = {},
+            itemType = 0
+        )
+    }
 
     fun openChatDialog() {
         connect.showChatDialog(

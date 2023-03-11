@@ -58,5 +58,26 @@ class ChatConnect @Inject constructor() {
         }
     }
 
+    fun showOnSaleDialog(
+        tradingState: () -> Unit,
+        saleState : () -> Unit,
+        itemType : Int
+    ){
+        if(isDialogOn())
+            return
+
+        dialog =
+            ChatroomSaleDialog(
+                context,
+                tradingState,
+                saleState,
+                itemType
+
+            ).apply {
+                show()
+            }
+
+    }
+
 
 }

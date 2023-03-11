@@ -190,7 +190,7 @@ class WebmailViewModel @Inject constructor(
         navigation.removeHistory(Page.PROFILE_EDIT)
         navigation.removeHistory(Page.PROFILE_WEBMAIL)
         navigation.removeHistory(Page.PROFILE_CERTIFICATION)
-        navigation.changePage(Page.PROFILE_EDIT)
+        navigation.changePage(Page.PROFILE)
     }
 
     /**

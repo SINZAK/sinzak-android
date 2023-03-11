@@ -64,6 +64,10 @@ abstract class ProfileArtViewModel : BaseViewModel() {
         }
     }
 
+    companion object {
+        const val PRODUCT = true
+        const val WORK = false
+    }
 
 
 }

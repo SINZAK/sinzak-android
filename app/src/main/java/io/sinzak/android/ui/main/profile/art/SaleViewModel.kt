@@ -20,6 +20,7 @@ class SaleViewModel @Inject constructor(
         ::onItemClick,
         completeList,
         viewType = 0,
+        PRODUCT,
         model
     )
 

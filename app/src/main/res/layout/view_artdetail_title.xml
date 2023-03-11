@@ -40,7 +40,6 @@
                     />
 
                 <androidx.appcompat.widget.LinearLayoutCompat
-                    android:visibility="@{vm.itemType == 0 ? 0 : 8}"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:gravity="center_vertical"
@@ -59,9 +58,10 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/str_detail_on_trading"
+                            android:text="@{vm.model.getProductStatusStr(vm.art.complete)}"
                             style="@style/medium13"
-                            android:textColor="@color/on_primary"/>
+                            android:textColor="@color/on_primary"
+                            tools:text="거래중"/>
                         <ImageView
                             android:layout_width="13dp"
                             android:layout_height="13dp"
@@ -72,6 +72,7 @@
 
                     <TextView
                         android:text="@{vm.art.formattedPrice}"
+                        android:visibility="@{vm.itemType == 0 ? 0 : 8}"
                         tools:text="50000원"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

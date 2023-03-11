@@ -20,6 +20,7 @@ class RequestViewModel @Inject constructor(
         ::onItemClick,
         completeList,
         viewType = 2,
+        WORK,
         model
     )
 

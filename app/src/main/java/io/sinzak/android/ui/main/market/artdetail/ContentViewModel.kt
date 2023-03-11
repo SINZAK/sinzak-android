@@ -273,7 +273,8 @@ class ContentViewModel @Inject constructor(
 
         connect.showOnSaleDialog(
             tradingState = { model.updateTradeState(product) },
-            saleState = { model.updateSellState(product) }
+            saleState = { model.updateSellState(product) },
+            model.itemType.value
         )
     }
 
@@ -331,7 +332,7 @@ class ContentViewModel @Inject constructor(
     }
 
 
-    fun openChatPage() {
+    private fun openChatPage() {
         art.value ?: run {
             return
         }

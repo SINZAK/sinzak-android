@@ -17,6 +17,7 @@ class SaleWorkAdapter(
     val onItemClick : ((Product) -> Unit)? = null,
     val isComplete : StateFlow<Boolean>,
     val viewType: Int,
+    val itemType : Boolean,
     val model : ProfileModel
 ): RecyclerView.Adapter<SaleWorkAdapter.ViewHolder>() {
 
@@ -74,6 +75,7 @@ class SaleWorkAdapter(
             bind.isComplete = isComplete.value
             bind.completeText = setCompleteText(viewType)
             bind.isMine = model.profile.value!!.myProfile
+            bind.itemType = itemType
         }
     }
 

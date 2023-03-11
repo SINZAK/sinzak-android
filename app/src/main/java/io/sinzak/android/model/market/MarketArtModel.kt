@@ -9,7 +9,6 @@ import io.sinzak.android.remote.dataclass.product.Product
 import io.sinzak.android.remote.dataclass.response.market.MarketProductResponse
 import io.sinzak.android.remote.retrofit.CallImpl
 import io.sinzak.android.system.LogDebug
-import io.sinzak.android.ui.main.search.HistoryViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
@@ -85,6 +84,7 @@ class MarketArtModel @Inject constructor() : BaseModel() {
             BY_LOWPRICE -> "low"
         }
         val category = categoryString
+        LogDebug(javaClass.name , category)
 
         CallImpl(
             API_GET_MARKET_PRODUCTS,
@@ -104,7 +104,7 @@ class MarketArtModel @Inject constructor() : BaseModel() {
     }
 
 
-    fun onMarketProductResponse(response : MarketProductResponse)
+    private fun onMarketProductResponse(response : MarketProductResponse)
     {
         response.pageable?.pageNumber?.let{
             currentPage = it
@@ -116,7 +116,6 @@ class MarketArtModel @Inject constructor() : BaseModel() {
             val list = mutableListOf<Product>()
             list.addAll(_marketProducts.value)
             list.addAll(products)
-
             _marketProducts.value = list.distinctBy { it.id }.toMutableList()
 
             LogDebug(javaClass.name,"[MARKET VIEWMODEL] 현재 아이템 ${list.size} ")
