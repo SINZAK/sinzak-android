@@ -82,6 +82,10 @@ class ChatStorage @Inject constructor(@ApplicationContext val context: Context) 
         }
     }
 
+    fun clearChatMsg(){
+        _chatMsg.value = mutableListOf()
+    }
+
 
     lateinit var product: MarketDetailResponse.Detail
 
@@ -126,6 +130,7 @@ class ChatStorage @Inject constructor(@ApplicationContext val context: Context) 
 
     fun getChatroomMsg(chatroom: ChatRoom){
 
+        _chatMsg.value = mutableListOf()
         remote.sendRequestApi(
             CallImpl(
                 API_GET_CHATROOM_MSG,

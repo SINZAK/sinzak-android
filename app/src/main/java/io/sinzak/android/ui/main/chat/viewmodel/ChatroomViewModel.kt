@@ -95,6 +95,20 @@ class ChatroomViewModel @Inject constructor(
         }
     }
 
+    val complete = MutableStateFlow(false)
+
+    init {
+        invokeStateFlow(chatRoom){ room ->
+            room?.let {
+                complete.value = it.complete
+            }
+        }
+
+        useFlag(detailModel.productStatusUpdateFlag){
+            complete.value = true
+        }
+    }
+
     fun onProductClick(isProduct : Boolean ,id: Int)
     {
         if (!isProductExist.value) return
@@ -109,10 +123,10 @@ class ChatroomViewModel @Inject constructor(
         imageShow.value = true
     }
 
-    fun openSaleDialog() {
+    fun openSaleDialog(id : Int ,isProduct: Boolean) {
         connect.showOnSaleDialog(
-            offSale = {},
-            itemType = 0
+            offSale = {detailModel.updateProductState(id,isProduct)},
+            isProduct = isProduct
         )
     }
 

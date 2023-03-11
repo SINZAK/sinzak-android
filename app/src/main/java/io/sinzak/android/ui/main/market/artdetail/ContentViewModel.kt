@@ -361,6 +361,7 @@ class ContentViewModel @Inject constructor(
             return
         }
 
+        chatStorage.clearChatMsg()
         chatStorage.chatProductExistFlag.value = true
         model.makeNewChatroom()
 

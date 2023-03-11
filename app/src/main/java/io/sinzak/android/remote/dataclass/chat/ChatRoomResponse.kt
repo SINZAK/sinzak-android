@@ -28,7 +28,7 @@ data class ChatRoomResponse(
             return null
         }
 
-        fun getStatusString() : String {
+        fun getStatusString(complete: Boolean) : String {
             if (isProduct()) {
                 return if (complete) "거래완료" else "거래중"
             }

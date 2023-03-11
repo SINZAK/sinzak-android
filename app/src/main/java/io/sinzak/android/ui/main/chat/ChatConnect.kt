@@ -3,6 +3,8 @@ package io.sinzak.android.ui.main.chat
 import android.app.Dialog
 import android.content.Context
 import dagger.hilt.android.scopes.ActivityRetainedScoped
+import io.sinzak.android.constants.TYPE_MARKET_PRODUCT
+import io.sinzak.android.constants.TYPE_MARKET_WORK
 import io.sinzak.android.ui.main.MainActivity
 import io.sinzak.android.ui.main.market.artdetail.dialog.ArtistBlockDialog
 import javax.inject.Inject
@@ -60,10 +62,12 @@ class ChatConnect @Inject constructor() {
 
     fun showOnSaleDialog(
         offSale : () -> Unit,
-        itemType : Int
+        isProduct : Boolean
     ){
         if(isDialogOn())
             return
+
+        val itemType = if (isProduct) TYPE_MARKET_PRODUCT else TYPE_MARKET_WORK
 
         dialog =
             ChatroomSaleDialog(
