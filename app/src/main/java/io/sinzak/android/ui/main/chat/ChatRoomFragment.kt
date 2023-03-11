@@ -28,9 +28,16 @@ class ChatRoomFragment : BaseFragment() {
             lifecycleOwner = viewLifecycleOwner
         }
 
+        viewModel.chatAdapter.scrollToBottom()
+
         LogDebug(javaClass.name, "내 아이디 : ${viewModel.myId}")
 
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.chatAdapter.scrollToBottom()
     }
 
     override fun showBottomBar(): Boolean {

@@ -29,11 +29,10 @@ class ChatMsgAdapter(
         notifyItemRangeInserted(0, count)
     }
 
-    fun notifyMsgAdded(count: Int, itemType : String){
-        val requireHeight : Int
-        requireHeight = if (itemType == ChatUtil.TYPE_TEXT) 60 * count else 174
+    fun notifyMsgAdded(count: Int){
         notifyItemRangeInserted(itemCount - count,count)
-        rv?.smoothScrollBy(0, (Resources.getSystem().displayMetrics.density * requireHeight).toInt())
+/*        rv?.smoothScrollBy(0, (Resources.getSystem().displayMetrics.density * 60).toInt())*/
+        rv?.smoothScrollToPosition(itemCount-1)
 
     }
 
@@ -45,6 +44,10 @@ class ChatMsgAdapter(
         }
     }
 
+    fun scrollToBottom(){
+        val itemSize = if (itemCount>0) itemCount-1 else 0
+        rv?.scrollToPosition(itemSize)
+    }
 
 
     override fun getItemViewType(position: Int): Int {

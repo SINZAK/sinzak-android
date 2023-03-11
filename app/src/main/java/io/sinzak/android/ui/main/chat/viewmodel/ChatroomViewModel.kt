@@ -70,7 +70,7 @@ class ChatroomViewModel @Inject constructor(
         newMessageOptional?.let { newMessage ->
             LogInfo(javaClass.name, "CHAT COLLECT: $newMessage")
             chatMsgList.add(newMessage)
-            chatAdapter.notifyMsgAdded(1,newMessage.type)
+            chatAdapter.notifyMsgAdded(1)
         }
     }.launchIn(viewModelScope)
 
@@ -86,12 +86,12 @@ class ChatroomViewModel @Inject constructor(
             if (pendingChat.isEmpty()) {
                 chatMsgList.clear()
                 chatMsgList.addAll(chat)
-                chatAdapter.notifyNewChatRoom()
+                chatAdapter.scrollToBottom()
                 return
             }
 
             chatMsgList.addAll(pendingChat)
-            chatAdapter.notifyMsgAdded(pendingChat.size, ChatUtil.TYPE_TEXT)
+            chatAdapter.notifyMsgAdded(pendingChat.size)
         }
     }
 
