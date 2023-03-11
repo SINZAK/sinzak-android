@@ -53,8 +53,8 @@ class SuggestViewModel @Inject constructor(
         }
     }
 
-    fun addCommaToNumber(number: Int): String {
-        return PriceUtil.getFormattedPrice(number)
+    fun addCommaToNumber(): String {
+        return PriceUtil.getFormattedPrice(model.art.value!!.topPrice)
     }
 
     fun onBackPressed() {
