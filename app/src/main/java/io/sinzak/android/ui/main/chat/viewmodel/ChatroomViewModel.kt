@@ -95,6 +95,14 @@ class ChatroomViewModel @Inject constructor(
         }
     }
 
+    fun onProductClick(isProduct : Boolean ,id: Int)
+    {
+        if (!isProductExist.value) return
+        if (isProduct) detailModel.loadProduct(id)
+        else detailModel.loadWork(id)
+        navigation.changePage(Page.ART_DETAIL)
+    }
+
     private fun onImageClick(url : String)
     {
         clickedImage.value = url

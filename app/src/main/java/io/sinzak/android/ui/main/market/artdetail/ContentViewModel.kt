@@ -273,7 +273,7 @@ class ContentViewModel @Inject constructor(
 
         connect.showOnSaleDialog(
             offSale = {},
-            itemType = 0
+            itemType = model.itemType.value
         )
     }
 

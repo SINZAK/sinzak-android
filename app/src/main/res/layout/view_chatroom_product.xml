@@ -17,7 +17,8 @@
         android:layout_height="wrap_content"
         android:paddingVertical="7dp"
         android:paddingStart="23dp"
-        android:paddingEnd="37dp">
+        android:paddingEnd="37dp"
+        android:onClick="@{v->viewmodel.onProductClick(chatRoom.isProduct,chatRoom.productId)}">
 
 
         <ImageView
