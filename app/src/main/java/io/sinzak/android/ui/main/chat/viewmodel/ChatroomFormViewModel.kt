@@ -7,6 +7,7 @@ import io.sinzak.android.model.chat.ChatStorage
 import io.sinzak.android.remote.dataclass.chat.ChatMsg
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.ui.main.chat.ChatMsgAdapter
+import io.sinzak.android.utils.ChatUtil
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
@@ -22,7 +23,7 @@ class ChatroomFormViewModel @Inject constructor(
 
     fun sendTypedMsg(text: Editable){
 
-        storage.sendMsg(text.toString())
+        storage.sendMsg(text.toString(), ChatUtil.TYPE_TEXT)
 
     }
 

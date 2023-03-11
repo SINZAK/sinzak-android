@@ -38,7 +38,7 @@ class ChatRoomFragment : BaseFragment() {
     }
 
     override fun navigateOnBackPressed() {
-        navigator.revealHistory()
+        viewModel.onBackPressed()
     }
 
 

@@ -79,18 +79,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{chatRoom.formattedPrice}"
-                    android:visibility="@{chatRoom.price != null ? 0 : 8}"
-                    android:layout_marginEnd="3.5dp"/>
-                <TextView
-                    style="@style/regular13"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:enabled="@{chatRoom.suggest}"
-                    android:text="@{chatRoom.suggest ? @string/str_chat_suggest : @string/str_chat_no_suggest}"
-                    android:textColor="@{chatRoom.suggest ? @color/secondary : @color/text1}"
-                    android:layout_marginEnd="3.5dp"
-                    android:visibility="@{viewmodel.myId.equals(chatRoom.userId) ? 8 : 0}"
-                    android:onClick="@{v-> viewmodel.onSuggest(chatRoom.productId)}"/>
+                    android:visibility="@{chatRoom.price != null ? 0 : 8}"/>
 
             </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.appcompat.widget.LinearLayoutCompat>

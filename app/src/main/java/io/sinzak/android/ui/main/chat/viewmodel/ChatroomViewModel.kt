@@ -20,6 +20,7 @@ import io.sinzak.android.ui.main.chat.ChatConnect
 import io.sinzak.android.ui.main.chat.ChatMsgAdapter
 import io.sinzak.android.ui.main.profile.ProfileConnect
 import io.sinzak.android.ui.main.profile.report.ReportSendViewModel
+import io.sinzak.android.utils.ChatUtil
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -35,7 +36,7 @@ class ChatroomViewModel @Inject constructor(
 ) : BaseViewModel() {
     private val chatMsgList = mutableListOf<ChatMsg>()
 
-    val chatAdapter = ChatMsgAdapter(chatMsgList)
+    val chatAdapter = ChatMsgAdapter(chatMsgList,::onImageClick)
 
     val chatRoom = storage.chatRoomInfo
 
@@ -45,6 +46,9 @@ class ChatroomViewModel @Inject constructor(
     val myId = prefs.getString(CODE_USER_ID,"-1").toString()
 
     val isProductExist get() = storage.chatProductExistFlag
+
+    val imageShow = MutableStateFlow(false)
+    val clickedImage = MutableStateFlow("")
 
     fun invokeAdapter(rv: RecyclerView): ChatMsgAdapter {
         chatAdapter.rv = rv
@@ -66,7 +70,7 @@ class ChatroomViewModel @Inject constructor(
         newMessageOptional?.let { newMessage ->
             LogInfo(javaClass.name, "CHAT COLLECT: $newMessage")
             chatMsgList.add(newMessage)
-            chatAdapter.notifyMsgAdded(1)
+            chatAdapter.notifyMsgAdded(1,newMessage.type)
         }
     }.launchIn(viewModelScope)
 
@@ -87,14 +91,14 @@ class ChatroomViewModel @Inject constructor(
             }
 
             chatMsgList.addAll(pendingChat)
-            chatAdapter.notifyMsgAdded(pendingChat.size)
+            chatAdapter.notifyMsgAdded(pendingChat.size, ChatUtil.TYPE_TEXT)
         }
     }
 
-    fun onSuggest(productId : Int)
+    private fun onImageClick(url : String)
     {
-        detailModel.setIdForSuggest(productId)
-        navigation.changePage(Page.ART_DETAIL_SUGGEST)
+        clickedImage.value = url
+        imageShow.value = true
     }
 
     fun openSaleDialog() {
@@ -139,6 +143,10 @@ class ChatroomViewModel @Inject constructor(
     }
 
     fun onBackPressed() {
+        if (imageShow.value) {
+            imageShow.value = false
+            return
+        }
         uiModel.navigation.revealHistory()
     }
 

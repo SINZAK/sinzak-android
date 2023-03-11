@@ -20,6 +20,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.model.GlideUrl
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.FitCenter
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 import io.sinzak.android.R
@@ -157,6 +158,27 @@ fun setSmallImg(view: ImageView, url: String?, radius: Float) {
     CoroutineScope(Dispatchers.IO).launch {
         Glide.with(view).asBitmap().load(GlideUrl(url))
             .transform(CenterCrop(), RoundedCorners(radius.dp.toInt())).apply {
+                CoroutineScope(Dispatchers.Main).launch {
+                    into(view)
+                }
+            }
+    }
+}
+
+@BindingAdapter("fullImgUrl")
+fun setFullImg(view: ImageView, url: String?) {
+    if (url.isNullOrEmpty()) {
+        view.setImageDrawable(
+            AppCompatResources.getDrawable(
+                view.context,
+                R.drawable.ic_img_null_holder
+            )
+        )
+        return
+    }
+
+    CoroutineScope(Dispatchers.IO).launch {
+        Glide.with(view).load(url).apply {
                 CoroutineScope(Dispatchers.Main).launch {
                     into(view)
                 }

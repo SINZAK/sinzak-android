@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-
-    >
+    xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
             name="msg"
-            type="io.sinzak.android.remote.dataclass.chat.ChatMsg" />
+            type="io.sinzak.android.remote.dataclass.chat.ChatMsg"/>
+        <variable
+            name="onImageClick"
+            type="android.view.View.OnClickListener" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -34,7 +35,8 @@
             android:layout_width="174dp"
             android:layout_height="174dp"
             remoteImgUrl="@{msg.msg}"
-            imgRadius="@{12f}"/>
+            imgRadius="@{12f}"
+            android:onClick="@{onImageClick}"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

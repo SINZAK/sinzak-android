@@ -12,12 +12,16 @@ import io.sinzak.android.databinding.HolderChatMsgReceiveImgBinding
 import io.sinzak.android.databinding.HolderChatMsgSentBinding
 import io.sinzak.android.databinding.HolderChatMsgSentImgBinding
 import io.sinzak.android.remote.dataclass.chat.ChatMsg
+import io.sinzak.android.utils.ChatUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class ChatMsgAdapter(val msgList: List<ChatMsg>) : RecyclerView.Adapter<ChatMsgAdapter.ViewHolder>() {
+class ChatMsgAdapter(
+    val msgList: List<ChatMsg>,
+    val imageClick : (String) -> Unit
+) : RecyclerView.Adapter<ChatMsgAdapter.ViewHolder>() {
 
     var rv: RecyclerView? = null
 
@@ -25,9 +29,11 @@ class ChatMsgAdapter(val msgList: List<ChatMsg>) : RecyclerView.Adapter<ChatMsgA
         notifyItemRangeInserted(0, count)
     }
 
-    fun notifyMsgAdded(count: Int){
+    fun notifyMsgAdded(count: Int, itemType : String){
+        val requireHeight : Int
+        requireHeight = if (itemType == ChatUtil.TYPE_TEXT) 60 * count else 174
         notifyItemRangeInserted(itemCount - count,count)
-        rv?.smoothScrollBy(0, (Resources.getSystem().displayMetrics.density * 60).toInt())
+        rv?.smoothScrollBy(0, (Resources.getSystem().displayMetrics.density * requireHeight).toInt())
 
     }
 
@@ -37,8 +43,8 @@ class ChatMsgAdapter(val msgList: List<ChatMsg>) : RecyclerView.Adapter<ChatMsgA
             delay(100)
             rv?.scrollBy(0,99999)
         }
-
     }
+
 
 
     override fun getItemViewType(position: Int): Int {
@@ -70,10 +76,16 @@ class ChatMsgAdapter(val msgList: List<ChatMsg>) : RecyclerView.Adapter<ChatMsgA
 
             if(bind is HolderChatMsgSentImgBinding){
                 bind.msg = msg
+                bind.setOnImageClick {
+                    imageClick(msg.msg)
+                }
             }
 
             if(bind is HolderChatMsgReceiveImgBinding){
                 bind.msg = msg
+                bind.setOnImageClick {
+                    imageClick(msg.msg)
+                }
             }
 
 
