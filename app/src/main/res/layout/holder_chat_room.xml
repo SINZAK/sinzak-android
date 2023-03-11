@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
         <variable
@@ -17,9 +15,10 @@
         android:layout_height="80dp">
         <ImageView
             android:layout_width="48dp"
-            android:src="@drawable/ic_user_temp"
             android:layout_height="48dp"
-            android:layout_marginStart="16dp"/>
+            android:layout_marginStart="16dp"
+            remoteImgUrl="@{chat.image}"
+            smallImgRadius="@{13f}"/>
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_marginHorizontal="16dp"
@@ -37,22 +36,25 @@
                     android:layout_height="wrap_content"
                     android:text="@{chat.sender}"
                     style="@style/medium16"
+                    android:layout_marginEnd="10dp"
                     />
-                <ImageView
-                    android:visibility="@{chat.userVerified ? 0 : 8}"
-                    android:layout_marginStart="2dp"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_star"/>
 
                 <TextView
-                    android:layout_marginStart="10dp"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{@string/str_holder_school_time(chat.school, chat.formattedTime)}"
+                    android:layout_height="match_parent"
+                    android:visibility="@{chat.school.empty ? 8 : 0}"
+                    android:text="@{@string/str_holder_school(chat.school)}"
                     style="@style/regular13"
                     android:textColor="@color/gray60"
-                    android:layout_marginBottom="3dp"/>
+                    android:gravity="center_vertical"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@{chat.formattedTime}"
+                    style="@style/regular13"
+                    android:textColor="@color/gray60"
+                    android:gravity="center_vertical"/>
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <TextView
@@ -69,7 +71,7 @@
                 android:maxLines="1"
                 android:visibility="@{chat.unreadCount == 0 ? 0 : 8}"
                 android:text="@{chat.lastMsg}"
-                style="@style/regular13"
+                style="@style/regular16"
                 />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -78,7 +80,7 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:gravity="center"
-            android:visibility="@{chat.unreadCount &lt; 1 ? 8 : 0}"
+            android:visibility="gone"
             android:text="@{String.valueOf(chat.unreadCount)}"
             style="@style/medium13"
             android:background="@drawable/tv_chat_noti"

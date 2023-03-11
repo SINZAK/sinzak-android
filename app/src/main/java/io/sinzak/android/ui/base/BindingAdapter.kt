@@ -142,6 +142,28 @@ fun setImg(view: ImageView, url: String?) {
     }
 }
 
+@BindingAdapter("remoteImgUrl","smallImgRadius")
+fun setSmallImg(view: ImageView, url: String?, radius: Float) {
+    if (url.isNullOrEmpty()) {
+        view.setImageDrawable(
+            AppCompatResources.getDrawable(
+                view.context,
+                R.drawable.ic_small_null_img
+            )
+        )
+        return
+    }
+
+    CoroutineScope(Dispatchers.IO).launch {
+        Glide.with(view).asBitmap().load(GlideUrl(url))
+            .transform(CenterCrop(), RoundedCorners(radius.dp.toInt())).apply {
+                CoroutineScope(Dispatchers.Main).launch {
+                    into(view)
+                }
+            }
+    }
+}
+
 
 @BindingAdapter("viewpager", "adapter")
 fun provideViewpager(

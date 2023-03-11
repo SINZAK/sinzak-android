@@ -13,10 +13,9 @@
         <variable
             name="dismiss"
             type="android.view.View.OnClickListener" />
-
         <variable
-            name="artist"
-            type="String" />
+            name="itemType"
+            type="Integer" />
     </data>
     <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -38,7 +37,7 @@ android:theme="@style/AlertDialogStyle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="@string/str_product_onsale_done"
+                android:text="@{itemType == 0 ? @string/str_product_onsale_done : @string/str_work_onsale_done}"
                 style="@style/medium16"
                 android:gravity="center"/>
 
@@ -54,7 +53,7 @@ android:theme="@style/AlertDialogStyle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="@string/str_porduct_onsale_on"
+                android:text="@{itemType == 0 ? @string/str_porduct_onsale_on : @string/str_work_onsale_on}"
                 style="@style/medium16"
                 android:gravity="center"/>
 

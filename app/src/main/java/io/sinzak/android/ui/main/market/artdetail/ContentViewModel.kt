@@ -165,6 +165,11 @@ class ContentViewModel @Inject constructor(
      */
     fun onClickSuggest(){
         if (goToLoginIfNot()) return
+        if (authorId.isNullOrEmpty()) {
+            uiModel.showToast(valueModel.getString(R.string.str_null_user))
+            return
+        }
+        model.setIdForSuggest(product)
         navigation.changePage(Page.ART_DETAIL_SUGGEST)
     }
 
@@ -260,6 +265,20 @@ class ContentViewModel @Inject constructor(
     }
 
     /**
+     * 작품 거래 상태 다이얼로그 열기
+     */
+    fun showOnSaleDialog()
+    {
+        if (!isMyProduct.value) return
+
+        connect.showOnSaleDialog(
+            tradingState = { model.updateTradeState(product) },
+            saleState = { model.updateSellState(product) },
+            model.itemType.value
+        )
+    }
+
+    /**
      * 작가 신고 / 차단 다아일로그 열기
      */
     private fun showReportDialog() {
@@ -313,7 +332,7 @@ class ContentViewModel @Inject constructor(
     }
 
 
-    fun openChatPage() {
+    private fun openChatPage() {
         art.value ?: run {
             return
         }
@@ -337,6 +356,8 @@ class ContentViewModel @Inject constructor(
 
             return
         }
+
+        chatStorage.chatProductExistFlag.value = true
         model.makeNewChatroom()
 
         navigation.changePage(Page.CHAT_ROOM)

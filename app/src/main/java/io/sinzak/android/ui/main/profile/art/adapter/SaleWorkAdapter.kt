@@ -10,12 +10,14 @@ import io.sinzak.android.databinding.HolderProfileArtLinearBinding
 import io.sinzak.android.model.profile.ProfileModel
 import io.sinzak.android.remote.dataclass.product.Product
 import io.sinzak.android.system.LogDebug
+import kotlinx.coroutines.flow.StateFlow
 
 class SaleWorkAdapter(
-    val completeTradeClick : ((String,Boolean) -> Unit)? = null,
+    val completeTradeClick : ((String) -> Unit)? = null,
     val onItemClick : ((Product) -> Unit)? = null,
-    val isComplete : Boolean = false,
+    val isComplete : StateFlow<Boolean>,
     val viewType: Int,
+    val itemType : Boolean,
     val model : ProfileModel
 ): RecyclerView.Adapter<SaleWorkAdapter.ViewHolder>() {
 
@@ -68,11 +70,12 @@ class SaleWorkAdapter(
                 onItemClick!!(product)
             }
             bind.setCompleteTradeClick {
-                completeTradeClick!!(product.id.toString(), product.complete!!)
+                completeTradeClick!!(product.id.toString())
             }
-            bind.isComplete = isComplete
+            bind.isComplete = isComplete.value
             bind.completeText = setCompleteText(viewType)
             bind.isMine = model.profile.value!!.myProfile
+            bind.itemType = itemType
         }
     }
 
@@ -81,18 +84,18 @@ class SaleWorkAdapter(
         var completeText = ""
         when(viewType)
         {
-            0 -> completeText = PRODUCT.toString()
-            1 -> completeText = WORK.toString()
-            2 -> completeText = REQUEST.toString()
+            0 -> completeText = PRODUCT
+            1 -> completeText = WORK
+            2 -> completeText = REQUEST
         }
 
         return completeText
     }
 
     companion object {
-        const val PRODUCT = R.string.str_sale_onsale_false
-        const val WORK = R.string.str_work_onwork_false
-        const val REQUEST = R.string.str_request_complete_true
+        const val PRODUCT = "판매완료"
+        const val WORK = "작업완료"
+        const val REQUEST = "의뢰완료"
     }
 
 

@@ -17,6 +17,9 @@
             name="isComplete"
             type="Boolean" />
         <variable
+            name="itemType"
+            type="Boolean" />
+        <variable
             name="completeText"
             type="String" />
         <variable
@@ -36,6 +39,17 @@
             android:layout_height="156dp"
             android:background="@drawable/cl_sale_work_holder_item">
 
+            <ImageView
+                android:id="@+id/iv_sale_img"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                cornerRadius="@{12f}"
+                remoteImgUrl="@{product.thumbnail}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -52,17 +66,6 @@
                     android:drawablePadding="1dp"
                     app:drawableTopCompat="@drawable/ic_check_white" />
             </LinearLayout>
-
-            <ImageView
-                android:id="@+id/iv_sale_img"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                cornerRadius="@{12f}"
-                remoteImgUrl="@{product.thumbnail}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
@@ -90,7 +93,7 @@
                 android:layout_height="32dp"
                 android:background="@drawable/tv_sale_work_holder_btn"
                 android:gravity="center"
-                android:text="@string/str_sale_work_holder_btn"
+                android:text="@{itemType == true ? @string/str_sale_product_holder_btn : @string/str_sale_work_holder_btn}"
                 android:textColor="@{isComplete ? @color/gray60 : @color/btn_secondary}"
                 isSelect="@{isComplete}"
                 android:onClick="@{completeTradeClick}"

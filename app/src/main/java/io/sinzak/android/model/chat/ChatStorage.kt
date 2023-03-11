@@ -108,7 +108,11 @@ class ChatStorage @Inject constructor(@ApplicationContext val context: Context) 
                 thumbnail = postDetail.imgUrls?.let{
                    if(it.isNotEmpty()) it[0]
                    else ""
-                }?:""
+                }?:"",
+                complete = postDetail.complete,
+                suggest = postDetail.priceSuggestEnable,
+                userId = postDetail.authorId,
+                price = postDetail.price
             )
     }
 

@@ -46,21 +46,6 @@ class ChatConnect @Inject constructor() {
         }
     }
 
-    fun showOnSaleDialog(
-        updateSaleStatus: (Boolean) -> Unit
-    ){
-        if(isDialogOn())
-            return
-
-        dialog =
-        ChatroomSaleDialog(
-            context,
-            updateSaleStatus
-        ).apply {
-            show()
-        }
-
-    }
 
     fun userBlockDialog(
         onBlock : ()->Unit
@@ -71,6 +56,27 @@ class ChatConnect @Inject constructor() {
         dialog = ArtistBlockDialog(context, onBlock).apply{
             show()
         }
+    }
+
+    fun showOnSaleDialog(
+        tradingState: () -> Unit,
+        saleState : () -> Unit,
+        itemType : Int
+    ){
+        if(isDialogOn())
+            return
+
+        dialog =
+            ChatroomSaleDialog(
+                context,
+                tradingState,
+                saleState,
+                itemType
+
+            ).apply {
+                show()
+            }
+
     }
 
 

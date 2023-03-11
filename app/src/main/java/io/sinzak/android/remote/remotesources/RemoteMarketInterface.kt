@@ -3,7 +3,7 @@ package io.sinzak.android.remote.remotesources
 import com.google.gson.JsonObject
 import io.sinzak.android.remote.dataclass.CResponse
 import io.sinzak.android.remote.dataclass.request.market.ProductBuildRequest
-import io.sinzak.android.remote.dataclass.request.market.ProductLikeRequest
+import io.sinzak.android.remote.dataclass.request.market.ProductFormRequest
 import io.sinzak.android.remote.dataclass.request.market.ProductSuggestRequest
 import io.sinzak.android.remote.dataclass.response.home.BannerResponse
 import io.sinzak.android.remote.dataclass.response.market.*
@@ -72,19 +72,13 @@ interface RemoteMarketInterface {
     fun deleteWork(@HeaderMap headerMap: HashMap<String,String>,@Path("id") id : Int) : Call<CResponse>
 
     @POST("api/works/likes")
-    fun postWorkLikes(@HeaderMap headerMap: HashMap<String, String>, @Body body : ProductLikeRequest) : Call<CResponse>
+    fun postWorkLikes(@HeaderMap headerMap: HashMap<String, String>, @Body body : ProductFormRequest) : Call<CResponse>
 
     @POST("api/works/wish")
-    fun postWorkWish(@HeaderMap headerMap: HashMap<String, String>, @Body body : ProductLikeRequest) : Call<CResponse>
+    fun postWorkWish(@HeaderMap headerMap: HashMap<String, String>, @Body body : ProductFormRequest) : Call<CResponse>
 
     @POST("api/works/suggest")
     fun postWorkSuggest(@HeaderMap headerMap: HashMap<String, String>, @Body body : ProductSuggestRequest) : Call<CResponse>
-
-
-
-
-
-
 
     @POST("api/home/products")
     fun getHomeProducts(@HeaderMap headerMap : HashMap<String,String>) : Call<MarketHomeResponse>
@@ -101,11 +95,17 @@ interface RemoteMarketInterface {
 
 
     @POST("api/products/likes")
-    fun postProductLikes(@HeaderMap headerMap: HashMap<String, String>, @Body body : ProductLikeRequest) : Call<CResponse>
+    fun postProductLikes(@HeaderMap headerMap: HashMap<String, String>, @Body body : ProductFormRequest) : Call<CResponse>
 
     @POST("api/products/wish")
-    fun postProductWish(@HeaderMap headerMap: HashMap<String, String>, @Body body : ProductLikeRequest) : Call<CResponse>
+    fun postProductWish(@HeaderMap headerMap: HashMap<String, String>, @Body body : ProductFormRequest) : Call<CResponse>
 
     @POST("api/products/suggest")
     fun postProductSuggest(@HeaderMap headerMap: HashMap<String, String>, @Body body : ProductSuggestRequest) : Call<CResponse>
+
+    @POST("api/products/trading")
+    fun postProductTradingState(@HeaderMap headerMap: HashMap<String, String>, @Body body : ProductFormRequest) : Call<CResponse>
+
+    @POST("api/products/sell")
+    fun postProductSellState(@HeaderMap headerMap: HashMap<String, String>, @Body body: JsonObject) : Call<CResponse>
 }

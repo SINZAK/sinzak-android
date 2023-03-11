@@ -9,7 +9,7 @@ import io.sinzak.android.remote.dataclass.request.certify.MailRequest
 import io.sinzak.android.remote.dataclass.request.certify.UnivCertifyRequest
 import io.sinzak.android.remote.dataclass.request.login.*
 import io.sinzak.android.remote.dataclass.request.market.ProductBuildRequest
-import io.sinzak.android.remote.dataclass.request.market.ProductLikeRequest
+import io.sinzak.android.remote.dataclass.request.market.ProductFormRequest
 import io.sinzak.android.remote.dataclass.request.market.ProductSuggestRequest
 import io.sinzak.android.remote.dataclass.request.profile.*
 import io.sinzak.android.remote.remotesources.RemoteInterface
@@ -192,19 +192,26 @@ class CallImpl(
 
             API_GET_HOME_BANNER -> remoteApi.getBanner(header)
 
-            API_POST_LIKE_PRODUCT -> remoteApi.postProductLikes(header, requestBody as ProductLikeRequest)
+            API_POST_LIKE_PRODUCT -> remoteApi.postProductLikes(header, requestBody as ProductFormRequest)
 
-            API_POST_WISH_PRODUCT -> remoteApi.postProductWish(header, requestBody as ProductLikeRequest)
+            API_POST_WISH_PRODUCT -> remoteApi.postProductWish(header, requestBody as ProductFormRequest)
 
             API_POST_SUGGEST_PRODUCT -> remoteApi.postProductSuggest(header, requestBody as ProductSuggestRequest)
 
             API_GET_MARKET_WORK_DETAIL -> remoteApi.getMarketWorkDetail(header, paramInt0!!)
 
-            API_POST_LIKE_WORK -> remoteApi.postWorkLikes(header, requestBody as ProductLikeRequest)
+            API_POST_LIKE_WORK -> remoteApi.postWorkLikes(header, requestBody as ProductFormRequest)
 
             API_POST_SUGGEST_WORK -> remoteApi.postWorkSuggest(header, requestBody as ProductSuggestRequest)
 
-            API_POST_WISH_WORK -> remoteApi.postWorkWish(header, requestBody as ProductLikeRequest)
+            API_POST_WISH_WORK -> remoteApi.postWorkWish(header, requestBody as ProductFormRequest)
+
+            API_POST_TRADE_STATE -> remoteApi.postProductTradingState(header, requestBody as ProductFormRequest)
+
+            API_POST_SELL_STATE -> remoteApi.postProductSellState(header, JsonObject().apply {
+                addProperty("productId",paramInt0)
+                }
+            )
 
 
             API_GET_CHATROOM_MSG -> remoteApi.getChatroomMsg(header, paramStr0!!)

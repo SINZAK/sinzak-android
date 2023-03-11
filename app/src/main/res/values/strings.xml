@@ -54,7 +54,8 @@
     <string name="str_request_complete_false">의뢰중</string>
     <string name="str_request_complete_true">의뢰완료</string>
     <string name="str_request_content_null">의뢰가 없어요</string>
-    <string name="str_sale_work_holder_btn">거래 완료하기</string>
+    <string name="str_sale_product_holder_btn">거래 완료하기</string>
+    <string name="str_sale_work_holder_btn">모집 완료하기</string>
     <string name="str_scrap_content_null">스크랩한 작품이 없어요</string>
 
     <string name="str_edit_profile_img">프로필 사진 바꾸기</string>
@@ -156,7 +157,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="str_btn_outsourcing_client">의뢰해요</string>
     <string name="str_btn_outsourcing_artist">작업해요</string>
-    <string name="str_holder_school_time">%s·%s</string>
+    <string name="str_holder_school">%s·</string>
     <string name="str_title_chat">채팅</string>
     <string name="str_choose_category">카테고리 선택</string>
     <string name="str_choose_field">분야를 선택해 주세요</string>
@@ -252,8 +253,10 @@
     <string name="str_checkemail_exist">가입한 다른 소셜 계정으로 로그인해주세요.</string>
     <string name="str_btn_chatroom_leave">채팅방 나가기</string>
     <string name="str_block_chat">차단하기</string>
-    <string name="str_product_onsale_done">거래 완료</string>
+    <string name="str_product_onsale_done">거래완료</string>
     <string name="str_porduct_onsale_on">거래중</string>
+    <string name="str_work_onsale_done">모집완료</string>
+    <string name="str_work_onsale_on">모집중</string>
 
     <string name="str_chat_hint">메세지 보내기</string>
     <string name="str_chat_unabled_hint">메세지를 보낼 수 없어요</string>

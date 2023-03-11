@@ -47,7 +47,8 @@ data class MarketDetailResponse(
         @SerializedName("views") val views: Int = 0,
         @SerializedName("wish") val wish: Boolean = false,
         @SerializedName("wishCnt") val wishCnt: Int = 0,
-        @SerializedName("myPost") val myPost : Boolean = false
+        @SerializedName("myPost") val myPost : Boolean = false,
+        @SerializedName("topPrice") val topPrice : Int = 0
             )
     {
         fun getTimePassedExceptDot() : String {

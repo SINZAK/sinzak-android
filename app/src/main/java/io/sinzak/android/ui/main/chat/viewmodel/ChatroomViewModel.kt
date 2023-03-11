@@ -10,6 +10,7 @@ import io.sinzak.android.constants.CODE_USER_REPORT_NAME
 import io.sinzak.android.system.App.Companion.prefs
 import io.sinzak.android.enums.Page
 import io.sinzak.android.model.chat.ChatStorage
+import io.sinzak.android.model.market.ProductDetailModel
 import io.sinzak.android.model.profile.UserCommandModel
 import io.sinzak.android.remote.dataclass.chat.ChatMsg
 import io.sinzak.android.system.LogDebug
@@ -29,7 +30,8 @@ import javax.inject.Inject
 class ChatroomViewModel @Inject constructor(
     private val storage: ChatStorage,
     private val connect: ChatConnect,
-    private val commandModel: UserCommandModel
+    private val commandModel: UserCommandModel,
+    private val detailModel: ProductDetailModel
 ) : BaseViewModel() {
     private val chatMsgList = mutableListOf<ChatMsg>()
 
@@ -40,13 +42,9 @@ class ChatroomViewModel @Inject constructor(
     private val _roomName = MutableStateFlow("")
     val roomName: StateFlow<String> = _roomName
 
-    val myId = prefs.getString(CODE_USER_ID,"-1")
+    val myId = prefs.getString(CODE_USER_ID,"-1").toString()
 
     val isProductExist get() = storage.chatProductExistFlag
-
-    fun onBackPressed() {
-        uiModel.navigation.revealHistory()
-    }
 
     fun invokeAdapter(rv: RecyclerView): ChatMsgAdapter {
         chatAdapter.rv = rv
@@ -93,11 +91,18 @@ class ChatroomViewModel @Inject constructor(
         }
     }
 
+    fun onSuggest(productId : Int)
+    {
+        detailModel.setIdForSuggest(productId)
+        navigation.changePage(Page.ART_DETAIL_SUGGEST)
+    }
 
     fun openSaleDialog() {
-        connect.showOnSaleDialog {
-            TODO()
-        }
+        connect.showOnSaleDialog(
+            tradingState = {},
+            saleState = {},
+            itemType = 0
+        )
     }
 
     fun openChatDialog() {
@@ -130,6 +135,10 @@ class ChatroomViewModel @Inject constructor(
 
     private fun leaveChatroom() {
         storage.leaveChatroom()
+        uiModel.navigation.revealHistory()
+    }
+
+    fun onBackPressed() {
         uiModel.navigation.revealHistory()
     }
 

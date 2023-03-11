@@ -4,6 +4,7 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import io.sinzak.android.databinding.FragmentChatroomBinding
+import io.sinzak.android.system.LogDebug
 import io.sinzak.android.ui.base.BaseFragment
 import io.sinzak.android.ui.main.chat.viewmodel.ChatroomFormViewModel
 import io.sinzak.android.ui.main.chat.viewmodel.ChatroomViewModel
@@ -26,6 +27,8 @@ class ChatRoomFragment : BaseFragment() {
             vm = viewModel
             lifecycleOwner = viewLifecycleOwner
         }
+
+        LogDebug(javaClass.name, "내 아이디 : ${viewModel.myId}")
 
 
     }
