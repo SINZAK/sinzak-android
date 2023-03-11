@@ -112,7 +112,8 @@ class ChatStorage @Inject constructor(@ApplicationContext val context: Context) 
                 complete = postDetail.complete,
                 suggest = postDetail.priceSuggestEnable,
                 userId = postDetail.authorId,
-                price = postDetail.price
+                price = postDetail.price,
+                postType = if (type == "product") "PRODUCT" else "WORK"
             )
     }
 

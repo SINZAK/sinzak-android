@@ -17,7 +17,8 @@ data class ChatRoomResponse(
         @SerializedName("complete") val complete: Boolean = false,
         @SerializedName("suggest") val suggest: Boolean = false,
         @SerializedName("userId") val userId: String = "",
-        @SerializedName("price") val price : Int? = null
+        @SerializedName("price") val price : Int? = null,
+        @SerializedName("postType") val postType : String
     ) {
 
         fun getFormattedPrice() : String?{
@@ -25,6 +26,17 @@ data class ChatRoomResponse(
                 return PriceUtil.getFormattedPrice(it)+"원"
             }
             return null
+        }
+
+        fun getStatusString() : String {
+            if (isProduct()) {
+                return if (complete) "거래완료" else "거래중"
+            }
+            else return if (complete) "모집완료" else "모집중"
+        }
+
+        fun isProduct() : Boolean {
+            return postType != "WORK"
         }
     }
 

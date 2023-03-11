@@ -59,8 +59,7 @@ class ChatConnect @Inject constructor() {
     }
 
     fun showOnSaleDialog(
-        tradingState: () -> Unit,
-        saleState : () -> Unit,
+        offSale : () -> Unit,
         itemType : Int
     ){
         if(isDialogOn())
@@ -69,8 +68,7 @@ class ChatConnect @Inject constructor() {
         dialog =
             ChatroomSaleDialog(
                 context,
-                tradingState,
-                saleState,
+                offSale,
                 itemType
 
             ).apply {

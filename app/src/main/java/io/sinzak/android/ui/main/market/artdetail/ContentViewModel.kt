@@ -272,9 +272,8 @@ class ContentViewModel @Inject constructor(
         if (!isMyProduct.value) return
 
         connect.showOnSaleDialog(
-            tradingState = { model.updateTradeState(product) },
-            saleState = { model.updateSellState(product) },
-            model.itemType.value
+            offSale = {},
+            itemType = 0
         )
     }
 

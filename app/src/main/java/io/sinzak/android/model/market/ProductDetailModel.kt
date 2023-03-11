@@ -20,9 +20,6 @@ class ProductDetailModel @Inject constructor() : BaseModel() {
 
     val art = MutableStateFlow<MarketDetailResponse.Detail?>(null)
 
-    val productTradeUpdateFlag = MutableStateFlow(false)
-    val productSellUpdateFlag = MutableStateFlow(false)
-
     val productSuggestSuccessFlag = MutableStateFlow(false)
     val productDeleteSuccessFlag = MutableStateFlow(false)
 
@@ -128,25 +125,6 @@ class ProductDetailModel @Inject constructor() : BaseModel() {
     }
 
     /**
-     * 거래중 상태로 업데이트 합니다
-     */
-    fun updateTradeState(id : Int)
-    {
-        val request = ProductFormRequest(
-            id = id,
-            mode = false
-        )
-
-        CallImpl(
-            API_POST_TRADE_STATE,
-            this,
-            request
-        ).apply {
-            remote.sendRequestApi(this)
-        }
-    }
-
-    /**
      * 거래완료 상태로 업데이트 합니다
      */
     fun updateSellState(id : Int)
@@ -194,13 +172,6 @@ class ProductDetailModel @Inject constructor() : BaseModel() {
                     art.value = body.data
                 }else
                     globalUi.showToast(body.message.toString())
-            }
-
-            API_POST_TRADE_STATE -> {
-                productTradeUpdateFlag.value = body.success!!
-            }
-            API_POST_SELL_STATE-> {
-                productSellUpdateFlag.value = body.success!!
             }
 
         }

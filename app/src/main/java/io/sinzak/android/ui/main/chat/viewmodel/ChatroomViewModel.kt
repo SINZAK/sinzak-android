@@ -103,8 +103,7 @@ class ChatroomViewModel @Inject constructor(
 
     fun openSaleDialog() {
         connect.showOnSaleDialog(
-            tradingState = {},
-            saleState = {},
+            offSale = {},
             itemType = 0
         )
     }

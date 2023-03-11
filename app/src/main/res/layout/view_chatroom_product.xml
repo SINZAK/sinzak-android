@@ -52,7 +52,8 @@
                     style="@style/bold13"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text='@{chatRoom.complete ? "거래완료" : "거래중"}'
+                    android:text='@{chatRoom.statusString}'
+                    android:enabled="@{viewmodel.myId.equals(chatRoom.userId)}"
                     android:onClick="@{v->viewmodel.openSaleDialog()}"/>
                 <ImageView
                     android:layout_width="16dp"
