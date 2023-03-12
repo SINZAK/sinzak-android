@@ -371,8 +371,7 @@ class SignModel @Inject constructor(
                 oAuthIdToken = it.idToken.toString()
                 socialOrigin = SDK.Google.displayName
 
-                postOAuthToken(oAuthTokenTaken, socialOrigin, idToken = it.idToken.toString())
-                //getGoogleAccessToken(authCode)
+                getGoogleAccessToken(authCode)
             }
 
         } catch (e: ApiException) {
@@ -601,6 +600,19 @@ class SignModel @Inject constructor(
         }
     }
 
+    private fun onResponseOAuth(response : OAuthGetResponse){
+
+        response.data?.let {
+            if (it.joined!!) {
+                setIsLogin(true)
+                _sdkSignSuccess.value = false
+                profile.getProfile()
+                profile.isFirstLogin.value = true
+            }
+            else checkEmail(loginEmail)
+        }
+    }
+
 
 
     override fun onConnectionSuccess(api: Int, body: CResponse) {
@@ -634,16 +646,7 @@ class SignModel @Inject constructor(
             }
 
             API_POST_OAUTH_TOKEN ->{
-                body as OAuthGetResponse
-
-                if(body.success == true){
-                    setIsLogin(true)
-                    _sdkSignSuccess.value = false
-                    profile.getProfile()
-                    profile.isFirstLogin.value = true
-                }else{
-                    checkEmail(loginEmail)
-                }
+                onResponseOAuth(body as OAuthGetResponse)
             }
 
             /**
@@ -652,7 +655,7 @@ class SignModel @Inject constructor(
             API_GET_GOOGLE_ACCESS_TOKEN -> {
                 body as GoogleResponse
                 _sdkSignSuccess.value = true
-                postGoogleOAuthToken(body.access_token,body.id_token)
+                postOAuthToken(body.access_token, socialOrigin,body.id_token)
             }
 
 
