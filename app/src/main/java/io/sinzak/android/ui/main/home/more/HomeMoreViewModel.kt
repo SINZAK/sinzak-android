@@ -25,7 +25,9 @@ class HomeMoreViewModel  @Inject constructor(
 
     val adapter = ArtVerticalAdapter(products){
         detailModel.loadProduct(it.id!!)
-        uiModel.openProductDetail()
+        useFlag(detailModel.productLoadSuccessFlag){
+            uiModel.openProductDetail()
+        }
     }
 
 

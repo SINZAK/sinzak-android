@@ -48,7 +48,6 @@ class ChatViewModel @Inject constructor(
 
     init {
         useFlag(storage.chatRoomLeaveFlag){
-            LogDebug(javaClass.name, "leaveflag 사용")
             chatRoomAdapter.removeByUUID(storage.deleteRoomUUID.value)
             storage.deleteRoomUUID.value = ""
         }

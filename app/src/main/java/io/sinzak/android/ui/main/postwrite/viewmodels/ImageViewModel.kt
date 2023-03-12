@@ -3,6 +3,7 @@ package io.sinzak.android.ui.main.postwrite.viewmodels
 import android.net.Uri
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.sinzak.android.R
 import io.sinzak.android.constants.CODE_ON_EDIT
 import io.sinzak.android.enums.Page
 import io.sinzak.android.model.market.MarketWriteModel
@@ -99,7 +100,7 @@ class ImageViewModel @Inject constructor(
     fun loadImage(){
 
         if (imgUris.size>4){
-            uiModel.showToast("5장까지 업로드 가능해요")
+            uiModel.showToast(valueModel.getString(R.string.str_below_five_image))
             return
         }
 

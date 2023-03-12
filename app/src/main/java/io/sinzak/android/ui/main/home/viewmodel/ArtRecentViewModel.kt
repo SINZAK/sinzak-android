@@ -24,8 +24,11 @@ class ArtRecentViewModel @Inject constructor(
         onLikeClick = pModel::postProductLike
 
     ){
-        navigation.changePage(Page.ART_DETAIL)
         pModel.loadProduct(it.id!!)
+        useFlag(pModel.productLoadSuccessFlag){
+            navigation.changePage(Page.ART_DETAIL)
+        }
+
     }
 
     override val hMargin: Float

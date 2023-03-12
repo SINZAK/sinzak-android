@@ -20,8 +20,10 @@ class ArtMarketViewModel @Inject constructor(
             navigation.changePage(Page.MARKET)
         }
     ) {
-        uiModel.openProductDetail()
         productDetailModel.loadProduct(it.id!!)
+        useFlag(productDetailModel.productLoadSuccessFlag){
+            uiModel.openProductDetail()
+        }
     }
 
     override val hMargin: Float

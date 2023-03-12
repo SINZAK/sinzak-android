@@ -127,7 +127,9 @@ class ChatroomViewModel @Inject constructor(
         if (!isProductExist.value) return
         if (isProduct) detailModel.loadProduct(id)
         else detailModel.loadWork(id)
-        navigation.changePage(Page.ART_DETAIL)
+        useFlag(detailModel.productLoadSuccessFlag){
+            navigation.changePage(Page.ART_DETAIL)
+        }
     }
 
     private fun onImageClick(url : String)
@@ -154,7 +156,10 @@ class ChatroomViewModel @Inject constructor(
 
     private fun blockUser() {
         connect.userBlockDialog {
-           TODO()
+            commandModel.blockUser(chatRoom.value!!.opponentUserId,chatRoom.value!!.roomName)
+            useFlag(commandModel.reportSuccessFlag){
+                uiModel.showToast("해당 유저를 차단했어요")
+            }
         }
     }
 
@@ -162,7 +167,7 @@ class ChatroomViewModel @Inject constructor(
         chatRoom.value?.let { info ->
             Bundle().apply {
                 putString(CODE_USER_REPORT_NAME, info.roomName)
-                putString(CODE_USER_REPORT_ID, info.userId)
+                putString(CODE_USER_REPORT_ID, info.opponentUserId)
                 navigation.putBundleData(ReportSendViewModel::class, this)
             }
             navigation.changePage(Page.PROFILE_REPORT_TYPE)

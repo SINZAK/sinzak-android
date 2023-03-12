@@ -33,6 +33,7 @@ class SpecViewModel @Inject constructor(
             uiModel.showToast(valueModel.getString(R.string.str_post_success))
 
             productModel.loadProduct(model.getProductId())
+
             connect.gotoDetailAfterBuild()
 
             model.flagBuildSuccess.value = false

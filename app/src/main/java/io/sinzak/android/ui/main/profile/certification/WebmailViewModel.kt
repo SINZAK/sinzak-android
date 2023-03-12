@@ -2,6 +2,7 @@ package io.sinzak.android.ui.main.profile.certification
 
 import android.text.TextUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.sinzak.android.R
 import io.sinzak.android.enums.Page
 import io.sinzak.android.model.certify.CertifyModel
 import io.sinzak.android.ui.base.BaseViewModel
@@ -191,6 +192,7 @@ class WebmailViewModel @Inject constructor(
         navigation.removeHistory(Page.PROFILE_WEBMAIL)
         navigation.removeHistory(Page.PROFILE_CERTIFICATION)
         navigation.changePage(Page.PROFILE)
+        uiModel.showToast(valueModel.getString(R.string.str_certification_done))
     }
 
     /**

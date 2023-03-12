@@ -55,9 +55,10 @@ class OutsourcingViewModel @Inject constructor(
         } else if (searchOn.value)
             searchOn.value = false
 
-        if(!searchOn.value)
-            LogDebug(javaClass.name,"검색창 뒤로가기 때 요청")
+        if(!searchOn.value) {
+            LogDebug(javaClass.name, "검색창 뒤로가기 때 요청")
             model.getRemoteMarketWorks(refresh = true, search = "")
+        }
 
         soft.hideKeyboard()
     }

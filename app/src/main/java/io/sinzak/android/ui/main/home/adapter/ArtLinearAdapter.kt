@@ -97,11 +97,10 @@ class ArtLinearAdapter(val onNextClick : ()->Unit = {},
                     }
             }
             bind.apply{
-                if(!product.thumbnail.isNullOrEmpty())
-                Glide.with(ivPoster).asBitmap().load(GlideUrl(product.thumbnail))
-                    .transform(CenterCrop(),RoundedCorners(10.dp.toInt())).into(ivPoster)
-
-
+                if(!product.thumbnail.isNullOrEmpty()) {
+                    Glide.with(ivPoster).asBitmap().load(GlideUrl(product.thumbnail))
+                        .transform(CenterCrop(),RoundedCorners(10.dp.toInt())).into(ivPoster)
+                }
             }
         }
     }

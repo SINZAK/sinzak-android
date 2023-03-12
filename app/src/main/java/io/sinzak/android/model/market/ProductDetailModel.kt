@@ -28,6 +28,8 @@ class ProductDetailModel @Inject constructor() : BaseModel() {
 
     val itemType = MutableStateFlow(TYPE_MARKET_PRODUCT) // 0 : product, 1 : work
 
+    val productLoadSuccessFlag = MutableStateFlow(false)
+
     /**
      * 가격 제안을 위한 아이디 세팅
      */
@@ -146,15 +148,23 @@ class ProductDetailModel @Inject constructor() : BaseModel() {
 
 
     override fun handleError(api: Int, msg: String?, t: Throwable?) {
-
+        when(api){
+            API_GET_PRODUCT_DETAIL,
+            API_GET_MARKET_WORK_DETAIL -> {
+                productLoadSuccessFlag.value = false
+                globalUi.showToast(msg.toString())
+            }
+        }
     }
 
     override fun onConnectionSuccess(api: Int, body: CResponse) {
         when(api){
-            API_GET_PRODUCT_DETAIL ->{
-                if(body is MarketDetailResponse){
-                    art.value = body.data
-                }
+            API_GET_PRODUCT_DETAIL,
+            API_GET_MARKET_WORK_DETAIL->{
+                body as MarketDetailResponse
+                productLoadSuccessFlag.value = body.success!!
+                if (body.success==false) globalUi.showToast(body.message.toString())
+                art.value = body.data
             }
 
             API_POST_SUGGEST_PRODUCT, API_POST_SUGGEST_WORK ->{
@@ -174,12 +184,6 @@ class ProductDetailModel @Inject constructor() : BaseModel() {
                     globalUi.showToast(body.message.toString())
             }
 
-            API_GET_MARKET_WORK_DETAIL ->{
-                if(body is MarketDetailResponse){
-                    art.value = body.data
-                }else
-                    globalUi.showToast(body.message.toString())
-            }
 
             API_POST_SELL_STATE,
             API_POST_WORK_STATE -> {

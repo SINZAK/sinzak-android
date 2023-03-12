@@ -11,7 +11,6 @@ import io.sinzak.android.system.LogDebug
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.ui.main.profile.scrap.adapter.ScrapAdapter
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
@@ -99,7 +98,10 @@ class ScrapViewModel @Inject constructor(
         if (scrapType.value == PRODUCT) productModel.loadProduct(product.id!!)
         else productModel.loadWork(product.id!!)
 
-        navigation.changePage(Page.ART_DETAIL)
+        useFlag(productModel.productLoadSuccessFlag){
+            navigation.changePage(Page.ART_DETAIL)
+        }
+
     }
 
     /**

@@ -23,8 +23,10 @@ class ArtHotViewModel @Inject constructor(
             navigation.changePage(Page.MARKET)
         }
     ) {
-        uiModel.openProductDetail()
         productDetailModel.loadProduct(it.id!!)
+        useFlag(productDetailModel.productLoadSuccessFlag) {
+            uiModel.openProductDetail()
+        }
     }
 
 

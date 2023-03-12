@@ -9,6 +9,4 @@ abstract class HomeLinearViewModel : BaseViewModel() {
     abstract val adapter : RecyclerView.Adapter<*>
     abstract val title : String
     abstract val hMargin : Float
-
-    val isUserLogin get() = signModel.isUserLogin()
 }

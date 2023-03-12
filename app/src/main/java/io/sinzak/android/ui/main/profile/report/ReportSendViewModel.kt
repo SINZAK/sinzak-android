@@ -3,6 +3,7 @@ package io.sinzak.android.ui.main.profile.report
 import android.os.Bundle
 import android.widget.TextView
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.sinzak.android.R
 import io.sinzak.android.constants.CODE_USER_REPORT_ID
 import io.sinzak.android.constants.CODE_USER_REPORT_NAME
 import io.sinzak.android.enums.Page
@@ -98,7 +99,7 @@ class ReportSendViewModel @Inject constructor(
             userId = userId.value
         )
         useFlag(commandModel.reportSuccessFlag){
-            uiModel.showToast("신고가 접수됐어요")
+            uiModel.showToast(valueModel.getString(R.string.str_accept_report))
             initState()
             navigation.removeHistory(Page.PROFILE_REPORT_SEND)
             navigation.removeHistory(Page.PROFILE_REPORT_TYPE)

@@ -26,7 +26,9 @@ class ArtistViewModel @Inject constructor(
 
     val adapter = ArtsAdapter(arts){
         pModel.loadWork(it.id!!)
-        navigation.changePage(Page.ART_DETAIL)
+        useFlag(pModel.productLoadSuccessFlag){
+            navigation.changePage(Page.ART_DETAIL)
+        }
     }
 
     private fun updateProducts(p : MutableList<Product>){

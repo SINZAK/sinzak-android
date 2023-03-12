@@ -479,7 +479,7 @@ class SignModel @Inject constructor(
 
     fun logout(){
         postFcmToken("", prefs.getString(CODE_USER_ID, "").toString())
-/*        prefs.setString(CODE_FCM_TOKEN,"")*/
+        prefs.setString(CODE_FCM_TOKEN,"")
         prefs.accessToken = ""
         prefs.refreshToken = ""
         setIsLogin(false)

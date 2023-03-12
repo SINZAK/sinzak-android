@@ -23,7 +23,9 @@ class ArtsViewModel @Inject constructor(
 
     val adapter = ArtProductAdapter(::requestProductLike) { p ->
         productModel.loadProduct(p.id!!)
-        navigation.changePage(Page.ART_DETAIL)
+        useFlag(productModel.productLoadSuccessFlag){
+            navigation.changePage(Page.ART_DETAIL)
+        }
     }.apply {
         md.marketProducts.onEach {
             setProducts(it) { bool ->

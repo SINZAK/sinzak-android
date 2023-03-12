@@ -30,7 +30,9 @@ class SaleViewModel @Inject constructor(
 
     override fun onItemClick(product: Product) {
         productModel.loadProduct(product.id!!)
-        navigation.changePage(Page.ART_DETAIL)
+        useFlag(productModel.productLoadSuccessFlag){
+            navigation.changePage(Page.ART_DETAIL)
+        }
     }
 
     override fun onEndTrade(id: Int, callback: () -> Unit) {
