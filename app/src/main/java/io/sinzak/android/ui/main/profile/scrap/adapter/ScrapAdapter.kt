@@ -13,12 +13,14 @@ import io.sinzak.android.R
 import io.sinzak.android.databinding.HolderProfileScrapGridBinding
 import io.sinzak.android.remote.dataclass.product.Product
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 
 class ScrapAdapter(
-    val scrapList : MutableList<Product> = mutableListOf(),
     val onItemClick : ((Product)->Unit)? = null,
     val isProduct : MutableStateFlow<Boolean>
 ) : RecyclerView.Adapter<ScrapAdapter.ViewHolder>() {
+
+    private var wishList : List<Product> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -27,13 +29,19 @@ class ScrapAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(scrapList[position])
+        holder.bind(wishList[position])
     }
 
     override fun getItemCount(): Int {
-        return scrapList.size
+        return wishList.size
     }
 
+    fun setWishList(wishes : List<Product>)
+    {
+        wishList = listOf()
+        wishList = wishes
+        notifyDataSetChanged()
+    }
 
     inner class ViewHolder(val bind : HolderProfileScrapGridBinding)
         :RecyclerView.ViewHolder(bind.root), RequestListener<Bitmap> {

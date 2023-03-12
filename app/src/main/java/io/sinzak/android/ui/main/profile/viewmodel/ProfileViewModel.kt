@@ -155,7 +155,6 @@ class ProfileViewModel @Inject constructor(
      */
     fun goToScrapList()
     {
-        model.getWishList()
         navigation.changePage(Page.PROFILE_SCRAP)
     }
 
