@@ -10,10 +10,11 @@ import io.sinzak.android.databinding.HolderProfileArtLinearBinding
 import io.sinzak.android.model.profile.ProfileModel
 import io.sinzak.android.remote.dataclass.product.Product
 import io.sinzak.android.system.LogDebug
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
 class SaleWorkAdapter(
-    val completeTradeClick : ((String) -> Unit)? = null,
+    val completeTradeClick : ((Int,()->Unit) -> Unit)? = null,
     val onItemClick : ((Product) -> Unit)? = null,
     val isComplete : StateFlow<Boolean>,
     val viewType: Int,
@@ -39,16 +40,9 @@ class SaleWorkAdapter(
 
     fun setArts (arts : List<Product>)
     {
-        if (this.productList != arts)
-        {
-            val oldSize = itemCount
-            this.productList = arts
-
-            if (oldSize >= itemCount) notifyDataSetChanged()
-            else notifyItemRangeInserted(oldSize,itemCount - oldSize)
-
-            LogDebug(javaClass.name,"[Art List] 새로운 데이터 수신 $itemCount 개")
-        }
+        productList = listOf()
+        productList = arts
+        notifyDataSetChanged()
     }
 
     private fun setMatchParentToRecyclerView(view: View) {
@@ -65,12 +59,13 @@ class SaleWorkAdapter(
         fun bind(product: Product) {
 
             setMatchParentToRecyclerView(bind.root)
+
             bind.product = product
             bind.setItemClick {
                 onItemClick!!(product)
             }
             bind.setCompleteTradeClick {
-                completeTradeClick!!(product.id.toString())
+                completeTradeClick!!(product.id!!) { bind.isComplete = true }
             }
             bind.isComplete = isComplete.value
             bind.completeText = setCompleteText(viewType)

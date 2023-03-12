@@ -29,12 +29,18 @@ class WorkViewModel @Inject constructor(
 
     override fun onItemClick(product: Product) {
         productModel.loadWork(product.id!!)
-        navigation.changePage(Page.ART_DETAIL)
+        useFlag(productModel.productLoadSuccessFlag){
+            navigation.changePage(Page.ART_DETAIL)
+        }
+
     }
 
-    override fun onEndTrade(id: String) {
-        if (!completeList.value) return
-
+    override fun onEndTrade(id: Int,callback : ()->Unit) {
+        if (completeList.value) return
+        productModel.updateProductState(id, WORK)
+        useFlag(productModel.productStatusUpdateFlag){
+            callback()
+        }
     }
 
 

@@ -47,14 +47,14 @@ class MarketArtModel @Inject constructor() : BaseModel() {
     fun setMarketSort(sort: Sort)
     {
         _sortOrder.value = sort
-        getRemoteMarketProducts(refresh = true)
+        getRemoteMarketProducts(refresh = true, search = searchKeyword)
     }
 
 
     fun onClickShowOnSale(status : Boolean)
     {
         _stShowOnSale.value = status
-        getRemoteMarketProducts(refresh = true)
+        getRemoteMarketProducts(refresh = true, search = searchKeyword)
     }
 
 
@@ -67,6 +67,7 @@ class MarketArtModel @Inject constructor() : BaseModel() {
         val pageSize = 10
 
         val page = if(refresh) {
+            LogDebug(javaClass.name,"리프레쉬")
             _marketProducts.value = mutableListOf()
             maxPage = 9999
             searchKeyword = search

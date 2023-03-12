@@ -6,6 +6,7 @@ import io.sinzak.android.enums.Page
 import io.sinzak.android.model.market.ProductDetailModel
 import io.sinzak.android.model.works.WorkListModel
 import io.sinzak.android.remote.dataclass.product.Product
+import io.sinzak.android.system.LogDebug
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.ui.main.market.adapter.ArtsAdapter
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -25,7 +26,9 @@ class ArtistViewModel @Inject constructor(
 
     val adapter = ArtsAdapter(arts){
         pModel.loadWork(it.id!!)
-        navigation.changePage(Page.ART_DETAIL)
+        useFlag(pModel.productLoadSuccessFlag){
+            navigation.changePage(Page.ART_DETAIL)
+        }
     }
 
     private fun updateProducts(p : MutableList<Product>){
@@ -37,6 +40,7 @@ class ArtistViewModel @Inject constructor(
 
 
     fun getMoreWorks(){
+        LogDebug(javaClass.name, "맨 밑 도달해서 요청")
         model.getRemoteMarketWorks(refresh = false)
     }
 

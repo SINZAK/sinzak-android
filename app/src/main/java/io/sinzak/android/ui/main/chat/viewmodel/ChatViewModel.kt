@@ -5,6 +5,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import io.sinzak.android.enums.Page
 import io.sinzak.android.model.chat.ChatStorage
 import io.sinzak.android.remote.dataclass.chat.ChatRoom
+import io.sinzak.android.system.LogDebug
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.ui.main.chat.ChatRoomAdapter
 import kotlinx.coroutines.delay
@@ -21,8 +22,8 @@ class ChatViewModel @Inject constructor(
         openChatRoom(it)
     }
 
-    fun openChatRoom(chat:ChatRoom){
-        storage.loadExistChatroom(chat)
+    private fun openChatRoom(chat:ChatRoom){
+        storage.loadExistChatroom(chat.roomUuid.toString())
         navigation.changePage(Page.CHAT_ROOM)
     }
 
@@ -43,6 +44,13 @@ class ChatViewModel @Inject constructor(
     fun getRemoteChatRoomList()
     {
         storage.getChatRoomList()
+    }
+
+    init {
+        useFlag(storage.chatRoomLeaveFlag){
+            chatRoomAdapter.removeByUUID(storage.deleteRoomUUID.value)
+            storage.deleteRoomUUID.value = ""
+        }
     }
 
 

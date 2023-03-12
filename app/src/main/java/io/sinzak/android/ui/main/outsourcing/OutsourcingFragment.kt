@@ -85,7 +85,7 @@ class OutsourcingFragment : BaseFragment(){
             vm = hModel
             model = viewModel.historyModel
             search = HistoryAdapter.OnClick {
-                viewModel.searchText()
+                viewModel.search(it)
             }
             delete = HistoryAdapter.OnClick { id -> viewModel.historyModel.deleteHistory(id) }
             lifecycleOwner = viewLifecycleOwner

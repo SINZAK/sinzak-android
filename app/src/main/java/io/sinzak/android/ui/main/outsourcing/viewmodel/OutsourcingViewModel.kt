@@ -1,12 +1,14 @@
 package io.sinzak.android.ui.main.outsourcing.viewmodel
 
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.sinzak.android.R
 import io.sinzak.android.enums.Page
 import io.sinzak.android.enums.Sort
 import io.sinzak.android.model.insets.SoftKeyModel
 import io.sinzak.android.model.market.MarketHistoryModel
 import io.sinzak.android.model.market.MarketWriteModel
 import io.sinzak.android.model.works.WorkListModel
+import io.sinzak.android.system.LogDebug
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.ui.main.outsourcing.WorkConnect
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -37,6 +39,8 @@ class OutsourcingViewModel @Inject constructor(
 
 
     fun gotoBuildPage() {
+        val buildType = if (isClientList.value) 1 else 2
+        writeModel.setProductType(buildType)
         writeModel.startBuild()
         navigation.changePage(Page.NEW_POST)
     }
@@ -51,8 +55,10 @@ class OutsourcingViewModel @Inject constructor(
         } else if (searchOn.value)
             searchOn.value = false
 
-        if(!searchOn.value)
+        if(!searchOn.value) {
+            LogDebug(javaClass.name, "검색창 뒤로가기 때 요청")
             model.getRemoteMarketWorks(refresh = true, search = "")
+        }
 
         soft.hideKeyboard()
     }
@@ -68,10 +74,25 @@ class OutsourcingViewModel @Inject constructor(
     }
 
     fun searchText(){
-        historyModel.getRemoteHistoryList()
-        historyOn.value = false
-        model.getRemoteMarketWorks(refresh = true, search = searchFieldText.value)
+        searchFieldText.value.let { keyword ->
+            if (keyword.isEmpty())
+                return
 
+            search(keyword)
+
+        }
+    }
+
+    fun search(tag: String){
+        if (tag.length < 2){
+            uiModel.showToast(valueModel.getString(R.string.str_search_length))
+            return
+        }
+        LogDebug(javaClass.name,"검색에서 보냄")
+        model.getRemoteMarketWorks(refresh = true, search = tag)
+        soft.hideKeyboard()
+        searchFieldText.value = tag
+        historyOn.value = false
     }
 
     fun deleteSearchField(){
@@ -81,12 +102,14 @@ class OutsourcingViewModel @Inject constructor(
 
     private fun setSortOrder(order : Sort){
         sortOrder.value = order
+        LogDebug(javaClass.name,"sort 변경시 요청")
         model.getRemoteMarketWorks(refresh = true, sort = order)
     }
 
 
     fun setIsClient(status : Boolean){
         isClientList.value = status
+        LogDebug(javaClass.name,"작업해요/의뢰해요 변경시 요청")
         model.getRemoteMarketWorks(refresh = true, isCustomer = status)
     }
 
@@ -100,18 +123,11 @@ class OutsourcingViewModel @Inject constructor(
 
     }
 
-    fun setNullImg(isArtsNull : Boolean) : Boolean {
-        if (searchOn.value)
-        {
-            return isArtsNull
-        }
-        return false
-    }
-
 
     init{
 
-        model.getRemoteMarketWorks(true, sort = Sort.BY_RECENT, search = "")
+        LogDebug(javaClass.name,"뷰모델 init시 요청")
+        model.getRemoteMarketWorks(true, sort = Sort.BY_REFER, search = "")
 
     }
 

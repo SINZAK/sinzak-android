@@ -22,7 +22,9 @@ class ArtistViewModel @Inject constructor(
         onLikeClick = detailModel::postProductLike
     ){
         detailModel.loadProduct(it.id!!)
-        uiModel.openProductDetail()
+        useFlag(detailModel.productLoadSuccessFlag){
+            uiModel.openProductDetail()
+        }
     }
     override val hMargin: Float
         get() = 20f

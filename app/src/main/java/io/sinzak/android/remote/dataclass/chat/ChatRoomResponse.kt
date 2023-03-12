@@ -11,12 +11,13 @@ data class ChatRoomResponse(
 
     data class Data(
         @SerializedName("roomName") val roomName: String,
-        @SerializedName("productId") val productId: Int,
-        @SerializedName("productName") val productName: String,
+        @SerializedName("postId") val productId: Int,
+        @SerializedName("postName") val productName: String,
         @SerializedName("thumbnail") val thumbnail: String,
         @SerializedName("complete") val complete: Boolean = false,
         @SerializedName("suggest") val suggest: Boolean = false,
-        @SerializedName("userId") val userId: String = "",
+        @SerializedName("postUserId") val userId: String = "",
+        @SerializedName("opponentUserId") val opponentUserId : String = "",
         @SerializedName("price") val price : Int? = null,
         @SerializedName("postType") val postType : String
     ) {

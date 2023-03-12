@@ -124,6 +124,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             mainConnect.permissionDialog(::acceptPermissions)
         }
 
+        if (intent.action == "OPEN_CHAT"){
+            inflateFragment(CHAT)
+            viewModel.showChatThroughAlarm(intent.getStringExtra("uuid").toString())
+        }
+
 
     }
 

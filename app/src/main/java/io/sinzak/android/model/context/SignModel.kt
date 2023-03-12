@@ -367,12 +367,10 @@ class SignModel @Inject constructor(
                 loginEmail = account.email.toString()
                 username = account.displayName.toString()
 
-                oAuthTokenTaken = authCode
                 oAuthIdToken = it.idToken.toString()
                 socialOrigin = SDK.Google.displayName
 
-                postOAuthToken(oAuthTokenTaken, socialOrigin, idToken = it.idToken.toString())
-                //getGoogleAccessToken(authCode)
+                getGoogleAccessToken(authCode)
             }
 
         } catch (e: ApiException) {
@@ -403,7 +401,7 @@ class SignModel @Inject constructor(
     /**
      * 3. 서버로 뽑아온 아이디 토큰과 엑세스 토큰을 보내줍니다
      */
-    private fun postGoogleOAuthToken(accessToken : String, idToken : String)
+/*    private fun postGoogleOAuthToken(accessToken : String, idToken : String)
     {
         val request = OAuthRequest(
             accessToken = accessToken,
@@ -417,7 +415,7 @@ class SignModel @Inject constructor(
         ).apply {
             remote.sendRequestApi(this)
         }
-    }
+    }*/
 
 
     /**
@@ -481,6 +479,7 @@ class SignModel @Inject constructor(
 
     fun logout(){
         postFcmToken("", prefs.getString(CODE_USER_ID, "").toString())
+        prefs.setString(CODE_FCM_TOKEN,"")
         prefs.accessToken = ""
         prefs.refreshToken = ""
         setIsLogin(false)
@@ -495,20 +494,6 @@ class SignModel @Inject constructor(
         }
     }
 
-    /**
-     * [안승우] 로그인 통합될때까지 쓸 임시함수
-     */
-    fun loginEmailTemp(email: String){
-        CallImpl(
-            API_LOGIN_EMAIL,
-            this,
-            LoginEmailBody(
-                email = email
-            )
-        ).apply{
-            remote.sendRequestApi(this)
-        }
-    }
 
     fun postFcmToken(fcmToken : String, userId : String) {
         CallImpl(
@@ -601,6 +586,20 @@ class SignModel @Inject constructor(
         }
     }
 
+    private fun onResponseOAuth(response : OAuthGetResponse){
+
+        response.data?.let {
+            if (it.joined!!) {
+                saveTokenToPrefs(it.origin.toString())
+                setIsLogin(true)
+                _sdkSignSuccess.value = false
+                profile.getProfile()
+                profile.isFirstLogin.value = true
+            }
+            else checkEmail(loginEmail)
+        }
+    }
+
 
 
     override fun onConnectionSuccess(api: Int, body: CResponse) {
@@ -634,16 +633,7 @@ class SignModel @Inject constructor(
             }
 
             API_POST_OAUTH_TOKEN ->{
-                body as OAuthGetResponse
-
-                if(body.success == true){
-                    setIsLogin(true)
-                    _sdkSignSuccess.value = false
-                    profile.getProfile()
-                    profile.isFirstLogin.value = true
-                }else{
-                    checkEmail(loginEmail)
-                }
+                onResponseOAuth(body as OAuthGetResponse)
             }
 
             /**
@@ -652,7 +642,8 @@ class SignModel @Inject constructor(
             API_GET_GOOGLE_ACCESS_TOKEN -> {
                 body as GoogleResponse
                 _sdkSignSuccess.value = true
-                postGoogleOAuthToken(body.access_token,body.id_token)
+                oAuthTokenTaken = body.access_token
+                postOAuthToken(body.access_token, socialOrigin,body.id_token)
             }
 
 

@@ -113,14 +113,11 @@ class MarketHistoryModel @Inject constructor(
             }
 
             API_DELETE_SEARCH_HISTORY -> {
-                if (body.success == true)
-                    globalUi.showToast("히스토리 삭제")
             }
 
             API_DELETE_ALL_SEARCH_HISTORY -> {
                 if (body.success == true)
                     adapter.clearData()
-                    globalUi.showToast("전체 히스토리 삭제")
             }
         }
     }

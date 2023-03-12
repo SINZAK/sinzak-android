@@ -19,6 +19,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -268,8 +269,9 @@ class MarketWriteModel @Inject constructor(@ApplicationContext val context : Con
         val request = ProductBuildRequest(
             title = title,
             category = categoryText,
-            priceSuggest = canSuggestPrice,
-            content = content
+            priceSuggest = true,
+            content = content,
+            employment = productType.value ==1
         )
         remote.sendRequestApi(
             CallImpl(
@@ -287,36 +289,44 @@ class MarketWriteModel @Inject constructor(@ApplicationContext val context : Con
     private fun updateWork(){
         val request = ProductBuildRequest(
             title = title,
-            priceSuggest = canSuggestPrice,
+            priceSuggest = true,
             content = content
         )
         remote.sendRequestApi(
             CallImpl(
                 API_UPDATE_MARKET_WORK,
                 this,
-                request
+                request,
+                paramInt0 = productId
             )
         )
 
 
     }
 
-
     /**
      * 현재 가지고 있는 비트맵을 모두 업로드합니다.
      */
-    fun uploadImg(id : Int){
-        val requestBodies = listOf(FileUtil.getMultipart(context,"multipartFile",imgBitmaps[0]))
-        imgBitmaps.removeAt(0)
+    private fun uploadImg(id : Int){
+
+        val multiPart : MultipartBody.Part
+        if (imgBitmaps.size > 1) {
+            multiPart = FileUtil.getMultipart(context,"multipartFile",imgBitmaps[1])
+            imgBitmaps.removeAt(1)
+        }
+        else {
+            multiPart = FileUtil.getMultipart(context,"multipartFile",imgBitmaps[0])
+            imgBitmaps.removeAt(0)
+        }
 
         imgUris = listOf()
 
         if(productType.value == 0)
-            CallImpl(API_PRODUCT_UPLOAD_IMG, this, paramInt0 = id, multipartList = requestBodies).apply{
+            CallImpl(API_PRODUCT_UPLOAD_IMG, this, paramInt0 = id, multipart = multiPart).apply{
                 remote.sendRequestApi(this)
             }
         else
-            CallImpl(API_WORK_UPLOAD_IMG, this, paramInt0 = id, multipartList = requestBodies).apply{
+            CallImpl(API_WORK_UPLOAD_IMG, this, paramInt0 = id, multipart = multiPart).apply{
                 remote.sendRequestApi(this)
             }
     }

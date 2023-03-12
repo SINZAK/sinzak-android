@@ -23,8 +23,11 @@ class ArtReferViewModel @Inject constructor(
         },
         onLikeClick = productDetailModel::postProductLike
     ){
-        uiModel.openProductDetail()
         productDetailModel.loadProduct(it.id!!)
+        useFlag(productDetailModel.productLoadSuccessFlag){
+            uiModel.openProductDetail()
+        }
+
     }
     override val title: String
         get() = String.format(valueModel.getString(

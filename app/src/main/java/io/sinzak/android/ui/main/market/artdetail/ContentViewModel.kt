@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.sinzak.android.R
-import io.sinzak.android.constants.CODE_USER_ID
 import io.sinzak.android.constants.CODE_USER_REPORT_ID
 import io.sinzak.android.constants.CODE_USER_REPORT_NAME
 import io.sinzak.android.constants.TYPE_MARKET_PRODUCT
@@ -14,10 +13,8 @@ import io.sinzak.android.model.market.ProductDetailModel
 import io.sinzak.android.model.market.MarketWriteModel
 import io.sinzak.android.model.profile.ProfileModel
 import io.sinzak.android.model.profile.UserCommandModel
-import io.sinzak.android.remote.dataclass.response.market.MarketProductResponse
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.ui.main.profile.report.ReportSendViewModel
-import io.sinzak.android.ui.main.profile.viewmodel.ProfileViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 
@@ -210,7 +207,7 @@ class ContentViewModel @Inject constructor(
         collectArt()
 
         useFlag(model.productDeleteSuccessFlag) {
-            showToast("작품을 삭제했습니다.")
+            showToast(valueModel.getString(R.string.str_delete_product_success))
             navigation.revealHistory()
         }
 
@@ -225,7 +222,9 @@ class ContentViewModel @Inject constructor(
     private fun collectArt() {
         invokeStateFlow(model.art) { art ->
             art?.let {
-                imgAdapter.imgs = it.imgUrls ?: listOf()
+
+
+                imgAdapter.imgs = moveLastItemToFirst(it.imgUrls?.toMutableList() ?: mutableListOf())
                 imgAdapter.notifyDataSetChanged()
 
                 authorId = it.authorId
@@ -244,6 +243,17 @@ class ContentViewModel @Inject constructor(
 
         }
 
+    }
+
+    fun moveLastItemToFirst(list: MutableList<String>) : List<String> {
+        if (list.size > 1) {
+            val lastItem = list.last()
+            for (i in list.size - 1 downTo 1) {
+                list[i] = list[i - 1]
+            }
+            list[0] = lastItem
+        }
+        return list
     }
 
 
@@ -350,11 +360,14 @@ class ContentViewModel @Inject constructor(
         }
 
         if (isMyProduct.value) {
+            val productId = product.productId
+            val type = if (itemType.value == TYPE_MARKET_PRODUCT) "product" else "work"
+
             navigation.changePage(Page.CHAT)
             chatStorage.fetchRoomListByPostJob(
                 viewModelScope,
-                product.productId,
-                if (itemType.value == TYPE_MARKET_PRODUCT) "product" else "work"
+                productId,
+                type
             )
 
 

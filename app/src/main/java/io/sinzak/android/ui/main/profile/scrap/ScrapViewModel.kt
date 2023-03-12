@@ -7,10 +7,10 @@ import io.sinzak.android.enums.Page
 import io.sinzak.android.model.market.ProductDetailModel
 import io.sinzak.android.model.profile.ProfileModel
 import io.sinzak.android.remote.dataclass.product.Product
+import io.sinzak.android.system.LogDebug
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.ui.main.profile.scrap.adapter.ScrapAdapter
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
@@ -20,8 +20,6 @@ class ScrapViewModel @Inject constructor(
     val model : ProfileModel,
     val productModel : ProductDetailModel
 ) : BaseViewModel() {
-
-    private val scraps = mutableListOf<Product>()
 
     /**
      * 스크랩 타입 : 판매작품:false , 의뢰해요:true
@@ -42,41 +40,42 @@ class ScrapViewModel @Inject constructor(
     /**
      * 스크랩 목록 어뎁터
      */
-    val adapter = ScrapAdapter(scraps,::onItemClick,scrapType)
+    val adapter = ScrapAdapter(::onItemClick,scrapType)
 
     init {
-
-        scrapType.value = PRODUCT
-        showOnSale.value = false
-
-        invokeBooleanFlow(scrapType,
-            {
-                model.productWishList.onEach(::filterScrapList).launchIn(viewModelScope)
-            },
-            {
-                model.workWishList.onEach(::filterScrapList).launchIn(viewModelScope)
-            }
-        )
+        updateAdapter()
     }
 
-    private fun filterScrapList(s: MutableList<Product>){
-        var scrapList = s
-        invokeBooleanFlow(showOnSale,
-            {
-                showNothing.value = scrapList.isEmpty()
-                scraps.clear()
-                scraps.addAll(scrapList)
-                adapter.notifyDataSetChanged()
-            },
-            {
-                scrapList = scrapList.filter { it.complete == false }.toMutableList()
-                showNothing.value = scrapList.isEmpty()
-                scraps.clear()
-                scraps.addAll(scrapList)
-                adapter.notifyDataSetChanged()
-            }
-        )
+    private fun updateAdapter()
+    {
+        val type = scrapType.value
+        val onSale = showOnSale.value
+        LogDebug(javaClass.name, "업데이트 : $onSale")
+        adapter.apply {
+            if (type== PRODUCT)
+                model.productWishList.onEach {
+                    var newList = it
+                    if (onSale) newList = newList.filter { it.complete == false }.toMutableList()
+                    setWishList(newList)
+                    showNothing.value = newList.isEmpty()
+                }.launchIn(viewModelScope)
+            else
+                model.workWishList.onEach {
+                    var newList = it
+                    if (onSale) newList = newList.filter { it.complete == false }.toMutableList()
+                    setWishList(newList)
+                    showNothing.value = newList.isEmpty()
+                }.launchIn(viewModelScope)
+        }
     }
+
+
+    /*********************************************************************
+     * REQUEST API
+     **********************************************************************/
+
+    fun requestRemoteScrapList() = model.getWishList()
+
 
     /*********************************************************************
      * Click Event
@@ -88,6 +87,7 @@ class ScrapViewModel @Inject constructor(
     fun changeType(type : Boolean)
     {
         scrapType.value = type
+        updateAdapter()
     }
 
     /**
@@ -98,7 +98,10 @@ class ScrapViewModel @Inject constructor(
         if (scrapType.value == PRODUCT) productModel.loadProduct(product.id!!)
         else productModel.loadWork(product.id!!)
 
-        navigation.changePage(Page.ART_DETAIL)
+        useFlag(productModel.productLoadSuccessFlag){
+            navigation.changePage(Page.ART_DETAIL)
+        }
+
     }
 
     /**
@@ -107,6 +110,7 @@ class ScrapViewModel @Inject constructor(
     fun toggleShowOnSale()
     {
         showOnSale.value = !showOnSale.value
+        updateAdapter()
     }
 
     /**

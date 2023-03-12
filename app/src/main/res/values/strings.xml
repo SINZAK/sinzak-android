@@ -262,11 +262,18 @@
     <string name="str_chat_unabled_hint">메세지를 보낼 수 없어요</string>
     <string name="str_chat_suggest">가격제안하기</string>
     <string name="str_chat_no_suggest">가격제안불가</string>
-    <string name="str_product_not_exist">삭제된 게시물입니다.</string>
+    <string name="str_product_not_exist">게시물이 삭제됐어요</string>
 
     <!-- 토스트 메세지용 -->
     <string name="str_need_login">로그인이 필요해요</string>
     <string name="str_send_suggest">가격 제안을 전송했어요</string>
     <string name="str_need_permission">권한을 설정해주세요</string>
     <string name="str_null_user">탈퇴한 회원이에요</string>
+    <string name="str_search_length">두 글자 이상으로 검색해주세요</string>
+    <string name="str_post_success">새 글이 작성됐어요</string>
+    <string name="str_delete_product_success">해당 글을 삭제했어요</string>
+    <string name="str_block_user">해당 유저를 차단했어요</string>
+    <string name="str_accept_report">신고가 접수됐어요</string>
+    <string name="str_certification_done">인증이 완료됐어요</string>
+    <string name="str_below_five_image">5장까지 업로드 가능해요</string>
 </resources>

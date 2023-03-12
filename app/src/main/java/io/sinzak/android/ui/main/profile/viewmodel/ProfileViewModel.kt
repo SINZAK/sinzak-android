@@ -155,7 +155,6 @@ class ProfileViewModel @Inject constructor(
      */
     fun goToScrapList()
     {
-        model.getWishList()
         navigation.changePage(Page.PROFILE_SCRAP)
     }
 
@@ -206,7 +205,7 @@ class ProfileViewModel @Inject constructor(
         connect.userBlockDialog {
             commandModel.blockUser(profile.value!!.userId,profile.value!!.name)
             useFlag(commandModel.reportSuccessFlag){
-                uiModel.showToast("해당 유저를 차단했어요")
+                uiModel.showToast(valueModel.getString(R.string.str_block_user))
             }
         }
     }

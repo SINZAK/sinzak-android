@@ -20,6 +20,7 @@ class ScrapFragment : BaseFragment() {
             lifecycleOwner = viewLifecycleOwner
             vm = viewModel
         }
+        viewModel.requestRemoteScrapList()
     }
 
     override fun showBottomBar(): Boolean {

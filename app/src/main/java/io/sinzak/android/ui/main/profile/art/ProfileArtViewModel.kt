@@ -24,7 +24,7 @@ abstract class ProfileArtViewModel : BaseViewModel() {
      */
     abstract fun onItemClick(product: Product)
 
-    abstract fun onEndTrade(id: String)
+    abstract fun onEndTrade(id: Int,callback: ()->Unit)
 
     fun setIsComplete(status : Boolean)
     {

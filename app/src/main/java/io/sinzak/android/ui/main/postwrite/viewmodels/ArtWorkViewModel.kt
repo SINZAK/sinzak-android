@@ -1,6 +1,7 @@
 package io.sinzak.android.ui.main.postwrite.viewmodels
 
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.sinzak.android.R
 import io.sinzak.android.model.market.MarketWriteModel
 import io.sinzak.android.model.market.ProductDetailModel
 import io.sinzak.android.ui.base.BaseViewModel
@@ -47,11 +48,13 @@ class ArtWorkViewModel @Inject constructor(
         }
 
         invokeBooleanFlow(model.flagBuildSuccess) {
-            uiModel.showToast("작성 완료")
+            uiModel.showToast(valueModel.getString(R.string.str_post_success))
 
             productModel.loadWork(model.getProductId())
-            connect.gotoDetailAfterBuild()
 
+            useFlag(productModel.productLoadSuccessFlag){
+                connect.gotoDetailAfterBuild()
+            }
             model.flagBuildSuccess.value = false
 
         }

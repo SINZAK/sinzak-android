@@ -104,7 +104,7 @@ class EditViewModel @Inject constructor(
      */
     fun gotoCertificationPage(hasCert : Boolean){
         if(!hasCert) navigation.changePage(Page.PROFILE_CERTIFICATION)
-        else navigation.changePage(Page.PROFILE_CERTIFICATION) //테스트 - 배포때는 return 으로
+        else return
     }
 
     /**

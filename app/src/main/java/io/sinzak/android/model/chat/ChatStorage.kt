@@ -2,7 +2,6 @@ package io.sinzak.android.model.chat
 
 import android.content.Context
 import android.net.Uri
-import androidx.core.net.toUri
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.sinzak.android.constants.*
 import io.sinzak.android.model.BaseModel
@@ -10,9 +9,7 @@ import io.sinzak.android.remote.dataclass.CResponse
 import io.sinzak.android.remote.dataclass.chat.*
 import io.sinzak.android.remote.dataclass.response.market.MarketDetailResponse
 import io.sinzak.android.remote.retrofit.CallImpl
-import io.sinzak.android.system.App.Companion.prefs
 import io.sinzak.android.system.LogDebug
-import io.sinzak.android.system.LogInfo
 import io.sinzak.android.utils.ChatUtil
 import io.sinzak.android.utils.FileUtil
 import io.sinzak.android.utils.TimeUtil
@@ -43,6 +40,9 @@ class ChatStorage @Inject constructor(@ApplicationContext val context: Context) 
 
     val chatProductExistFlag = MutableStateFlow(false)
 
+    val chatRoomLeaveFlag = MutableStateFlow(false)
+    val deleteRoomUUID = MutableStateFlow("")
+
 
     fun forceClearJob(){
         job?.cancel()
@@ -69,25 +69,9 @@ class ChatStorage @Inject constructor(@ApplicationContext val context: Context) 
     }
 
 
-    fun getChatRoomList(){
-        _chatRooms.value = mutableListOf()
-        CallImpl(API_GET_CHATROOM_LIST,this).apply{
-            remote.sendRequestApi(this)
-        }
-    }
-
-    fun getChatRoomFromPost(postId: Int, postType: String){
-        CallImpl(API_GET_CHATROOM_POST_LIST, this, paramInt0 = postId, paramStr0 = postType).apply{
-            remote.sendRequestApi(this)
-        }
-    }
-
     fun clearChatMsg(){
         _chatMsg.value = mutableListOf()
     }
-
-
-    lateinit var product: MarketDetailResponse.Detail
 
 
 
@@ -97,6 +81,10 @@ class ChatStorage @Inject constructor(@ApplicationContext val context: Context) 
     private var postId: Int = -1
     private var postType: String = "product"
     private var pendingMsg: String = ""
+
+    val newChatRoomFlag = MutableStateFlow(false)
+    val newChatNewMsgFlag = MutableStateFlow(false)
+
 
     /**
      * 채팅이 없는 상품에 채팅 생성
@@ -119,42 +107,84 @@ class ChatStorage @Inject constructor(@ApplicationContext val context: Context) 
                 price = postDetail.price,
                 postType = if (type == "product") "PRODUCT" else "WORK"
             )
+
+        // 새로운 채팅방이 생김을 알립니다
+        newChatRoomFlag.value = true
     }
 
-    fun loadExistChatroom(chatroom: ChatRoom){
-        makeChatRoom(chatroom.roomUuid.toString())
-        loadChatRoomDetailInfo(chatroom)
-        getChatroomMsg(chatroom)
-        currentChatroomUUID = chatroom.roomUuid.toString()
+    /**
+     * 채팅이 없는 채팅방에 메세지를 보낸걸 저장합니다
+     * 채팅이 없는 채팅방에 메세지를 보낸걸 알립니다
+     */
+    fun getPendingMsg(msg: String)
+    {
+        pendingMsg = msg
+        newChatNewMsgFlag.value = true
     }
 
-    fun getChatroomMsg(chatroom: ChatRoom){
-
-        _chatMsg.value = mutableListOf()
-        remote.sendRequestApi(
-            CallImpl(
-                API_GET_CHATROOM_MSG,
-                this,
-                paramStr0 = chatroom.roomUuid.toString()
-            )
-        )
+    /**
+     * 존재하고 있는 채팅방을 불러옵니다
+     */
+    fun loadExistChatroom(roomUuid : String){
+        makeChatRoom(roomUuid)
+        loadChatRoomDetailInfo(roomUuid)
+        getChatroomMsg(roomUuid)
+        currentChatroomUUID = roomUuid
     }
 
-    fun loadChatRoomDetailInfo(chatroom: ChatRoom){
+    /**
+     * 1. 채팅방을 만듭니다
+     */
+    private fun makeChatRoom(roomId: String){
+        currentChatRoom = ChatUtil(roomId,::onReceiveChatMsg, ::onFinishSend)
+    }
+
+    /**
+     * 2.채팅방 정보를 불러옵니다
+     */
+    private fun loadChatRoomDetailInfo(roomId : String){
 
         _chatRoomInfo.value = null
         remote.sendRequestApi(
             CallImpl(
                 API_GET_CHATROOM_DETAIL,
                 this,
-                paramStr0 = chatroom.roomUuid.toString()
+                paramStr0 = roomId
             )
         )
     }
 
+    /**
+     * 3. 채팅방 메세지를 불러옵니다
+     */
+    private fun getChatroomMsg(roomId : String){
+
+        _chatMsg.value = mutableListOf()
+        remote.sendRequestApi(
+            CallImpl(
+                API_GET_CHATROOM_MSG,
+                this,
+                paramStr0 = roomId
+            )
+        )
+    }
+
+    /*****************************************************
+     ** API를 요청합니다
+     ******************************************************/
 
     /**
-     * Request New Chatroom
+     * 갖고 있는 모든 채팅방을 요청합니다
+     */
+    fun getChatRoomList(){
+        _chatRooms.value = mutableListOf()
+        CallImpl(API_GET_CHATROOM_LIST,this).apply{
+            remote.sendRequestApi(this)
+        }
+    }
+
+    /**
+     * 새로운 채팅방 만들기를 요청합니다
      */
     fun makeChatroom(){
         CallImpl(
@@ -167,16 +197,18 @@ class ChatStorage @Inject constructor(@ApplicationContext val context: Context) 
         }
     }
 
-
-    fun makeChatRoom(roomId: String){
-        currentChatRoom = ChatUtil(roomId,::onReceiveChatMsg, ::onFinishSend)
-        if(pendingMsg.isNotEmpty()){
-            sendMsg(pendingMsg,ChatUtil.TYPE_TEXT)
-            pendingMsg = ""
+    /**
+     * 상품에 딸려있는 채팅방 리스트를 요청합니다
+     */
+    fun getChatRoomFromPost(postId: Int, postType: String){
+        CallImpl(API_GET_CHATROOM_POST_LIST, this, paramInt0 = postId, paramStr0 = postType).apply{
+            remote.sendRequestApi(this)
         }
     }
 
-
+    /**
+     * 채팅방에 이미지 업로드
+     */
     fun postImage(imgUrls: List<Uri>){
         remote.sendRequestApi(
             CallImpl(
@@ -194,7 +226,9 @@ class ChatStorage @Inject constructor(@ApplicationContext val context: Context) 
 
     }
 
-
+    /**
+     * 채팅방에 메세지를 보냅니다
+     */
     fun sendMsg(msg: String , type : String){
         if(msg.isEmpty())
             return
@@ -213,11 +247,11 @@ class ChatStorage @Inject constructor(@ApplicationContext val context: Context) 
                     type = type
                 )
             )
-        }?:run{
+        }/*?:run{
             LogInfo(javaClass.name,"CHATROOM EMPTY, TRY MAKE CHATROOM")
             pendingMsg = msg
             makeChatroom()
-        }
+        }*/
 
     }
 
@@ -228,23 +262,25 @@ class ChatStorage @Inject constructor(@ApplicationContext val context: Context) 
             addChatMsgOnTail(msg)
         }
 
-
-
     }
 
     private fun addChatMsgOnTail(msg: ChatMsg?){
         chatMsgFlow.value = msg
-
-
     }
 
     private fun onFinishSend(success:Boolean){
 
     }
 
+    /**
+     * 채팅방을 나갑니다
+     */
     fun leaveChatroom(){
+        LogDebug(javaClass.name, "채팅방 나가기 실행 : $currentChatroomUUID 방에서 나감")
+        deleteRoomUUID.value = currentChatroomUUID
         currentChatRoom?.destroyChatroom()
         currentChatRoom = null
+        chatRoomLeaveFlag.value = true
     }
 
 
@@ -268,10 +304,16 @@ class ChatStorage @Inject constructor(@ApplicationContext val context: Context) 
             API_CREATE_CHATROOM ->{
                 if(body.success == true){
                     body as ChatCreateResponse
-                    body.data?.let{chatroom->
+                    body.data?.let {
+                        loadExistChatroom(it.roomUuid.toString())
+                        sendMsg(pendingMsg,ChatUtil.TYPE_TEXT)
+                        pendingMsg = ""
+
+                    }
+/*                    body.data?.let{chatroom->
                         makeChatRoom(chatroom.roomUuid!!)
                         loadExistChatroom(chatroom)
-                    }
+                    }*/
 
                 }
             }

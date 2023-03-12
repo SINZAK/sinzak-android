@@ -19,13 +19,6 @@ class WorkListModel @Inject constructor() : BaseModel() {
     private val _worksList = MutableStateFlow(mutableListOf<Product>())
     val workList : StateFlow<MutableList<Product>> get() = _worksList
 
-
-
-
-
-
-
-
     private var maxPage = 9999
     private var currentPage = 0
     private var searchKeyword = ""

@@ -95,6 +95,9 @@ class ChatroomViewModel @Inject constructor(
         }
     }
 
+    /**
+     * 거래/모집중,완료 표시
+     */
     val complete = MutableStateFlow(false)
 
     init {
@@ -104,17 +107,29 @@ class ChatroomViewModel @Inject constructor(
             }
         }
 
+        // 채팅이 없는 채팅방에 채팅을 보냈을 때
+        useFlag(storage.newChatNewMsgFlag){
+            storage.makeChatroom()
+        }
+
         useFlag(detailModel.productStatusUpdateFlag){
             complete.value = true
         }
     }
 
-    fun onProductClick(isProduct : Boolean ,id: Int)
+    override fun onCleared() {
+        super.onCleared()
+        storage.chatMsgFlow.value = null
+    }
+
+    fun onProductClick(isProduct : Boolean, id: Int)
     {
         if (!isProductExist.value) return
         if (isProduct) detailModel.loadProduct(id)
         else detailModel.loadWork(id)
-        navigation.changePage(Page.ART_DETAIL)
+        useFlag(detailModel.productLoadSuccessFlag){
+            navigation.changePage(Page.ART_DETAIL)
+        }
     }
 
     private fun onImageClick(url : String)
@@ -141,7 +156,10 @@ class ChatroomViewModel @Inject constructor(
 
     private fun blockUser() {
         connect.userBlockDialog {
-           TODO()
+            commandModel.blockUser(chatRoom.value!!.opponentUserId,chatRoom.value!!.roomName)
+            useFlag(commandModel.reportSuccessFlag){
+                uiModel.showToast("해당 유저를 차단했어요")
+            }
         }
     }
 
@@ -149,7 +167,7 @@ class ChatroomViewModel @Inject constructor(
         chatRoom.value?.let { info ->
             Bundle().apply {
                 putString(CODE_USER_REPORT_NAME, info.roomName)
-                putString(CODE_USER_REPORT_ID, info.userId)
+                putString(CODE_USER_REPORT_ID, info.opponentUserId)
                 navigation.putBundleData(ReportSendViewModel::class, this)
             }
             navigation.changePage(Page.PROFILE_REPORT_TYPE)

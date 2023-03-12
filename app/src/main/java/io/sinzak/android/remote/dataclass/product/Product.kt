@@ -11,7 +11,7 @@ import java.util.*
 
 data class Product(
     @SerializedName("author") val author: String? = null,
-    @SerializedName("complete") val complete: Boolean? = null,
+    @SerializedName("complete") var complete: Boolean? = null,
     @SerializedName("content") val content: String? = null,
     @SerializedName("date") val date: String? = null,
     @SerializedName("id") var id: Int? = null,
