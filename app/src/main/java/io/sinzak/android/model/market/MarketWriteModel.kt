@@ -295,7 +295,8 @@ class MarketWriteModel @Inject constructor(@ApplicationContext val context : Con
             CallImpl(
                 API_UPDATE_MARKET_WORK,
                 this,
-                request
+                request,
+                paramInt0 = productId
             )
         )
 

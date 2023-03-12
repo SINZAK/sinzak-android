@@ -21,12 +21,8 @@ class CategoryViewModel @Inject constructor(
 
     fun changeField(currentField : Int)
     {
-        if(this.currentField.value != currentField)
-        {
-            this.currentField.value = currentField
-            model.setProductType(currentField)
-            categorySelected.value = listOf()
-        }
+        model.setProductType(currentField)
+        categorySelected.value = listOf()
     }
 
 
