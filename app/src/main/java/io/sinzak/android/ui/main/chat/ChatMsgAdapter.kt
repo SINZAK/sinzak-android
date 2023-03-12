@@ -1,6 +1,5 @@
 package io.sinzak.android.ui.main.chat
 
-import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil

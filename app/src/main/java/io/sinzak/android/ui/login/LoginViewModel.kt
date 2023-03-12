@@ -48,15 +48,4 @@ class LoginViewModel @Inject constructor() : BaseViewModel() {
         }
     }
 
-    /**
-     * 임시함수
-     */
-    fun loginViaEmailTemp()
-    {
-        signModel.loginEmailTemp("insi2000@naver.com")
-    }
-
-
-
-
 }

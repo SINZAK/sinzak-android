@@ -22,8 +22,8 @@ class ChatViewModel @Inject constructor(
         openChatRoom(it)
     }
 
-    fun openChatRoom(chat:ChatRoom){
-        storage.loadExistChatroom(chat)
+    private fun openChatRoom(chat:ChatRoom){
+        storage.loadExistChatroom(chat.roomUuid.toString())
         navigation.changePage(Page.CHAT_ROOM)
     }
 

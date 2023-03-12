@@ -95,6 +95,9 @@ class ChatroomViewModel @Inject constructor(
         }
     }
 
+    /**
+     * 거래/모집중,완료 표시
+     */
     val complete = MutableStateFlow(false)
 
     init {
@@ -104,12 +107,22 @@ class ChatroomViewModel @Inject constructor(
             }
         }
 
+        // 채팅이 없는 채팅방에 채팅을 보냈을 때
+        useFlag(storage.newChatNewMsgFlag){
+            storage.makeChatroom()
+        }
+
         useFlag(detailModel.productStatusUpdateFlag){
             complete.value = true
         }
     }
 
-    fun onProductClick(isProduct : Boolean ,id: Int)
+    override fun onCleared() {
+        super.onCleared()
+        storage.chatMsgFlow.value = null
+    }
+
+    fun onProductClick(isProduct : Boolean, id: Int)
     {
         if (!isProductExist.value) return
         if (isProduct) detailModel.loadProduct(id)

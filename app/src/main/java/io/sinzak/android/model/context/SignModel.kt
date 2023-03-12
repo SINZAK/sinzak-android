@@ -367,7 +367,6 @@ class SignModel @Inject constructor(
                 loginEmail = account.email.toString()
                 username = account.displayName.toString()
 
-                oAuthTokenTaken = authCode
                 oAuthIdToken = it.idToken.toString()
                 socialOrigin = SDK.Google.displayName
 
@@ -402,7 +401,7 @@ class SignModel @Inject constructor(
     /**
      * 3. 서버로 뽑아온 아이디 토큰과 엑세스 토큰을 보내줍니다
      */
-    private fun postGoogleOAuthToken(accessToken : String, idToken : String)
+/*    private fun postGoogleOAuthToken(accessToken : String, idToken : String)
     {
         val request = OAuthRequest(
             accessToken = accessToken,
@@ -416,7 +415,7 @@ class SignModel @Inject constructor(
         ).apply {
             remote.sendRequestApi(this)
         }
-    }
+    }*/
 
 
     /**
@@ -494,20 +493,6 @@ class SignModel @Inject constructor(
         }
     }
 
-    /**
-     * [안승우] 로그인 통합될때까지 쓸 임시함수
-     */
-    fun loginEmailTemp(email: String){
-        CallImpl(
-            API_LOGIN_EMAIL,
-            this,
-            LoginEmailBody(
-                email = email
-            )
-        ).apply{
-            remote.sendRequestApi(this)
-        }
-    }
 
     fun postFcmToken(fcmToken : String, userId : String) {
         CallImpl(
@@ -655,6 +640,7 @@ class SignModel @Inject constructor(
             API_GET_GOOGLE_ACCESS_TOKEN -> {
                 body as GoogleResponse
                 _sdkSignSuccess.value = true
+                oAuthTokenTaken = body.access_token
                 postOAuthToken(body.access_token, socialOrigin,body.id_token)
             }
 
