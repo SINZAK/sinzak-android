@@ -210,7 +210,7 @@ class ContentViewModel @Inject constructor(
         collectArt()
 
         useFlag(model.productDeleteSuccessFlag) {
-            showToast("작품을 삭제했습니다.")
+            showToast(valueModel.getString(R.string.str_delete_product_success))
             navigation.revealHistory()
         }
 
@@ -225,7 +225,9 @@ class ContentViewModel @Inject constructor(
     private fun collectArt() {
         invokeStateFlow(model.art) { art ->
             art?.let {
-                imgAdapter.imgs = it.imgUrls ?: listOf()
+
+
+                imgAdapter.imgs = moveLastItemToFirst(it.imgUrls?.toMutableList() ?: mutableListOf())
                 imgAdapter.notifyDataSetChanged()
 
                 authorId = it.authorId
@@ -244,6 +246,17 @@ class ContentViewModel @Inject constructor(
 
         }
 
+    }
+
+    fun moveLastItemToFirst(list: MutableList<String>) : List<String> {
+        if (list.size > 1) {
+            val lastItem = list.last()
+            for (i in list.size - 1 downTo 1) {
+                list[i] = list[i - 1]
+            }
+            list[0] = lastItem
+        }
+        return list
     }
 
 

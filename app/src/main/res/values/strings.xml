@@ -269,4 +269,7 @@
     <string name="str_send_suggest">가격 제안을 전송했어요</string>
     <string name="str_need_permission">권한을 설정해주세요</string>
     <string name="str_null_user">탈퇴한 회원이에요</string>
+    <string name="str_search_length">두 글자 이상으로 검색해주세요</string>
+    <string name="str_post_success">새 글이 작성됐어요</string>
+    <string name="str_delete_product_success">해당 글을 삭제했어요</string>
 </resources>

@@ -1,6 +1,7 @@
 package io.sinzak.android.ui.main.market.viewmodel
 
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.sinzak.android.R
 import io.sinzak.android.enums.Page
 import io.sinzak.android.model.insets.SoftKeyModel
 import io.sinzak.android.model.market.MarketArtModel
@@ -74,6 +75,10 @@ class MarketViewModel @Inject constructor(
     }
 
     fun search(tag: String) {
+        if (tag.length < 2){
+            uiModel.showToast(valueModel.getString(R.string.str_search_length))
+            return
+        }
         marketArtModel.getRemoteMarketProducts(refresh = true, search = tag)
         soft.hideKeyboard()
         _searchFieldText.value = tag

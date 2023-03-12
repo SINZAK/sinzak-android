@@ -1,6 +1,7 @@
 package io.sinzak.android.ui.main.postwrite.viewmodels
 
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.sinzak.android.R
 import io.sinzak.android.enums.Page
 import io.sinzak.android.model.market.ProductDetailModel
 import io.sinzak.android.model.market.MarketWriteModel
@@ -29,7 +30,7 @@ class SpecViewModel @Inject constructor(
 
     init {
         invokeBooleanFlow(model.flagBuildSuccess) {
-            uiModel.showToast("작성 완료")
+            uiModel.showToast(valueModel.getString(R.string.str_post_success))
 
             productModel.loadProduct(model.getProductId())
             connect.gotoDetailAfterBuild()

@@ -121,7 +121,9 @@ class ProductDetailModel @Inject constructor() : BaseModel() {
         productDeleteSuccessFlag.value = false
         remote.sendRequestApi(
             CallImpl(
-                API_DELETE_MARKET_PRODUCT, this,
+                if (itemType.value == TYPE_MARKET_PRODUCT) API_DELETE_MARKET_PRODUCT
+                else API_DELETE_MARKET_WORK,
+                this,
                 paramInt0 = id
             )
         )
@@ -164,7 +166,8 @@ class ProductDetailModel @Inject constructor() : BaseModel() {
 
 
 
-            API_DELETE_MARKET_PRODUCT ->{
+            API_DELETE_MARKET_PRODUCT,
+            API_DELETE_MARKET_WORK->{
                 if(body.success == true)
                     productDeleteSuccessFlag.value = true
                 else

@@ -140,7 +140,7 @@ class CallImpl(
 
             API_PRODUCT_UPLOAD_IMG -> remoteApi.uploadProductImage(header.apply{
                 this.remove(CONTENT_TYPE)
-            }, paramInt0!!, multipartList!!)
+            }, paramInt0!!, multipart!!)
 
 
 
@@ -168,7 +168,7 @@ class CallImpl(
 
             API_WORK_UPLOAD_IMG -> remoteApi.uploadWorkImage(header.apply{
                 this.remove(CONTENT_TYPE)
-            }, paramInt0!!, multipartList!!)
+            }, paramInt0!!, multipart!!)
 
             API_WORK_DELETE_IMG -> remoteApi.deleteWorkImage(header,paramInt0!!, JsonObject().apply{
                 addProperty("url",paramStr0!!)

@@ -47,14 +47,14 @@ class MarketArtModel @Inject constructor() : BaseModel() {
     fun setMarketSort(sort: Sort)
     {
         _sortOrder.value = sort
-        getRemoteMarketProducts(refresh = true)
+        getRemoteMarketProducts(refresh = true, search = searchKeyword)
     }
 
 
     fun onClickShowOnSale(status : Boolean)
     {
         _stShowOnSale.value = status
-        getRemoteMarketProducts(refresh = true)
+        getRemoteMarketProducts(refresh = true, search = searchKeyword)
     }
 
 

@@ -29,7 +29,7 @@ interface RemoteMarketInterface {
 
     @Multipart
     @POST("api/products/{id}/image")
-    fun uploadProductImage(@HeaderMap headerMap: HashMap<String,String>, @Path("id") id : Int, @Part parts : List<MultipartBody.Part>) : Call<CResponse>
+    fun uploadProductImage(@HeaderMap headerMap: HashMap<String,String>, @Path("id") id : Int, @Part part : MultipartBody.Part) : Call<CResponse>
 
 
     @POST("api/products/{id}/deleteimage")
@@ -62,7 +62,7 @@ interface RemoteMarketInterface {
 
     @Multipart
     @POST("api/works/{id}/image")
-    fun uploadWorkImage(@HeaderMap headerMap: HashMap<String,String>,@Path("id") id : Int, @Part parts : List<MultipartBody.Part>) : Call<CResponse>
+    fun uploadWorkImage(@HeaderMap headerMap: HashMap<String,String>,@Path("id") id : Int, @Part part : MultipartBody.Part) : Call<CResponse>
 
 
     @POST("api/works/{id}/deleteimage")
