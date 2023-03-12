@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Sinzak</string>
+    <string name="app_name">신작</string>
 
     <string name="kakao_native_key">kakaof4e54dad18c8af8a67dccb0176283616</string>
     <string name="str_menu_home">홈</string>
