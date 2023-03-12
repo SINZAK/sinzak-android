@@ -53,12 +53,6 @@ class ChatUtil(
 
     fun destroyChatroom(){
 
-        /**
-         * [안승우] 테스트를 위한 코드
-         */
-/*        val jsonObject = JsonObject().apply{
-            addProperty(ROOM_ID, roomId)
-        }*/
         val jsonObject = JsonObject().apply{
             addProperty(MESSAGE, "")
             addProperty(ROOM_ID, roomId)

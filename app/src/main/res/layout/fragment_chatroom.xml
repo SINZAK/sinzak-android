@@ -55,7 +55,8 @@
             android:layout_height="0dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ll_appbar">
+            app:layout_constraintTop_toBottomOf="@+id/ll_appbar"
+            android:visibility="@{vm.imageShow ? 8 : 0}">
 
             <include
                 layout="@layout/view_chatroom_product"
@@ -80,6 +81,22 @@
                 />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="center_vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ll_appbar"
+            android:background="@color/background0"
+            android:visibility="@{vm.imageShow ? 0 : 8}">
+            <ImageView
+                fullImgUrl="@{vm.clickedImage}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -82,6 +82,10 @@ class ChatStorage @Inject constructor(@ApplicationContext val context: Context) 
         }
     }
 
+    fun clearChatMsg(){
+        _chatMsg.value = mutableListOf()
+    }
+
 
     lateinit var product: MarketDetailResponse.Detail
 
@@ -112,7 +116,8 @@ class ChatStorage @Inject constructor(@ApplicationContext val context: Context) 
                 complete = postDetail.complete,
                 suggest = postDetail.priceSuggestEnable,
                 userId = postDetail.authorId,
-                price = postDetail.price
+                price = postDetail.price,
+                postType = if (type == "product") "PRODUCT" else "WORK"
             )
     }
 
@@ -125,6 +130,7 @@ class ChatStorage @Inject constructor(@ApplicationContext val context: Context) 
 
     fun getChatroomMsg(chatroom: ChatRoom){
 
+        _chatMsg.value = mutableListOf()
         remote.sendRequestApi(
             CallImpl(
                 API_GET_CHATROOM_MSG,
@@ -165,7 +171,7 @@ class ChatStorage @Inject constructor(@ApplicationContext val context: Context) 
     fun makeChatRoom(roomId: String){
         currentChatRoom = ChatUtil(roomId,::onReceiveChatMsg, ::onFinishSend)
         if(pendingMsg.isNotEmpty()){
-            sendMsg(pendingMsg)
+            sendMsg(pendingMsg,ChatUtil.TYPE_TEXT)
             pendingMsg = ""
         }
     }
@@ -189,7 +195,7 @@ class ChatStorage @Inject constructor(@ApplicationContext val context: Context) 
     }
 
 
-    fun sendMsg(msg: String){
+    fun sendMsg(msg: String , type : String){
         if(msg.isEmpty())
             return
 
@@ -197,13 +203,14 @@ class ChatStorage @Inject constructor(@ApplicationContext val context: Context) 
 
         currentChatRoom?.let{
 
-            it.sendMsg(msg)
+            it.sendMsg(msg, type = type)
             addChatMsgOnTail(
                 ChatMsg(
                     msgId = msg.hashCode(),
                     msg = msg,
                     isMyChat = true,
-                    sendTime = TimeUtil.getCurrentDateTimeString()
+                    sendTime = TimeUtil.getCurrentDateTimeString(),
+                    type = type
                 )
             )
         }?:run{
@@ -290,13 +297,9 @@ class ChatStorage @Inject constructor(@ApplicationContext val context: Context) 
 
             API_CHAT_UPLOAD_IMG ->{
                 body as ChatImageUploadResponse
-                body.data?.imageUrls?.forEach {url->
-                    currentChatRoom?.sendMsg(
-                        url,
-                        type = ChatUtil.TYPE_IMAGE
-                    )
+                body.data?.forEach { url ->
+                    sendMsg(url.imageUrl, ChatUtil.TYPE_IMAGE)
                     LogDebug(javaClass.name , "사진 전송 성공")
-
                 }
             }
         }

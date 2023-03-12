@@ -29,8 +29,6 @@ data class MarketDetailResponse(
         @SerializedName("price") val price: Int = 0,
         @SerializedName("suggest") val priceSuggestEnable: Boolean = false,
         @SerializedName("title") val title: String = "",
-        @SerializedName("trading") val isTrading: Boolean = false,
-
 
         @SerializedName("userId") val authorId : String,
         @SerializedName("author") val author: String,

@@ -55,11 +55,6 @@ class ContentViewModel @Inject constructor(
     val isMyProduct = MutableStateFlow(false)
 
     /**
-     * 내가 구매한 프로덕트인가 ? ( 로그인 토큰 필요 )
-     */
-    val isBought = MutableStateFlow(false)
-
-    /**
      * 좋아요 한 프로덕트인가?
      */
     val isLike = MutableStateFlow(false)
@@ -93,6 +88,11 @@ class ContentViewModel @Inject constructor(
      * 카테고리
      */
     val category = MutableStateFlow("")
+
+    /**
+     * 판매 완료되었나?
+     */
+    val complete = MutableStateFlow(false)
 
     val itemType = model.itemType
 
@@ -213,6 +213,10 @@ class ContentViewModel @Inject constructor(
             showToast("작품을 삭제했습니다.")
             navigation.revealHistory()
         }
+
+        useFlag(model.productStatusUpdateFlag){
+            complete.value = true
+        }
     }
 
     /**
@@ -234,6 +238,7 @@ class ContentViewModel @Inject constructor(
                 follower.value = it.authorFollowerCnt
                 category.value = valueModel.getFirstCategory(it.category)
                 isMyProduct.value = it.myPost
+                complete.value = it.complete
 
             }
 
@@ -272,9 +277,8 @@ class ContentViewModel @Inject constructor(
         if (!isMyProduct.value) return
 
         connect.showOnSaleDialog(
-            tradingState = { model.updateTradeState(product) },
-            saleState = { model.updateSellState(product) },
-            model.itemType.value
+            offSale = {model.updateProductState(product,itemType.value == TYPE_MARKET_PRODUCT)},
+            itemType = itemType.value
         )
     }
 
@@ -357,6 +361,7 @@ class ContentViewModel @Inject constructor(
             return
         }
 
+        chatStorage.clearChatMsg()
         chatStorage.chatProductExistFlag.value = true
         model.makeNewChatroom()
 

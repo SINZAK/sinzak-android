@@ -9,6 +9,7 @@ import io.sinzak.android.remote.dataclass.request.market.ProductSuggestRequest
 import io.sinzak.android.remote.dataclass.response.market.MarketDetailResponse
 import io.sinzak.android.remote.retrofit.CallImpl
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -20,11 +21,10 @@ class ProductDetailModel @Inject constructor() : BaseModel() {
 
     val art = MutableStateFlow<MarketDetailResponse.Detail?>(null)
 
-    val productTradeUpdateFlag = MutableStateFlow(false)
-    val productSellUpdateFlag = MutableStateFlow(false)
-
     val productSuggestSuccessFlag = MutableStateFlow(false)
     val productDeleteSuccessFlag = MutableStateFlow(false)
+
+    val productStatusUpdateFlag = MutableStateFlow(false)
 
     val itemType = MutableStateFlow(TYPE_MARKET_PRODUCT) // 0 : product, 1 : work
 
@@ -128,31 +128,13 @@ class ProductDetailModel @Inject constructor() : BaseModel() {
     }
 
     /**
-     * 거래중 상태로 업데이트 합니다
-     */
-    fun updateTradeState(id : Int)
-    {
-        val request = ProductFormRequest(
-            id = id,
-            mode = false
-        )
-
-        CallImpl(
-            API_POST_TRADE_STATE,
-            this,
-            request
-        ).apply {
-            remote.sendRequestApi(this)
-        }
-    }
-
-    /**
      * 거래완료 상태로 업데이트 합니다
      */
-    fun updateSellState(id : Int)
+    fun updateProductState(id : Int, isProduct : Boolean)
     {
         CallImpl(
-            API_POST_SELL_STATE,
+            if (isProduct) API_POST_SELL_STATE
+            else API_POST_WORK_STATE,
             this,
             paramInt0 = id
         ).apply {
@@ -196,11 +178,10 @@ class ProductDetailModel @Inject constructor() : BaseModel() {
                     globalUi.showToast(body.message.toString())
             }
 
-            API_POST_TRADE_STATE -> {
-                productTradeUpdateFlag.value = body.success!!
-            }
-            API_POST_SELL_STATE-> {
-                productSellUpdateFlag.value = body.success!!
+            API_POST_SELL_STATE,
+            API_POST_WORK_STATE -> {
+                productStatusUpdateFlag.value = body.success!!
+                if (!body.success) globalUi.showToast(body.message.toString())
             }
 
         }

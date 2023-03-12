@@ -20,6 +20,7 @@ import io.sinzak.android.ui.main.chat.ChatConnect
 import io.sinzak.android.ui.main.chat.ChatMsgAdapter
 import io.sinzak.android.ui.main.profile.ProfileConnect
 import io.sinzak.android.ui.main.profile.report.ReportSendViewModel
+import io.sinzak.android.utils.ChatUtil
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -35,7 +36,7 @@ class ChatroomViewModel @Inject constructor(
 ) : BaseViewModel() {
     private val chatMsgList = mutableListOf<ChatMsg>()
 
-    val chatAdapter = ChatMsgAdapter(chatMsgList)
+    val chatAdapter = ChatMsgAdapter(chatMsgList,::onImageClick)
 
     val chatRoom = storage.chatRoomInfo
 
@@ -45,6 +46,9 @@ class ChatroomViewModel @Inject constructor(
     val myId = prefs.getString(CODE_USER_ID,"-1").toString()
 
     val isProductExist get() = storage.chatProductExistFlag
+
+    val imageShow = MutableStateFlow(false)
+    val clickedImage = MutableStateFlow("")
 
     fun invokeAdapter(rv: RecyclerView): ChatMsgAdapter {
         chatAdapter.rv = rv
@@ -82,7 +86,7 @@ class ChatroomViewModel @Inject constructor(
             if (pendingChat.isEmpty()) {
                 chatMsgList.clear()
                 chatMsgList.addAll(chat)
-                chatAdapter.notifyNewChatRoom()
+                chatAdapter.scrollToBottom()
                 return
             }
 
@@ -91,17 +95,38 @@ class ChatroomViewModel @Inject constructor(
         }
     }
 
-    fun onSuggest(productId : Int)
-    {
-        detailModel.setIdForSuggest(productId)
-        navigation.changePage(Page.ART_DETAIL_SUGGEST)
+    val complete = MutableStateFlow(false)
+
+    init {
+        invokeStateFlow(chatRoom){ room ->
+            room?.let {
+                complete.value = it.complete
+            }
+        }
+
+        useFlag(detailModel.productStatusUpdateFlag){
+            complete.value = true
+        }
     }
 
-    fun openSaleDialog() {
+    fun onProductClick(isProduct : Boolean ,id: Int)
+    {
+        if (!isProductExist.value) return
+        if (isProduct) detailModel.loadProduct(id)
+        else detailModel.loadWork(id)
+        navigation.changePage(Page.ART_DETAIL)
+    }
+
+    private fun onImageClick(url : String)
+    {
+        clickedImage.value = url
+        imageShow.value = true
+    }
+
+    fun openSaleDialog(id : Int ,isProduct: Boolean) {
         connect.showOnSaleDialog(
-            tradingState = {},
-            saleState = {},
-            itemType = 0
+            offSale = {detailModel.updateProductState(id,isProduct)},
+            isProduct = isProduct
         )
     }
 
@@ -139,6 +164,10 @@ class ChatroomViewModel @Inject constructor(
     }
 
     fun onBackPressed() {
+        if (imageShow.value) {
+            imageShow.value = false
+            return
+        }
         uiModel.navigation.revealHistory()
     }
 

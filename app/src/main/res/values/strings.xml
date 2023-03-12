@@ -253,9 +253,9 @@
     <string name="str_checkemail_exist">가입한 다른 소셜 계정으로 로그인해주세요.</string>
     <string name="str_btn_chatroom_leave">채팅방 나가기</string>
     <string name="str_block_chat">차단하기</string>
-    <string name="str_product_onsale_done">거래완료</string>
+    <string name="str_product_onsale_done">거래 완료</string>
     <string name="str_porduct_onsale_on">거래중</string>
-    <string name="str_work_onsale_done">모집완료</string>
+    <string name="str_work_onsale_done">모집 완료</string>
     <string name="str_work_onsale_on">모집중</string>
 
     <string name="str_chat_hint">메세지 보내기</string>

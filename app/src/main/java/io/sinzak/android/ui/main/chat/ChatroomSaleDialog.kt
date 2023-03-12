@@ -9,8 +9,7 @@ import io.sinzak.android.ui.base.BaseDialog
 
 class ChatroomSaleDialog(
     context: Context,
-    val tradingState: () -> Unit,
-    val saleState : () -> Unit,
+    val offSale : () -> Unit,
     val itemType : Int
 ) :
     BaseDialog<DialogProductOnsaleBinding>(
@@ -21,14 +20,9 @@ class ChatroomSaleDialog(
 
         bind.itemType = itemType
 
-        bind.setOnSale {
-            dismiss()
-            tradingState()
-        }
-
         bind.setOffSale {
             dismiss()
-            saleState()
+            offSale()
         }
 
         bind.setDismiss {
