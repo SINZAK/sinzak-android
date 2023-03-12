@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.sinzak.android.R
-import io.sinzak.android.constants.CODE_USER_ID
 import io.sinzak.android.constants.CODE_USER_REPORT_ID
 import io.sinzak.android.constants.CODE_USER_REPORT_NAME
 import io.sinzak.android.constants.TYPE_MARKET_PRODUCT
@@ -14,10 +13,8 @@ import io.sinzak.android.model.market.ProductDetailModel
 import io.sinzak.android.model.market.MarketWriteModel
 import io.sinzak.android.model.profile.ProfileModel
 import io.sinzak.android.model.profile.UserCommandModel
-import io.sinzak.android.remote.dataclass.response.market.MarketProductResponse
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.ui.main.profile.report.ReportSendViewModel
-import io.sinzak.android.ui.main.profile.viewmodel.ProfileViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 
@@ -363,11 +360,14 @@ class ContentViewModel @Inject constructor(
         }
 
         if (isMyProduct.value) {
+            val productId = product.productId
+            val type = if (itemType.value == TYPE_MARKET_PRODUCT) "product" else "work"
+
             navigation.changePage(Page.CHAT)
             chatStorage.fetchRoomListByPostJob(
                 viewModelScope,
-                product.productId,
-                if (itemType.value == TYPE_MARKET_PRODUCT) "product" else "work"
+                productId,
+                type
             )
 
 

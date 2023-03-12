@@ -2,7 +2,6 @@ package io.sinzak.android.model.chat
 
 import android.content.Context
 import android.net.Uri
-import androidx.core.net.toUri
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.sinzak.android.constants.*
 import io.sinzak.android.model.BaseModel
@@ -10,9 +9,7 @@ import io.sinzak.android.remote.dataclass.CResponse
 import io.sinzak.android.remote.dataclass.chat.*
 import io.sinzak.android.remote.dataclass.response.market.MarketDetailResponse
 import io.sinzak.android.remote.retrofit.CallImpl
-import io.sinzak.android.system.App.Companion.prefs
 import io.sinzak.android.system.LogDebug
-import io.sinzak.android.system.LogInfo
 import io.sinzak.android.utils.ChatUtil
 import io.sinzak.android.utils.FileUtil
 import io.sinzak.android.utils.TimeUtil
@@ -77,9 +74,6 @@ class ChatStorage @Inject constructor(@ApplicationContext val context: Context) 
     }
 
 
-    lateinit var product: MarketDetailResponse.Detail
-
-
 
     private var currentChatRoom: ChatUtil? = null
 
@@ -90,6 +84,7 @@ class ChatStorage @Inject constructor(@ApplicationContext val context: Context) 
 
     val newChatRoomFlag = MutableStateFlow(false)
     val newChatNewMsgFlag = MutableStateFlow(false)
+
 
     /**
      * 채팅이 없는 상품에 채팅 생성
@@ -205,7 +200,7 @@ class ChatStorage @Inject constructor(@ApplicationContext val context: Context) 
     /**
      * 상품에 딸려있는 채팅방 리스트를 요청합니다
      */
-    private fun getChatRoomFromPost(postId: Int, postType: String){
+    fun getChatRoomFromPost(postId: Int, postType: String){
         CallImpl(API_GET_CHATROOM_POST_LIST, this, paramInt0 = postId, paramStr0 = postType).apply{
             remote.sendRequestApi(this)
         }

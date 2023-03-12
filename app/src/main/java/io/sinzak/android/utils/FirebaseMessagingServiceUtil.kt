@@ -33,9 +33,13 @@ class FirebaseMessagingServiceUtil : FirebaseMessagingService() {
         val body = remoteMessage.notification!!.body
         val route = remoteMessage.data.getValue("route")
 
+        LogDebug(javaClass.name, route)
 
-        val intent = Intent(this, MainActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        val intent = Intent(this, MainActivity::class.java).apply {
+            action = "OPEN_CHAT"
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            putExtra("uuid",route)
+        }
         val pendingIntent = PendingIntent.getActivity(this, id, intent, PendingIntent.FLAG_IMMUTABLE)
 
         val channelId = "Channel ID"
@@ -49,7 +53,7 @@ class FirebaseMessagingServiceUtil : FirebaseMessagingService() {
             .setContentIntent(pendingIntent)
 
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        val channel = NotificationChannel(channelId, "Notice", NotificationManager.IMPORTANCE_HIGH)
+        val channel = NotificationChannel(channelId, "Notice", NotificationManager.IMPORTANCE_DEFAULT)
 
         notificationManager.createNotificationChannel(channel)
         notificationManager.notify(id, notificationBuilder.build())
