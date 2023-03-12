@@ -33,8 +33,12 @@ class RequestViewModel @Inject constructor(
         navigation.changePage(Page.ART_DETAIL)
     }
 
-    override fun onEndTrade(id: String) {
-        if (!completeList.value) return
+    override fun onEndTrade(id: Int, callback: () -> Unit) {
+        if (completeList.value) return
+        productModel.updateProductState(id, WORK)
+        useFlag(productModel.productStatusUpdateFlag){
+            callback()
+        }
     }
 
 }
