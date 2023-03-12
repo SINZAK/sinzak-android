@@ -73,7 +73,7 @@
                 android:layout_height="100dp">
                 
                 <androidx.appcompat.widget.LinearLayoutCompat
-                    isSelect="@{vm.currentField == 0}"
+                    isSelect="@{vm.model.productType == 0}"
                     android:onClick="@{v->vm.changeField(0)}"
                     android:id="@+id/btn_market"
                     android:layout_width="100dp"
@@ -90,11 +90,11 @@
                         android:layout_height="wrap_content"
                         style="@style/bold16"
                         android:text="@string/str_category_market"
-                        android:textColor="@{vm.currentField == 0 ? @color/on_primary : @color/on_secondary}"/>
+                        android:textColor="@{vm.model.productType == 0 ? @color/on_primary : @color/on_secondary}"/>
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.appcompat.widget.LinearLayoutCompat
-                    isSelect="@{vm.currentField == 1}"
+                    isSelect="@{vm.model.productType == 1}"
                     android:onClick="@{v->vm.changeField(1)}"
                     android:layout_marginHorizontal="5dp"
                     android:id="@+id/btn_client"
@@ -112,11 +112,11 @@
                         android:layout_height="wrap_content"
                         style="@style/bold16"
                         android:text="@string/str_category_client"
-                        android:textColor="@{vm.currentField == 1 ? @color/on_primary : @color/on_secondary}"/>
+                        android:textColor="@{vm.model.productType == 1 ? @color/on_primary : @color/on_secondary}"/>
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.appcompat.widget.LinearLayoutCompat
-                    isSelect="@{vm.currentField == 2}"
+                    isSelect="@{vm.model.productType == 2}"
                     android:onClick="@{v->vm.changeField(2)}"
                     android:id="@+id/btn_artist"
                     android:layout_width="100dp"
@@ -133,7 +133,7 @@
                         android:layout_height="wrap_content"
                         style="@style/bold16"
                         android:text="@string/str_category_artist"
-                        android:textColor="@{vm.currentField == 2 ? @color/on_primary : @color/on_secondary}"/>
+                        android:textColor="@{vm.model.productType == 2 ? @color/on_primary : @color/on_secondary}"/>
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
             </androidx.appcompat.widget.LinearLayoutCompat>

@@ -88,6 +88,7 @@ class MarketViewModel @Inject constructor(
      ********************************/
 
     fun gotoBuildPage() {
+        writeModel.setProductType(0)
         writeModel.startBuild()
         navigation.changePage(Page.NEW_POST)
     }

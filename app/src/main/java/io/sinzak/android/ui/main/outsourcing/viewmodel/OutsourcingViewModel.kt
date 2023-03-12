@@ -37,6 +37,8 @@ class OutsourcingViewModel @Inject constructor(
 
 
     fun gotoBuildPage() {
+        val buildType = if (isClientList.value) 1 else 2
+        writeModel.setProductType(buildType)
         writeModel.startBuild()
         navigation.changePage(Page.NEW_POST)
     }

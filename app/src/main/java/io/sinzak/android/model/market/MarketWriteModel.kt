@@ -269,7 +269,8 @@ class MarketWriteModel @Inject constructor(@ApplicationContext val context : Con
             title = title,
             category = categoryText,
             priceSuggest = canSuggestPrice,
-            content = content
+            content = content,
+            employment = productType.value ==1
         )
         remote.sendRequestApi(
             CallImpl(
