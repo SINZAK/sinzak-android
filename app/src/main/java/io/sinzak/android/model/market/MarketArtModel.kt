@@ -67,6 +67,7 @@ class MarketArtModel @Inject constructor() : BaseModel() {
         val pageSize = 10
 
         val page = if(refresh) {
+            LogDebug(javaClass.name,"리프레쉬")
             _marketProducts.value = mutableListOf()
             maxPage = 9999
             searchKeyword = search

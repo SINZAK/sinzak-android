@@ -30,6 +30,12 @@ class ChatRoomAdapter(
         )
     }
 
+    fun removeByUUID(uuid: String)
+    {
+        chatList = chatList.filter { it.roomUuid != uuid }
+        notifyDataSetChanged()
+    }
+
 
 
 

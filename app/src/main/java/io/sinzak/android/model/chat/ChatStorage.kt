@@ -43,6 +43,9 @@ class ChatStorage @Inject constructor(@ApplicationContext val context: Context) 
 
     val chatProductExistFlag = MutableStateFlow(false)
 
+    val chatRoomLeaveFlag = MutableStateFlow(false)
+    val deleteRoomUUID = MutableStateFlow("")
+
 
     fun forceClearJob(){
         job?.cancel()
@@ -243,8 +246,11 @@ class ChatStorage @Inject constructor(@ApplicationContext val context: Context) 
     }
 
     fun leaveChatroom(){
+        LogDebug(javaClass.name, "채팅방 나가기 실행 : $currentChatroomUUID 방에서 나감")
+        deleteRoomUUID.value = currentChatroomUUID
         currentChatRoom?.destroyChatroom()
         currentChatRoom = null
+        chatRoomLeaveFlag.value = true
     }
 
 
