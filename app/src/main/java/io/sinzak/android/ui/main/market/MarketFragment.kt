@@ -47,8 +47,14 @@ class MarketFragment : BaseFragment() {
     }
 
     override fun navigateOnBackPressed() {
-        if(viewModel.searchPageOn.value)
+        if(viewModel.searchPageOn.value) {
             viewModel.closeSearchPage()
+            return
+        }
+
+        viewModel.backPressedToExitApp {
+            activity?.finish()
+        }
     }
 
     override fun onFragmentCreated() {

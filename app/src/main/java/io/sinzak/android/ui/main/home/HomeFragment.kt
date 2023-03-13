@@ -142,6 +142,10 @@ class HomeFragment : BaseFragment() {
     }
 
     override fun navigateOnBackPressed() {
-        //navigator.changePage()
+        viewModel.backPressedToExitApp {
+            activity?.finish()
+        }
     }
+
+
 }

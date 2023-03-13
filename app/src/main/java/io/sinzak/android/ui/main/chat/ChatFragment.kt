@@ -19,7 +19,9 @@ class ChatFragment : BaseFragment() {
     }
 
     override fun navigateOnBackPressed() {
-
+        viewModel.backPressedToExitApp {
+            activity?.finish()
+        }
     }
 
     override fun onFragmentCreated() {

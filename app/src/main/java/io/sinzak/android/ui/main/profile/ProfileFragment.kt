@@ -49,7 +49,9 @@ open class ProfileFragment : BaseFragment() {
     }
 
     override fun navigateOnBackPressed() {
-
+        viewModel.backPressedToExitApp {
+            activity?.finish()
+        }
     }
 
 

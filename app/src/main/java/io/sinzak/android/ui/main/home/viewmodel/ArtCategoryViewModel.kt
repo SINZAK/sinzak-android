@@ -13,10 +13,8 @@ class ArtCategoryViewModel @Inject constructor(val marketArtModel: MarketArtMode
 
 
     override val adapter = CategoryAdapter(valueModel.categoryMarket, valueModel.categoryMarketDraw){
-        marketArtModel.setCategoryString(it)
+        marketArtModel.setCategoryString(valueModel.reverseCategoryMap[it].toString())
         navigation.changePage(Page.MARKET)
-
-
     }
 
     override var title: String = valueModel.getString(R.string.str_home_title_category)

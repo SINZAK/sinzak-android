@@ -63,7 +63,7 @@ class GlobalValueModel @Inject constructor(@ApplicationContext val context: Cont
         return resultList.joinToString(", ")
     }
 
-    private val reverseCategoryMap : Map<String, String> get() = context.resources.getStringArray(R.array.category_value).let { category ->
+    val reverseCategoryMap : Map<String, String> get() = context.resources.getStringArray(R.array.category_value).let { category ->
         val value = context.resources.getStringArray(R.array.category_key)
         val map = mutableMapOf<String, String>()
         for (i in category.indices){
