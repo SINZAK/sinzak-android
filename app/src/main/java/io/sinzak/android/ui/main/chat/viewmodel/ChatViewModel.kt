@@ -34,24 +34,34 @@ class ChatViewModel @Inject constructor(
             chatRoomAdapter.notifyDataSetChanged()
         }.launchIn(viewModelScope)
 
-
-    override fun onCleared() {
-        super.onCleared()
-        storage.forceClearJob()
-        chatRoomCollector.cancel()
-    }
-
     fun getRemoteChatRoomList()
     {
         storage.getChatRoomList()
     }
 
+    fun fetchRoomListJob()
+    {
+        storage.fetchRoomListJob(viewModelScope)
+    }
+
+    fun clearJob()
+    {
+        storage.forceClearJob()
+        chatRoomCollector.cancel()
+    }
+
+
     init {
+        storage.chatProductExistFlag.value = false
         useFlag(storage.chatRoomLeaveFlag){
             chatRoomAdapter.removeByUUID(storage.deleteRoomUUID.value)
             storage.deleteRoomUUID.value = ""
         }
     }
 
+    fun onBackPressed()
+    {
+        navigation.revealHistory()
+    }
 
 }

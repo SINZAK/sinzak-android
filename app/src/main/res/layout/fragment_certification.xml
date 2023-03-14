@@ -21,6 +21,7 @@
             android:background="@drawable/ic_bg_button"
             android:onClick="@{v->vm.onCancel()}"
             android:src="@drawable/ic_back"
+            app:layout_constraintBottom_toBottomOf="@+id/textView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

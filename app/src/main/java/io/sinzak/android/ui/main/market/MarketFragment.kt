@@ -3,12 +3,10 @@ package io.sinzak.android.ui.main.market
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import io.sinzak.android.R
 import io.sinzak.android.databinding.*
 import io.sinzak.android.model.market.ProductDetailModel
-import io.sinzak.android.remote.dataclass.history.HistoryData
 import io.sinzak.android.system.LogDebug
 import io.sinzak.android.ui.base.BaseFragment
 import io.sinzak.android.ui.main.market.viewmodel.ArtsViewModel
@@ -134,5 +132,4 @@ class MarketFragment : BaseFragment() {
     {
         sortView.show(requireActivity().supportFragmentManager,sortView.tag)
     }
-
 }

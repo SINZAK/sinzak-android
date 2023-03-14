@@ -9,7 +9,7 @@ import io.sinzak.android.ui.main.chat.viewmodel.ChatViewModel
 
 
 @AndroidEntryPoint
-class ChatFragment : BaseFragment() {
+open class ChatFragment : BaseFragment() {
 
     private val viewModel by activityViewModels<ChatViewModel>()
     lateinit var bind : FragmentChatBinding
@@ -32,11 +32,20 @@ class ChatFragment : BaseFragment() {
         }
 
         viewModel.getRemoteChatRoomList()
+        viewModel.fetchRoomListJob()
     }
 
     override fun showBottomBar(): Boolean {
         return true
     }
 
+    override fun onPause() {
+        super.onPause()
+        viewModel.clearJob()
+    }
 
+    override fun onStop() {
+        super.onStop()
+        viewModel.clearJob()
+    }
 }

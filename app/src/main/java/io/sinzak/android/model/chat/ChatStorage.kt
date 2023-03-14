@@ -2,6 +2,7 @@ package io.sinzak.android.model.chat
 
 import android.content.Context
 import android.net.Uri
+import android.util.Log
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.sinzak.android.constants.*
 import io.sinzak.android.model.BaseModel
@@ -45,6 +46,7 @@ class ChatStorage @Inject constructor(@ApplicationContext val context: Context) 
 
 
     fun forceClearJob(){
+        LogDebug(javaClass.name,"잡 클리어")
         job?.cancel()
         job = null
     }
@@ -52,18 +54,18 @@ class ChatStorage @Inject constructor(@ApplicationContext val context: Context) 
         forceClearJob()
         job = scope.launch {
             while(true){
-                getChatRoomList()
                 delay(10000)
+                getChatRoomList()
             }
         }
     }
 
-    fun fetchRoomListByPostJob(scope: CoroutineScope, postId: Int, postType: String){
+    fun fetchRoomListByPostJob(scope: CoroutineScope){
         forceClearJob()
         job = scope.launch {
             while(true){
-                getChatRoomFromPost(postId, postType)
                 delay(10000)
+                getChatRoomFromPost(postId, postType)
             }
         }
     }
@@ -201,6 +203,9 @@ class ChatStorage @Inject constructor(@ApplicationContext val context: Context) 
      * 상품에 딸려있는 채팅방 리스트를 요청합니다
      */
     fun getChatRoomFromPost(postId: Int, postType: String){
+        this.postId = postId
+        this.postType = postType
+        _chatRooms.value = mutableListOf()
         CallImpl(API_GET_CHATROOM_POST_LIST, this, paramInt0 = postId, paramStr0 = postType).apply{
             remote.sendRequestApi(this)
         }

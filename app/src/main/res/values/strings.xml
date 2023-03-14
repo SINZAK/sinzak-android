@@ -263,6 +263,7 @@
     <string name="str_chat_suggest">가격제안하기</string>
     <string name="str_chat_no_suggest">가격제안불가</string>
     <string name="str_product_not_exist">게시물이 삭제됐어요</string>
+    <string name="str_chat_from_post">문의중인 채팅</string>
 
     <!-- 토스트 메세지용 -->
     <string name="str_need_login">로그인이 필요해요</string>

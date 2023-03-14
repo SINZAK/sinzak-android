@@ -13,7 +13,7 @@ import retrofit2.http.*
 
 interface RemoteMarketInterface {
     @POST("api/products")
-    fun getMarketProducts(@HeaderMap header : HashMap<String,String>, @Query("page") page : Int, @Query("size") size : Int, @Query("align") align : String, @Query("category") category : String, @Query("search") search : String, @Query("sale") sale : Boolean ) : Call<MarketProductResponse>
+    fun getMarketProducts(@HeaderMap header : HashMap<String,String>, @Query("page") page : Int, @Query("size") size : Int, @Query("align") align : String, @Query("categories") category : String, @Query("search") search : String, @Query("sale") sale : Boolean ) : Call<MarketProductResponse>
 
     @POST("api/products/build")
     fun buildMarketProduct(@HeaderMap header: HashMap<String, String>, @Body body : ProductBuildRequest) : Call<ProductBuildResponse>
@@ -45,7 +45,7 @@ interface RemoteMarketInterface {
 
 
     @POST("api/works")
-    fun getMarketWorks(@HeaderMap header : HashMap<String,String>, @Query("page") page : Int, @Query("size") size : Int, @Query("align") align : String, @Query("category") category : String, @Query("search") search : String, @Query("employment") employment : Boolean ) : Call<MarketProductResponse>
+    fun getMarketWorks(@HeaderMap header : HashMap<String,String>, @Query("page") page : Int, @Query("size") size : Int, @Query("align") align : String, @Query("categories") category : String, @Query("search") search : String, @Query("employment") employment : Boolean ) : Call<MarketProductResponse>
 
 
     @POST("api/works/build")
