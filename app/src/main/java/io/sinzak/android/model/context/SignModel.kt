@@ -479,7 +479,6 @@ class SignModel @Inject constructor(
 
     fun logout(){
         postFcmToken("", prefs.getString(CODE_USER_ID, "").toString())
-        prefs.setString(CODE_FCM_TOKEN,"")
         prefs.accessToken = ""
         prefs.refreshToken = ""
         setIsLogin(false)
@@ -672,6 +671,7 @@ class SignModel @Inject constructor(
             API_USER_RESIGN -> {
                 if (body.success == true) {
                     resignSuccessFlag.value = true
+                    prefs.setString(CODE_FCM_TOKEN,"")
                     logout()
                 }
             }
