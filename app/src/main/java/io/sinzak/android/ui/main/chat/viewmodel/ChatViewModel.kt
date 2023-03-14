@@ -39,6 +39,17 @@ class ChatViewModel @Inject constructor(
         storage.getChatRoomList()
     }
 
+    fun fetchRoomListJob()
+    {
+        storage.fetchRoomListJob(viewModelScope)
+    }
+
+    fun clearJob()
+    {
+        storage.forceClearJob()
+        chatRoomCollector.cancel()
+    }
+
 
     init {
         storage.chatProductExistFlag.value = false

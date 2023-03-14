@@ -32,11 +32,20 @@ open class ChatFragment : BaseFragment() {
         }
 
         viewModel.getRemoteChatRoomList()
+        viewModel.fetchRoomListJob()
     }
 
     override fun showBottomBar(): Boolean {
         return true
     }
 
+    override fun onPause() {
+        super.onPause()
+        viewModel.clearJob()
+    }
 
+    override fun onStop() {
+        super.onStop()
+        viewModel.clearJob()
+    }
 }
