@@ -85,6 +85,7 @@ class ProductDetailModel @Inject constructor() : BaseModel() {
         art.value?.let{
             chatStorage.makeChatroom(it, if(itemType.value == 0) "product" else "work")
         }
+
     }
 
 

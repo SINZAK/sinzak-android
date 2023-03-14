@@ -17,8 +17,6 @@ class CategoryViewModel @Inject constructor(
     val outsourcingCategories = valueModel.categoryWork.toMutableList()
     val categorySelected = MutableStateFlow(listOf<String>())
 
-    val currentField = MutableStateFlow(0)
-
     fun changeField(currentField : Int)
     {
         model.setProductType(currentField)
