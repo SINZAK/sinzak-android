@@ -4,6 +4,7 @@ import java.lang.Exception
 import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 
 object TimeUtil {
 
@@ -62,10 +63,10 @@ object TimeUtil {
     }
 
     fun dateTimeToString(dateTimeString: String): String {
-        val dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")
-        val localTime = LocalTime.parse(dateTimeString, dateTimeFormatter)
-
-        return localTime.format(DateTimeFormatter.ofPattern("a h:mm"))
+        val inputFormatter = DateTimeFormatter.ISO_DATE_TIME
+        val outputFormatter = DateTimeFormatter.ofPattern("a h:mm")
+        val dateTime = LocalDateTime.parse(dateTimeString, inputFormatter)
+        return dateTime.format(outputFormatter)
     }
 
     fun getCurrentDateTimeString(): String {
