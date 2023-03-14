@@ -1,12 +1,10 @@
 package io.sinzak.android.ui.base
 
 import android.os.Bundle
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
+import io.sinzak.android.R
 import io.sinzak.android.model.GlobalUiModel
-import io.sinzak.android.model.GlobalValueModel
 import io.sinzak.android.model.context.SignModel
 import io.sinzak.android.model.navigate.Navigation
 import io.sinzak.android.model.profile.ProfileModel
@@ -73,6 +71,20 @@ abstract class BaseViewModel : ViewModel() {
         invokeStateFlow(navigation.bundleInserted){
             navigation.getBundleData(this::class)?.let(onCollected)
         }
+    }
+
+    fun backPressedToExitApp(backPressed : ()->Unit)
+    {
+        if (backPressedTime + BACK_PRESSED_TIMEOUT > System.currentTimeMillis()) backPressed()
+        else {
+            uiModel.showToast(valueModel.getString(R.string.str_close_app_message))
+            backPressedTime = System.currentTimeMillis()
+        }
+    }
+
+    companion object {
+        var backPressedTime : Long = 0
+        const val BACK_PRESSED_TIMEOUT : Long = 2000
     }
 
 }

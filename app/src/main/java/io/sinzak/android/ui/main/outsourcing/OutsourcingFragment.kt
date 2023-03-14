@@ -34,6 +34,10 @@ class OutsourcingFragment : BaseFragment(){
     override fun navigateOnBackPressed() {
         if (viewModel.searchOn.value){
             viewModel.closeSearchPage()
+            return
+        }
+        viewModel.backPressedToExitApp {
+            activity?.finish()
         }
     }
 

@@ -31,4 +31,7 @@ class MainViewModel @Inject constructor(
         navigation.changePage(Page.CHAT_ROOM)
     }
 
+
+
+
 }
