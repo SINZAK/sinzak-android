@@ -17,8 +17,6 @@ class SortBottom : BottomDialog() {
         bind = BtmSortBinding.inflate(inflater)
         bind.lifecycleOwner = viewLifecycleOwner
 
-
-
         bind.initValue = initValue
         bind.onClick = object : OnClickListener{
             override fun onClick(sort: Sort) {
