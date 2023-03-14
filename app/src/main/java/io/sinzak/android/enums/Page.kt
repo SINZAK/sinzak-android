@@ -8,6 +8,7 @@ enum class Page {
     OUTSOURCING,
     CHAT,
     CHAT_ROOM,
+    CHAT_ROOM_FROM_POST,
     PROFILE,
     PROFILE_OTHER,
     PROFILE_SALE,

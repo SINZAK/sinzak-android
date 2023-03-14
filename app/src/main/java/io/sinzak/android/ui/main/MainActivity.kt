@@ -57,6 +57,7 @@ import io.sinzak.android.utils.RootViewDeferringInsetsCallback
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import io.sinzak.android.system.App.Companion.prefs
+import io.sinzak.android.ui.main.chat.postroom.ChatPostFragment
 
 
 @AndroidEntryPoint
@@ -237,6 +238,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
                 CHAT_ROOM ->
                     ChatRoomFragment()
+
+                CHAT_ROOM_FROM_POST ->
+                    ChatPostFragment()
             }
 
         fragment?.let {

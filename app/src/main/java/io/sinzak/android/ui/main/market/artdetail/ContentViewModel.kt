@@ -363,13 +363,11 @@ class ContentViewModel @Inject constructor(
             val productId = product.productId
             val type = if (itemType.value == TYPE_MARKET_PRODUCT) "product" else "work"
 
-            navigation.changePage(Page.CHAT)
-            chatStorage.fetchRoomListByPostJob(
-                viewModelScope,
+            chatStorage.getChatRoomFromPost(
                 productId,
                 type
             )
-
+            navigation.changePage(Page.CHAT_ROOM_FROM_POST)
 
             return
         }

@@ -9,7 +9,7 @@ import io.sinzak.android.ui.main.chat.viewmodel.ChatViewModel
 
 
 @AndroidEntryPoint
-class ChatFragment : BaseFragment() {
+open class ChatFragment : BaseFragment() {
 
     private val viewModel by activityViewModels<ChatViewModel>()
     lateinit var bind : FragmentChatBinding
