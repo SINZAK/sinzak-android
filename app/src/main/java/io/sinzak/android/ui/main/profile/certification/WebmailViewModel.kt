@@ -188,8 +188,10 @@ class WebmailViewModel @Inject constructor(
      */
     fun onSubmit()
     {
+        navigation.removeHistory(Page.PROFILE_EDIT)
+        navigation.removeHistory(Page.PROFILE_WEBMAIL)
+        navigation.removeHistory(Page.PROFILE_CERTIFICATION)
         navigation.changePage(Page.PROFILE)
-        navigation.clearHistory()
         uiModel.showToast(valueModel.getString(R.string.str_certification_done))
     }
 

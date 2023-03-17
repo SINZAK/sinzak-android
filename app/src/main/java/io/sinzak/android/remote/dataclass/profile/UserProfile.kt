@@ -14,8 +14,6 @@ data class UserProfile(
     @SerializedName("univ") val univ : String = "",
     @SerializedName("follow") val isFollow : Boolean = false,
     @SerializedName("categoryLike") val categoryLike : String? = null,
-    @SerializedName("portFolioUrl") val portFolioUrl : String = "",
-    @SerializedName("cert_celeb") val cert_celeb : Boolean = false,
 
     /**
      * 차단 리스트 용

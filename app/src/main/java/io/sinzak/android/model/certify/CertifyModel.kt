@@ -4,7 +4,10 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
 import dagger.hilt.android.qualifiers.ApplicationContext
-import io.sinzak.android.constants.*
+import io.sinzak.android.constants.API_CERTIFY_UNIVERSITY
+import io.sinzak.android.constants.API_CERTIFY_UPLOAD_IMG
+import io.sinzak.android.constants.API_CHECK_MAIL_CODE
+import io.sinzak.android.constants.API_SEND_MAIL_CODE
 import io.sinzak.android.model.BaseModel
 import io.sinzak.android.remote.dataclass.CResponse
 import io.sinzak.android.remote.dataclass.local.SchoolData
@@ -29,7 +32,6 @@ class CertifyModel @Inject constructor(@ApplicationContext val context : Context
     val flagCodeSuccess = MutableStateFlow(false)
     val flagCodeFailed = MutableStateFlow(false)
     val flagUploadSuccess = MutableStateFlow(false)
-    val flagPortfolioSuccess = MutableStateFlow(false)
 
     private var univ : SchoolData? = null
     private var address : String = ""
@@ -160,6 +162,7 @@ class CertifyModel @Inject constructor(@ApplicationContext val context : Context
     {
         val request = UnivCertifyRequest(
             univ = univ!!.schoolName,
+            univ_email = univ!!.schoolDomain
         )
         CallImpl(
             API_CERTIFY_UNIVERSITY,
@@ -193,20 +196,6 @@ class CertifyModel @Inject constructor(@ApplicationContext val context : Context
         }
     }
 
-    /**
-     * 인증작가를 신청합니다
-     */
-    fun requestCertifyPortfolio(portfolio : String)
-    {
-        CallImpl(
-            API_CERTIFY_MY_PORTFOLIO,
-            this,
-            paramStr0 = portfolio
-        ).apply {
-            remote.sendRequestApi(this)
-        }
-    }
-
 
     override fun onConnectionSuccess(api: Int, body: CResponse) {
         when(api)
@@ -233,22 +222,13 @@ class CertifyModel @Inject constructor(@ApplicationContext val context : Context
 
             API_CERTIFY_UNIVERSITY -> {
                 body as UnivCertifyResponse
-                if (body.success == true) uploadImg(body.id)
-                else {
-                    globalUi.showToast(body.message.toString())
-                }
-
+                uploadImg(body.id)
+                LogDebug(javaClass.name, body.id)
             }
 
             API_CERTIFY_UPLOAD_IMG -> {
                 flagUploadSuccess.value = body.success == true
                 if (body.success == false) globalUi.showToast(body.message.toString())
-            }
-
-            API_CERTIFY_MY_PORTFOLIO -> {
-                flagPortfolioSuccess.value = body.success == true
-                if (body.success == false) globalUi.showToast(body.message.toString())
-                if (body.success == true) globalUi.showToast("신청이 완료됐어요")
             }
         }
     }
@@ -268,10 +248,6 @@ class CertifyModel @Inject constructor(@ApplicationContext val context : Context
             }
             API_CERTIFY_UPLOAD_IMG -> {
                 flagUploadSuccess.value = false
-                globalUi.showToast(msg.toString())
-            }
-
-            API_CERTIFY_MY_PORTFOLIO -> {
                 globalUi.showToast(msg.toString())
             }
         }

@@ -31,6 +31,8 @@ class ProfileEditModel @Inject constructor(
     private var name = ""
     private var nameErrorMsg = ""
 
+    private var link = ""
+
     private var interest = ""
 
     private var multiPart : MultipartBody.Part? = null
@@ -52,6 +54,15 @@ class ProfileEditModel @Inject constructor(
     fun setName(n : String)
     {
         name = n.trim()
+    }
+
+
+    /**
+     * 포트폴리오 링크를 저장합니다 (앞뒤 공백없이)
+     */
+    fun setLink(l : String)
+    {
+        link = l.trim()
     }
 
     /**
@@ -180,6 +191,14 @@ class ProfileEditModel @Inject constructor(
         ).apply {
             remote.sendRequestApi(this)
         }
+    }
+
+    /**
+     * 인증작가 신청을 요청합니다
+     */
+    fun requestVerify()
+    {
+
     }
 
 
