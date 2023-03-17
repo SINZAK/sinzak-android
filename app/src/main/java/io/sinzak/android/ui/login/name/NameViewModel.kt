@@ -66,9 +66,6 @@ class NameViewModel @Inject constructor(
     }
 
     fun onSubmit() {
-
-        signModel.setUsername(typedName)
-
         connect.gotoCategoryPage()
     }
 

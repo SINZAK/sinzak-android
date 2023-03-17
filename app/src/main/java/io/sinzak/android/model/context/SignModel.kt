@@ -136,7 +136,7 @@ class SignModel @Inject constructor(
      * 닉네임
      */
     private var userDisplayName : String = ""
-    fun setUsername(t : String){
+    private fun setUsername(t : String){
         userDisplayName = t
     }
     private var interests : String = ""
@@ -179,6 +179,7 @@ class SignModel @Inject constructor(
 
     fun checkName(name : String)
     {
+        setUsername(name)
         CallImpl(
             API_CHECK_NAME,
             this,
