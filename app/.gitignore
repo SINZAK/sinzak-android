@@ -1,1 +1,7 @@
 /build
+
+app/src/main/java/io/sinzak/android/constants/GoogleSDK.kt
+app/src/main/java/io/sinzak/android/constants/KakaoSDK.kt
+app/src/main/java/io/sinzak/android/constants/NaverSDK.kt
+app/src/main/java/io/sinzak/android/constants/ProfileConst.kt
+
