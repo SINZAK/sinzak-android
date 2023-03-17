@@ -616,7 +616,6 @@ class SignModel @Inject constructor(
                 if(body is NaverProfile)
                 {
                     loginEmail = body.profile?.email.toString()
-                    username = body.profile?.name.toString()
 
                     loginToServer()
                 }

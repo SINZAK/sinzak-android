@@ -41,7 +41,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
 
     private fun observation(){
         invokeBooleanFlow(viewModel.signModel.sdkSignSuccess){
-            showToast("소셜 로그인에 성공했어요")
+
         }
         invokeBooleanFlow(viewModel.signModel.isLogin){
             finish()
