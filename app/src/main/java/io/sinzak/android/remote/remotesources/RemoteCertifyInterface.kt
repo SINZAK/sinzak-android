@@ -1,5 +1,6 @@
 package io.sinzak.android.remote.remotesources
 
+import com.google.gson.JsonObject
 import io.sinzak.android.remote.dataclass.CResponse
 import io.sinzak.android.remote.dataclass.request.certify.MailRequest
 import io.sinzak.android.remote.dataclass.request.certify.UnivCertifyRequest
@@ -22,5 +23,8 @@ interface RemoteCertifyInterface {
 
     @POST("api/certify/univ")
     fun certifyUniversity(@HeaderMap headerMap: HashMap<String, String>, @Body body: UnivCertifyRequest) : Call<UnivCertifyResponse>
+
+    @POST("api/certify/author")
+    fun requestCertifyPortfolio(@HeaderMap headerMap: HashMap<String, String>, @Body body: JsonObject) : Call<CResponse>
 
 }

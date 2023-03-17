@@ -278,4 +278,6 @@
     <string name="str_certification_done">인증이 완료됐어요</string>
     <string name="str_below_five_image">5장까지 업로드 가능해요</string>
     <string name="str_close_app_message">한 번 더 누르시면 종료할게요</string>
+    <string name="str_already_certify">이미 인증했어요</string>
+    <string name="str_please_wait">확인 작업이 진행중이에요</string>
 </resources>

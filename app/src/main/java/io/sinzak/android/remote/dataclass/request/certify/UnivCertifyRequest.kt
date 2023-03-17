@@ -5,5 +5,5 @@ import io.sinzak.android.remote.dataclass.CRequest
 
 data class UnivCertifyRequest(
     @SerializedName("univ") val univ : String,
-    @SerializedName("univ_email") val univ_email : String,
+    @SerializedName("univ_email") val univ_email : String? = null,
 ) : CRequest()
