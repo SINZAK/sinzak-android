@@ -69,9 +69,8 @@ class FollowViewModel @Inject constructor(
     private fun onClickItem(userId : String)
     {
         model.changeProfile(userId)
-        useFlag(model.profileLoadSuccess){
-            navigation.changePage(Page.PROFILE_OTHER)
-        }
+        navigation.changePage(Page.PROFILE_OTHER)
+
     }
 
     companion object {

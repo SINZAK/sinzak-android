@@ -189,9 +189,8 @@ class ContentViewModel @Inject constructor(
             return
         }
         profileModel.changeProfile(newUserId = authorId.toString())
-        useFlag(profileModel.profileLoadSuccess){
-            navigation.changePage(Page.PROFILE_OTHER)
-        }
+        navigation.changePage(Page.PROFILE_OTHER)
+
     }
 
 
