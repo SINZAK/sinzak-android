@@ -188,8 +188,8 @@ class ContentViewModel @Inject constructor(
             uiModel.showToast(valueModel.getString(R.string.str_null_user))
             return
         }
+        profileModel.changeProfile(newUserId = authorId.toString())
         useFlag(profileModel.profileLoadSuccess){
-            profileModel.changeProfile(newUserId = authorId.toString())
             navigation.changePage(Page.PROFILE_OTHER)
         }
     }

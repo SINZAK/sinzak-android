@@ -298,8 +298,8 @@ class ProfileModel @Inject constructor() : BaseModel() {
     /**
      * 내 의뢰 스크랩 리스트를 저장하는 공간
      */
-    private val _worktWishList = MutableStateFlow(mutableListOf<Product>())
-    val workWishList : StateFlow<MutableList<Product>> get() = _worktWishList
+    private val _workWishList = MutableStateFlow(mutableListOf<Product>())
+    val workWishList : StateFlow<MutableList<Product>> get() = _workWishList
 
 
     fun getWishList()
@@ -316,7 +316,7 @@ class ProfileModel @Inject constructor() : BaseModel() {
     {
         response.data?.let { wishResponse ->
             _productWishList.value = wishResponse.productWishes!!.toMutableList().asReversed()
-            _worktWishList.value = wishResponse.workWishes!!.toMutableList().asReversed()
+            _workWishList.value = wishResponse.workWishes!!.toMutableList().asReversed()
         }
     }
 

@@ -16,7 +16,7 @@ import io.sinzak.android.system.App.Companion.prefs
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
     val model: ProfileModel,
-    val commandModel: UserCommandModel
+    private val commandModel: UserCommandModel
 ) : BaseViewModel() {
 
     private var _connect : ProfileConnect? = null
