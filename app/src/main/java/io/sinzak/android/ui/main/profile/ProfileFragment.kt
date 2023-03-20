@@ -22,7 +22,6 @@ open class ProfileFragment : BaseFragment() {
 
     protected val viewModel by activityViewModels<ProfileViewModel>()
     private val artViewModel by activityViewModels<ProfileArtViewModel>()
-    private val followViewModel by activityViewModels<FollowViewModel>()
 
     @Inject
     lateinit var connect: ProfileConnect
@@ -95,7 +94,6 @@ open class ProfileFragment : BaseFragment() {
         ViewProfileMyprofileBinding.inflate(layoutInflater).apply {
             lifecycleOwner = viewLifecycleOwner
             vm = viewModel
-            fVm = followViewModel
             isMyProfile = myProfile
             bind.llProfiles.addView(root)
         }

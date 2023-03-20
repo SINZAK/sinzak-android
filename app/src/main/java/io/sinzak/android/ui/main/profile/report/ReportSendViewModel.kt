@@ -1,20 +1,14 @@
 package io.sinzak.android.ui.main.profile.report
 
-import android.os.Bundle
 import android.widget.TextView
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.sinzak.android.R
-import io.sinzak.android.constants.CODE_USER_REPORT_ID
-import io.sinzak.android.constants.CODE_USER_REPORT_NAME
 import io.sinzak.android.enums.Page
 import io.sinzak.android.model.market.ProductDetailModel
 import io.sinzak.android.model.profile.UserCommandModel
 import io.sinzak.android.ui.base.BaseViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -33,10 +27,9 @@ class ReportSendViewModel @Inject constructor(
      * 신고 타입을 저장하는 공간
      */
     val reportType = MutableStateFlow("")
-    val userName = MutableStateFlow("")
-    val userId = MutableStateFlow("-1")
+    val userName = commandModel.getReportName()
 
-    init{
+/*    init{
         CoroutineScope(Dispatchers.Main).launch {
             subscribe()
         }
@@ -55,7 +48,7 @@ class ReportSendViewModel @Inject constructor(
             userId.value = getString(CODE_USER_REPORT_ID).toString()
             userName.value = getString(CODE_USER_REPORT_NAME).toString()
         }
-    }
+    }*/
 
 
     /************************************************
@@ -94,10 +87,7 @@ class ReportSendViewModel @Inject constructor(
     {
         val reason = reportType.value + ", " + _report.value
 
-        commandModel.reportUser(
-            reason = reason,
-            userId = userId.value
-        )
+        commandModel.reportUser(reason = reason)
         useFlag(commandModel.reportSuccessFlag){
             uiModel.showToast(valueModel.getString(R.string.str_accept_report))
             initState()
@@ -119,16 +109,9 @@ class ReportSendViewModel @Inject constructor(
 
     private fun initState()
     {
-        userName.value = INIT_NAME
-        userId.value = INIT_ID
         _report.value = ""
         reportType.value = ""
     }
 
-
-    companion object {
-        const val INIT_NAME = ""
-        const val INIT_ID = "-1"
-    }
 
 }

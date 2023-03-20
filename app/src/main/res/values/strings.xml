@@ -280,4 +280,7 @@
     <string name="str_close_app_message">한 번 더 누르시면 종료할게요</string>
     <string name="str_already_certify">이미 인증했어요</string>
     <string name="str_please_wait">확인 작업이 진행중이에요</string>
+
+    <!-- 이미지뷰  contentDescription -->
+    <string name="str_btn_report_dialog">Button for show report dialog</string>
 </resources>

@@ -1,11 +1,7 @@
 package io.sinzak.android.ui.main.market.artdetail
 
-import android.os.Bundle
-import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.sinzak.android.R
-import io.sinzak.android.constants.CODE_USER_REPORT_ID
-import io.sinzak.android.constants.CODE_USER_REPORT_NAME
 import io.sinzak.android.constants.TYPE_MARKET_PRODUCT
 import io.sinzak.android.enums.Page
 import io.sinzak.android.model.chat.ChatStorage
@@ -14,7 +10,6 @@ import io.sinzak.android.model.market.MarketWriteModel
 import io.sinzak.android.model.profile.ProfileModel
 import io.sinzak.android.model.profile.UserCommandModel
 import io.sinzak.android.ui.base.BaseViewModel
-import io.sinzak.android.ui.main.profile.report.ReportSendViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 
@@ -193,8 +188,10 @@ class ContentViewModel @Inject constructor(
             uiModel.showToast(valueModel.getString(R.string.str_null_user))
             return
         }
-        profileModel.changeProfile(newUserId = authorId.toString())
-        navigation.changePage(Page.PROFILE_OTHER)
+        useFlag(profileModel.profileLoadSuccess){
+            profileModel.changeProfile(newUserId = authorId.toString())
+            navigation.changePage(Page.PROFILE_OTHER)
+        }
     }
 
 
@@ -245,7 +242,7 @@ class ContentViewModel @Inject constructor(
 
     }
 
-    fun moveLastItemToFirst(list: MutableList<String>) : List<String> {
+    private fun moveLastItemToFirst(list: MutableList<String>) : List<String> {
         if (list.size > 1) {
             val lastItem = list.last()
             for (i in list.size - 1 downTo 1) {
@@ -335,12 +332,11 @@ class ContentViewModel @Inject constructor(
      * 사용자 신고 페이지 가기
      */
     private fun goToReportPage() {
+
+        if(goToLoginIfNot()) return
+
         art.value?.let { product ->
-            Bundle().apply {
-                putString(CODE_USER_REPORT_NAME, product.author)
-                putString(CODE_USER_REPORT_ID, product.authorId)
-                navigation.putBundleData(ReportSendViewModel::class, this)
-            }
+            commandModel.setReportInfo(product.authorId,product.author)
             navigation.changePage(Page.PROFILE_REPORT_TYPE)
         }
     }

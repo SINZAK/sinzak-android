@@ -26,6 +26,11 @@ class ProfileModel @Inject constructor() : BaseModel() {
     val profile = MutableStateFlow<UserProfile?>(null)
 
     /**
+     * 프로필 로드 성공유무 플래그
+     */
+    val profileLoadSuccess = MutableStateFlow(false)
+
+    /**
      * 최초 로그인 확인
      */
     val isFirstLogin = MutableStateFlow(false)
@@ -77,6 +82,7 @@ class ProfileModel @Inject constructor() : BaseModel() {
 
     private fun clearProfileContent()
     {
+        profileLoadSuccess.value = false
         profile.value = null
         _workList.value = mutableListOf()
         _productList.value = mutableListOf()
@@ -109,6 +115,8 @@ class ProfileModel @Inject constructor() : BaseModel() {
      */
     private fun onMyProfileResponse(response: UserProfileResponse)
     {
+        profileLoadSuccess.value = response.success!!
+
         response.data?.let { profileResponse ->
 
             profileResponse.profile.let {
@@ -173,6 +181,7 @@ class ProfileModel @Inject constructor() : BaseModel() {
      */
     private fun onProfileResponse(response: UserProfileResponse)
     {
+        profileLoadSuccess.value = response.success!!
         response.data?.let { profileResponse ->
             profile.value = profileResponse.profile
             _workList.value = profileResponse.works!!.toMutableList().asReversed()
@@ -240,6 +249,8 @@ class ProfileModel @Inject constructor() : BaseModel() {
     private val _followList = MutableStateFlow(mutableListOf<Follow>())
     val followList: StateFlow<MutableList<Follow>> get() = _followList
 
+    val followPageTap = MutableStateFlow(FOLLOWER_TAP)
+
     /**
      * 팔로우 리스트 보기
      * 1. FollowFragment 생성시, 모델의 followList를 초기화
@@ -247,6 +258,7 @@ class ProfileModel @Inject constructor() : BaseModel() {
      */
     fun getFollowList(showFollower : Boolean) {
         _followList.value = mutableListOf()
+        followPageTap.value = showFollower
         if (showFollower) {
             CallImpl(
                 API_GET_FOLLOWER_LIST,
@@ -274,6 +286,7 @@ class ProfileModel @Inject constructor() : BaseModel() {
             _followList.value = follows.toMutableList()
         }
     }
+
 
 
     /**

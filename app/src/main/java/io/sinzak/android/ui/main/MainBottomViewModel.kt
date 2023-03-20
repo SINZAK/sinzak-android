@@ -54,7 +54,11 @@ class MainBottomViewModel @Inject constructor(): BaseViewModel() {
             PAGE_MARKET -> navigation.changePage(Page.MARKET)
             PAGE_OUTSOURCING -> navigation.changePage(Page.OUTSOURCING)
             PAGE_CHATTING -> navigation.changePage(Page.CHAT)
-            PAGE_PROFILE -> navigation.changePage(Page.PROFILE)
+            PAGE_PROFILE -> {
+                useFlag(profileModel.profileLoadSuccess){
+                    navigation.changePage(Page.PROFILE)
+                }
+            }
         }
         _currentButton.value = button
 

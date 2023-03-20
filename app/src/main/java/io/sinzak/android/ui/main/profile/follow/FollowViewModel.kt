@@ -2,6 +2,8 @@ package io.sinzak.android.ui.main.profile.follow
 
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.sinzak.android.constants.FOLLOWER_TAP
+import io.sinzak.android.constants.FOLLOWING_TAP
 import io.sinzak.android.enums.Page
 import io.sinzak.android.model.profile.ProfileModel
 import io.sinzak.android.ui.base.BaseViewModel
@@ -19,8 +21,7 @@ class FollowViewModel @Inject constructor(
 
     val profile get() = model.profile
 
-    private val _tap = MutableStateFlow(FOLLOWER)
-    val tap : StateFlow<Boolean> get() = _tap
+    val tap : StateFlow<Boolean> get() = model.followPageTap
 
     val adapter = FollowAdapter(::onClickItem)
 
@@ -51,7 +52,6 @@ class FollowViewModel @Inject constructor(
      */
     fun changeTap(t : Boolean)
     {
-        _tap.value = t
         model.getFollowList(t)
     }
 
@@ -73,7 +73,7 @@ class FollowViewModel @Inject constructor(
     }
 
     companion object {
-        const val FOLLOWER = true
-        const val FOLLOWING = false
+        const val FOLLOWER = FOLLOWER_TAP
+        const val FOLLOWING = FOLLOWING_TAP
     }
 }
