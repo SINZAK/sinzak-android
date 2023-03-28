@@ -4,7 +4,7 @@
         <item>가천대학교</item>
         <item>강원대학교</item>
         <item>건국대학교</item>
-        <item>건국(글로컬)대학교</item>
+        <item>건국대학교(글로컬)</item>
         <item>경기과학기술대학교</item>
         <item>경기대학교</item>
         <item>경북대학교</item>
@@ -17,7 +17,7 @@
         <item>단국대학교</item>
         <item>덕성여자대학교</item>
         <item>동국대학교</item>
-        <item>동국(경주)대학교</item>
+        <item>동국대학교(경주)</item>
         <item>동덕여자대학교</item>
         <item>명지대학교</item>
         <item>명지전문대학</item>
@@ -55,7 +55,7 @@
         <item>한국체육대학교</item>
         <item>한국항공대학교</item>
         <item>한양대학교</item>
-        <item>한양에리카대학교</item>
+        <item>한양대학교(ERICA)</item>
         <item>홍익대학교</item>
         <item>DGIST</item>
         <item>GIST</item>
@@ -66,67 +66,67 @@
 
 
     <string-array name="univ_mail">
-        <item>gachon.ac.kr</item>
-        <item>kangwon.ac.kr</item>
-        <item>konkuk.ac.kr</item>
-        <item>kku.ac.kr</item>
-        <item>gtec.ac.kr</item>
-        <item>kyonggi.ac.kr</item>
-        <item>knu.ac.kr</item>
-        <item>ginue.ac.kr</item>
-        <item>khu.ac.kr</item>
-        <item>kaywon.ac.kr</item>
-        <item>korea.ac.kr</item>
-        <item>kw.ac.kr</item>
-        <item>kookmin.ac.kr</item>
-        <item>dankook.ac.kr</item>
-        <item>duksung.ac.kr</item>
-        <item>dongguk.edu</item>
-        <item>dongguk.ac.kr</item>
-        <item>dongduk.ac.kr</item>
-        <item>mju.ac.kr</item>
-        <item>mjc.ac.kr</item>
-        <item>pusan.ac.kr</item>
-        <item>sangmyung.kr</item>
-        <item>sogang.ac.kr</item>
-        <item>skuniv.ac.kr</item>
-        <item>seoultech.ac.kr</item>
-        <item>snue.ac.kr</item>
-        <item>snu.ac.kr</item>
-        <item>uos.ac.kr</item>
-        <item>swu.ac.kr</item>
-        <item>skku.edu</item>
-        <item>sungshin.ac.kr</item>
-        <item>sju.ac.kr</item>
-        <item>sookmyung.ac.kr</item>
-        <item>soongsil.ac.kr</item>
-        <item>ajou.ac.kr</item>
-        <item>yonsei.ac.kr</item>
-        <item>ynu.ac.kr</item>
+        <item>gachon</item>
+        <item>kangwon</item>
+        <item>konkuk</item>
+        <item>kku</item>
+        <item>gtec</item>
+        <item>kyonggi</item>
+        <item>knu</item>
+        <item>ginue</item>
+        <item>khu</item>
+        <item>kaywon</item>
+        <item>korea</item>
+        <item>kw</item>
+        <item>kookmin</item>
+        <item>dankook</item>
+        <item>duksung</item>
+        <item>dongguk</item>
+        <item>dongguk</item>
+        <item>dongduk</item>
+        <item>mju</item>
+        <item>mjc</item>
+        <item>pusan</item>
+        <item>sangmyung</item>
+        <item>sogang</item>
+        <item>skuniv</item>
+        <item>seoultech</item>
+        <item>snue</item>
+        <item>snu</item>
+        <item>uos</item>
+        <item>swu</item>
+        <item>skku</item>
+        <item>sungshin</item>
+        <item>sju</item>
+        <item>sookmyung</item>
+        <item>soongsil</item>
+        <item>ajou</item>
+        <item>yonsei</item>
+        <item>ynu</item>
         <item>ewhain.net</item>
-        <item>inu.ac.kr</item>
-        <item>itc.ac.kr</item>
+        <item>inu</item>
+        <item>itc</item>
         <item>inha.edu</item>
-        <item>jnu.ac.kr</item>
-        <item>jbnu.ac.kr</item>
-        <item>cau.ac.kr</item>
-        <item>chugye.ac.kr</item>
-        <item>cnu.ac.kr</item>
-        <item>chungbuk.ac.kr</item>
-        <item>knou.ac.kr</item>
-        <item>kpu.ac.kr</item>
-        <item>karts.ac.kr</item>
-        <item>hufs.ac.kr</item>
-        <item>knsu.ac.kr</item>
-        <item>kau.kr</item>
-        <item>hanyang.ac.kr</item>
-        <item>hanyang.ac.kr</item>
-        <item>hongik.ac.kr</item>
-        <item>dgist.ac.kr</item>
-        <item>gist.ac.kr</item>
-        <item>kaist.ac.kr</item>
-        <item>postech.ac.kr</item>
-        <item>unist.ac.kr</item>
+        <item>jnu</item>
+        <item>jbnu</item>
+        <item>cau</item>
+        <item>chugye</item>
+        <item>cnu</item>
+        <item>chungbuk</item>
+        <item>knou</item>
+        <item>kpu</item>
+        <item>karts</item>
+        <item>hufs</item>
+        <item>knsu</item>
+        <item>kau</item>
+        <item>hanyang</item>
+        <item>hanyang</item>
+        <item>hongik</item>
+        <item>dgist</item>
+        <item>gist</item>
+        <item>kaist</item>
+        <item>postech</item>
+        <item>unist</item>
 
     </string-array>
 
