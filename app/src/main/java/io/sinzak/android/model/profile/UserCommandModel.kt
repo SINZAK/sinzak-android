@@ -26,18 +26,14 @@ class UserCommandModel @Inject constructor() : BaseModel(){
     val reportList : StateFlow<MutableList<UserProfile>> get() = _reportList
 
     private var reportId = ""
-    private var reportName = ""
+    val reportName = MutableStateFlow("")
 
     fun setReportInfo(id : String,name : String)
     {
         reportId = id.trim()
-        reportName = name.trim()
+        reportName.value = "'${name.trim()}'"
     }
 
-    fun getReportName() : String
-    {
-        return "'$reportName'";
-    }
 
     /**********************************************************************************************************************
      * REQUEST

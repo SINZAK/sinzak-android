@@ -130,7 +130,6 @@ class ContentViewModel @Inject constructor(
      * 더보기 버튼을 눌렀을때 동작
      */
     fun showMoreDialog() {
-        if (!signModel.isUserLogin()) return
 
         if (authorId.isNullOrEmpty()) {
             uiModel.showToast(valueModel.getString(R.string.str_null_user))

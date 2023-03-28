@@ -27,29 +27,7 @@ class ReportSendViewModel @Inject constructor(
      * 신고 타입을 저장하는 공간
      */
     val reportType = MutableStateFlow("")
-    val userName = commandModel.getReportName()
-
-/*    init{
-        CoroutineScope(Dispatchers.Main).launch {
-            subscribe()
-        }
-    }
-
-    private fun subscribe(){
-        invokeStateFlow(navigation.bundleInserted){
-            navigation.getBundleData(this::class)?.apply{
-                getExtra(this)
-            }
-        }
-    }
-
-    private fun getExtra(bundle : Bundle){
-        bundle.apply {
-            userId.value = getString(CODE_USER_REPORT_ID).toString()
-            userName.value = getString(CODE_USER_REPORT_NAME).toString()
-        }
-    }*/
-
+    val userName get() = commandModel.reportName
 
     /************************************************
      * 입력을 받습니다
