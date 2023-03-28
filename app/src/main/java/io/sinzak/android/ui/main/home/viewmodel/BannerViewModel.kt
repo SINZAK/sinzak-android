@@ -16,16 +16,7 @@ class BannerViewModel @Inject constructor(
     val model : HomeProductModel
 ) : BaseViewModel() {
 
-    private val bannerMain = BannerData(
-        bannerMode = 0,
-        bannerDrawableId = R.drawable.ic_banner_main
-    )
-
-    private val bannerLogin = BannerData(
-        bannerMode = BannerData.BANNER_LOGIN,
-        bannerDrawableId = R.drawable.ic_banner_login
-    )
-
+    private val banners = mutableListOf<BannerData>()
 
     init{
         model.banners.onEach {
@@ -34,8 +25,6 @@ class BannerViewModel @Inject constructor(
             adapter.notifyDataSetChanged()
         }.launchIn(viewModelScope)
     }
-
-    private val banners = mutableListOf(bannerMain, bannerLogin)
 
     val adapter = BannerAdapter(banners){
         uiModel.gotoLogin()

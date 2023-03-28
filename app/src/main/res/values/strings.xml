@@ -120,7 +120,7 @@
     <string name="str_verify_explain_three">신작 추천 작품에 선정될 가능성이 높아집니다.</string>
     <string name="str_verify_step_one">1단계. 학교 인증</string>
     <string name="str_verify_step_two">2단계. 포트폴리오 링크</string>
-    <string name="str_verify_step_two_explain">개인 웹사이트, Behance, ArtStation, google drive 등\n링크 형식으로 포트폴리오를 첨부해주세요.</string>
+    <string name="str_verify_step_two_explain">개인 웹사이트, Behance, ArtStation, Google Drive 등 링크 형식으로 포트폴리오를 첨부해주세요. 신청시 1~2일 정도 소요되며 링크는 최대 200자까지 입력 가능합니다.</string>
     <string name="str_verify_link_hint">링크를 입력하세요.</string>
 
 

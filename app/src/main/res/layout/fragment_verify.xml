@@ -121,23 +121,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/str_verify_step_two_explain"
-                android:layout_marginBottom="3.6dp"/>
+                android:layout_marginBottom="10dp"/>
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/ll_certi_input"
                 android:orientation="horizontal"
-                android:layout_marginEnd="8dp">
+                android:layout_marginEnd="8dp"
+                android:paddingEnd="24.2dp">
 
                 <EditText
                     style="@style/regular13"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:background="@null"
                     android:hint="@string/str_verify_link_hint"
                     android:textColorHint="@color/gray60"
-                    android:inputType="text"
-                    android:maxLines="1"
+                    android:maxLength="200"
                     android:text="@{vm.linkInput}"
                     android:onTextChanged="@{(cs,a,b,c) -> vm.linkInputText(cs)}"/>
 

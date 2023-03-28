@@ -8,23 +8,21 @@
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingHorizontal="16dp">
         <ImageView
             android:id="@+id/iv_main"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingHorizontal="16dp"
-            />
-
-
+            android:layout_height="match_parent"/>
         <TextView
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_width="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginBottom="24dp"
             android:layout_height="wrap_content"
-            style="@style/bold30"
+            android:layout_marginStart="17.5dp"
+            android:layout_marginBottom="8dp"
+            android:paddingVertical="12.5dp"
+            style="@style/bold50"
             android:text="@{banner.content}"
             android:textColor="@color/on_primary"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
