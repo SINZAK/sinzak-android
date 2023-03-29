@@ -2,9 +2,8 @@
 <layout xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <variable
-            name="banner"
-            type="io.sinzak.android.remote.dataclass.local.BannerData"
-            />
+            name="content"
+            type="String" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -23,7 +22,7 @@
             android:layout_marginBottom="8dp"
             android:paddingVertical="12.5dp"
             style="@style/bold50"
-            android:text="@{banner.content}"
+            android:text="@{content}"
             android:textColor="@color/on_primary"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

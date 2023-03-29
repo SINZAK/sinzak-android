@@ -17,7 +17,7 @@ import io.sinzak.android.system.dp
 
 class BannerAdapter(
     val banner : List<BannerData>,
-    val gotoLogin : () -> Unit,
+    val showUser : (String) -> Unit
 ) : RecyclerView.Adapter<BannerAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int {
@@ -36,13 +36,7 @@ class BannerAdapter(
     inner class ViewHolder(val bind : HolderFullBannerBinding, val context : Context) : RecyclerView.ViewHolder(bind.root){
         fun bind(bannerData: BannerData){
 
-            bind.banner = bannerData
-
-            bannerData.title?.let {
-                when(it) {
-                    "user" -> bannerData.bannerMode = BannerData.BANNER_USER
-                }
-            }
+            bind.content = if (bannerData.title == "user") bannerData.content else ""
 
             bannerData.bannerImageUrl?.let{
                 url ->
@@ -52,9 +46,8 @@ class BannerAdapter(
             }
 
             bind.root.setOnClickListener {
-                when(bannerData.bannerMode){
-                    BannerData.BANNER_LOGIN ->
-                        gotoLogin()
+                when(bannerData.title){
+                    "user" -> showUser(bannerData.userId.toString())
                 }
             }
         }
