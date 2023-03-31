@@ -53,8 +53,8 @@
         <item name="fontFamily">@font/spoqa_bold</item>
     </style>
 
-    <style name="bold50" parent="textBold">
-        <item name="android:textSize">50sp</item>
+    <style name="bold35" parent="textBold">
+        <item name="android:textSize">35sp</item>
     </style>
 
     <style name="bold30" parent="textBold">

@@ -7,11 +7,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.bumptech.glide.load.resource.bitmap.FitCenter
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import io.sinzak.android.R
 import io.sinzak.android.databinding.HolderFullBannerBinding
-import io.sinzak.android.databinding.HolderFullImgBinding
 import io.sinzak.android.remote.dataclass.local.BannerData
 import io.sinzak.android.system.dp
 
