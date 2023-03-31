@@ -20,12 +20,10 @@ import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.model.GlideUrl
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.bumptech.glide.load.resource.bitmap.FitCenter
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 import io.sinzak.android.R
 import io.sinzak.android.model.insets.SoftKeyModel
-import io.sinzak.android.system.LogDebug
 import io.sinzak.android.system.dp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

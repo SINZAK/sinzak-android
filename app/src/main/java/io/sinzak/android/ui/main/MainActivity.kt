@@ -70,9 +70,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     lateinit var signModel: SignModel
 
     @Inject
-    lateinit var homeProductModel: HomeProductModel
-
-    @Inject
     lateinit var chatConnect: ChatConnect
 
     @Inject
@@ -100,9 +97,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         }
 
         lifecycleScope.launch {
-            homeProductModel.recommendProducts.collect {
-                LogDebug(javaClass.name, "수집수집수집")
-            }
+            LogDebug(javaClass.name, "수집수집수집")
 
         }
 

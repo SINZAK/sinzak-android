@@ -43,17 +43,11 @@ class HomeMoreViewModel  @Inject constructor(
                 invokeStateFlow(model.followingProductsAll, ::updateProducts)
                 title.value = valueModel.getString(R.string.str_home_more_following)
             }
-            RECENT -> {
-                model.getMoreRecent()
-                invokeStateFlow(model.recentProductsAll, ::updateProducts)
-                title.value = valueModel.getString(R.string.str_home_recent)
-
-            }
         }
 
     }
 
-    fun updateProducts(products : List<Product>){
+    private fun updateProducts(products : List<Product>){
         this.products.addAll(
             products.filter{
                 it !in this.products
