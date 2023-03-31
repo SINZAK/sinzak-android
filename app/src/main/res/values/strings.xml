@@ -195,6 +195,7 @@
     <string name="str_write_art_title">작품 제목</string>
     <string name="str_write_art_price">가격</string>
     <string name="str_write_art_description">작품 설명</string>
+    <string name="str_write_art_description_hint">작품 의도, 작업 기간, 재료, 거래 방법 등을 자유롭게 표현해보세요.</string>
     <string name="str_register_undergrad">재학생 인증</string>
     <string name="str_register_graduated">졸업생 인증</string>
 
@@ -249,7 +250,10 @@
     <string name="str_welcome_sub">신작에 가입이 완료되었습니다.\n이제 자유롭게 작품을 탐색하고 거래해보세요.</string>
     <string name="str_welcome_title">Welcome!</string>
     <string name="str_welcome_done">작품 보러가기</string>
-    <string name="str_write_work_content">의뢰 내용</string>
+    <string name="str_write_work_buy_title">의뢰 제목</string>
+    <string name="str_write_work_sell_title">작업 제목</string>
+    <string name="str_write_work_buy_content">의뢰 내용</string>
+    <string name="str_write_work_sell_content">작업 내용</string>
     <string name="str_title">제목</string>
     <string name="str_checkemail_exist">가입한 다른 소셜 계정으로 로그인해주세요.</string>
     <string name="str_btn_chatroom_leave">채팅방 나가기</string>

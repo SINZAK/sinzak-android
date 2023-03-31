@@ -19,6 +19,8 @@ class ArtWorkViewModel @Inject constructor(
 
     val isOnBuild = model.isBuildMode
 
+    val isWorkBuy = MutableStateFlow(false)
+
     val title = MutableStateFlow("")
     var content : String = ""
 
@@ -58,6 +60,8 @@ class ArtWorkViewModel @Inject constructor(
             model.flagBuildSuccess.value = false
 
         }
+
+        isWorkBuy.value = model.productType.value == 1
 
     }
 
