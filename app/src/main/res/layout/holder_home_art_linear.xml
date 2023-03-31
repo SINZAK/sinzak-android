@@ -22,13 +22,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClickListener="@{onItemClick}"
-
         android:orientation="vertical">
-
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="165dp"
-
             android:layout_height="165dp">
 
             <ImageView
@@ -97,14 +94,16 @@
                 style="@style/regular13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{@string/str_holder_author(product.author)}" />
+                android:text="@{@string/str_holder_author(product.makeAuthorLengthLimit(4))}"
+                tools:text="테스트테스트테 작가"/>
 
             <TextView
                 style="@style/medium13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{product.timePassed}"
-                android:textColor="@color/gray60" />
+                android:textColor="@color/gray60"
+                tools:text=" . 방금전"/>
 
 
         </androidx.appcompat.widget.LinearLayoutCompat>
