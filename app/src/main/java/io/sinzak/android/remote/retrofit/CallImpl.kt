@@ -240,6 +240,8 @@ class CallImpl(
 
             })
 
+            API_GET_NOTIFICATION_LIST -> remoteApi.getNotificationList(header)
+
             else -> throw NoSuchMethodException()
         } as Call<CResponse>
     }

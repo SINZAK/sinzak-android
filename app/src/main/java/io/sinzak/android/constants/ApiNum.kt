@@ -9,6 +9,7 @@ package io.sinzak.android.constants
  * 200번대 : MARKET, PRODUCT 관련 API
  * 300번대 : 게시글 관련 API
  * 400번대 : CHAT 관련 API
+ * 500번대 : 알림 관련 API
  */
 
 
@@ -101,5 +102,7 @@ const val API_CREATE_CHATROOM = 410
 const val API_GET_CHATROOM_MSG = 402
 const val API_GET_CHATROOM_DETAIL = 403
 const val API_CHAT_UPLOAD_IMG = 404
+
+const val API_GET_NOTIFICATION_LIST = 500
 
 

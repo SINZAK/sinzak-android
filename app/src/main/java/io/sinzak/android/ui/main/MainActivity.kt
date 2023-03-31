@@ -121,8 +121,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         }
 
         if (intent.action == "OPEN_CHAT"){
-            inflateFragment(CHAT)
-            viewModel.showChatThroughAlarm(intent.getStringExtra("uuid").toString())
+            viewModel.showChatThroughAlarm(intent.getStringExtra("uuid"))
         }
 
 

@@ -12,7 +12,8 @@ interface RemoteInterface :
     RemoteMarketInterface,
     RemoteProfileInterface,
     RemoteCertifyInterface,
-    RemoteChatInterface {
+    RemoteChatInterface,
+    RemoteNotificationInterface {
 
     @POST("api/reissue")
     fun refreshToken(

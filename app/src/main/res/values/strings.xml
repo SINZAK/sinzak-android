@@ -29,6 +29,7 @@
     <string name="str_notification">알림</string>
     <string name="str_notification_activity">활동</string>
     <string name="str_notification_follow">팔로우</string>
+    <string name="str_notification_follow_form">%s 님이 작가님을 팔로우해요</string>
 
     <string name="str_profile_follower">팔로워</string>
     <string name="str_profile_following">팔로잉</string>

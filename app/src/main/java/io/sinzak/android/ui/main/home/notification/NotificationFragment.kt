@@ -20,16 +20,16 @@ class NotificationFragment : BaseFragment() {
     }
 
     override fun navigateOnBackPressed() {
-
-        navigator.revealHistory()
+        viewModel.onBackPressed()
     }
 
     override fun onFragmentCreated() {
-        bind.apply{
+        bind.apply {
             lifecycleOwner = viewLifecycleOwner
             vm = viewModel
-            fg = this@NotificationFragment
         }
+
+        viewModel.getNotificationList()
     }
 
     override fun showBottomBar(): Boolean {
