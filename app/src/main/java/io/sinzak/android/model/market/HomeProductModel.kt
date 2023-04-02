@@ -104,9 +104,7 @@ class HomeProductModel @Inject constructor() : BaseModel() {
 
             API_GET_HOME_BANNER ->{
                 body as BannerResponse
-                banners.value = body.banners.subList(0,4).filter {
-                    it.title != "web"
-                }
+                banners.value = body.banners
             }
 
             API_GET_HOME_REFER ->{

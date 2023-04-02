@@ -34,19 +34,17 @@ class BannerAdapter(
     inner class ViewHolder(val bind : HolderFullBannerBinding, val context : Context) : RecyclerView.ViewHolder(bind.root){
         fun bind(bannerData: BannerData){
 
-            bind.content = if (bannerData.title == "user") bannerData.content else ""
+            bind.content = if (bannerData.isUserBanner()) bannerData.content else ""
 
             bannerData.bannerImageUrl?.let{
                 url ->
-                Glide.with(bind.ivMain).asBitmap().load(url).transform( CenterCrop(),
-                    RoundedCorners(20.dp.toInt())
+                Glide.with(bind.ivMain).asBitmap().load(url)
+                    .transform( CenterCrop(), RoundedCorners(20.dp.toInt())
                 ).into(bind.ivMain)
             }
 
             bind.root.setOnClickListener {
-                when(bannerData.title){
-                    "user" -> showUser(bannerData.userId.toString())
-                }
+                bannerData.showUser(showUser)
             }
         }
     }
