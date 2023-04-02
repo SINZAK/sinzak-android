@@ -42,22 +42,22 @@ class VerifyViewModel @Inject constructor(
     /**
      * 학교 인증하기 버튼을 누릅니다
      */
-    fun gotoCertificationPage(hasCerti : Boolean){
-        if(!hasCerti) navigation.changePage(Page.PROFILE_CERTIFICATION)
+    fun gotoCertificationPage(hasCert : Boolean){
+        if(!hasCert) navigation.changePage(Page.PROFILE_CERTIFICATION)
         else return
     }
 
     /**
      * 신청하기 버튼을 누릅니다
      */
-    fun onSubmit(cert_celeb:Boolean, portfolioUrl : String)
+    fun onSubmit(cert_author:Boolean, verifyProcess : Boolean)
     {
-        if (cert_celeb){
+        if (cert_author){
             uiModel.showToast(valueModel.getString(R.string.str_already_certify))
             return
         }
 
-        if (portfolioUrl.isNotEmpty()){
+        if (verifyProcess){
             uiModel.showToast(valueModel.getString(R.string.str_please_wait))
             return
         }

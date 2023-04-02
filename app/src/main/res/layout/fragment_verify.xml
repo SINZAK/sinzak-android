@@ -163,7 +163,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:enabled="@{vm.buttonEnabled &amp; vm.profile.cert_uni}"
-            android:onClick="@{v-> vm.onSubmit(vm.profile.cert_celeb, vm.profile.portFolioUrl)}"/>
+            android:onClick="@{v-> vm.onSubmit(vm.profile.cert_author, vm.profile.isVerifyProcess)}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

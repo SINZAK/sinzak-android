@@ -29,7 +29,7 @@ class NotificationModel @Inject constructor() : BaseModel() {
 
     private fun onNotificationResponse(response : NotificationResponse) {
         response.notifications?.let { notifications ->
-            _notificationList.value = notifications.toMutableList()
+            _notificationList.value = notifications.toMutableList().asReversed()
         }
     }
 
