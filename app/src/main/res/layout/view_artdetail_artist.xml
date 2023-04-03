@@ -39,12 +39,9 @@
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    >
+                    android:gravity="center_vertical">
                     <TextView
                         android:text="@{vm.art.author}"
-
-
-
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/regular16"/>
@@ -53,13 +50,11 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:src="@drawable/ic_star"/>
-
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    >
+                    android:layout_height="wrap_content">
                     <TextView
                         android:text="@{@string/str_holder_univ_cert(vm.art.authorUniv)}"
                         android:visibility="@{vm.art.certUni ? 0 : 8}"
@@ -91,7 +86,7 @@
                 style="@style/medium13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingVertical="14dp"
+                android:paddingVertical="10dp"
                 android:paddingHorizontal="12dp"
                 android:background="@drawable/btn_follow"
                 android:gravity="center"

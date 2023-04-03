@@ -59,4 +59,11 @@ data class Product(
         likeCnt = likeCnt!! + if(like!!) 1 else -1
         return this
     }
+
+    fun makeAuthorLengthLimit(limit: Int) : String {
+        val authorLength = author?.length ?: 0
+        return if (authorLength > limit) {
+            "${author!!.substring(0,limit)}.."
+        } else author ?: ""
+    }
 }

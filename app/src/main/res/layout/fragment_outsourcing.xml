@@ -16,7 +16,6 @@
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/ll_appbar"
-            android:paddingHorizontal="9dp"
             android:layout_width="match_parent"
             android:gravity="center"
             android:background="@color/background0"
@@ -27,11 +26,11 @@
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:visibility="@{!vm.searchOn ? 0 : 8}"
                 android:id="@+id/ll_appbar_norm"
-                android:paddingHorizontal="9dp"
                 android:layout_width="match_parent"
                 android:gravity="center"
                 android:layout_height="match_parent"
                 app:layout_constraintTop_toTopOf="parent"
+                android:paddingHorizontal="16dp"
                 >
 
                 <Space

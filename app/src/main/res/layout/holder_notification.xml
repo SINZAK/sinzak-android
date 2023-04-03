@@ -1,44 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    >
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
-            name="img"
-            type="String" />
+            name="notification"
+            type="io.sinzak.android.remote.dataclass.local.NotificationData" />
+        <variable
+            name="onItemClick"
+            type="android.view.View.OnClickListener" />
     </data>
-    <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        isSelect="@{true}"
         android:background="@drawable/ll_default_ripple_background"
-        android:onClick="@{v->void}"
-        android:layout_height="wrap_content">
+        isSelect="@{true}"
+        android:onClick="@{onItemClick}"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="14dp">
+
         <ImageView
             android:layout_width="40dp"
-            remoteImgUrl="@{img}"
-            cornerRadius="@{12}"
-            android:layout_marginVertical="19dp"
             android:layout_height="40dp"
-            android:layout_marginStart="16dp"/>
+            remoteImgUrl="@{notification.thumbnail}"
+            imgRadius="@{12}"/>
+
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_marginStart="7dp"
-            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:orientation="vertical">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/color_notification_title"
-                android:text="12명이 작품을 좋아해요"
-                style="@style/medium16"/>
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:text="@{@string/str_notification_follow_form(notification.userName)}"
+                style="@style/medium16"
+                android:layout_marginBottom="7dp"
+                tools:text="polar 님이 작가님을 팔로우해요"/>
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="5시간전"
+                android:text="@{notification.timePassedExceptDot}"
                 android:textColor="@color/text3"
-                style="@style/regular13"/>
+                style="@style/regular13"
+                tools:text="2일 전"/>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 

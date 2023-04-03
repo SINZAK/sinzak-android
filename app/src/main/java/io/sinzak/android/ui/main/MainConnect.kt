@@ -57,24 +57,4 @@ class MainConnect @Inject constructor() {
         }
     }
 
-/*    fun checkNeedUpdate(activity: BaseActivity<*>)
-    {
-        // AppUpdateManager 객체를 만듭니다.
-        val appUpdateManager =
-
-        // 현재 사용 가능한 업데이트 정보를 가져옵니다.
-        val appUpdateInfoTask = appUpdateManager.appUpdateInfo
-        appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
-            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
-                && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)) {
-                // 업데이트가 필요한 경우, 다이얼로그를 띄워서 사용자에게 업데이트 여부를 물어봅니다.
-
-            }
-        }
-
-    }*/
-
-
-
-
 }

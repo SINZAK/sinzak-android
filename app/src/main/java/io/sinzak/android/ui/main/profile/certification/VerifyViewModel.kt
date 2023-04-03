@@ -1,18 +1,18 @@
 package io.sinzak.android.ui.main.profile.certification
 
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.sinzak.android.R
 import io.sinzak.android.enums.Page
-import io.sinzak.android.model.profile.ProfileEditModel
+import io.sinzak.android.model.certify.CertifyModel
 import io.sinzak.android.model.profile.ProfileModel
 import io.sinzak.android.ui.base.BaseViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
 @HiltViewModel
 class VerifyViewModel @Inject constructor(
     val pModel : ProfileModel,
-    val editModel: ProfileEditModel
+    val certifyModel: CertifyModel
 ) : BaseViewModel() {
 
     val profile get() = pModel.profile
@@ -42,19 +42,31 @@ class VerifyViewModel @Inject constructor(
     /**
      * 학교 인증하기 버튼을 누릅니다
      */
-    fun gotoCertificationPage(hasCerti : Boolean){
-        if(!hasCerti) navigation.changePage(Page.PROFILE_CERTIFICATION)
+    fun gotoCertificationPage(hasCert : Boolean){
+        if(!hasCert) navigation.changePage(Page.PROFILE_CERTIFICATION)
         else return
     }
 
     /**
      * 신청하기 버튼을 누릅니다
      */
-    fun onSubmit()
+    fun onSubmit(cert_author:Boolean, verifyProcess : Boolean)
     {
-        editModel.setLink(linkInput.value)
-        editModel.requestVerify()
-        navigation.revealHistory()
+        if (cert_author){
+            uiModel.showToast(valueModel.getString(R.string.str_already_certify))
+            return
+        }
+
+        if (verifyProcess){
+            uiModel.showToast(valueModel.getString(R.string.str_please_wait))
+            return
+        }
+
+        certifyModel.requestCertifyPortfolio(linkInput.value.trim())
+        useFlag(certifyModel.flagPortfolioSuccess){
+            navigation.changePage(Page.PROFILE)
+            navigation.clearHistory()
+        }
     }
 
     /**

@@ -47,7 +47,6 @@
             app:layout_constraintTop_toBottomOf="@+id/ll_appbar">
 
             <TextView
-
                 style="@style/bold20"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -56,18 +55,26 @@
                 android:text="관심있는 장르를 선택해주세요." />
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/medium13"
+                android:text="최대 3개까지 선택 가능합니다."
+                android:textColor="@color/gray60"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="3.5dp"/>
+
+            <TextView
                 android:layout_marginRight="36dp"
                 style="@style/bold16"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="26dp"
                 android:text="순수예술" />
 
             <com.google.android.material.chip.ChipGroup
                 android:layout_marginTop="8dp"
                 android:id="@+id/cg_pure"
-
                 android:layout_width="match_parent"
                 app:chipSpacingVertical="8dp"
                 android:animateLayoutChanges="true"
@@ -86,7 +93,6 @@
                 android:id="@+id/cg_design"
                 android:layout_marginTop="8dp"
                 app:chipSpacingVertical="8dp"
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="32dp"/>

@@ -47,7 +47,8 @@
                 style="@style/btn_default"
                 android:onClick="@{v->vm.showMoreDialog()}"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_more" />
+                android:src="@drawable/ic_more"
+                android:contentDescription="@string/str_btn_report_dialog"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.core.widget.NestedScrollView

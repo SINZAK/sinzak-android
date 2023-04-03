@@ -25,15 +25,25 @@ class UserCommandModel @Inject constructor() : BaseModel(){
     private val _reportList = MutableStateFlow(mutableListOf<UserProfile>())
     val reportList : StateFlow<MutableList<UserProfile>> get() = _reportList
 
+    private var reportId = ""
+    val reportName = MutableStateFlow("")
+
+    fun setReportInfo(id : String,name : String)
+    {
+        reportId = id.trim()
+        reportName.value = "'${name.trim()}'"
+    }
+
+
     /**********************************************************************************************************************
      * REQUEST
      ***********************************************************************************************************************/
 
-    fun reportUser(reason : String ,userId : String)
+    fun reportUser(reason : String)
     {
         val request = ReportRequest(
             reason = reason.trim(),
-            userId = userId
+            userId = reportId
         )
         CallImpl(
             API_REPORT_USER,

@@ -1,26 +1,19 @@
 package io.sinzak.android.ui.main.chat.viewmodel
 
-import android.os.Bundle
 import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.sinzak.android.constants.CODE_USER_ID
-import io.sinzak.android.constants.CODE_USER_REPORT_ID
-import io.sinzak.android.constants.CODE_USER_REPORT_NAME
 import io.sinzak.android.system.App.Companion.prefs
 import io.sinzak.android.enums.Page
 import io.sinzak.android.model.chat.ChatStorage
 import io.sinzak.android.model.market.ProductDetailModel
 import io.sinzak.android.model.profile.UserCommandModel
 import io.sinzak.android.remote.dataclass.chat.ChatMsg
-import io.sinzak.android.system.LogDebug
 import io.sinzak.android.system.LogInfo
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.ui.main.chat.ChatConnect
 import io.sinzak.android.ui.main.chat.ChatMsgAdapter
-import io.sinzak.android.ui.main.profile.ProfileConnect
-import io.sinzak.android.ui.main.profile.report.ReportSendViewModel
-import io.sinzak.android.utils.ChatUtil
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -165,11 +158,7 @@ class ChatroomViewModel @Inject constructor(
 
     private fun reportUser() {
         chatRoom.value?.let { info ->
-            Bundle().apply {
-                putString(CODE_USER_REPORT_NAME, info.roomName)
-                putString(CODE_USER_REPORT_ID, info.opponentUserId)
-                navigation.putBundleData(ReportSendViewModel::class, this)
-            }
+            commandModel.setReportInfo(info.opponentUserId,info.roomName)
             navigation.changePage(Page.PROFILE_REPORT_TYPE)
         }
 

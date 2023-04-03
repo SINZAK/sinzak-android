@@ -37,7 +37,7 @@ class FirebaseMessagingServiceUtil : FirebaseMessagingService() {
 
         val intent = Intent(this, MainActivity::class.java).apply {
             action = "OPEN_CHAT"
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             putExtra("uuid",route)
         }
         val pendingIntent = PendingIntent.getActivity(this, id, intent, PendingIntent.FLAG_IMMUTABLE)

@@ -2,7 +2,6 @@ package io.sinzak.android.model.chat
 
 import android.content.Context
 import android.net.Uri
-import android.util.Log
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.sinzak.android.constants.*
 import io.sinzak.android.model.BaseModel
@@ -100,7 +99,7 @@ class ChatStorage @Inject constructor(@ApplicationContext val context: Context) 
                 productId = postDetail.productId,
                 productName = postDetail.title,
                 thumbnail = postDetail.imgUrls?.let{
-                   if(it.isNotEmpty()) it[0]
+                   if(it.isNotEmpty()) it.last()
                    else ""
                 }?:"",
                 complete = postDetail.complete,
@@ -252,11 +251,7 @@ class ChatStorage @Inject constructor(@ApplicationContext val context: Context) 
                     type = type
                 )
             )
-        }/*?:run{
-            LogInfo(javaClass.name,"CHATROOM EMPTY, TRY MAKE CHATROOM")
-            pendingMsg = msg
-            makeChatroom()
-        }*/
+        }
 
     }
 
@@ -294,7 +289,7 @@ class ChatStorage @Inject constructor(@ApplicationContext val context: Context) 
             API_GET_CHATROOM_LIST ->{
                 if(body.success == true){
                     body as ChatRoomListResponse
-                    _chatRooms.value = body.data.toMutableList()
+                    _chatRooms.value = body.data.toMutableList().asReversed()
                 }
 
             }
@@ -302,7 +297,7 @@ class ChatStorage @Inject constructor(@ApplicationContext val context: Context) 
             API_GET_CHATROOM_POST_LIST ->{
                 if(body.success == true){
                     body as ChatRoomListResponse
-                    _chatRooms.value = body.data.toMutableList()
+                    _chatRooms.value = body.data.toMutableList().asReversed()
                 }
             }
 
@@ -315,10 +310,6 @@ class ChatStorage @Inject constructor(@ApplicationContext val context: Context) 
                         pendingMsg = ""
 
                     }
-/*                    body.data?.let{chatroom->
-                        makeChatRoom(chatroom.roomUuid!!)
-                        loadExistChatroom(chatroom)
-                    }*/
 
                 }
             }
@@ -328,7 +319,6 @@ class ChatStorage @Inject constructor(@ApplicationContext val context: Context) 
                 body.msgContent?.let{
                     _chatMsg.value = it.onEach{msg->
                         msg.isMyChat = msg.senderId == ChatUtil.senderId
-
                     }.toMutableList().asReversed()
                 }
             }

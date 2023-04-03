@@ -120,6 +120,10 @@ class CallImpl(
 
             API_CHECK_MAIL_CODE -> remoteApi.checkMailCode(header, requestBody as MailRequest)
 
+            API_CERTIFY_MY_PORTFOLIO -> remoteApi.requestCertifyPortfolio(header, JsonObject().apply {
+                addProperty("portFolio", paramStr0)
+            })
+
             API_JOIN_ACCOUNT -> remoteApi.joinAccount(header,requestBody as JoinRequest)
 
             API_POST_OAUTH_TOKEN -> remoteApi.postAccessToken(header, JsonObject().apply{
@@ -235,6 +239,8 @@ class CallImpl(
                 addProperty("postType", paramStr0)
 
             })
+
+            API_GET_NOTIFICATION_LIST -> remoteApi.getNotificationList(header)
 
             else -> throw NoSuchMethodException()
         } as Call<CResponse>

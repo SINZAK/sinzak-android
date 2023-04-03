@@ -1,19 +1,14 @@
 package io.sinzak.android.ui.main.postwrite.viewmodels
 
 import android.net.Uri
-import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.sinzak.android.R
-import io.sinzak.android.constants.CODE_ON_EDIT
 import io.sinzak.android.enums.Page
 import io.sinzak.android.model.market.MarketWriteModel
-import io.sinzak.android.system.LogDebug
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.ui.main.postwrite.WriteConnect
 import io.sinzak.android.ui.main.postwrite.adapter.ImageAdapter
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @HiltViewModel

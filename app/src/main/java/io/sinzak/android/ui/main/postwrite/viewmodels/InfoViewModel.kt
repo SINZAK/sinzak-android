@@ -6,7 +6,6 @@ import io.sinzak.android.model.market.MarketWriteModel
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.utils.PriceUtil
 import kotlinx.coroutines.flow.MutableStateFlow
-import java.lang.Exception
 import javax.inject.Inject
 
 
@@ -36,6 +35,7 @@ class InfoViewModel @Inject constructor(
     }
 
     fun setPrice(cs : CharSequence){
+        if (cs.toString() == ".") return
         price.value = cs.toString()
     }
 

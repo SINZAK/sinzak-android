@@ -82,7 +82,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="7dp"
-                android:text='@{product.title ?? "Flower Garden"}' />
+                android:text='@{product.title}' />
 
             <TextView
                 android:id="@+id/tv_price"
@@ -90,7 +90,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="7dp"
-                android:text='@{product.getFormattedPrice() ?? "30,000원"}' />
+                android:text='@{product.getFormattedPrice()}' />
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="wrap_content"
@@ -101,7 +101,7 @@
                     style="@style/regular13"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text='@{@string/str_art_artist_holder(product.author ?? "유민규")}' />
+                    android:text='@{@string/str_art_artist_holder(product.makeAuthorLengthLimit(5))}' />
 
                 <TextView
                     style="@style/medium13"

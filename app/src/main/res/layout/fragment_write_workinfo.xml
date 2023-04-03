@@ -35,8 +35,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="@string/str_write_work_content"
-                />
+                android:text="@{vm.isWorkBuy ? @string/str_write_work_buy_content : @string/str_write_work_sell_content}"/>
 
             <Space
                 android:layout_width="24dp"
@@ -74,7 +73,7 @@
                 android:paddingStart="24dp"
                 android:paddingVertical="15dp"
                 android:onTextChanged="@{(cs,s,e,c)->vm.setTitleString(cs)}"
-                android:hint="의뢰 제목"
+                android:hint="@{vm.isWorkBuy ? @string/str_write_work_buy_title : @string/str_write_work_sell_title}"
                 style="@style/bold16"
                 android:textColor="@color/text0"/>
 
@@ -89,7 +88,7 @@
                 android:textColor="@color/text3"
                 android:drawablePadding="8dp"
                 android:paddingStart="8dp"
-                android:text="@string/str_write_work_content"
+                android:text="@{vm.isWorkBuy ? @string/str_write_work_buy_content : @string/str_write_work_sell_content}"
                 app:drawableStartCompat="@drawable/ic_gray_dot" />
 
 
@@ -104,7 +103,7 @@
                 android:gravity="top"
                 android:paddingVertical="24dp"
                 android:paddingHorizontal="32dp"
-                android:hint="@string/str_write_work_content"
+                android:hint="@{vm.isWorkBuy ? @string/str_write_work_buy_content : @string/str_write_work_sell_content}"
                 style="@style/regular16"
                 android:textColor="@color/text0"/>
 

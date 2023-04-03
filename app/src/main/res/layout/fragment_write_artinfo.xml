@@ -110,7 +110,7 @@
                     android:background="@drawable/et_gray_filled"
                     android:gravity="center"
                     android:inputType="numberDecimal"
-                    android:maxLength="10"
+                    android:maxLength="11"
                     android:onTextChanged="@{(cs,s,e,c)->vm.setPrice(cs)}"
                     addComma="@{vm.price}"
                     android:textColor="@color/text0" />
@@ -172,7 +172,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/et_gray_filled"
                 android:gravity="top"
-                android:hint="@string/str_write_art_description"
+                android:hint="@string/str_write_art_description_hint"
                 android:onTextChanged="@{(cs,s,e,c)->vm.setContentString(cs)}"
                 android:paddingHorizontal="32dp"
                 android:paddingVertical="24dp"

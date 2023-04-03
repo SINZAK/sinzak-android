@@ -7,14 +7,16 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import io.sinzak.android.R
 import io.sinzak.android.databinding.HolderFullBannerBinding
-import io.sinzak.android.databinding.HolderFullImgBinding
 import io.sinzak.android.remote.dataclass.local.BannerData
+import io.sinzak.android.system.dp
 
-class BannerAdapter(val banner : List<BannerData>,
-    val gotoLogin : ()->Unit
-                    ) : RecyclerView.Adapter<BannerAdapter.ViewHolder>() {
+class BannerAdapter(
+    val banner : List<BannerData>,
+    val showUser : (String) -> Unit
+) : RecyclerView.Adapter<BannerAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int {
         return banner.size
@@ -32,25 +34,17 @@ class BannerAdapter(val banner : List<BannerData>,
     inner class ViewHolder(val bind : HolderFullBannerBinding, val context : Context) : RecyclerView.ViewHolder(bind.root){
         fun bind(bannerData: BannerData){
 
-            bind.banner = bannerData
-
-            bannerData.bannerDrawableId?.let{
-                id->
-                bind.ivMain.setImageDrawable(context.getDrawable(id))
-            }
+            bind.content = if (bannerData.isUserBanner()) bannerData.content else ""
 
             bannerData.bannerImageUrl?.let{
                 url ->
-                Glide.with(bind.ivMain).asBitmap().load(url).transform(CenterCrop()).into(bind.ivMain)
+                Glide.with(bind.ivMain).asBitmap().load(url)
+                    .transform( CenterCrop(), RoundedCorners(20.dp.toInt())
+                ).into(bind.ivMain)
             }
 
-
-
             bind.root.setOnClickListener {
-                when(bannerData.bannerMode){
-                    BannerData.BANNER_LOGIN ->
-                        gotoLogin()
-                }
+                bannerData.showUser(showUser)
             }
         }
     }

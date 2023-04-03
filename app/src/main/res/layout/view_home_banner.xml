@@ -10,8 +10,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:paddingBottom="36dp"
-        android:paddingTop="36dp"
+        android:paddingVertical="32dp"
         android:layout_height="wrap_content">
 
         <androidx.viewpager2.widget.ViewPager2
@@ -21,13 +20,13 @@
             android:adapter="@{vm.adapter}"
             android:clipToPadding="false"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintDimensionRatio="343:147"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintDimensionRatio="2.25:1"
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
             android:layout_width="wrap_content"
             android:layout_height="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="12dp"
             app:dotsColor="@color/text2"
             app:attachTo="@{vpBanner}"
             app:dotsSize="8dp"

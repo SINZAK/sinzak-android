@@ -1,18 +1,14 @@
 package io.sinzak.android.ui.main.profile.viewmodel
 
-import android.os.Bundle
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.sinzak.android.R
 import io.sinzak.android.constants.CODE_FCM_TOKEN
 import io.sinzak.android.constants.CODE_USER_ID
-import io.sinzak.android.constants.CODE_USER_REPORT_ID
-import io.sinzak.android.constants.CODE_USER_REPORT_NAME
 import io.sinzak.android.enums.Page
 import io.sinzak.android.model.profile.ProfileModel
 import io.sinzak.android.model.profile.UserCommandModel
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.ui.main.profile.ProfileConnect
-import io.sinzak.android.ui.main.profile.report.ReportSendViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 import io.sinzak.android.system.App.Companion.prefs
@@ -20,7 +16,7 @@ import io.sinzak.android.system.App.Companion.prefs
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
     val model: ProfileModel,
-    val commandModel: UserCommandModel
+    private val commandModel: UserCommandModel
 ) : BaseViewModel() {
 
     private var _connect : ProfileConnect? = null
@@ -151,6 +147,14 @@ class ProfileViewModel @Inject constructor(
     }
 
     /**
+     * 팔로우/팔로워보기
+     */
+    fun goFollowPage(followerTap : Boolean){
+        model.followPageTap.value = followerTap
+        navigation.changePage(Page.PROFILE_FOLLOW)
+    }
+
+    /**
      * 스크랩 목록으로 이동
      */
     fun goToScrapList()
@@ -163,7 +167,6 @@ class ProfileViewModel @Inject constructor(
      * 더보기 버튼을 눌렀을때 동작
      */
     fun showMoreDialog(){
-        if (!signModel.isUserLogin()) return
         showReportDialog()
     }
 
@@ -214,12 +217,11 @@ class ProfileViewModel @Inject constructor(
      * 사용자 신고 페이지 가기
      */
     private fun goToReportPage(){
+
+        if (goToLoginIfNot()) return
+
         profile.value?.let{profile->
-            Bundle().apply{
-                putString(CODE_USER_REPORT_NAME, profile.name)
-                putString(CODE_USER_REPORT_ID, profile.userId)
-                navigation.putBundleData(ReportSendViewModel::class,this)
-            }
+            commandModel.setReportInfo(profile.userId,profile.name)
             navigation.changePage(Page.PROFILE_REPORT_TYPE)
         }
     }

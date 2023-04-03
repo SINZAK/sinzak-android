@@ -29,6 +29,7 @@
     <string name="str_notification">알림</string>
     <string name="str_notification_activity">활동</string>
     <string name="str_notification_follow">팔로우</string>
+    <string name="str_notification_follow_form">%s 님이 작가님을 팔로우해요</string>
 
     <string name="str_profile_follower">팔로워</string>
     <string name="str_profile_following">팔로잉</string>
@@ -120,7 +121,7 @@
     <string name="str_verify_explain_three">신작 추천 작품에 선정될 가능성이 높아집니다.</string>
     <string name="str_verify_step_one">1단계. 학교 인증</string>
     <string name="str_verify_step_two">2단계. 포트폴리오 링크</string>
-    <string name="str_verify_step_two_explain">개인 웹사이트, Behance, ArtStation, google drive 등\n링크 형식으로 포트폴리오를 첨부해주세요.</string>
+    <string name="str_verify_step_two_explain">개인 웹사이트, Behance, ArtStation, Google Drive 등 링크 형식으로 포트폴리오를 첨부해주세요. 신청시 1~2일 정도 소요되며 링크는 최대 200자까지 입력 가능합니다.</string>
     <string name="str_verify_link_hint">링크를 입력하세요.</string>
 
 
@@ -194,6 +195,7 @@
     <string name="str_write_art_title">작품 제목</string>
     <string name="str_write_art_price">가격</string>
     <string name="str_write_art_description">작품 설명</string>
+    <string name="str_write_art_description_hint">작품 의도, 작업 기간, 재료, 거래 방법 등을 자유롭게 표현해보세요.</string>
     <string name="str_register_undergrad">재학생 인증</string>
     <string name="str_register_graduated">졸업생 인증</string>
 
@@ -248,7 +250,10 @@
     <string name="str_welcome_sub">신작에 가입이 완료되었습니다.\n이제 자유롭게 작품을 탐색하고 거래해보세요.</string>
     <string name="str_welcome_title">Welcome!</string>
     <string name="str_welcome_done">작품 보러가기</string>
-    <string name="str_write_work_content">의뢰 내용</string>
+    <string name="str_write_work_buy_title">의뢰 제목</string>
+    <string name="str_write_work_sell_title">작업 제목</string>
+    <string name="str_write_work_buy_content">의뢰 내용</string>
+    <string name="str_write_work_sell_content">작업 내용</string>
     <string name="str_title">제목</string>
     <string name="str_checkemail_exist">가입한 다른 소셜 계정으로 로그인해주세요.</string>
     <string name="str_btn_chatroom_leave">채팅방 나가기</string>
@@ -278,4 +283,9 @@
     <string name="str_certification_done">인증이 완료됐어요</string>
     <string name="str_below_five_image">5장까지 업로드 가능해요</string>
     <string name="str_close_app_message">한 번 더 누르시면 종료할게요</string>
+    <string name="str_already_certify">이미 인증했어요</string>
+    <string name="str_please_wait">확인 작업이 진행중이에요</string>
+
+    <!-- 이미지뷰  contentDescription -->
+    <string name="str_btn_report_dialog">Button for show report dialog</string>
 </resources>

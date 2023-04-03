@@ -109,6 +109,7 @@ class ProfileModel @Inject constructor() : BaseModel() {
      */
     private fun onMyProfileResponse(response: UserProfileResponse)
     {
+
         response.data?.let { profileResponse ->
 
             profileResponse.profile.let {
@@ -240,6 +241,8 @@ class ProfileModel @Inject constructor() : BaseModel() {
     private val _followList = MutableStateFlow(mutableListOf<Follow>())
     val followList: StateFlow<MutableList<Follow>> get() = _followList
 
+    val followPageTap = MutableStateFlow(FOLLOWER_TAP)
+
     /**
      * 팔로우 리스트 보기
      * 1. FollowFragment 생성시, 모델의 followList를 초기화
@@ -247,6 +250,7 @@ class ProfileModel @Inject constructor() : BaseModel() {
      */
     fun getFollowList(showFollower : Boolean) {
         _followList.value = mutableListOf()
+        followPageTap.value = showFollower
         if (showFollower) {
             CallImpl(
                 API_GET_FOLLOWER_LIST,
@@ -276,6 +280,7 @@ class ProfileModel @Inject constructor() : BaseModel() {
     }
 
 
+
     /**
      * 내 작품 스크랩 리스트를 저장하는 공간
      */
@@ -285,8 +290,8 @@ class ProfileModel @Inject constructor() : BaseModel() {
     /**
      * 내 의뢰 스크랩 리스트를 저장하는 공간
      */
-    private val _worktWishList = MutableStateFlow(mutableListOf<Product>())
-    val workWishList : StateFlow<MutableList<Product>> get() = _worktWishList
+    private val _workWishList = MutableStateFlow(mutableListOf<Product>())
+    val workWishList : StateFlow<MutableList<Product>> get() = _workWishList
 
 
     fun getWishList()
@@ -303,7 +308,7 @@ class ProfileModel @Inject constructor() : BaseModel() {
     {
         response.data?.let { wishResponse ->
             _productWishList.value = wishResponse.productWishes!!.toMutableList().asReversed()
-            _worktWishList.value = wishResponse.workWishes!!.toMutableList().asReversed()
+            _workWishList.value = wishResponse.workWishes!!.toMutableList().asReversed()
         }
     }
 

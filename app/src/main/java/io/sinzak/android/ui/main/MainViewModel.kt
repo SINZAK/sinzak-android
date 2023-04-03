@@ -25,10 +25,12 @@ class MainViewModel @Inject constructor(
         _showBottomMenu.value = boolean
     }
 
-    fun showChatThroughAlarm(uuid: String){
-        storage.loadExistChatroom(uuid)
+    fun showChatThroughAlarm(uuid: String?){
         navigation.changePage(Page.CHAT)
-        navigation.changePage(Page.CHAT_ROOM)
+        if (uuid != null) {
+            storage.loadExistChatroom(uuid)
+            navigation.changePage(Page.CHAT_ROOM)
+        }
     }
 
 

@@ -5,15 +5,16 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import io.sinzak.android.R
 import io.sinzak.android.enums.Page
 import io.sinzak.android.model.certify.CertifyModel
+import io.sinzak.android.model.profile.ProfileModel
 import io.sinzak.android.ui.base.BaseViewModel
 import io.sinzak.android.utils.FileUtil
 import kotlinx.coroutines.flow.MutableStateFlow
-import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
 class WebmailViewModel @Inject constructor(
     private val certifyModel: CertifyModel,
+    val pModel : ProfileModel,
     val connect: CertifyConnect
 ) : BaseViewModel() {
 
@@ -188,22 +189,25 @@ class WebmailViewModel @Inject constructor(
      */
     fun onSubmit()
     {
-        navigation.removeHistory(Page.PROFILE_EDIT)
-        navigation.removeHistory(Page.PROFILE_WEBMAIL)
-        navigation.removeHistory(Page.PROFILE_CERTIFICATION)
         navigation.changePage(Page.PROFILE)
+        navigation.clearHistory()
         uiModel.showToast(valueModel.getString(R.string.str_certification_done))
     }
 
     /**
      * 완료 버튼을 누릅니다 - 학생증 인증
      * 1. 학생증 인증을 요청합니다
-     * 2. 사진 업로드가 성공하면 편집 화면으로 돌아갑니다
+     * 2. 확인중이면 요청하지 않습니다
+     * 3. 사진 업로드가 성공하면 편집 화면으로 돌아갑니다
      */
     fun onSubmitStudentId()
     {
-        requestCertifyStudentId()
+        if (pModel.profile.value?.isCertUnivIdProcess() == true){
+            uiModel.showToast(valueModel.getString(R.string.str_please_wait))
+            return
+        }
 
+        requestCertifyStudentId()
         useFlag(certifyModel.flagUploadSuccess, ::onSubmit)
     }
 
