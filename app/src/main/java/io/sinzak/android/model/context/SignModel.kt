@@ -148,8 +148,6 @@ class SignModel @Inject constructor(
         univ = u
     }
     private var univEmail = ""
-    //todo : 이메일 인증
-
 
     var sdkType : SDK? = null
 
@@ -236,7 +234,6 @@ class SignModel @Inject constructor(
         initSignStatus()
         sdkType = SDK.Naver
         initNaverSdk()
-        //todo : Login With Naver
 
         NaverIdLoginSDK.behavior = NidOAuthBehavior.DEFAULT
         loginIntentActivity.requestNaverLoginActivity(naverCallback)
@@ -505,6 +502,15 @@ class SignModel @Inject constructor(
             remote.sendRequestApi(this)
         }
     }
+
+    fun getStoreVersion() {
+        CallImpl(
+            API_GET_VERSION_CODE,
+            this
+        ).apply {
+            remote.sendRequestApi(this)
+        }
+    }
     /**************************************************************************************************************************
      * RESPONSE
      *********************************************************************************************************************************/
@@ -678,6 +684,13 @@ class SignModel @Inject constructor(
 
             API_POST_FCM_TOKEN -> {
                 LogDebug(javaClass.name, body.success.toString())
+            }
+
+            API_GET_VERSION_CODE -> {
+                body as VersionResponse
+                if (body.success == true) {
+                    prefs.setInt(CODE_STORE_VERSION,body.versionCode!!)
+                }
             }
 
         }

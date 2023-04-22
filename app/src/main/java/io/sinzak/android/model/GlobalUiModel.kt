@@ -226,22 +226,20 @@ class GlobalUiModel @Inject constructor(
     {
         if (isDialogOn())
             return
-        dialog = AppUpdateDialog(context,::goStore).apply {
+        dialog = AppUpdateDialog(_context!!,::goStore).apply {
             show()
         }
     }
 
     private fun goStore(){
-        val appPackageName = context.packageName
+        val appPackageName = _context!!.packageName
 
         try {
-            context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$appPackageName")))
+            _context?.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$appPackageName")))
         } catch (exception: ActivityNotFoundException) {
-            context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")))
+            _context?.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")))
         }
     }
-
-
 
 
     fun gotoLogin(){

@@ -35,4 +35,7 @@ interface RemoteLoginInterface {
 
     @POST("https://www.googleapis.com/oauth2/v4/token")
     fun getGoogleAccessToken(@Body body: GoogleRequest) : Call<GoogleResponse>
+
+    @POST("api/aos/version")
+    fun checkStoreVersion(@HeaderMap header: HashMap<String, String>) : Call<VersionResponse>
 }

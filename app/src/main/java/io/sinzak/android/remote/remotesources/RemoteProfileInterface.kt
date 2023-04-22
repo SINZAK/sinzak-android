@@ -3,11 +3,7 @@ package io.sinzak.android.remote.remotesources
 import io.sinzak.android.remote.dataclass.CResponse
 import io.sinzak.android.remote.dataclass.request.profile.*
 import io.sinzak.android.remote.dataclass.response.history.HistoryResponse
-import io.sinzak.android.remote.dataclass.response.home.NotificationResponse
-import io.sinzak.android.remote.dataclass.response.profile.FollowResponse
-import io.sinzak.android.remote.dataclass.response.profile.ReportListResponse
-import io.sinzak.android.remote.dataclass.response.profile.UserProfileResponse
-import io.sinzak.android.remote.dataclass.response.profile.WishResponse
+import io.sinzak.android.remote.dataclass.response.profile.*
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.Body

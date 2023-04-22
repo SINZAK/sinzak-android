@@ -100,19 +100,18 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         getFCMToken()
 
         signModel.checkToken()
+        signModel.getStoreVersion()
 
         notGrantedPermissions = requiredPermissions.filter {
             ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED
         }
 
-        if (notGrantedPermissions.isNotEmpty()) {
-            uiModel.permissionDialog(::acceptPermissions)
-        }
+        if (notGrantedPermissions.isNotEmpty()) uiModel.permissionDialog(::acceptPermissions)
 
-        if (intent.action == "OPEN_CHAT"){
-            viewModel.showChatThroughAlarm(intent.getStringExtra("uuid"))
-        }
 
+        viewModel.checkAppUpdate()
+
+        if (intent.action == "OPEN_CHAT") viewModel.showChatThroughAlarm(intent.getStringExtra("uuid"))
 
     }
 

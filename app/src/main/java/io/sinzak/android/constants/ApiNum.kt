@@ -19,6 +19,7 @@ const val API_REFRESH_TOKEN = 1
 const val API_LOGIN_EMAIL = 100
 const val API_CHECK_NAME = 101
 const val API_POST_FCM_TOKEN = 102
+const val API_GET_VERSION_CODE = 103
 
 const val API_JOIN_ACCOUNT = 110
 const val API_POST_OAUTH_TOKEN = 111
