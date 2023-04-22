@@ -242,6 +242,11 @@ class CallImpl(
 
             })
 
+            API_CHECK_CHATROOM_EXIST -> remoteApi.checkRoomExist(header, JsonObject().apply {
+                addProperty("postId",paramInt0)
+                addProperty("postType",paramStr0)
+            })
+
             API_GET_NOTIFICATION_LIST -> remoteApi.getNotificationList(header)
 
             else -> throw NoSuchMethodException()

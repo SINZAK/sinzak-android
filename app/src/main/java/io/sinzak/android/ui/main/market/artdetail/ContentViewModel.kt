@@ -9,6 +9,7 @@ import io.sinzak.android.model.market.ProductDetailModel
 import io.sinzak.android.model.market.MarketWriteModel
 import io.sinzak.android.model.profile.ProfileModel
 import io.sinzak.android.model.profile.UserCommandModel
+import io.sinzak.android.system.LogDebug
 import io.sinzak.android.ui.base.BaseViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
@@ -344,7 +345,6 @@ class ContentViewModel @Inject constructor(
         art.value ?: run {
             return
         }
-        val product = art.value!!
 
         if(goToLoginIfNot()) return
 
@@ -353,23 +353,20 @@ class ContentViewModel @Inject constructor(
             return
         }
 
+        val productId = art.value!!.productId
+        val type = if (itemType.value == TYPE_MARKET_PRODUCT) "product" else "work"
+
         if (isMyProduct.value) {
-            val productId = product.productId
-            val type = if (itemType.value == TYPE_MARKET_PRODUCT) "product" else "work"
 
             chatStorage.getChatRoomFromPost(
                 productId,
                 type
             )
             navigation.changePage(Page.CHAT_ROOM_FROM_POST)
-
             return
         }
 
-        chatStorage.clearChatMsg()
-        chatStorage.chatProductExistFlag.value = true
-        model.makeNewChatroom()
-
+        chatStorage.accessChatRoomFromProduct(postId = productId, postType = type, art = art.value!!)
         navigation.changePage(Page.CHAT_ROOM)
 
     }

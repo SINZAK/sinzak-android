@@ -81,15 +81,6 @@ class ProductDetailModel @Inject constructor() : BaseModel() {
     }
 
 
-    fun makeNewChatroom(){
-        art.value?.let{
-            chatStorage.makeChatroom(it, if(itemType.value == 0) "product" else "work")
-        }
-
-    }
-
-
-
     fun postProductWish(id : Int, status : Boolean){
         remote.sendRequestApi(
             CallImpl(if(itemType.value == TYPE_MARKET_PRODUCT)

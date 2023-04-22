@@ -7,6 +7,7 @@ import io.sinzak.android.constants.*
 import io.sinzak.android.model.BaseModel
 import io.sinzak.android.remote.dataclass.CResponse
 import io.sinzak.android.remote.dataclass.chat.*
+import io.sinzak.android.remote.dataclass.response.chat.*
 import io.sinzak.android.remote.dataclass.response.market.MarketDetailResponse
 import io.sinzak.android.remote.retrofit.CallImpl
 import io.sinzak.android.system.LogDebug
@@ -70,11 +71,9 @@ class ChatStorage @Inject constructor(@ApplicationContext val context: Context) 
     }
 
 
-    fun clearChatMsg(){
+    private fun clearChatMsg(){
         _chatMsg.value = mutableListOf()
     }
-
-
 
     private var currentChatRoom: ChatUtil? = null
 
@@ -90,7 +89,8 @@ class ChatStorage @Inject constructor(@ApplicationContext val context: Context) 
     /**
      * 채팅이 없는 상품에 채팅 생성
      */
-    fun makeChatroom(postDetail: MarketDetailResponse.Detail, type: String){
+    private fun makeChatroom(postDetail: MarketDetailResponse.Detail, type: String){
+        LogDebug(javaClass.name, "새 채팅 생성")
         this.postId = postDetail.productId
         this.postType = type
         _chatRoomInfo.value =
@@ -108,9 +108,6 @@ class ChatStorage @Inject constructor(@ApplicationContext val context: Context) 
                 price = postDetail.price,
                 postType = if (type == "product") "PRODUCT" else "WORK"
             )
-
-        // 새로운 채팅방이 생김을 알립니다
-        newChatRoomFlag.value = true
     }
 
     /**
@@ -168,6 +165,16 @@ class ChatStorage @Inject constructor(@ApplicationContext val context: Context) 
                 paramStr0 = roomId
             )
         )
+    }
+
+    /**
+     * 작품 상세에서 채팅방에 접근합니다
+     */
+    fun accessChatRoomFromProduct(postId: Int, postType: String, art : MarketDetailResponse.Detail) {
+        clearChatMsg()
+        makeChatroom(art,postType)
+        checkRoomExist(postId,postType)
+        chatProductExistFlag.value = true
     }
 
     /*****************************************************
@@ -255,6 +262,30 @@ class ChatStorage @Inject constructor(@ApplicationContext val context: Context) 
 
     }
 
+    /**
+     * 채팅방이 존재하는지 확인합니다
+     */
+    private fun checkRoomExist(postId: Int, postType: String) {
+        CallImpl(
+            API_CHECK_CHATROOM_EXIST,
+            this,
+            paramInt0 = postId,
+            paramStr0 = postType
+        ).apply {
+            remote.sendRequestApi(this)
+        }
+    }
+
+    private fun onCheckRoomResponse(response : ChatRoomCheckResponse) {
+        response.data?.let {
+            if (it.exist) {
+                newChatRoomFlag.value = false
+                loadExistChatroom(it.uuid!!)
+            }
+            else newChatRoomFlag.value = true
+        }
+    }
+
     private fun onReceiveChatMsg(msg: ChatMsg){
         addChatMsgOnTail(null)
         CoroutineScope(Dispatchers.IO).launch {
@@ -305,7 +336,7 @@ class ChatStorage @Inject constructor(@ApplicationContext val context: Context) 
                 if(body.success == true){
                     body as ChatCreateResponse
                     body.data?.let {
-                        loadExistChatroom(it.roomUuid.toString())
+                        makeChatRoom(it.roomUuid!!)
                         sendMsg(pendingMsg,ChatUtil.TYPE_TEXT)
                         pendingMsg = ""
 
@@ -339,11 +370,19 @@ class ChatStorage @Inject constructor(@ApplicationContext val context: Context) 
                     LogDebug(javaClass.name , "사진 전송 성공")
                 }
             }
+
+            API_CHECK_CHATROOM_EXIST -> {
+                onCheckRoomResponse(body as ChatRoomCheckResponse)
+            }
         }
     }
 
     override fun handleError(api: Int, msg: String?, t: Throwable?) {
-
+        when(api) {
+            API_CHECK_CHATROOM_EXIST -> {
+                newChatRoomFlag.value = true
+            }
+        }
     }
 
 
