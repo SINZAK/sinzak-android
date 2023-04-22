@@ -1,6 +1,7 @@
 package io.sinzak.android.ui.base
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.PersistableBundle
@@ -33,7 +34,7 @@ abstract class BaseActivity<T : ViewDataBinding>(private val layoutId : Int) : A
         bind = DataBindingUtil.setContentView(this,layoutId)
         bind.lifecycleOwner = this
         softKey.registerActivity(this)
-        uiModel.registerActivity(this)
+        uiModel.registerActivity(this,  this)
         LogDebug(javaClass.name,"ACTIVITY CREATED")
         onActivityCreate()
 
@@ -47,7 +48,7 @@ abstract class BaseActivity<T : ViewDataBinding>(private val layoutId : Int) : A
     override fun onResume() {
         super.onResume()
         softKey.registerActivity(this)
-        uiModel.registerActivity(this)
+        uiModel.registerActivity(this, this)
         profileConnect.context = this
 
     }

@@ -261,7 +261,7 @@ class ContentViewModel @Inject constructor(
      * 게시글 수정 다이알로그 열기
      */
     private fun showEditDialog() {
-        connect.productEditDialog(
+        uiModel.productEditDialog(
             edit = ::gotoEdit,
             delete = {
                 showDeleteDialog()
@@ -281,7 +281,7 @@ class ContentViewModel @Inject constructor(
     {
         if (!isMyProduct.value) return
 
-        connect.showOnSaleDialog(
+        uiModel.showOnSaleDialog(
             offSale = {model.updateProductState(product,itemType.value == TYPE_MARKET_PRODUCT)},
             itemType = itemType.value
         )
@@ -292,7 +292,7 @@ class ContentViewModel @Inject constructor(
      */
     private fun showReportDialog() {
 
-        connect.artistReportDialog(
+        uiModel.userReportDialog(
             art.value!!.author,
             onReport = {
                 goToReportPage()
@@ -308,7 +308,7 @@ class ContentViewModel @Inject constructor(
      * 작가 차단하기 다이알로그
      */
     private fun showBlockDialog() {
-        connect.artistBlockDialog {
+        uiModel.userBlockDialog {
             commandModel.blockUser(authorId.toString(), art.value!!.author)
             useFlag(commandModel.reportSuccessFlag) {
                 uiModel.showToast("해당 유저를 차단했어요")
@@ -321,7 +321,7 @@ class ContentViewModel @Inject constructor(
      * 작품 삭제 다이알로그 열기
      */
     private fun showDeleteDialog() {
-        connect.productDeleteDialog {
+        uiModel.productDeleteDialog {
             model.deleteProduct(product)
         }
     }

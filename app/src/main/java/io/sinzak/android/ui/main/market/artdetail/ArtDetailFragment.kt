@@ -4,13 +4,8 @@ import android.view.View
 import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
 import io.sinzak.android.databinding.*
-import io.sinzak.android.enums.Page
 import io.sinzak.android.ui.base.BaseFragment
 import io.sinzak.android.ui.main.MainActivity
-import io.sinzak.android.ui.main.market.artdetail.dialog.ArtistBlockDialog
-import io.sinzak.android.ui.main.market.artdetail.dialog.ArtistReportDialog
-import io.sinzak.android.ui.main.profile.report.ReportSendViewModel
-import io.sinzak.android.ui.main.profile.viewmodel.ProfileViewModel
 import javax.inject.Inject
 
 @AndroidEntryPoint
