@@ -37,8 +37,7 @@ class MainViewModel @Inject constructor(
     }
 
     fun checkAppUpdate(){
-        /*val appVersion = BuildConfig.VERSION_CODE*/
-        val appVersion = 11
+        val appVersion = BuildConfig.VERSION_CODE
         val storeVersion = prefs.getInt(CODE_STORE_VERSION, appVersion)
         if (storeVersion > appVersion) uiModel.updateAppDialog()
     }

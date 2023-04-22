@@ -34,7 +34,7 @@ class BannerAdapter(
     inner class ViewHolder(val bind : HolderFullBannerBinding, val context : Context) : RecyclerView.ViewHolder(bind.root){
         fun bind(bannerData: BannerData){
 
-            bind.content = if (bannerData.isUserBanner()) bannerData.content else ""
+            bind.content = if (bannerData.isUserBanner()) bannerData.getUserName() else ""
 
             bannerData.bannerImageUrl?.let{
                 url ->
