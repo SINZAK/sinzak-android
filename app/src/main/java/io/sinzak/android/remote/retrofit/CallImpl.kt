@@ -65,6 +65,8 @@ class CallImpl(
 
             API_POST_FCM_TOKEN -> remoteApi.saveUserFcmToken(header, paramStr0!!, paramStr1!!)
 
+            API_GET_VERSION_CODE -> remoteApi.checkStoreVersion(header)
+
             API_USER_RESIGN -> remoteApi.resignUser(header)
 
             API_LOGIN_EMAIL -> remoteApi.loginEmail(header,requestBody as LoginEmailBody)
@@ -238,6 +240,11 @@ class CallImpl(
                 addProperty("postId", paramInt0)
                 addProperty("postType", paramStr0)
 
+            })
+
+            API_CHECK_CHATROOM_EXIST -> remoteApi.checkRoomExist(header, JsonObject().apply {
+                addProperty("postId",paramInt0)
+                addProperty("postType",paramStr0)
             })
 
             API_GET_NOTIFICATION_LIST -> remoteApi.getNotificationList(header)

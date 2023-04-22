@@ -19,13 +19,11 @@ import io.sinzak.android.databinding.ViewMainBottomMenuBinding
 import io.sinzak.android.enums.Page
 import io.sinzak.android.enums.Page.*
 import io.sinzak.android.model.context.SignModel
-import io.sinzak.android.model.market.HomeProductModel
 import io.sinzak.android.model.navigate.Navigation
 import io.sinzak.android.system.LogDebug
 import io.sinzak.android.system.LogError
 import io.sinzak.android.ui.base.BaseActivity
 import io.sinzak.android.ui.base.BaseFragment
-import io.sinzak.android.ui.main.chat.ChatConnect
 import io.sinzak.android.ui.main.chat.ChatFragment
 import io.sinzak.android.ui.main.chat.ChatRoomFragment
 import io.sinzak.android.ui.main.home.HomeFragment
@@ -69,12 +67,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     @Inject
     lateinit var signModel: SignModel
 
-    @Inject
-    lateinit var chatConnect: ChatConnect
-
-    @Inject
-    lateinit var mainConnect: MainConnect
-
     private val viewModel: MainViewModel by viewModels()
 
     private val bottomViewModel: MainBottomViewModel by viewModels()
@@ -101,9 +93,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
         }
 
-        mainConnect.registerActivity(this)
-        chatConnect.registerActivity(this)
-
         inflateBottomMenu()
 
         attachInsetsCallback()
@@ -111,19 +100,18 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         getFCMToken()
 
         signModel.checkToken()
+        signModel.getStoreVersion()
 
         notGrantedPermissions = requiredPermissions.filter {
             ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED
         }
 
-        if (notGrantedPermissions.isNotEmpty()) {
-            mainConnect.permissionDialog(::acceptPermissions)
-        }
+        if (notGrantedPermissions.isNotEmpty()) uiModel.permissionDialog(::acceptPermissions)
 
-        if (intent.action == "OPEN_CHAT"){
-            viewModel.showChatThroughAlarm(intent.getStringExtra("uuid"))
-        }
 
+        viewModel.checkAppUpdate()
+
+        if (intent.action == "OPEN_CHAT") viewModel.showChatThroughAlarm(intent.getStringExtra("uuid"))
 
     }
 

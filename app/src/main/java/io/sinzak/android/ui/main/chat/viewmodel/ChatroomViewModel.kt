@@ -12,7 +12,6 @@ import io.sinzak.android.model.profile.UserCommandModel
 import io.sinzak.android.remote.dataclass.chat.ChatMsg
 import io.sinzak.android.system.LogInfo
 import io.sinzak.android.ui.base.BaseViewModel
-import io.sinzak.android.ui.main.chat.ChatConnect
 import io.sinzak.android.ui.main.chat.ChatMsgAdapter
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -23,7 +22,6 @@ import javax.inject.Inject
 @HiltViewModel
 class ChatroomViewModel @Inject constructor(
     private val storage: ChatStorage,
-    private val connect: ChatConnect,
     private val commandModel: UserCommandModel,
     private val detailModel: ProductDetailModel
 ) : BaseViewModel() {
@@ -132,14 +130,14 @@ class ChatroomViewModel @Inject constructor(
     }
 
     fun openSaleDialog(id : Int ,isProduct: Boolean) {
-        connect.showOnSaleDialog(
+        uiModel.showOnSaleDialog(
             offSale = {detailModel.updateProductState(id,isProduct)},
             isProduct = isProduct
         )
     }
 
     fun openChatDialog() {
-        connect.showChatDialog(
+        uiModel.showChatDialog(
             ::blockUser,
             ::reportUser,
             ::leaveChatroom
@@ -148,7 +146,7 @@ class ChatroomViewModel @Inject constructor(
 
 
     private fun blockUser() {
-        connect.userBlockDialog {
+        uiModel.userBlockDialog {
             commandModel.blockUser(chatRoom.value!!.opponentUserId,chatRoom.value!!.roomName)
             useFlag(commandModel.reportSuccessFlag){
                 uiModel.showToast("해당 유저를 차단했어요")

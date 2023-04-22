@@ -1,8 +1,8 @@
 package io.sinzak.android.remote.remotesources
 
 import com.google.gson.JsonObject
-import io.sinzak.android.remote.dataclass.CResponse
 import io.sinzak.android.remote.dataclass.chat.*
+import io.sinzak.android.remote.dataclass.response.chat.*
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.*
@@ -27,4 +27,7 @@ interface RemoteChatInterface {
     @Multipart
     @POST("api/chat/rooms/{id}/image")
     fun postChatImg(@HeaderMap headerMap: HashMap<String, String>, @Path("id") id: String, @Part body: List<MultipartBody.Part>): Call<ChatImageUploadResponse>
+
+    @POST("api/chat/rooms/check")
+    fun checkRoomExist(@HeaderMap headerMap: HashMap<String, String>, @Body jsonObject: JsonObject) : Call<ChatRoomCheckResponse>
 }

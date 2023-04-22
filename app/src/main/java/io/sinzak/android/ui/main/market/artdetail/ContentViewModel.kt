@@ -9,6 +9,7 @@ import io.sinzak.android.model.market.ProductDetailModel
 import io.sinzak.android.model.market.MarketWriteModel
 import io.sinzak.android.model.profile.ProfileModel
 import io.sinzak.android.model.profile.UserCommandModel
+import io.sinzak.android.system.LogDebug
 import io.sinzak.android.ui.base.BaseViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
@@ -261,7 +262,7 @@ class ContentViewModel @Inject constructor(
      * 게시글 수정 다이알로그 열기
      */
     private fun showEditDialog() {
-        connect.productEditDialog(
+        uiModel.productEditDialog(
             edit = ::gotoEdit,
             delete = {
                 showDeleteDialog()
@@ -281,7 +282,7 @@ class ContentViewModel @Inject constructor(
     {
         if (!isMyProduct.value) return
 
-        connect.showOnSaleDialog(
+        uiModel.showOnSaleDialog(
             offSale = {model.updateProductState(product,itemType.value == TYPE_MARKET_PRODUCT)},
             itemType = itemType.value
         )
@@ -292,7 +293,7 @@ class ContentViewModel @Inject constructor(
      */
     private fun showReportDialog() {
 
-        connect.artistReportDialog(
+        uiModel.userReportDialog(
             art.value!!.author,
             onReport = {
                 goToReportPage()
@@ -308,7 +309,7 @@ class ContentViewModel @Inject constructor(
      * 작가 차단하기 다이알로그
      */
     private fun showBlockDialog() {
-        connect.artistBlockDialog {
+        uiModel.userBlockDialog {
             commandModel.blockUser(authorId.toString(), art.value!!.author)
             useFlag(commandModel.reportSuccessFlag) {
                 uiModel.showToast("해당 유저를 차단했어요")
@@ -321,7 +322,7 @@ class ContentViewModel @Inject constructor(
      * 작품 삭제 다이알로그 열기
      */
     private fun showDeleteDialog() {
-        connect.productDeleteDialog {
+        uiModel.productDeleteDialog {
             model.deleteProduct(product)
         }
     }
@@ -344,7 +345,6 @@ class ContentViewModel @Inject constructor(
         art.value ?: run {
             return
         }
-        val product = art.value!!
 
         if(goToLoginIfNot()) return
 
@@ -353,23 +353,20 @@ class ContentViewModel @Inject constructor(
             return
         }
 
+        val productId = art.value!!.productId
+        val type = if (itemType.value == TYPE_MARKET_PRODUCT) "product" else "work"
+
         if (isMyProduct.value) {
-            val productId = product.productId
-            val type = if (itemType.value == TYPE_MARKET_PRODUCT) "product" else "work"
 
             chatStorage.getChatRoomFromPost(
                 productId,
                 type
             )
             navigation.changePage(Page.CHAT_ROOM_FROM_POST)
-
             return
         }
 
-        chatStorage.clearChatMsg()
-        chatStorage.chatProductExistFlag.value = true
-        model.makeNewChatroom()
-
+        chatStorage.accessChatRoomFromProduct(postId = productId, postType = type, art = art.value!!)
         navigation.changePage(Page.CHAT_ROOM)
 
     }

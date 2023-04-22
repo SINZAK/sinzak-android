@@ -20,7 +20,7 @@
             android:adapter="@{vm.adapter}"
             android:clipToPadding="false"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintDimensionRatio="2.25:1"
+            app:layout_constraintDimensionRatio="2.33:1"
             app:layout_constraintTop_toTopOf="parent"/>
 
         <com.tbuonomo.viewpagerdotsindicator.DotsIndicator

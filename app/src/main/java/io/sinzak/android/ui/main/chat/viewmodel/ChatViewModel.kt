@@ -44,7 +44,6 @@ class ChatViewModel @Inject constructor(
     fun clearJob()
     {
         storage.forceClearJob()
-        chatRoomCollector.cancel()
     }
 
 

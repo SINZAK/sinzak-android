@@ -17,12 +17,12 @@ class ProductEditDialog(
 ) {
     override fun initBind(bind: DialogProductDetailMoreBinding) {
         bind.setEdit {
-            dismiss()
             edit()
+            dismiss()
         }
         bind.setDelete {
-            dismiss()
             delete()
+            dismiss()
         }
         bind.setDismiss {
             dismiss()

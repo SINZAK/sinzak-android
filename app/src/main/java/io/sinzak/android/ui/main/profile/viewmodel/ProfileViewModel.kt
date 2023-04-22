@@ -188,7 +188,7 @@ class ProfileViewModel @Inject constructor(
      */
     private fun showReportDialog(){
 
-        connect.userReportDialog(
+        uiModel.userReportDialog(
             profile.value!!.name,
             onReport = {
                 goToReportPage()
@@ -205,7 +205,7 @@ class ProfileViewModel @Inject constructor(
      * 작가 차단하기 다이알로그
      */
     private fun showBlockDialog(){
-        connect.userBlockDialog {
+        uiModel.userBlockDialog {
             commandModel.blockUser(profile.value!!.userId,profile.value!!.name)
             useFlag(commandModel.reportSuccessFlag){
                 uiModel.showToast(valueModel.getString(R.string.str_block_user))

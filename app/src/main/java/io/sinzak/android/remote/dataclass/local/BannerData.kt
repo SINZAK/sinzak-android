@@ -20,6 +20,13 @@ data class BannerData(
         }
     }
 
+    fun getUserName() : String {
+        if (content!=null) {
+            return if (content.length >= 8) content.substring(0,8)+".." else content
+        }
+        return ""
+    }
+
     companion object{
         const val BANNER_MAIN = 0
         const val BANNER_LOGIN = 1
